@@ -1,0 +1,11 @@
+body {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  &.modal-open {
+    height: 100vh;
+    overflow-y: hidden;
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
