@@ -1,0 +1,45 @@
+@import "../abstracts/variables.scss";
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $green;
+  color: white;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: lowercase;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s;
+  &:hover {
+    background: $darkgreen;
+  }
+}
+
+.second {
+  display: flex;
+  align-items: center;
+  text-transform: lowercase;
+  font-weight: 500;
+  height: 100%;
+  padding: 0 2rem;
+  .text {
+    position: relative;
+    &::after {
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      content: "";
+      height: 1px;
+      width: 100%;
+      opacity: 0;
+      background: currentColor;
+      transition: all 0.3s;
+    }
+  }
+  &:hover .text::after {
+    bottom: 0;
+    opacity: 1;
+  }
+}

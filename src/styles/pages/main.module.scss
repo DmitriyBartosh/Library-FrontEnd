@@ -1,0 +1,116 @@
+@import "../abstracts/variables.scss";
+
+.container {
+  min-height: 100vh;
+
+  .preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5rem;
+    height: 600px;
+    .birdonbranch {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 45vw;
+    }
+    .bird {
+      position: absolute;
+      top: 120px;
+      left: 15vw;
+      width: 8vw;
+    }
+    h1 {
+      color: $orange;
+      margin-bottom: 1rem;
+      text-align: center;
+      line-height: 1;
+    }
+    p {
+      max-width: 400px;
+      text-align: center;
+    }
+    .button {
+      margin-top: 1rem;
+      width: 250px;
+    }
+  }
+
+  .articles {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    border-bottom: 1px solid $green;
+    border-top: 1px solid $green;
+    height: 3rem;
+    margin-bottom: 100px;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1rem;
+      border-right: 1px solid $green;
+      height: 100%;
+      font-weight: 500;
+      .svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+    .list {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      padding: 0 2.5rem;
+    }
+  }
+
+  .services {
+    margin-bottom: 10rem;
+    .navigate {
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      height: 3rem;
+      border-bottom: 1px solid $green;
+      border-top: 1px solid $green;
+    }
+    .persons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid $green;
+      .kate {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border-right: 1px solid $green;
+        .photo {
+          height: 35vw;
+          .gatsbyimage {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+        .description {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          span {
+            font-weight: 600;
+          }
+          .svg {
+            width: 1.25rem;
+            height: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+}

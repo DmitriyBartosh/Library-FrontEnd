@@ -1,8 +1,8 @@
 import React from "react";
-import { main } from "../styles/main.module.scss";
+import Header from "./header";
 
 function Layout({ children }) {
-  return <main className={main}>{children}</main>;
+  return <main><Header />{children}</main>;
 }
 
 export default Layout;
