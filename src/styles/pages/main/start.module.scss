@@ -1,0 +1,118 @@
+@import "../../abstracts/variables.scss";
+
+.start {
+  .header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    .right {
+      position: absolute;
+      top: 4.5rem;
+      left: 50%;
+      right: 2rem;
+      height: 3rem;
+      border-right: 2px solid $grey;
+      border-top: 2px solid $grey;
+      border-bottom: 2px solid $grey;
+      z-index: -1;
+    }
+    .left {
+      position: absolute;
+      top: 5rem;
+      left: 2rem;
+      right: 50%;
+      height: 3rem;
+      border-left: 2px solid $grey;
+      border-top: 2px solid $grey;
+      border-bottom: 2px solid $grey;
+      z-index: -1;
+    }
+
+    .titleblock {
+      display: flex;
+      flex-direction: column;
+      margin-right: 4rem;
+      h1 {
+        color: $orange;
+        margin-left: 5rem;
+        margin-bottom: 0.5rem;
+      }
+      .title {
+        display: flex;
+        flex-direction: column;
+        .text {
+          display: flex;
+          margin-bottom: 5px;
+          &:nth-child(1) {
+            margin-right: 3rem;
+            span {
+              padding-right: 2rem;
+              padding-left: 5rem;
+            }
+          }
+          &:nth-child(2) {
+            margin-left: 12rem;
+            span {
+              padding-right: 1rem;
+              padding-left: 2rem;
+            }
+          }
+          span {
+            display: flex;
+            position: relative;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            background-color: $background;
+            &.orange {
+              color: $orange;
+            }
+          }
+        }
+      }
+    }
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .block {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      .icon {
+        position: relative;
+        height: 12rem;
+      }
+      &:nth-child(1) {
+        justify-content: flex-start;
+      }
+      &:nth-child(2) {
+        justify-content: center;
+        margin-right: 25rem;
+        .icon {
+          margin-right: 10rem;
+          bottom: 1rem;
+        }
+      }
+      &:nth-child(3) {
+        justify-content: flex-end;
+        margin-right: 5rem;
+        .icon {
+          transform: rotate(18deg);
+          margin-right: 5rem;
+          bottom: 2rem;
+        }
+      }
+
+      h5 {
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+      }
+      p {
+        max-width: 400px;
+      }
+    }
+  }
+}

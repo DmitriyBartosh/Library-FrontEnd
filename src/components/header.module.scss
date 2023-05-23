@@ -20,10 +20,11 @@
     }
   }
   .account {
+    position: relative;
     display: flex;
-    align-items: center;
     justify-content: center;
     height: 3rem;
-    border-left: 1px solid $green;
+    min-width: 140px;
+    max-width: 300px;
   }
 }

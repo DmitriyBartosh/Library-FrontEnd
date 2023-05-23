@@ -15,7 +15,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.7",
+    "axios": "^1.4.0",
     "classname": "^0.0.0",
+    "framer-motion": "^10.12.10",
     "gatsby": "^5.9.1",
     "gatsby-plugin-image": "^3.9.0",
     "gatsby-plugin-layout": "^4.9.0",
@@ -28,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-use": "^17.4.0",
     "sass": "^1.62.1"
   }
 }

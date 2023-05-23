@@ -1,0 +1,29 @@
+@import "../../abstracts/variables.scss";
+
+.about {
+  padding: 50px 0;
+  border-top: 1px solid $green;
+  border-bottom: 1px solid $green;
+  .four {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10vw;
+    .block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .title {
+        font-weight: 600;
+        color: $grey;
+      }
+      .description {
+        font-size: 1.25rem;
+        &.orange {
+          font-weight: 600;
+          color: $orange;
+        }
+      }
+    }
+  }
+}
