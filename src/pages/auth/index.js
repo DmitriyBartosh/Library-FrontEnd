@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { FaYandex, FaGoogle } from "react-icons/fa";
 import { vkAuth, yandexAuth, googleAuth } from '../../api/auth';
 import Bird from '../../images/svg/bird';
-import Birdonbranch from '../../images/svg/birdonbranch';
+import Birdonbranch from '../../images/svg/birdonbranch'
+import Flower from '../../images/svg/flower/flowertwo'
 import * as styles from '../../styles/pages/auth.module.scss'
 import * as button from '../../styles/base/button.module.scss'
 
@@ -30,6 +31,7 @@ function Index() {
     <section className={styles.container}>
       <Bird className={styles.bird} />
       <Birdonbranch className={styles.birdonbranch} />
+      <Flower className={styles.flower} />
       <div className={styles.form}>
         <h3>Авторизация на Графикси</h3>
         <p>Давайте познакомимся и начнем создавть Ваше портфолио!</p>

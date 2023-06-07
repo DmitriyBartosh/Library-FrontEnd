@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Flowers(props) {
+function Flowertwo(props) {
   return (
     <svg viewBox="0 0 1286 608" {...props}>
       <path
@@ -196,4 +196,4 @@ function Flowers(props) {
   );
 }
 
-export default Flowers;
+export default Flowertwo;

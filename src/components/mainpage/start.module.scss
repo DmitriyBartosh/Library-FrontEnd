@@ -1,6 +1,6 @@
-@import "../../abstracts/variables.scss";
+@import "../../styles/abstracts/variables.scss";
 
-.start {
+.section {
   .header {
     position: relative;
     display: flex;
@@ -12,9 +12,9 @@
       left: 50%;
       right: 2rem;
       height: 3rem;
-      border-right: 2px solid $grey;
-      border-top: 2px solid $grey;
-      border-bottom: 2px solid $grey;
+      border-right: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
       z-index: -1;
     }
     .left {
@@ -23,9 +23,9 @@
       left: 2rem;
       right: 50%;
       height: 3rem;
-      border-left: 2px solid $grey;
-      border-top: 2px solid $grey;
-      border-bottom: 2px solid $grey;
+      border-left: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
       z-index: -1;
     }
 
@@ -92,7 +92,7 @@
         justify-content: center;
         margin-right: 25rem;
         .icon {
-          margin-right: 10rem;
+          margin-right: 6vw;
           bottom: 1rem;
         }
       }
@@ -101,17 +101,22 @@
         margin-right: 5rem;
         .icon {
           transform: rotate(18deg);
-          margin-right: 5rem;
-          bottom: 2rem;
+          margin-right: 6vw;
+          bottom: 4rem;
         }
       }
 
-      h5 {
-        font-family: "Inter", sans-serif;
-        font-weight: 700;
-      }
-      p {
-        max-width: 400px;
+      .text {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        h5 {
+          font-family: "Inter", sans-serif;
+          font-weight: 700;
+        }
+        p {
+          max-width: 300px;
+        }
       }
     }
   }

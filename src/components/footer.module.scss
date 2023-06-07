@@ -1,0 +1,36 @@
+@import "../styles/abstracts/variables.scss";
+
+.section {
+  background: $green;
+  color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .left {
+      display: flex;
+      flex-direction: column;
+      .logo {
+        height: 2rem;
+        margin-bottom: 8px;
+        .svg {
+          height: 100%;
+        }
+      }
+    }
+    .center {
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .left p span,
+    .right p span,
+    .center p span {
+      font-weight: 600;
+    }
+  }
+}

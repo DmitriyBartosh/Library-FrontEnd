@@ -1,0 +1,77 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+  gap: 5rem;
+  height: 46vw;
+  .left {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    .title {
+      h3 {
+        font-family: "Unbounded", cursive;
+        font-weight: 400;
+      }
+      .author {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        font-weight: 400;
+      }
+    }
+    .about {
+      max-width: 400px;
+      line-height: 1.5;
+    }
+    .action {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(46vw - 9rem);
+    .photo {
+      height: 100%;
+      width: 100%;
+      .gatsbyimg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.detail {
+  padding: 50px 0;
+  border-top: 1px solid $green;
+  .four {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10vw;
+    .block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .title {
+        font-weight: 600;
+        color: $grey;
+      }
+      .description {
+        font-size: 1.25rem;
+        &.orange {
+          font-weight: 600;
+          color: $orange;
+        }
+      }
+    }
+  }
+}

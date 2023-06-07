@@ -6,17 +6,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  .birdonbranch {
+  .flower {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 50vw;
+    bottom: -7vw;
+    width: 60vw;
+    z-index: -1;
   }
   .bird {
     position: absolute;
     top: 120px;
     left: 15vw;
     width: 12vw;
+  }
+  .birdonbranch {
+    position: absolute;
+    right: 10vw;
+    width: 7vw;
   }
   .form {
     display: flex;

@@ -1,6 +1,6 @@
-@import "../../abstracts/variables.scss";
+@import "../../styles/abstracts/variables.scss";
 
-.projects {
+.section {
   margin-top: 50px;
   margin-bottom: 100px;
   .header {
@@ -15,9 +15,9 @@
       left: 50%;
       right: 2rem;
       height: 3rem;
-      border-right: 2px solid $grey;
-      border-top: 2px solid $grey;
-      border-bottom: 2px solid $grey;
+      border-right: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
       z-index: -1;
     }
     .left {
@@ -26,9 +26,9 @@
       left: 2rem;
       right: 50%;
       height: 3rem;
-      border-left: 2px solid $grey;
-      border-top: 2px solid $grey;
-      border-bottom: 2px solid $grey;
+      border-left: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
       z-index: -1;
       .bird {
         position: absolute;
@@ -85,7 +85,7 @@
       align-items: center;
       border: 1px solid $orange;
       gap: 2rem;
-      padding: 60px 38px 42px 30px;
+      padding: 60px 38px 41px 30px;
       .icon {
         height: 10rem;
         width: 12rem;

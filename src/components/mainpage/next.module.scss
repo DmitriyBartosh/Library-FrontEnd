@@ -1,0 +1,247 @@
+@import "../../styles/abstracts/variables.scss";
+
+.section {
+  .steps {
+    background: $orange;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    color: white;
+    .header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+      .bird {
+        position: absolute;
+        height: 8rem;
+        z-index: 3;
+        bottom: -1.5rem;
+        right: 15vw;
+      }
+      .right {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        right: 2rem;
+        height: 3.5rem;
+        border-right: 1px solid white;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        z-index: 1;
+      }
+      .left {
+        position: absolute;
+        top: 1rem;
+        left: 2rem;
+        right: 50%;
+        height: 3rem;
+        border-left: 1px solid white;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        z-index: 1;
+      }
+
+      .titleblock {
+        display: flex;
+        flex-direction: column;
+        margin-right: 4rem;
+        .title {
+          display: flex;
+          flex-direction: column;
+          .text {
+            display: flex;
+            margin-bottom: 5px;
+            z-index: 2;
+            &:nth-child(1) {
+              margin-left: 5rem;
+              span {
+                padding-right: 2rem;
+                padding-left: 2rem;
+              }
+            }
+            &:nth-child(2) {
+              margin-left: 9rem;
+              span {
+                padding-right: 2rem;
+                padding-left: 2rem;
+              }
+            }
+            span {
+              display: flex;
+              position: relative;
+              font-family: "Inter", sans-serif;
+              font-weight: 700;
+              background-color: $orange;
+            }
+          }
+        }
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 4rem;
+      .top {
+        display: flex;
+        align-items: flex-end;
+        h5 {
+          font-family: "Unbounded", cursive;
+          font-weight: 500;
+        }
+        p {
+          font-size: 1.15rem;
+          max-width: 26rem;
+        }
+      }
+      .bottom {
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        .info {
+          display: flex;
+          align-items: center;
+          p {
+            line-height: 1;
+          }
+          .whitenumber,
+          .number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 4.25rem;
+            width: 4.25rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 1px solid white;
+            p {
+              font-weight: 500;
+              font-size: 2.25rem;
+            }
+          }
+          .whitenumber {
+            background: white;
+            color: $orange;
+          }
+          .number {
+            background: $orange;
+            color: white;
+          }
+        }
+        .icon {
+          height: 10rem;
+        }
+      }
+    }
+    .line {
+      height: 1px;
+      width: 20rem;
+      background: white;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+  .callback {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    h3 {
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      color: $orange;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  }
+  .directions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid $green;
+    border-top: 1px solid $green;
+    padding: 1.5rem 0;
+    h6 {
+      font-family: "Unbounded", cursive;
+    }
+    .bordertext {
+      white-space: nowrap;
+      color: $green;
+    }
+  }
+
+  .experts {
+    padding-top: 6rem;
+    h4 {
+      font-family: "Unbounded", cursive;
+      text-align: center;
+    }
+    .speakers {
+      margin-top: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .block {
+        height: 12rem;
+        width: 10rem;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 12rem;
+          height: 12rem;
+          background-color: #d9d9d9;
+          border-radius: 50%;
+        }
+      }
+    }
+    .selection {
+      position: relative;
+      margin-top: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5rem;
+      padding: 0 5rem;
+      .line {
+        position: absolute;
+        top: 2rem;
+        height: 1px;
+        width: 100%;
+        border-bottom: 1px dashed $green;
+        z-index: -1;
+      }
+      .block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        .circle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 4rem;
+          height: 4rem;
+          background: $green;
+          border-radius: 50%;
+          .icon {
+            color: white;
+            width: 1.75rem;
+            height: 1.75rem;
+          }
+        }
+        .title {
+          font-size: 1.15rem;
+          font-weight: 600;
+        }
+      }
+    }
+    .pickup {
+      display: flex;
+      justify-content: center;
+      margin: 4rem 0;
+    }
+  }
+}
