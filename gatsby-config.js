@@ -3,8 +3,8 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `My Gatsby Site`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Графикси`,
+    siteUrl: `http://localhost:3000`
   },
   plugins: [
     "gatsby-plugin-sass",
@@ -42,29 +42,48 @@ module.exports = {
         ],
       },
     },
+    `gatsby-transformer-json`,
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "images",
-        "path": "./src/images/"
-      },
-      __key: "images"
+        name: "articlesdesign",
+        path: `${__dirname}/src/data/articles/design/`
+      }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "expertsdesign",
-        "path": `${__dirname}/src/data/experts/design/`
+        name: "articlesdesign",
+        path: `${__dirname}/src/data/articles/design/`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "experts",
+        path: `${__dirname}/src/data/experts/design/`
       },
-      __key: "expertsdesign"
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "directions",
+        path: `${__dirname}/src/data/directions/`
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "articlesdesign",
-        "path": `${__dirname}/src/data/articles/design/`
+        name: "images",
+        path: `${__dirname}/src/images/`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "works",
+        path: `${__dirname}/src/data/works/`
       },
-      __key: "articlesdesign"
-    }
+    },
   ]
 };

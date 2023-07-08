@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { SlSocialVkontakte } from "react-icons/sl";
 import { useQuery } from "@tanstack/react-query";
 import { FaYandex, FaGoogle } from "react-icons/fa";

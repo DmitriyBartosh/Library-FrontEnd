@@ -1,0 +1,87 @@
+{
+  "slug": "frontend",
+  "title": "FrontEnd разработка",
+  "about": "Описание для направления",
+  "works": [
+    {
+      "title": "Верстка",
+      "description": "Описание задания",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Заголовок задания",
+        "description": "Описание к заданию",
+        "section": [
+          "Тема 1",
+          "Тема 2",
+          "Тема 3",
+          "Тема 4",
+          "Тема 5"
+        ]
+      }
+    },
+    {
+      "title": "Motion",
+      "description": "Описание задания",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Заголовок задания",
+        "description": "Описание к заданию",
+        "section": [
+          "Тема 1",
+          "Тема 2",
+          "Тема 3",
+          "Тема 4",
+          "Тема 5"
+        ]
+      }
+    },
+    {
+      "title": "Скрипты",
+      "description": "Описание задания",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Заголовок задания",
+        "description": "Описание к заданию",
+        "section": [
+          "Тема 1",
+          "Тема 2",
+          "Тема 3",
+          "Тема 4",
+          "Тема 5"
+        ]
+      }
+    },
+    {
+      "title": "Полиграфия",
+      "description": "Описание задания",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Заголовок задания",
+        "description": "Описание к заданию",
+        "section": [
+          "Тема 1",
+          "Тема 2",
+          "Тема 3",
+          "Тема 4",
+          "Тема 5"
+        ]
+      }
+    },
+    {
+      "title": "Полиграфия",
+      "description": "Описание задания",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Заголовок задания",
+        "description": "Описание к заданию",
+        "section": [
+          "Тема 1",
+          "Тема 2",
+          "Тема 3",
+          "Тема 4",
+          "Тема 5"
+        ]
+      }
+    }
+  ]
+}

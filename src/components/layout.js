@@ -1,8 +1,7 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContextProvider } from "../context/ContextProvider";
-import Header from "./header";
-import Footer from "./footer";
+import Navigation from "./navigation/";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,12 +15,10 @@ function Layout({ children }) {
   return <QueryClientProvider client={queryClient}>
     <ContextProvider>
       <main>
-        <Header />
+        <Navigation />
         {children}
-        <Footer />
       </main>
     </ContextProvider>
-
   </QueryClientProvider>
 }
 

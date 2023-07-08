@@ -77,7 +77,7 @@ function Designreview() {
       <div className={styles.directions}>
         <div className={cx(styles.block, global.container)}>
           <div className={styles.left}>
-            <StaticImage src='../../images/persons/kateshmidt/1.jpg' className={styles.gatsbyimg} />
+            <StaticImage src='../../images/persons/kateshmidt/1.jpg' alt='Катерина Шмидт' className={styles.gatsbyimg} />
           </div>
           <div className={styles.right}>
             <div className={styles.title}>
@@ -118,7 +118,7 @@ function Designreview() {
 
         <div className={cx(styles.block, global.container)}>
           <div className={styles.left}>
-            <StaticImage src='../../images/persons/kateshmidt/1.jpg' className={styles.gatsbyimg} />
+            <StaticImage src='../../images/persons/kateshmidt/1.jpg' alt='Катерина Шмидт' className={styles.gatsbyimg} />
           </div>
           <div className={styles.right}>
             <div className={styles.title}>

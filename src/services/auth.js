@@ -6,8 +6,8 @@ const getToken = () =>
     : null;
 
 const getUser = () =>
-  isBrowser() && window.localStorage.getItem("userInfo")
-    ? window.localStorage.getItem("userInfo")
+  isBrowser() && window.localStorage.getItem("user")
+    ? window.localStorage.getItem("user")
     : null;
 
 export const isLoggedIn = () => {

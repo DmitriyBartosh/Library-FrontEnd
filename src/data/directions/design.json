@@ -1,0 +1,58 @@
+{
+  "slug": "design",
+  "title": "Графический дизайн",
+  "about": "В этом направлении вы научитесь работать с различными инструментами и программами для создания красивых и функциональных дизайнов. Вы также будете изучать теорию цвета, композицию и типографику, чтобы создавать эффективные графические решения для любого проекта.",
+  "works": [
+    {
+      "slug": "polygraphy",
+      "title": "Полиграфия",
+      "description": "Consectetur eiusmod excepteur aliqua nulla elit ea enim cillum est eiusmod ut cupidatat tempor. Commodo Lorem exercitation laboris sint elit dolor elit aliquip do laboris. Laboris enim ea labore eu aute ad aliqua fugiat. Id nostrud elit ea eu nisi. Lorem sint laboris minim excepteur adipisicing esse voluptate.",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Полиграфию для бутика цветов New Flora",
+        "description": "Создать одну концепцию дизайн-проекта для бутика «NewFlora» в Figma и разместить ее на носителях",
+        "section": [
+          "Насмотренность",
+          "Целевая аудитория для проекта",
+          "Мудборд",
+          "Ресурсы",
+          "Техническое задание"
+        ]
+      }
+    },
+    {
+      "slug": "socialmedia",
+      "title": "Социальные сети",
+      "description": "Et laboris mollit exercitation dolore eu veniam est. Sunt fugiat eu excepteur do exercitation ad consectetur elit exercitation occaecat. Quis velit minim officia deserunt minim. Mollit exercitation reprehenderit ipsum incididunt. Laborum sint aliquip amet ullamco excepteur sunt id eu officia non qui cupidatat magna. Quis velit minim sunt excepteur mollit consectetur velit. Qui culpa et dolor dolor.",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Полиграфию для бутика цветов New Flora",
+        "description": "Создать одну концепцию дизайн-проекта для бутика «NewFlora» в Figma и разместить ее на носителях",
+        "section": [
+          "Тема по социальным сетям 1",
+          "Тема по социальным сетям 2",
+          "Тема по социальным сетям 3",
+          "Тема по социальным сетям 4",
+          "Тема по социальным сетям 5"
+        ]
+      }
+    },
+    {
+      "slug": "poster",
+      "title": "Плакаты",
+      "description": "Fugiat tempor ut incididunt eiusmod occaecat reprehenderit veniam id ad. Sint quis irure aliquip magna mollit do nisi dolor consectetur magna labore non. Mollit nisi aliqua veniam labore. Proident officia excepteur proident voluptate nisi. Ipsum deserunt incididunt mollit ad.",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Полиграфию для бутика цветов New Flora",
+        "description": "Создать одну концепцию дизайн-проекта для бутика «NewFlora» в Figma и разместить ее на носителях",
+        "section": [
+          "Тема по плакатам 1",
+          "Тема по плакатам 2",
+          "Тема по плакатам 3",
+          "Тема по плакатам 4",
+          "Тема по плакатам 5"
+        ]
+      }
+    }
+  ]
+}

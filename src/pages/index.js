@@ -1,6 +1,4 @@
 import React from "react";
-import MetaTag from "../components/metaTag";
-import { indexSEO } from "../data/seo";
 
 
 import Preview from "../components/mainpage/preview";
@@ -9,9 +7,9 @@ import Projects from "../components/mainpage/projects";
 import Start from "../components/mainpage/start";
 import Next from "../components/mainpage/next";
 import Designreview from "../components/mainpage/designreview";
+import Footer from '../components/footer'
 
 function IndexPage() {
-
   return (
     <section>
       <Preview />
@@ -20,12 +18,9 @@ function IndexPage() {
       <Start />
       <Next />
       <Designreview />
+      <Footer />
     </section>
   );
 }
 
 export default IndexPage;
-
-export const Head = () => {
-  return <MetaTag data={indexSEO} />;
-};

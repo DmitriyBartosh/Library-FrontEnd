@@ -6,33 +6,41 @@ import Analysis from '../components/experts/analysis';
 
 
 function Expert(context) {
-  const { frontmatter, html } = context.pageContext.data;
+  const {
+    author,
+    profession,
+    preview_text,
+    preview_photo,
+    about_main_photo,
+    about,
+    about_photos,
+    other_photos
+  } = context.pageContext.data;
 
   // Данные с Markdown для первого блока
   const previewData = {
-    author: frontmatter.author,
-    profession: frontmatter.profession,
-    about: frontmatter.about,
-    preview: frontmatter.preview_photo
+    author: author,
+    profession: profession,
+    text: preview_text,
+    preview: preview_photo
   }
 
   // Данные с Markdown для блока с описанием эксперта
   const aboutauthorData = {
-    photo: frontmatter.about_main_photo,
-    about: html,
-    photos: frontmatter.about_photos,
+    photo: about_main_photo,
+    about: about,
+    photos: about_photos,
   }
 
   // Пять фотографией под описанием дизайн разбора
-  const photosData = frontmatter.other_photos;
-
+  const photosData = other_photos;
 
   return (
     <section>
       <Preview data={previewData} />
       <Tasklist />
-      <Aboutauthor data={aboutauthorData} alt={frontmatter.author} />
-      <Analysis data={photosData} alt={frontmatter.author} />
+      <Aboutauthor data={aboutauthorData} alt={author} />
+      <Analysis data={photosData} alt={author} />
     </section>
   )
 }

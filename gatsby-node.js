@@ -3,8 +3,8 @@ const path = require('path');
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
 
-  if (page.path.match(/^\/dashboard/)) {
-    page.matchPath = "/dashboard/*";
+  if (page.path.match(/^\/profile/)) {
+    page.matchPath = "/profile/*";
     createPage(page);
   }
 };
@@ -13,39 +13,38 @@ exports.onCreatePage = async ({ page, actions }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const expertData = await graphql(`
+  // Страницы экспертов
+  const expertDesignData = await graphql(`
     query {
-      allFile(filter: {sourceInstanceName: {eq: "expertsdesign"}}) {
+      allFile(filter: {sourceInstanceName: {eq: "experts"}}) {
         edges {
           node {
-            name
-            childMarkdownRemark {
-              html
-              frontmatter {
-                author
-                profession
-                about
-                preview_photo {
-                  childImageSharp {
-                    gatsbyImageData
-                  }
-                }
-                about_main_photo {
-                  childImageSharp {
-                    gatsbyImageData
-                  }
-                }
-                about_photos {
-                  childrenImageSharp {
-                    gatsbyImageData
-                  }
-                }
-                other_photos {
-                  childrenImageSharp {
-                    gatsbyImageData
-                  }
+            childDesignJson {
+              slug
+              author
+              profession
+              preview_text
+              preview_photo {
+                childImageSharp {
+                  gatsbyImageData
                 }
               }
+              about_main_photo {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              about_photos {
+                childrenImageSharp {
+                  gatsbyImageData
+                }
+              }
+              other_photos {
+                childrenImageSharp {
+                  gatsbyImageData
+                }
+              }
+              about
             }
           }
         }
@@ -53,6 +52,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
+  // Страницы для статей
   const articleData = await graphql(`
   query {
     allFile(filter: {sourceInstanceName: {eq: "articlesdesign"}}) {
@@ -73,18 +73,33 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 `)
 
-  expertData.data.allFile.edges.forEach((data) => {
-    const { name, childMarkdownRemark } = data.node;
+  // Страницы к Графическому дизайну
+  const designWorks = await graphql(`
+  query {
+    directionsJson(slug: {eq: "design"}) {
+      works {
+        slug
+      }
+    }
+  }
+  `)
+
+
+  // Страницы экспертов
+  expertDesignData.data.allFile.edges.forEach((data) => {
+    const { slug } = data.node.childDesignJson;
 
     createPage({
-      path: `/design/${name}`,
+      path: `/${slug}`,
       component: path.resolve('./src/templates/expert.js'),
       context: {
-        data: childMarkdownRemark
+        data: data.node.childDesignJson
       },
     })
   })
 
+
+  // Страницы статей
   articleData.data.allFile.edges.forEach((data) => {
     const { name, childMarkdownRemark } = data.node;
 
@@ -93,6 +108,20 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve('./src/templates/article.js'),
       context: {
         data: childMarkdownRemark
+      },
+    })
+  })
+
+
+  // Работы в направлении Дизайн
+  designWorks.data.directionsJson.works.forEach((data) => {
+    const { slug } = data;
+
+    createPage({
+      path: `/design/${slug}`,
+      component: path.resolve('./src/templates/work.js'),
+      context: {
+        slug: "design/" + slug
       },
     })
   })

@@ -1,36 +1,103 @@
 import React from 'react'
-import cx from 'classname'
-import { IoGameControllerOutline } from "react-icons/io5";
-import * as styles from './progress.module.scss'
+import { useStaticQuery, graphql } from "gatsby"
+import * as styles from './progress.module.scss';
 import * as global from '../../styles/base/global.module.scss'
+import { useStateContext } from '../../context/ContextProvider';
+import Direction from './direction';
 
 function Progress() {
-  const AchievementComplete = new Array(15).fill({ name: 'Достижение' });
+  const { statusDirection } = useStateContext();
 
-  const AchievementOther = new Array(15).fill({ name: 'Достижение' });
+  const works = ['Мудборд', 'Логотип', 'Визитка', 'Соц.сети', 'Плакат', 'Фирм стиль', 'Лонгрид', 'Что-то еще',]
+
+  const design = useStaticQuery(graphql`
+  query {
+    directionsJson(title: {eq: "Графический дизайн"}) {
+      title
+      slug
+      id
+      about
+      works {
+        slug
+        check
+        description
+        title
+        order {
+          section
+          description
+          title
+        }
+        preview {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+      }
+    }
+  }
+`)
 
   return (
     <div className={styles.container}>
-      <div className={cx(styles.info, global.container)}>
-        <h4>Прогресс</h4>
-        <div className={styles.achievement}>
-          {AchievementComplete.map((item, index) => {
-            return <div className={cx(styles.item, styles.active)} key={index}>
-              <IoGameControllerOutline className={styles.icon} />
-              <p className={styles.name}>{item.name}</p>
-              <p className={styles.complete}>Выполнено</p>
-            </div>
-          })}
-          {AchievementOther.map((item, index) => {
-            return <div className={cx(styles.item, styles.disable)} key={index}>
-              <IoGameControllerOutline className={styles.icon} />
-              <p className={styles.name}>{item.name}</p>
-              <p className={styles.complete}>В процессе</p>
-            </div>
-          })}
-        </div>
-      </div>
+      {statusDirection.design && <Direction data={design.directionsJson} />}
+      {statusDirection.frontend &&
+        <div className={styles.block}>
+          <div className={global.container}>
+            <h3>FrontEnd разработка</h3>
+            <div className={styles.progress}>
+              <p className={styles.title}>Ваш прогресс</p>
+              <p>Статистика выполненных заданий</p>
+              <div className={styles.bar} />
+              <div className={styles.works}>
+                <div className={styles.list}>
+                  {works.map((item, index) => {
 
+                    return <div className={styles.item} key={index}>
+                      <p>{item}</p>
+                    </div>
+                  })}
+                </div>
+                <div className={styles.advenced}>
+                  <p className={styles.topic}>Тема 1</p>
+                  <p className={styles.topic}>Тема 1</p>
+                  <p className={styles.topic}>Тема 1</p>
+
+                  <p className={styles.link}>ссылка уже на готовый проект </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+      {statusDirection.photo &&
+        <div className={styles.block}>
+          <div className={global.container}>
+            <h3>Фотография</h3>
+            <div className={styles.progress}>
+              <p className={styles.title}>Ваш прогресс</p>
+              <p>Статистика выполненных заданий</p>
+              <div className={styles.bar} />
+              <div className={styles.works}>
+                <div className={styles.list}>
+                  {works.map((item, index) => {
+
+                    return <div className={styles.item} key={index}>
+                      <p>{item}</p>
+                    </div>
+                  })}
+                </div>
+                <div className={styles.advenced}>
+                  <p className={styles.topic}>Тема 1</p>
+                  <p className={styles.topic}>Тема 1</p>
+                  <p className={styles.topic}>Тема 1</p>
+
+                  <p className={styles.link}>ссылка уже на готовый проект </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   )
 }

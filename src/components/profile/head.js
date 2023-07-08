@@ -1,29 +1,48 @@
 import React from 'react'
-import cx from 'classname'
+import { navigate, Link } from 'gatsby';
+import axiosClient from '../../services/axiosClient';
+import { CiLogout } from "react-icons/ci";
+import { useStateContext } from '../../context/ContextProvider';
 import * as styles from './head.module.scss'
 import * as global from '../../styles/base/global.module.scss'
-import { Link } from 'gatsby'
 
 function Head({ user }) {
+  const { setUser } = useStateContext();
+
+  const onLogout = (ev) => {
+    ev.preventDefault();
+
+    axiosClient.post("/auth/logout").then(() => {
+      setUser(null, null);
+      navigate("/");
+    });
+  };
+
   return (
-    <div className={cx(styles.container, global.container)}>
-      <div className={styles.info}>
-        <div className={styles.avatar}>
-          <p>ДБ</p>
+    <div className={global.container}>
+      <div className={styles.container}>
+        <div className={styles.user}>
+          <div className={styles.avatar}>
+            <p>ДБ</p>
+          </div>
+          <div className={styles.info}>
+            <h3>{JSON.parse(user)?.name}</h3>
+            <p>{JSON.parse(user)?.email}</p>
+            <button className={styles.logout} onClick={onLogout}>
+              <CiLogout className={styles.icon} />
+              <p>Выйти</p>
+            </button>
+          </div>
         </div>
-        <div className={styles.name}>
-          <h3>{JSON.parse(user)?.name}</h3>
-          <p>{JSON.parse(user)?.email}</p>
+        <div className={styles.directions}>
+          <Link to='/directions' className={styles.link}>
+            <p>
+              Все направления
+            </p>
+          </Link>
         </div>
       </div>
-      <Link to='/subscription' className={styles.subscription}>
-        <h4>Оформить подписку</h4>
-        <p>Пока у вас нет доступа к самым интересным заданиям</p>
-      </Link>
     </div>
-
-
-
   )
 }
 

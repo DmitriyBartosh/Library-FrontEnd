@@ -27,13 +27,17 @@ function Google() {
       })
       .then((data) => {
         const user = JSON.stringify(data.user);
-        setUser(data.access_token, user);
+        const directions = data.directions;
 
-        if (data.isAdmin) {
-          navigate("/dashboard");
-        } else {
-          navigate("/");
+        const directionsBoolean = {
+          design: directions?.design === 1 ? true : false,
+          frontend: directions?.frontend === 1 ? true : false,
+          photo: directions?.photo === 1 ? true : false
         }
+
+        setUser(data.access_token, user, directionsBoolean);
+
+        navigate("/profile");
       });
   }, []);
 

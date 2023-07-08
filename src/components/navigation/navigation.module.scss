@@ -1,0 +1,36 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+  .navigation {
+    display: flex;
+    background: $background;
+    border: 1px solid $darkgreen;
+    & a:last-child {
+      background: $green;
+      color: white;
+    }
+    .logo {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 3rem;
+      padding: 0.3rem 1.5rem 0.9rem 1rem;
+      background: $background;
+      z-index: 10;
+      width: 175px;
+      .svg {
+        height: 100%;
+      }
+    }
+  }
+}

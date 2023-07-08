@@ -4,9 +4,9 @@
   display: grid;
   grid-template-columns: 1fr 500px;
   gap: 4rem;
-  padding-top: 6rem;
-  padding-bottom: 4rem;
-  .info {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  .user {
     display: flex;
     .avatar {
       display: flex;
@@ -22,7 +22,7 @@
         font-weight: 600;
       }
     }
-    .name {
+    .info {
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -30,16 +30,30 @@
         font-family: "Inter", sans-serif;
         font-weight: 700;
       }
+      .logout {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        gap: 6px;
+      }
     }
   }
-  .subscription {
+  .directions {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: 6px;
-    height: 8rem;
-    padding: 1rem;
-    border: 1px solid $orange;
+    align-items: flex-end;
+    gap: 2rem;
+    .link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid $green;
+      height: 3rem;
+      padding: 0 2rem;
+      text-align: center;
+      font-weight: 500;
+      color: $green;
+    }
   }
 }

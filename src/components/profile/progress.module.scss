@@ -1,46 +1,78 @@
 @import "../../styles/abstracts/variables.scss";
 
 .container {
-  border-top: 1px solid $green;
-  padding-top: 4rem;
-  padding-bottom: 6rem;
-  .info {
-    h4 {
-      font-family: "Inter", sans-serif;
-      font-weight: 600;
-      margin-bottom: 2rem;
+  padding-bottom: 4rem;
+  .block {
+    padding-top: 4rem;
+    margin-bottom: 6rem;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .achievement {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 1rem;
-      .item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        border: 1px solid $green;
-        padding: 1rem;
-        padding-top: 2.5rem;
-        padding-bottom: 3rem;
-        .complete {
-          opacity: 0.75;
+    .progress {
+      margin-top: 2rem;
+      .bar {
+        position: relative;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        background: $orange;
+        &::after {
+          position: absolute;
+          content: "";
+          top: 1rem;
+          left: 1rem;
+          background: $background;
+          z-index: 1;
+          width: 6rem;
+          height: 6rem;
+          border-radius: 50%;
         }
-        .name {
-          font-weight: 500;
+        &::before {
+          position: absolute;
+          content: "100%";
+          top: 3.25rem;
+          left: 2.2rem;
+          z-index: 5;
+          font-size: 1.5rem;
+          font-weight: 600;
         }
-        .icon {
-          width: 3rem;
-          height: 3rem;
-          margin-bottom: 6px;
+      }
+      .works {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        gap: 4rem;
+        .list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $green;
+            color: white;
+            font-weight: 500;
+            height: 3rem;
+          }
         }
-        &.active {
-          background-color: $green;
-          color: white;
-        }
-        &.disable {
-          color: $green;
-          cursor: pointer;
+        .advenced {
+          display: flex;
+          flex-direction: column;
+
+          .topic {
+            border-bottom: 1px solid $green;
+            padding: 1rem;
+          }
+          .link {
+            border: 1px solid $green;
+            margin-top: 1rem;
+            padding: 1rem;
+            font-weight: 600;
+          }
         }
       }
     }

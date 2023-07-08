@@ -6,7 +6,7 @@ import * as global from '../../styles/base/global.module.scss'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 function Preview({ data }) {
-  const { about, author, profession, preview } = data;
+  const { text, author, profession, preview } = data;
   const previewImage = getImage(preview)
 
   return (
@@ -18,7 +18,7 @@ function Preview({ data }) {
             <p className={styles.author}>Автор - {author}</p>
           </div>
 
-          <p className={styles.about} dangerouslySetInnerHTML={{ __html: about }} />
+          <p className={styles.about} dangerouslySetInnerHTML={{ __html: text }} />
 
           <div className={styles.action}>
             <button className={button.orange}>Подписаться</button>
