@@ -1,0 +1,174 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 6.25rem;
+  gap: 0rem;
+  transition: gap 0.4s cubic-bezier(0.23, 0.67, 0.58, 1);
+  &.edited {
+    gap: 1rem;
+    .name {
+      border: 1px solid rgba(255, 255, 255, 1);
+      transition: all 0.6s;
+      transition-delay: 0.1s;
+    }
+    .link {
+      border: 1px solid rgba(255, 255, 255, 1);
+      transition: all 0.6s;
+      transition-delay: 0.1s;
+    }
+    .navigate {
+      .back,
+      .save {
+        border: 1px solid rgba(255, 255, 255, 1);
+      }
+    }
+  }
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    height: 3rem;
+    background: $green;
+    color: white;
+    font-weight: 500;
+    padding: 0 1rem;
+    transition: all 0.25s;
+    input {
+      width: 100%;
+      height: 100%;
+      font-weight: 500;
+      color: white;
+    }
+  }
+  .link {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding: 0 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 1px solid rgba(255, 255, 255, 0);
+    border-right: 1px solid rgba(255, 255, 255, 0);
+    background: $green;
+    color: white;
+    font-weight: 500;
+    transition: all 0.4s;
+    input {
+      width: 100%;
+      height: 100%;
+      font-weight: 500;
+      color: white;
+    }
+  }
+  .navigate {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    .del,
+    .edit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .del {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      .icon {
+        width: 1.15rem;
+        height: 1.15rem;
+        .svg {
+          color: white;
+          width: 100%;
+          height: 100%;
+        }
+        .load {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .edit {
+      border: 1px solid white;
+      background: white;
+      .icon {
+        color: $green;
+        width: 1.25rem;
+        height: 1.25rem;
+        .svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .back,
+    .save {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .back {
+      .icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        .svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .save {
+      background-color: $green;
+      transition: background-color 0.3s;
+      .icon {
+        width: 1.15rem;
+        height: 1.15rem;
+        .svg {
+          color: white;
+          width: 100%;
+          height: 100%;
+          transition: color 0.3s;
+        }
+        .load {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      &.active {
+        background-color: white;
+        .icon .svg {
+          color: $green;
+        }
+      }
+    }
+  }
+}
+
+.del,
+.save,
+.back,
+.edit {
+  &:hover .icon .svg {
+    animation: shake 0.4s ease-in-out;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-8deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0);
+  }
+  75% {
+    transform: translateX(2px) rotate(8deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}

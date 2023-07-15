@@ -13,7 +13,7 @@ function Head({ user }) {
     ev.preventDefault();
 
     axiosClient.post("/auth/logout").then(() => {
-      setUser(null, null);
+      setUser(null, null, null);
       navigate("/");
     });
   };
@@ -26,8 +26,8 @@ function Head({ user }) {
             <p>ДБ</p>
           </div>
           <div className={styles.info}>
-            <h3>{JSON.parse(user)?.name}</h3>
-            <p>{JSON.parse(user)?.email}</p>
+            <h3>{user?.name}</h3>
+            <p>{user?.email}</p>
             <button className={styles.logout} onClick={onLogout}>
               <CiLogout className={styles.icon} />
               <p>Выйти</p>
@@ -35,7 +35,7 @@ function Head({ user }) {
           </div>
         </div>
         <div className={styles.directions}>
-          <Link to='/directions' className={styles.link}>
+          <Link to='/directions/' className={styles.link}>
             <p>
               Все направления
             </p>

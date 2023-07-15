@@ -5,7 +5,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config) => {
-  const token = window.localStorage.getItem("tokenAccess");
+  const token = JSON.parse(window.localStorage.getItem("token"));
   config.headers.Authorization = `Bearer ${token}`;
 
   return config;
@@ -18,7 +18,7 @@ axiosClient.interceptors.response.use(
   (error) => {
     const { response } = error;
     if (response.status === 401) {
-      return window.localStorage.removeItem("tokenAccess");
+      return window.localStorage.removeItem("token");
     }
 
     throw error;

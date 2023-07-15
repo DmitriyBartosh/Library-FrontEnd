@@ -53,6 +53,23 @@
           "Тема по плакатам 5"
         ]
       }
+    },
+    {
+      "slug": "logo",
+      "title": "Логотип",
+      "description": "Fugiat tempor ut incididunt eiusmod occaecat reprehenderit veniam id ad. Sint quis irure aliquip magna mollit do nisi dolor consectetur magna labore non. Mollit nisi aliqua veniam labore. Proident officia excepteur proident voluptate nisi. Ipsum deserunt incididunt mollit ad.",
+      "preview": "../../images/tasklist/1.jpg",
+      "order": {
+        "title": "Полиграфию для бутика цветов New Flora",
+        "description": "Создать одну концепцию дизайн-проекта для бутика «NewFlora» в Figma и разместить ее на носителях",
+        "section": [
+          "Тема по логотипам 1",
+          "Тема по логотипам 2",
+          "Тема по логотипам 3",
+          "Тема по логотипам 4",
+          "Тема по логотипам 5"
+        ]
+      }
     }
   ]
 }

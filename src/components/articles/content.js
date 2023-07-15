@@ -4,8 +4,6 @@ import * as styles from './content.module.scss'
 function Content({ html, frontmatter, excerpt }) {
   const { title, subtitle } = frontmatter;
 
-  console.log(excerpt)
-
   return (
     <div className={styles.container}>
       <div className={styles.title}>

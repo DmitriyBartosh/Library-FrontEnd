@@ -1,0 +1,106 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 6.25rem;
+  gap: 1rem;
+  .input {
+    width: 100%;
+    input {
+      position: relative;
+      height: 3rem;
+      width: 100%;
+      padding: 0 1rem;
+      border: 1px solid white;
+      color: white;
+      &::after {
+        position: absolute;
+        content: "";
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 1px;
+        background: white;
+      }
+      &::placeholder {
+        color: white;
+        transition: all 0.3s;
+      }
+      &:focus::placeholder {
+        transform: translateX(10px);
+        opacity: 0;
+      }
+      &::-moz-focus-inner {
+        border: 0;
+      }
+    }
+  }
+  .send {
+    height: 3rem;
+    width: 100%;
+    border: 1px solid white;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 200px;
+  padding-right: 12px;
+  gap: 8px;
+  border-left: 1px solid #43702c;
+  background: white;
+  color: #43702c;
+  cursor: pointer;
+  font-weight: 500;
+  .text {
+    position: relative;
+    text-align: center;
+    line-height: 1;
+    font-weight: 600;
+    &::after {
+      position: absolute;
+      right: -4px;
+      bottom: -4px;
+      content: "";
+      height: 1px;
+      width: 100%;
+      opacity: 0;
+      background: currentColor;
+      transition: all 0.15s;
+      transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+    }
+  }
+  .icon {
+    position: relative;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  &:hover .icon {
+    animation: shake 0.4s ease-in-out;
+  }
+  &:hover .text::after {
+    right: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-8deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0);
+  }
+  75% {
+    transform: translateX(2px) rotate(8deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}

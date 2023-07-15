@@ -2,7 +2,7 @@ import React from 'react'
 import { SlSocialVkontakte } from "react-icons/sl";
 import { useQuery } from "@tanstack/react-query";
 import { FaYandex, FaGoogle } from "react-icons/fa";
-import { vkAuth, yandexAuth, googleAuth } from '../../api/auth';
+import { vkAuth, yandexAuth, googleAuth } from '../../functions/auth';
 import Bird from '../../images/svg/bird';
 import Birdonbranch from '../../images/svg/birdonbranch'
 import Flower from '../../images/svg/flower/flowertwo'

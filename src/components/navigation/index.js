@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Logo from '../../images/svg/logo'
 import { motion } from 'framer-motion'
 import { useLocation } from 'react-use';
-import { isLoggedIn } from '../../services/auth'
+import { useStateContext } from '../../context/ContextProvider';
 import * as styles from './navigation.module.scss'
 import Login from './login';
 import Account from './account';
@@ -13,6 +13,8 @@ function Header() {
   const [isPush, setIsPush] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();
+
+  const { isLoggedIn } = useStateContext();
 
 
   const handleAnimationComplete = () => {

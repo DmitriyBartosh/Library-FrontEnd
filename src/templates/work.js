@@ -1,75 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { graphql } from "gatsby"
-import { motion } from 'framer-motion'
 import { useScroll } from 'react-use';
 import * as styles from '../styles/pages/work.module.scss'
 import MetaTag from '../components/metaTag';
+import Navbutton from '../components/work/navbutton';
+import Task from '../components/work/task';
+import Mainbutton from '../components/work/mainbutton';
 
-function NavButton({ contentRef, data, scroll, height, top, ratio, index }) {
-  const [isActive, setIsActive] = useState(false);
-  const [progress, setProgress] = useState(null)
-
-  const { frontmatter } = data.node.childMarkdownRemark;
-
-  useEffect(() => {
-    // Отступ от которого секция в поле видимости верхней границы экрана считается активной
-    const offset = -1 * (top - 31);
-
-    // Если в верхняя граница находится в поле секции, то она активна и просчитываем прогресс для точки
-    if (offset > 0 && offset < height + 31) {
-      setIsActive(true);
-      setProgress(offset / height)
-    } else setIsActive(false);
-  }, [height, top, scroll])
-
-  const scrollToSection = () => {
-    const element = document.querySelector(`[data-section-number="${index + 1}"]`);
-    contentRef.current.scrollTo({ top: element.offsetTop - 30, behavior: "instant" });
-  };
-
-
-
-  return <motion.button
-    className={styles.button}
-    key={index}
-    initial={{ background: "#f3eee1", height: 0 }}
-    whileHover={{
-      background: "#43702c",
-      color: "#ffffff",
-      transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
-    }}
-    animate={{
-      height: isActive ? 150 * ratio : 0,
-      background: isActive ? "#43702c" : "#f3eee1",
-      color: isActive ? "#ffffff" : "#43702c",
-      transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
-    }}
-    layout='size'
-    onClick={scrollToSection}
-  >
-    <span className={styles.number}>0{index + 1}</span>
-    <span className={styles.text}>{frontmatter.title}</span>
-    <motion.span
-      className={styles.dot}
-      animate={{
-        top: `calc((100% - 42px) * ${progress} + 12px)`,
-        opacity: isActive ? 1 : 0,
-        visibility: isActive ? 'visible' : 'hidden',
-        transition: { opacity: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }, top: { duration: 0.15 } }
-      }}
-    />
-  </motion.button>
-}
-
-function Work({ data }) {
+function Work({ data, pageContext }) {
   const [minHeight, setMinHeight] = useState(0)
-  const contentRef = useRef(null)
-  const sectionRef = useRef([])
+  const contentRef = useRef(null);
+  const sectionRef = useRef([]);
+
+  const mainRef = useRef(null);
 
   const { y } = useScroll(contentRef);
 
   const sumSections = data.allFile.edges.length;
-
 
   useEffect(() => {
     const sections = contentRef.current.childNodes;
@@ -86,20 +33,22 @@ function Work({ data }) {
   }, [contentRef])
 
 
-
   return (
     <section className={styles.container}>
       <div className={styles.navigation}>
         <nav>
+          <Mainbutton contentRef={contentRef} scroll={y} section={mainRef} />
+
           {data.allFile.edges.map((item, index) => {
             const size = sectionRef.current[index]?.getBoundingClientRect();
             const ratio = Math.round((size?.height / minHeight) * 10) / 10;
 
-            return <NavButton contentRef={contentRef} data={item} scroll={y} height={size?.height} top={size?.top} ratio={ratio} index={index} key={`buttonnav_${index}`} />
+            return <Navbutton contentRef={contentRef} data={item} scroll={y} height={size?.height} top={size?.top} ratio={ratio} index={index} key={`buttonnav_${index}`} />
           })}
         </nav>
       </div>
       <div className={styles.content} ref={contentRef}>
+        <Task pageContext={pageContext} ref={mainRef} />
         {data.allFile.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
 

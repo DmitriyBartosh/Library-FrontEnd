@@ -26,7 +26,7 @@ function Google() {
         return response.json();
       })
       .then((data) => {
-        const user = JSON.stringify(data.user);
+        console.log(data)
         const directions = data.directions;
 
         const directionsBoolean = {
@@ -35,7 +35,7 @@ function Google() {
           photo: directions?.photo === 1 ? true : false
         }
 
-        setUser(data.access_token, user, directionsBoolean);
+        setUser(data.access_token, data.user, directionsBoolean);
 
         navigate("/profile");
       });

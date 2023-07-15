@@ -26,7 +26,6 @@ function Vk() {
         return response.json();
       })
       .then((data) => {
-        const user = JSON.stringify(data.user);
         const directions = data.directions;
 
         const directionsBoolean = {
@@ -35,7 +34,7 @@ function Vk() {
           photo: directions?.photo === 1 ? true : false
         }
 
-        setUser(data.access_token, user, directionsBoolean);
+        setUser(data.access_token, data.user, directionsBoolean);
 
         navigate("/profile");
       });

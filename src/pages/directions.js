@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import cx from 'classname'
 import { useStateContext } from '../context/ContextProvider'
-import { changeDesign, changeFrontend, changePhoto } from '../api/direction'
+import { changeDesign, changeFrontend, changePhoto } from '../functions/direction'
 import * as styles from '../styles/pages/directions.module.scss'
 import * as global from '../styles/base/global.module.scss'
 
@@ -43,8 +43,6 @@ function PhotoButton({ name, style }) {
 
 function Directions() {
   const { updateStatus, statusDirection, setStatusDirection } = useStateContext();
-
-
 
   return (
     <section className={styles.container}>

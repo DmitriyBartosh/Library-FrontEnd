@@ -4,14 +4,18 @@ import { useStateContext } from '../../context/ContextProvider'
 import Head from './head';
 
 import Progress from './progress';
+import { useEffectOnce } from 'react-use';
 
 function Index() {
   const { user, statusDirection } = useStateContext();
 
-  if (!(statusDirection?.design || statusDirection?.frontend || statusDirection?.photo)) {
-    navigate("/directions");
-    return null;
-  }
+  useEffectOnce(() => {
+    if (statusDirection !== null) {
+      if (!(statusDirection?.design || statusDirection?.frontend || statusDirection?.photo)) {
+        navigate("/directions/");
+      }
+    }
+  })
 
   return (
     <section>

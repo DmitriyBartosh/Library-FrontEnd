@@ -2,12 +2,13 @@ import React from "react";
 import { Router } from "@reach/router";
 import PrivateRoute from "../components/privateRoute";
 
-import Index from '../components/profile'
+import Main from '../components/profile/index';
 
 function Profile() {
+
   return (
     <Router>
-      <PrivateRoute path="/profile" component={Index} />
+      <PrivateRoute path="/profile/" component={Main} />
     </Router>
   );
 }

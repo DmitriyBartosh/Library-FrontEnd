@@ -1,7 +1,7 @@
 import React from 'react'
 
-function Subscription({ location }) {
-  console.log(location)
+function Subscription() {
+
   return (
     <section>
       <div style={{ paddingTop: '5rem' }}>

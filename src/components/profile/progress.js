@@ -39,8 +39,8 @@ function Progress() {
 
   return (
     <div className={styles.container}>
-      {statusDirection.design && <Direction data={design.directionsJson} />}
-      {statusDirection.frontend &&
+      {statusDirection?.design && <Direction data={design.directionsJson} />}
+      {statusDirection?.frontend &&
         <div className={styles.block}>
           <div className={global.container}>
             <h3>FrontEnd разработка</h3>
@@ -69,7 +69,7 @@ function Progress() {
           </div>
         </div>
       }
-      {statusDirection.photo &&
+      {statusDirection?.photo &&
         <div className={styles.block}>
           <div className={global.container}>
             <h3>Фотография</h3>

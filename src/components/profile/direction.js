@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-
-import { Link } from 'gatsby';
-import { AnimatePresence, motion } from 'framer-motion'
-import { IoArrowForwardSharp } from "react-icons/io5";
 import Subscribe from './subscribe';
+import { useStateContext } from '../../context/ContextProvider';
+import Button from './button';
 import * as styles from './direction.module.scss';
 import * as global from '../../styles/base/global.module.scss';
 
 function Direction({ data }) {
+  const { links } = useStateContext();
   const [selected, setSelected] = useState(data.works[0]);
 
   const { title, works, slug } = data;
 
-  const MotionLink = motion(Link);
 
   return (
     <div className={styles.container}>
@@ -29,47 +27,14 @@ function Direction({ data }) {
 
             <div className={styles.list}>
               {works.map((item, index) => {
-                const { title } = item;
+                const isActive = item.title === selected.title;
+                const link = "/" + slug + "/" + item.slug;
 
-                const isActive = title === selected.title;
-
-                return <div className={styles.item} key={index}>
-
-                  <motion.button
-                    initial={{ background: "#f3eee1", color: "#43702c" }}
-                    animate={{
-                      background: isActive ? "#43702c" : "#f3eee1",
-                      color: isActive ? "#ffffff" : "#43702c"
-                    }}
-                    className={styles.detail}
-                    onClick={() => setSelected(item)}>
-                    <p className={styles.text}>{title}</p>
-                  </motion.button>
-
-                  <MotionLink
-                    initial={{ width: 0 }}
-                    animate={{ width: isActive ? "125px" : "0px" }}
-                    to={"/" + slug + "/" + item.slug}
-                    className={styles.link}
-                  >
-                    <AnimatePresence>
-                      {isActive &&
-                        <motion.p
-                          initial={{ x: -25, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1, transition: { delay: 0.15 } }}
-                          exit={{ x: -15, opacity: 0 }}
-                          className={styles.text}>
-                          Начать
-                        </motion.p>
-                      }
-                    </AnimatePresence>
-                    <IoArrowForwardSharp className={styles.icon} />
-                  </MotionLink>
-
-                </div>
+                return <Button isActive={isActive} item={item} setSelected={setSelected} link={link} key={index} />
               })}
             </div>
             <div className={styles.advenced}>
+              <h4 className={styles.title}>{selected.title}</h4>
               <div className={styles.description}>
                 <p>{selected.description}</p>
               </div>
@@ -82,9 +47,15 @@ function Direction({ data }) {
 
               <div className={styles.complete}>
                 <p className={styles.title}>Прикрепленные работы:</p>
-                <div className={styles.link}>
-                  <p>1. https://www.figma.com/file/ik8PvmO5V0gmTKqR746gXd/Hey%2C-Coddes-%2F-Portfolio?type=design&node-id=1793%3A761&mode=design&t=N6tKs053FjCUuVlc-1</p>
-                </div>
+                {links && links[selected.slug]?.map((item, index) => {
+                  const { name, link } = item;
+
+                  return <div className={styles.link} key={`linkdesign_${index}`}>
+                    <p>{index + 1}.</p>
+                    <p>{name}</p>
+                    <p>{link}</p>
+                  </div>
+                })}
               </div>
 
             </div>

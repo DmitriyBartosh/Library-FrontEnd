@@ -79,6 +79,8 @@ exports.createPages = async ({ graphql, actions }) => {
     directionsJson(slug: {eq: "design"}) {
       works {
         slug
+        title
+        description
       }
     }
   }
@@ -115,13 +117,16 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Работы в направлении Дизайн
   designWorks.data.directionsJson.works.forEach((data) => {
-    const { slug } = data;
+    const { slug, title, description } = data;
 
     createPage({
       path: `/design/${slug}`,
       component: path.resolve('./src/templates/work.js'),
       context: {
-        slug: "design/" + slug
+        slug: "design/" + slug,
+        theme: slug,
+        title: title,
+        description: description,
       },
     })
   })

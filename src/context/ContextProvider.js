@@ -1,23 +1,27 @@
 import { navigate } from "gatsby";
+import { useLocalStorage } from "react-use";
 import { useQuery } from "@tanstack/react-query";
-import { getUser, getDirections } from "../api/user";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { getUser, getDirections, getLinksDesign } from "../functions/user";
+import React, { createContext, useContext, useEffect } from "react";
 
 const StateContext = createContext({
   user: null,
   token: null,
+  links: null,
   statusDirection: null,
   setStatusDirection: () => { },
+  setLinks: () => { },
   updateStatus: () => { },
+  updateLinkDesign: () => { },
   setUser: () => { },
+  isLoggedIn: () => { },
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, _setUser] = useState(window.localStorage.getItem("user"));
-  const [token, setToken] = useState(window.localStorage.getItem("tokenAccess"));
-
-  // Определить состояния для статуса направления
-  const [statusDirection, setStatusDirection] = useState(JSON.parse(window.localStorage.getItem("directions")));
+  const [token, setToken, removeToken] = useLocalStorage('token')
+  const [user, _setUser, removeUser] = useLocalStorage('user');
+  const [links, setLinks, removeLinks] = useLocalStorage('links');
+  const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
 
   const userQuery = useQuery({
     queryKey: ["getUser"],
@@ -31,58 +35,55 @@ export const ContextProvider = ({ children }) => {
     enabled: !!token
   })
 
+  const linksDesignQuery = useQuery({
+    queryKey: ["getLinksDesign"],
+    queryFn: getLinksDesign,
+    enabled: statusDirection?.design || false,
+  })
+
   // Обновить пользователя
   const updateStatus = () => {
     directionQuery.refetch();
+  }
+
+  // Обновить ссылки
+  const updateLinkDesign = (newlinks) => {
+    setLinks(newlinks);
+    linksDesignQuery.refetch();
   }
 
   // обнулить пользователя
   const setUser = (token, user, directions) => {
     setToken(token);
     _setUser(user);
-    setStatusDirection(directions)
+    setStatusDirection(directions);
+  };
 
-    if (token) {
-      window.localStorage.setItem("user", user);
-      window.localStorage.setItem("tokenAccess", token);
-      window.localStorage.setItem("directions", JSON.stringify(directions))
-    } else {
-      window.localStorage.removeItem("user");
-      window.localStorage.removeItem("tokenAccess");
-      window.localStorage.removeItem("directions");
-    }
+  // Авторизирован ли пользователь
+  const isLoggedIn = () => {
+    return !!token && !!user;
   };
 
   // Обновление информации о пользовтеле (имя, почта)
   useEffect(() => {
     if (userQuery.isError) {
-      setUser(null, null);
-      window.localStorage.removeItem("user");
-      window.localStorage.removeItem("tokenAccess");
-      window.localStorage.removeItem("directions");
+      removeToken();
+      removeUser();
+      removeStatusDirection();
+      removeLinks();
+
       navigate("/");
     }
 
-    if (userQuery.isSuccess && token) {
-      const user = JSON.stringify(userQuery.data);
-
-      window.localStorage.setItem("user", user);
-      _setUser(user);
+    if (userQuery.isSuccess) {
+      _setUser(userQuery.data);
     }
-  }, [token, userQuery.isStale]);
+  }, [userQuery.isStale]);
 
 
   // // Обновление информации о статусе направлений
   useEffect(() => {
-    if (directionQuery.isError) {
-      setUser(null, null);
-      window.localStorage.removeItem("user");
-      window.localStorage.removeItem("tokenAccess");
-      window.localStorage.removeItem("directions");
-      navigate("/");
-    }
-
-    if (directionQuery.isSuccess && token) {
+    if (directionQuery.isSuccess) {
       const data = directionQuery.data;
       const dataBoolean = {
         design: data?.design === 1 ? true : false,
@@ -90,22 +91,39 @@ export const ContextProvider = ({ children }) => {
         photo: data?.photo === 1 ? true : false
       }
 
-      const directions = JSON.stringify(dataBoolean);
-
-      window.localStorage.setItem("directions", directions);
       setStatusDirection(dataBoolean);
     }
-  }, [token, directionQuery.isStale])
+  }, [directionQuery.isStale]);
+
+  // Обновление информации о ссылках
+  useEffect(() => {
+    if (linksDesignQuery.isSuccess) {
+      setLinks(linksDesignQuery.data);
+    }
+  }, [linksDesignQuery.isStale])
+
+  useEffect(() => {
+    if (!token) {
+      removeToken();
+      removeUser();
+      removeStatusDirection();
+      removeLinks();
+    }
+  }, [token])
 
   return (
     <StateContext.Provider
       value={{
         user,
         token,
+        links,
         statusDirection,
         setStatusDirection,
         setUser,
-        updateStatus
+        setLinks,
+        updateStatus,
+        updateLinkDesign,
+        isLoggedIn
       }}
     >
       {children}
