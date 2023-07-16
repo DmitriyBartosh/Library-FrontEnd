@@ -4,13 +4,13 @@ import { useStateContext } from '../../context/ContextProvider';
 import Button from './button';
 import * as styles from './direction.module.scss';
 import * as global from '../../styles/base/global.module.scss';
+import Allworks from './allworks';
 
-function Direction({ data }) {
+function Direction({ data, copiedLink }) {
   const { links } = useStateContext();
   const [selected, setSelected] = useState(data.works[0]);
 
   const { title, works, slug } = data;
-
 
   return (
     <div className={styles.container}>
@@ -21,6 +21,8 @@ function Direction({ data }) {
           </div>
           <Subscribe status={true} />
         </div>
+
+        <Allworks works={data.works} copiedLink={copiedLink} />
 
         <div className={styles.progress}>
           <div className={styles.works}>
@@ -44,20 +46,19 @@ function Direction({ data }) {
                   return <p key={index}>#{item}</p>
                 })}
               </div>
+              {links && links[selected.slug]?.length > 0 &&
+                <div className={styles.complete}>
+                  <p className={styles.title}>Прикрепленные работы:</p>
+                  {links && links[selected.slug]?.map((item, index) => {
+                    const { name, link } = item;
 
-              <div className={styles.complete}>
-                <p className={styles.title}>Прикрепленные работы:</p>
-                {links && links[selected.slug]?.map((item, index) => {
-                  const { name, link } = item;
-
-                  return <div className={styles.link} key={`linkdesign_${index}`}>
-                    <p>{index + 1}.</p>
-                    <p>{name}</p>
-                    <p>{link}</p>
-                  </div>
-                })}
-              </div>
-
+                    return <button className={styles.work} key={`linkdesign_${index}`} onClick={() => copiedLink(link)}>
+                      <p className={styles.name}>{index + 1}. {name}</p>
+                      <p className={styles.link}>{link}</p>
+                    </button>
+                  })}
+                </div>
+              }
             </div>
           </div>
         </div>

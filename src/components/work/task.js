@@ -20,7 +20,6 @@ const Task = forwardRef((props, ref) => {
         {links[theme].map((item, index) => {
           return <Editlink data={item} theme={theme} index={index} key={index} />
         })}
-        <p>Прикрепите работу</p>
         <div className={styles.links}>
           <Addlink theme={theme} />
         </div>

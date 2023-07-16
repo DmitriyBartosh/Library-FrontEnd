@@ -1,0 +1,39 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  position: fixed;
+  bottom: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: $green;
+    color: white;
+    padding: 0 2rem;
+    padding-right: 2.5rem;
+    height: 3rem;
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-bottom: 2px;
+    }
+    .text {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 250px;
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@
       .text {
         color: white;
         opacity: 1;
-        left: 1.5rem;
+        left: 16px;
         transition: all 0.4s;
         transition-delay: 0.15s;
         &::after {
@@ -46,7 +46,7 @@
         }
       }
       .icon {
-        margin-left: 4.5rem;
+        margin-left: 70px;
         color: white;
         transition: all 0.4s;
       }
@@ -58,12 +58,12 @@
     transition: all 0.3s;
     .text {
       opacity: 1;
-      left: 1.65rem;
+      left: 16px;
       transition: all 0.3s;
       transition-delay: 0.1s;
     }
     .icon {
-      margin-left: 4rem;
+      margin-left: 70px;
       transition: all 0.25s;
     }
   }
@@ -101,7 +101,7 @@
     }
     .text {
       position: absolute;
-      left: 0rem;
+      left: 0px;
       font-weight: 500;
       color: $green;
       opacity: 0;

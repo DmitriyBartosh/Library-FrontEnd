@@ -30,14 +30,19 @@ export const getLinksDesign = async () => {
   }
 }
 
-export const addLinkDesign = (name, link, theme, updateLinkDesign) => {
+export const addLinkDesign = (name, link, theme, setIsLoading, closeEdit, updateLinkDesign) => {
+  setIsLoading(true);
   axiosClient.put("design/addlink",
     {
       name: name,
       link: link,
       theme: theme
     }
-  ).then(({ data }) => updateLinkDesign(data))
+  ).then(({ data }) => {
+    closeEdit();
+    setIsLoading(false);
+    updateLinkDesign(data)
+  })
     .catch((err) => console.log(err));
 }
 

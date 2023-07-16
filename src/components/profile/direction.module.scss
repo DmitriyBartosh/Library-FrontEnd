@@ -63,8 +63,10 @@
           .title {
             font-weight: 600;
           }
-          .link {
-            p {
+          .work {
+            display: flex;
+            flex-direction: column;
+            .link {
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;

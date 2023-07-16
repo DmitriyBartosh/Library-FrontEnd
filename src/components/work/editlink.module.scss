@@ -2,7 +2,7 @@
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr 6.25rem;
+  grid-template-columns: 250px 1fr 6.25rem;
   gap: 0rem;
   transition: gap 0.4s cubic-bezier(0.23, 0.67, 0.58, 1);
   &.edited {
@@ -40,6 +40,10 @@
       height: 100%;
       font-weight: 500;
       color: white;
+      &::placeholder {
+        color: white;
+        transition: all 0.3s;
+      }
     }
   }
   .link {
@@ -60,6 +64,10 @@
       height: 100%;
       font-weight: 500;
       color: white;
+      &::placeholder {
+        color: white;
+        transition: all 0.3s;
+      }
     }
   }
   .navigate {
@@ -132,6 +140,7 @@
           transition: color 0.3s;
         }
         .load {
+          color: $green;
           width: 100%;
           height: 100%;
         }

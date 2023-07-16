@@ -5,7 +5,7 @@ import * as global from '../../styles/base/global.module.scss'
 import { useStateContext } from '../../context/ContextProvider';
 import Direction from './direction';
 
-function Progress() {
+function Progress({ copiedLink }) {
   const { statusDirection } = useStateContext();
 
   const works = ['Мудборд', 'Логотип', 'Визитка', 'Соц.сети', 'Плакат', 'Фирм стиль', 'Лонгрид', 'Что-то еще',]
@@ -39,7 +39,7 @@ function Progress() {
 
   return (
     <div className={styles.container}>
-      {statusDirection?.design && <Direction data={design.directionsJson} />}
+      {statusDirection?.design && <Direction data={design.directionsJson} copiedLink={copiedLink} />}
       {statusDirection?.frontend &&
         <div className={styles.block}>
           <div className={global.container}>
