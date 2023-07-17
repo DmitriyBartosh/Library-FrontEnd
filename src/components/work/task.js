@@ -17,7 +17,7 @@ const Task = forwardRef((props, ref) => {
       </div>
       <div className={styles.works}>
         <p>Работы по теме:</p>
-        {links[theme].map((item, index) => {
+        {links && links[theme].map((item, index) => {
           return <Editlink data={item} theme={theme} index={index} key={index} />
         })}
         <div className={styles.links}>

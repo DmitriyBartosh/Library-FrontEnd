@@ -1,8 +1,9 @@
 import React from 'react'
 import { useStateContext } from '../../context/ContextProvider';
 import * as styles from './allworks.module.scss';
+import Linkwork from './linkwork';
 
-function Allworks({ works, copiedLink }) {
+function Allworks({ works }) {
   const { links } = useStateContext();
 
   return (
@@ -18,12 +19,7 @@ function Allworks({ works, copiedLink }) {
             <div className={styles.item} key={index}>
               <p className={styles.title}>{title}</p>
               {work.map((item, index) => {
-                const { name, link } = item;
-
-                return <button className={styles.work} key={`works_${slug}_${index}`} onClick={() => copiedLink(link)}>
-                  <p className={styles.name}>{index + 1}. {name}</p>
-                  <p className={styles.link}>{link}</p>
-                </button>
+                return <Linkwork data={item} index={index} key={`works_${slug}_${index}`} />
               })}
             </div>
 

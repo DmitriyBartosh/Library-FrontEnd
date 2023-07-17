@@ -16,7 +16,7 @@ function Google() {
   const location = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/auth/google/callback${location.search}`, {
+    fetch(`${process.env.GATSBY_API_BASE_URL}/api/auth/google/callback${location.search}`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
