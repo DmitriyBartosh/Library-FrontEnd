@@ -1,0 +1,26 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  margin-top: 2rem;
+  h5 {
+    margin-bottom: 2rem;
+  }
+  .list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    row-gap: 4rem;
+    .title {
+      margin-bottom: 1rem;
+    }
+    .item {
+      display: flex;
+      flex-direction: column;
+      .works {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  }
+}

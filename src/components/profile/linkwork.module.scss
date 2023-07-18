@@ -1,23 +1,28 @@
 @import "../../styles/abstracts/variables.scss";
 
 .container {
-  display: flex;
-  align-items: center;
-  gap: 1px;
-  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  gap: 5px;
   height: 3rem;
   .copy {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 3rem;
     border: 1px solid $green;
-    height: 100%;
     .name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       padding: 0 1rem;
+      overflow: hidden;
+      height: 100%;
       .text {
-        width: 200px;
         color: $green;
         font-weight: 500;
         text-align: start;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .square {
