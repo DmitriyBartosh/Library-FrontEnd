@@ -1,29 +1,48 @@
 @import "../../styles/abstracts/variables.scss";
 
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
   margin-top: 2rem;
-  .list {
+  .theme {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 3rem;
-    row-gap: 4rem;
-    .head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .item {
+    grid-template-columns: 1fr 400px;
+    gap: 5rem;
+    .about {
       display: flex;
       flex-direction: column;
-      .works {
+      gap: 1rem;
+      max-width: 600px;
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        .tags {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          row-gap: 3px;
+          column-gap: 6px;
+          font-weight: 500;
+        }
+      }
+    }
+    .works {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .list {
         display: flex;
         flex-direction: column;
         gap: 5px;
+        margin-bottom: 5px;
       }
-      .link {
+      .open {
         display: flex;
         align-items: center;
         justify-content: space-between;
