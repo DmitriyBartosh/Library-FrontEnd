@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLocalStorage } from 'react-use';
-import { useStateContext } from '../../context/ContextProvider';
 
-import Subscribe from './subscribe';
 import Allworks from './portfoliomode';
 import Toggle from './toggle';
 
@@ -22,13 +20,9 @@ function Direction({ data }) {
             <h3>{data.title}</h3>
           </div>
           <div className={styles.right}>
-            {/* <Subscribe status={true} /> */}
             <Toggle portfolioMode={portfolioMode} setPortfolioMode={setPortfolioMode} />
           </div>
-
         </div>
-
-
 
         {portfolioMode ?
           <Allworks data={data} />
