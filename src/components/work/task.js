@@ -7,13 +7,13 @@ import Editlink from './editlink';
 
 const Task = forwardRef((props, ref) => {
   const { links } = useStateContext();
-  const { title, description, theme } = props.pageContext;
+  const { title, theme, instruction } = props.pageContext;
 
   return (
     <div className={styles.container} ref={ref}>
       <div className={styles.head}>
         <h3>{title}</h3>
-        <p>{description}</p>
+        <p dangerouslySetInnerHTML={{ __html: instruction }} />
       </div>
       <div className={styles.works}>
         <p>Работы по теме:</p>

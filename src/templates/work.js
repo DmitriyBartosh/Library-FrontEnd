@@ -5,10 +5,13 @@ import * as styles from '../styles/pages/work.module.scss'
 import MetaTag from '../components/metaTag';
 import Navbutton from '../components/work/navbutton';
 import Task from '../components/work/task';
+import Specification from '../components/work/specification';
 import Mainbutton from '../components/work/mainbutton';
+import Secondbutton from '../components/work/secondbutton'
 
 function Work({ data, pageContext }) {
   const [minHeight, setMinHeight] = useState(0)
+  const [maxHeight, setMaxHeight] = useState(0)
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
 
@@ -16,21 +19,36 @@ function Work({ data, pageContext }) {
 
   const { y } = useScroll(contentRef);
 
-  const sumSections = data.allFile.edges.length;
+  const sumSections = data.allSteps.edges.length;
+  const specification = data.allSpecification.edges;
 
   useEffect(() => {
     const sections = contentRef.current.childNodes;
 
     let smallestHeight = Infinity;
+    let biggestHeight = 0;
     for (let i = 0; i < sections.length; i++) {
       const elementHeight = sections[i].offsetHeight;
       if (elementHeight < smallestHeight) {
         smallestHeight = elementHeight;
       }
     }
-    setMinHeight(smallestHeight);
 
+    for (let i = 0; i < sections.length; i++) {
+      const elementHeight = sections[i].offsetHeight;
+      if (elementHeight > biggestHeight) {
+        biggestHeight = elementHeight;
+      }
+    }
+    setMaxHeight(biggestHeight);
+    setMinHeight(smallestHeight);
   }, [contentRef])
+
+  useEffect(() => {
+    const links = contentRef.current.querySelectorAll("a");
+    links.forEach((link) => link.setAttribute("target", "_blank"));
+  }, [])
+
 
 
   return (
@@ -38,10 +56,12 @@ function Work({ data, pageContext }) {
       <div className={styles.navigation}>
         <nav>
           <Mainbutton contentRef={contentRef} scroll={y} section={mainRef} />
-
-          {data.allFile.edges.map((item, index) => {
+          <Secondbutton contentRef={contentRef} scroll={y} section={mainRef} />
+          {data.allSteps.edges.map((item, index) => {
             const size = sectionRef.current[index]?.getBoundingClientRect();
-            const ratio = Math.round((size?.height / minHeight) * 10) / 10;
+            const difference = maxHeight - minHeight;
+
+            const ratio = Math.round(((Math.round(size?.height - minHeight) / difference) + 1) * 10) / 10;
 
             return <Navbutton contentRef={contentRef} data={item} scroll={y} height={size?.height} top={size?.top} ratio={ratio} index={index} key={`buttonnav_${index}`} />
           })}
@@ -49,7 +69,8 @@ function Work({ data, pageContext }) {
       </div>
       <div className={styles.content} ref={contentRef}>
         <Task pageContext={pageContext} ref={mainRef} />
-        {data.allFile.edges.map((item, index) => {
+        <Specification data={specification} sumSections={sumSections} />
+        {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
 
           return <div
@@ -86,22 +107,44 @@ export const Head = () => {
   return <MetaTag data={data} />
 }
 
+
 export const query = graphql`
-query designWork($slug: String)  {
-  allFile(
-    filter: {relativeDirectory: { eq: $slug } }
-    sort: {name: ASC}
-  ) {
-    edges {
-      node {
-        childMarkdownRemark {
-          frontmatter {
-            title
-          }
-          html
+query designWork($slug: String, $specification: String)  {
+allSteps: allFile(
+  filter: {
+    relativeDirectory: {eq: $slug}
+  }
+  sort: {name: ASC}
+) {
+  edges {
+    node {
+      childMarkdownRemark {
+        frontmatter {
+          title
         }
+        html
       }
     }
   }
+}
+allSpecification: allFile(
+  filter: {
+    relativeDirectory: {eq: $specification}
+  }
+  sort: {name: ASC}
+) {
+  edges {
+    node {
+      childMarkdownRemark {
+        frontmatter {
+          title
+          time
+          complexity
+        }
+        html
+      }
+    }
+  }
+}
 }
 `
