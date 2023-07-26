@@ -3,7 +3,7 @@ import cx from 'classname';
 import Flowertwo from '../../images/svg/flower/flowertwo';
 import * as styles from './mainbutton.module.scss';
 
-function Mainbutton({ section, scroll, contentRef }) {
+function Mainbutton({ section, scroll, contentRef, theme }) {
   const [isHidden, setIsHidden] = useState(false);
 
 
@@ -30,7 +30,7 @@ function Mainbutton({ section, scroll, contentRef }) {
   return (
     <button className={cx(styles.container, isHidden && styles.hidden)} onClick={scrollToSection}>
       <div className={styles.text}>
-        <p className={styles.title}>Главная</p>
+        <h6>{theme}</h6>
       </div>
       <Flowertwo className={styles.flowerbottom} />
       <Flowertwo className={styles.flowertop} />

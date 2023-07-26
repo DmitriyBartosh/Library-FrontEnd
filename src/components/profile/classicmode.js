@@ -15,7 +15,7 @@ function Classicmode({ data }) {
       {works.map((item, index) => {
         const { title, description, order } = item;
         const link = "/" + slug + "/" + item.slug;
-        const linksAdded = links[item.slug].length > 0;
+        const linksAdded = links && (links[item.slug].length > 0);
 
         return <div className={styles.theme} key={`about_${index}`}>
           <div className={styles.about}>

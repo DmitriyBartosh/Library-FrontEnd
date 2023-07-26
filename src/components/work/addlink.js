@@ -6,7 +6,7 @@ import { addLinkDesign } from '../../functions/user';
 import { IoAddCircleOutline, IoCloseOutline, IoCheckmarkSharp, IoSyncOutline } from "react-icons/io5";
 import * as styles from './addlink.module.scss'
 
-function Addlink({ theme }) {
+function Addlink({ theme, hint }) {
   const { updateLinkDesign } = useStateContext();
 
   const [isAdded, setIsAdded] = useState(false);
@@ -29,42 +29,52 @@ function Addlink({ theme }) {
         initial={{ opacity: 0, x: 0, y: 15 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         exit={{ opacity: 0, transition: { duration: 0 } }}
-        key="addedlink"
-        className={styles.container}>
-        <div className={styles.input}>
-          <input placeholder='Имя работы' value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
+        key="addedlink">
+        <div className={styles.container}>
+          <div className={styles.input}>
+            <input placeholder='Имя работы' value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
 
-        <div className={styles.input}>
-          <input placeholder='Ссылка' value={link} onChange={(e) => setLink(e.target.value)} />
-        </div>
+          <div className={styles.input}>
+            <input placeholder='Ссылка' value={link} onChange={(e) => setLink(e.target.value)} />
+          </div>
 
-        <div className={styles.navigation}>
-          <button
-            className={cx(styles.save, isDifferent && styles.active)}
-            disabled={!isDifferent || isLoading}
-            onClick={() => addLinkDesign(name, link, theme, setIsLoading, closeEdit, updateLinkDesign)}
-          >
-            {isLoading ?
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1.25, repeat: Infinity }}
-                className={styles.icon}>
-                <IoSyncOutline className={styles.load} />
-              </motion.div>
-              :
+          <div className={styles.navigation}>
+            <button
+              className={cx(styles.save, isDifferent && styles.active)}
+              disabled={!isDifferent || isLoading}
+              onClick={() => addLinkDesign(name, link, theme, setIsLoading, closeEdit, updateLinkDesign)}
+            >
+              {isLoading ?
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1.25, repeat: Infinity }}
+                  className={styles.icon}>
+                  <IoSyncOutline className={styles.load} />
+                </motion.div>
+                :
+                <div className={styles.icon}>
+                  <IoCheckmarkSharp className={styles.svg} />
+                </div>
+              }
+
+            </button>
+            <button className={styles.back} onClick={() => closeEdit()}>
               <div className={styles.icon}>
-                <IoCheckmarkSharp className={styles.svg} />
+                <IoCloseOutline className={styles.svg} />
               </div>
-            }
-
-          </button>
-          <button className={styles.back} onClick={() => closeEdit()}>
-            <div className={styles.icon}>
-              <IoCloseOutline className={styles.svg} />
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
+        <motion.div
+          initial={{ opacity: 0, x: 0, y: 15 }}
+          animate={{ opacity: 1, x: 0, y: 0, transition: { delay: 0.1, duration: 0.4, ease: [0.25, 0.62, 0.58, 1] } }}
+          exit={{ opacity: 0, transition: { duration: 0 } }}
+          className={styles.hint}>
+          <p>
+            <span>Подсказка:</span> {hint}
+          </p>
+        </motion.div>
       </motion.div>
       :
       <motion.button

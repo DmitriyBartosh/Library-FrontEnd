@@ -1,39 +1,72 @@
 import React, { useState, useEffect } from 'react'
-import cx from 'classname';
-import Flowertwo from '../../images/svg/flower/flowertwo';
-import * as styles from './mainbutton.module.scss';
+import { AnimatePresence, motion } from 'framer-motion'
+import * as styles from './secondbutton.module.scss';
 
-function Secondbutton({ section, scroll, contentRef }) {
-  const [isHidden, setIsHidden] = useState(false);
-
-
-  const scrollToSection = () => {
-    contentRef.current.scrollTo({ top: 0, behavior: "instant" });
-  };
+function Secondbutton({ selected, scroll, top, height, contentRef }) {
+  const [isActive, setIsActive] = useState(false);
+  const [progress, setProgress] = useState(null);
 
   useEffect(() => {
-    const size = section.current.getBoundingClientRect();
-
-    let top = size?.top;
-    let height = size?.height;
-
     // Отступ от которого секция в поле видимости верхней границы экрана считается активной
     const offset = -1 * (top - 31);
 
     // Если в верхняя граница находится в поле секции, то она активна и просчитываем прогресс для точки
     if (offset > 0 && offset < height + 31) {
-      setIsHidden(false);
-    } else setIsHidden(true);
-  }, [section, scroll])
+      setIsActive(true);
+      setProgress(offset / height);
+    } else setIsActive(false);
+  }, [height, top, scroll])
+
+  const scrollToSection = () => {
+    const element = document.querySelector(`[data-section-number="${0}"]`);
+    contentRef.current.scrollTo({ top: element.offsetTop - 30, behavior: "instant" });
+  };
 
   return (
-    <button className={cx(styles.container, isHidden && styles.hidden)} onClick={scrollToSection}>
-      <div className={styles.text}>
-        <p className={styles.title}>Техническое задание</p>
+    <motion.button
+      initial={{ background: "#335e1e", height: 0 }}
+      key={`specification_button`}
+      whileHover={{
+        background: "#43702c",
+        transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
+      }}
+      animate={{
+        height: isActive ? 125 : 0,
+        background: isActive ? "#335e1e" : "#43702c",
+        transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
+      }}
+      layout='size'
+      className={styles.container}
+      onClick={scrollToSection}>
+
+      <div className={styles.name}>
+        <p>{selected.title}</p>
       </div>
-      <Flowertwo className={styles.flowerbottom} />
-      <Flowertwo className={styles.flowertop} />
-    </button>
+      <AnimatePresence initial={false} mode='popLayout'>
+        {isActive &&
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.4, ease: [0.25, 0.62, 0.58, 1] } }}
+            exit={{ opacity: 0, y: -10 }} className={styles.level} key="level">
+            <p>Сложность: <span>{selected.complexity}</span></p>
+            <p>Время выполнения: <span>{selected.time}</span></p>
+          </motion.div>
+        }
+      </AnimatePresence>
+
+
+
+      <motion.span
+        className={styles.dot}
+        animate={{
+          top: `calc((100% - 42px) * ${progress} + 12px)`,
+          opacity: isActive ? 1 : 0,
+          visibility: isActive ? 'visible' : 'hidden',
+          transition: { opacity: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }, top: { duration: 0.15 } }
+        }}
+      />
+
+    </motion.button>
   )
 }
 

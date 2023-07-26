@@ -15,7 +15,22 @@ function Work({ data, pageContext }) {
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
 
+  const firstSpecification = data.allSpecification.edges[0].node.childMarkdownRemark;
+  const [selectedSpecification, setSelectedSpecification] = useState({
+    frontmatter: firstSpecification.frontmatter,
+    html: firstSpecification.html,
+    index: 0
+  });
+
+  const checklist = data.allChecklist.edges[selectedSpecification.index].node.childMarkdownRemark;
+
   const mainRef = useRef(null);
+  const specificationRef = useRef(null)
+
+  const specificationTop = specificationRef.current?.getBoundingClientRect().top;
+  const specificationHeight = specificationRef.current?.getBoundingClientRect().height;
+  const quantity = data.allChecklist.edges.length;
+
 
   const { y } = useScroll(contentRef);
 
@@ -50,13 +65,12 @@ function Work({ data, pageContext }) {
   }, [])
 
 
-
   return (
     <section className={styles.container}>
       <div className={styles.navigation}>
         <nav>
-          <Mainbutton contentRef={contentRef} scroll={y} section={mainRef} />
-          <Secondbutton contentRef={contentRef} scroll={y} section={mainRef} />
+          <Mainbutton contentRef={contentRef} scroll={y} section={mainRef} theme={pageContext.title} />
+          <Secondbutton selected={selectedSpecification.frontmatter} contentRef={contentRef} top={specificationTop} height={specificationHeight} scroll={y} section={mainRef} />
           {data.allSteps.edges.map((item, index) => {
             const size = sectionRef.current[index]?.getBoundingClientRect();
             const difference = maxHeight - minHeight;
@@ -68,8 +82,8 @@ function Work({ data, pageContext }) {
         </nav>
       </div>
       <div className={styles.content} ref={contentRef}>
-        <Task pageContext={pageContext} ref={mainRef} />
-        <Specification data={specification} sumSections={sumSections} />
+        <Task pageContext={pageContext} ref={mainRef} checklist={checklist} quantity={quantity} />
+        <Specification selected={selectedSpecification} setSelected={setSelectedSpecification} data={specification} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
 
@@ -93,10 +107,12 @@ function Work({ data, pageContext }) {
 
 export default Work
 
-export const Head = () => {
+export const Head = ({ pageContext }) => {
+  const { title, description } = pageContext;
+
   const data = {
-    title: "Заголовок",
-    description: "Описание к нему",
+    title: `Графикси | ${title}`,
+    description: description,
     image: "../images/persons/kateshmidt/1.jpg",
     slug: "/design/",
     keywords: "Слова",
@@ -109,7 +125,7 @@ export const Head = () => {
 
 
 export const query = graphql`
-query designWork($slug: String, $specification: String)  {
+query designWork($slug: String, $specification: String, $checklist: String)  {
 allSteps: allFile(
   filter: {
     relativeDirectory: {eq: $slug}
@@ -121,6 +137,24 @@ allSteps: allFile(
       childMarkdownRemark {
         frontmatter {
           title
+        }
+        html
+      }
+    }
+  }
+}
+allChecklist: allFile(
+  filter: {
+    relativeDirectory: {eq: $checklist}
+  }
+  sort: {name: ASC}
+) {
+  edges {
+    node {
+      childMarkdownRemark {
+        frontmatter {
+          title
+          hint
         }
         html
       }

@@ -126,6 +126,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         slug: "design/" + slug,
         specification: "design/" + slug + "/specifications",
+        checklist: "design/" + slug + "/checklist",
         theme: slug,
         title: title,
         description: description,

@@ -8,11 +8,61 @@
   color: white;
   width: 100%;
   padding: 2rem;
-  min-height: 600px;
+  padding-bottom: 3rem;
   .head {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 1rem;
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      strong {
+        font-weight: 600;
+      }
+      em {
+        font-style: italic;
+      }
+      ol,
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-left: 1.5rem;
+      }
+      ol {
+        list-style: decimal;
+      }
+      ul {
+        list-style: disc;
+      }
+      blockquote {
+        padding: 1rem 2rem;
+        padding-right: 4rem;
+        background: $blockquote;
+        border-left: 3px solid $orange;
+      }
+      a {
+        position: relative;
+        font-weight: 600;
+        color: $green;
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 0%;
+          height: 1px;
+          background: $green;
+
+          transition: all 0.3s;
+        }
+        &:hover::after {
+          width: 100%;
+        }
+      }
+    }
   }
   .works {
     display: flex;

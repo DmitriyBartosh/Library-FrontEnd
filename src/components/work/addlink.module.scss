@@ -84,6 +84,20 @@
   }
 }
 
+.hint {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  height: 3rem;
+  background-color: $background;
+  color: $green;
+  span {
+    font-weight: 600;
+  }
+}
+
 .button {
   display: flex;
   align-items: center;

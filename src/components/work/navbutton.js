@@ -9,8 +9,6 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
 
   const { frontmatter } = data.node.childMarkdownRemark;
 
-  // console.log(ratio)
-
   useEffect(() => {
     // Отступ от которого секция в поле видимости верхней границы экрана считается активной
     const offset = -1 * (top - 31);
