@@ -2,7 +2,7 @@
 
 .container {
   display: grid;
-  grid-template-columns: 24rem 1fr;
+  grid-template-columns: 22rem 1fr;
   .navigation {
     display: flex;
     align-items: center;
@@ -107,5 +107,44 @@
         }
       }
     }
+  }
+}
+
+[data-font-size="small"] {
+  p,
+  a,
+  li,
+  span,
+  input {
+    font-size: 1rem;
+  }
+  h3 {
+    font-size: 2.35rem;
+  }
+}
+
+[data-font-size="medium"] {
+  p,
+  a,
+  li,
+  span,
+  input {
+    font-size: 1.1rem;
+  }
+  h3 {
+    font-size: 2.5rem;
+  }
+}
+
+[data-font-size="large"] {
+  p,
+  a,
+  li,
+  span,
+  input {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 2.6rem;
   }
 }

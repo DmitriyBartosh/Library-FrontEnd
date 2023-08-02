@@ -57,7 +57,7 @@ function Header() {
       transition={{ duration: isPush ? 0.4 : 0.6, ease: [0.15, 0.45, 0.4, 0.93] }}
       onAnimationComplete={handleAnimationComplete}
       className={styles.container}>
-      {isDesign && <Settings />}
+      {isDesign && <Settings key="settings" />}
       <nav className={cx(styles.navigation, isDesign && styles.settings)}>
         <Link
           to='/'

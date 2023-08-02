@@ -9,7 +9,9 @@ const StateContext = createContext({
   token: null,
   links: null,
   statusDirection: null,
+  fontSize: "small",
   setStatusDirection: () => { },
+  setFontSize: () => { },
   setLinks: () => { },
   updateStatus: () => { },
   updateLinkDesign: () => { },
@@ -22,6 +24,7 @@ export const ContextProvider = ({ children }) => {
   const [user, _setUser, removeUser] = useLocalStorage('user');
   const [links, setLinks, removeLinks] = useLocalStorage('links');
   const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
+  const [fontSize, setFontSize] = useLocalStorage('font-size', "small")
 
   const userQuery = useQuery({
     queryKey: ["getUser"],
@@ -118,7 +121,9 @@ export const ContextProvider = ({ children }) => {
         token,
         links,
         statusDirection,
+        fontSize,
         setStatusDirection,
+        setFontSize,
         setUser,
         setLinks,
         updateStatus,

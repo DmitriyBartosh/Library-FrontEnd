@@ -17,10 +17,10 @@ const Task = forwardRef((props, ref) => {
         <div className={styles.checklist} dangerouslySetInnerHTML={{ __html: html }} />
       </div>
       <div className={styles.works}>
-        {links && links[theme].map((item, index) => {
+        {links[theme] && links[theme].map((item, index) => {
           return <Editlink data={item} theme={theme} index={index} key={index} />
         })}
-        {links[theme].length < props.quantity &&
+        {links[theme] && links[theme].length < props.quantity &&
           <div className={styles.links}>
             <Addlink theme={theme} hint={frontmatter.hint} />
           </div>

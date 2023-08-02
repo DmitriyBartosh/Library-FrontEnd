@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { graphql } from "gatsby"
 import { useScroll } from 'react-use';
+import { useStateContext } from '../context/ContextProvider';
 import * as styles from '../styles/pages/work.module.scss'
 import MetaTag from '../components/metaTag';
 import Navbutton from '../components/work/navbutton';
@@ -14,6 +15,8 @@ function Work({ data, pageContext }) {
   const [maxHeight, setMaxHeight] = useState(0)
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
+
+  const { fontSize } = useStateContext();
 
   const firstSpecification = data.allSpecification.edges[0].node.childMarkdownRemark;
   const [selectedSpecification, setSelectedSpecification] = useState({
@@ -81,7 +84,7 @@ function Work({ data, pageContext }) {
           })}
         </nav>
       </div>
-      <div className={styles.content} ref={contentRef}>
+      <div className={styles.content} ref={contentRef} data-font-size={fontSize}>
         <Task pageContext={pageContext} ref={mainRef} checklist={checklist} quantity={quantity} />
         <Specification selected={selectedSpecification} setSelected={setSelectedSpecification} data={specification} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {

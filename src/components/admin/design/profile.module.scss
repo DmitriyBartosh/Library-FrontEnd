@@ -1,0 +1,110 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 50px;
+  border-bottom: 1px solid $green;
+  .profile {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .head {
+        margin-bottom: 0.5rem;
+      }
+      .block {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        .label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: $green;
+          p {
+            font-weight: 500;
+          }
+          .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+          }
+        }
+        .area {
+          display: flex;
+          align-items: center;
+          height: 3rem;
+          padding: 0 1rem;
+          border: 1px solid $green;
+          background: $background;
+          color: $green;
+          width: 200px;
+          font-weight: 500;
+          transition: all 0.4s;
+          input {
+            width: 100%;
+            height: 100%;
+            font-weight: 500;
+            color: $green;
+            text-align: center;
+            &::placeholder {
+              color: $green;
+              transition: all 0.3s;
+            }
+          }
+        }
+      }
+    }
+    .price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      .head {
+        margin-bottom: 0.5rem;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .block {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 3rem;
+          border: 1px solid $green;
+          padding: 0 1rem;
+          color: $green;
+          .title {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 200px;
+            height: 100%;
+            font-weight: 500;
+          }
+          .input {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2px;
+            input {
+              width: 75px;
+              text-align: right;
+              color: $green;
+              font-weight: 500;
+              &::placeholder {
+                color: $green;
+                transition: all 0.3s;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
