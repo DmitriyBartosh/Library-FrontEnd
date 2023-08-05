@@ -30,10 +30,11 @@ export const getLinksDesign = async () => {
   }
 }
 
-export const addLinkDesign = (name, link, theme, setIsLoading, closeEdit, updateLinkDesign) => {
+export const addLinkDesign = (id, name, link, theme, setIsLoading, closeEdit, updateLinkDesign) => {
   setIsLoading(true);
   axiosClient.put("design/addlink",
     {
+      id: id,
       name: name,
       link: link,
       theme: theme
@@ -46,10 +47,11 @@ export const addLinkDesign = (name, link, theme, setIsLoading, closeEdit, update
     .catch((err) => console.log(err));
 }
 
-export const editLinkDesign = (index, name, link, theme, updateLinkDesign, setEdited, setIsLoading) => {
+export const editLinkDesign = (index, id, name, link, theme, updateLinkDesign, setEdited, setIsLoading) => {
   setIsLoading(true);
   axiosClient.patch("design/editlink", {
     index: index,
+    id: id,
     name: name,
     link: link,
     theme: theme

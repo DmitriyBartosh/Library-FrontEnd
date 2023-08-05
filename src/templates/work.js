@@ -85,8 +85,8 @@ function Work({ data, pageContext }) {
         </nav>
       </div>
       <div className={styles.content} ref={contentRef} data-font-size={fontSize}>
-        <Task pageContext={pageContext} ref={mainRef} checklist={checklist} quantity={quantity} />
-        <Specification selected={selectedSpecification} setSelected={setSelectedSpecification} data={specification} sumSections={sumSections} ref={specificationRef} />
+        <Task data={specification} selected={selectedSpecification} setSelected={setSelectedSpecification} pageContext={pageContext} checklist={checklist} quantity={quantity} ref={mainRef} />
+        <Specification html={selectedSpecification.html} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
 

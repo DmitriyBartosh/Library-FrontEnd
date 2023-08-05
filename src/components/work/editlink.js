@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { IoTrashOutline, IoCloseOutline, IoCreateOutline, IoCheckmarkSharp, IoSyncOutline } from "react-icons/io5";
 import * as styles from './editlink.module.scss';
 
-function Editlink({ data, theme, index }) {
+function Editlink({ data, theme, id, index }) {
   const { updateLinkDesign } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [edited, setEdited] = useState(false);
@@ -41,7 +41,7 @@ function Editlink({ data, theme, index }) {
               <button
                 className={cx(styles.save, isDifferent && styles.active)}
                 disabled={!isDifferent || isLoading}
-                onClick={() => editLinkDesign(index, name, link, theme, updateLinkDesign, setEdited, setIsLoading)}
+                onClick={() => editLinkDesign(index, id, name, link, theme, updateLinkDesign, setEdited, setIsLoading)}
               >
                 {isLoading ?
                   <motion.div

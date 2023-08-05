@@ -34,8 +34,6 @@ function AllUsers() {
     }
   })
 
-  console.log(allUsersQuery)
-
   return (
     <div className={styles.container}>
       <h4>Все пользователи</h4>

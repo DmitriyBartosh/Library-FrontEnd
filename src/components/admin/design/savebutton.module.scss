@@ -1,0 +1,72 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  background-color: $background;
+  height: 3rem;
+  padding-left: 2rem;
+  border: 1px solid $green;
+  color: $green;
+  .text {
+    position: relative;
+    text-align: center;
+    line-height: 1;
+    font-weight: 600;
+    &::after {
+      position: absolute;
+      right: 6px;
+      bottom: -4px;
+      content: "";
+      height: 1px;
+      width: 100%;
+      opacity: 0;
+      background: currentColor;
+      transition: all 0.15s;
+      transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+    }
+  }
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 4rem;
+    .svg {
+      color: $green;
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+  }
+  &:hover .icon {
+    animation: shake 0.4s ease-in-out;
+  }
+  &:hover .text::after {
+    right: 0px;
+    opacity: 1;
+  }
+}
+
+.container {
+  &:hover .icon .svg {
+    animation: shake 0.4s ease-in-out;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-6deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0);
+  }
+  75% {
+    transform: translateX(2px) rotate(6deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}

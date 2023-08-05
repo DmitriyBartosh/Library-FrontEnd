@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { IoArrowBackSharp } from "react-icons/io5";
-import { getAdminSettings } from '../../../functions/designexpert'
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
+import { motion } from 'framer-motion'
+import { IoArrowBackSharp, IoReturnDownBackSharp } from "react-icons/io5";
+import { getAdminSettings, editSettingsAdmin } from '../../../functions/designexpert'
 import * as styles from './profile.module.scss'
 import Toggle from './toggle';
+import Savebutton from './savebutton';
 
 function Profile() {
-  const [edited, setEdited] = useState(true);
+  const [saved, setSaved] = useState(false)
   const [user, setUser] = useState({
     name: "",
     status: false,
@@ -20,29 +22,56 @@ function Profile() {
     poster: 1000
   })
 
+  const queryClient = useQueryClient()
+
   const adminSettingsQuery = useQuery({
     queryKey: ["getadminsettings"],
     queryFn: getAdminSettings,
     onSuccess: (data) => {
-      setPrice({
-        logo: data.settings.logo,
-        polygraphy: data.settings.polygraphy,
-        socialmedia: data.settings.socialmedia,
-        poster: data.settings.poster
-      })
-      setUser({
-        name: data.name,
-        status: data.settings.status,
-        timetowork: data.settings.timetowork
-      })
+      setData(data);
     }
   })
 
+  const editSettingsAdminMutation = useMutation({
+    mutationFn: editSettingsAdmin,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getadminsettings'] })
+    }
+  })
+
+  function setData(data) {
+    setPrice({
+      logo: data.settings.logo,
+      polygraphy: data.settings.polygraphy,
+      socialmedia: data.settings.socialmedia,
+      poster: data.settings.poster
+    })
+    setUser({
+      name: data.name,
+      status: data.settings.status,
+      timetowork: data.settings.timetowork
+    })
+  }
+
   const { isLoading, data } = adminSettingsQuery;
+
+
+
+  useEffect(() => {
+    if (adminSettingsQuery.isSuccess) {
+      const saveSettings = data.name !== user.name || data.settings.status !== user.status || data.settings.timetowork !== user.timetowork;
+      const savePrice = data.settings.logo !== price.logo ||
+        data.settings.polygraphy !== price.polygraphy ||
+        data.settings.socialmedia !== price.socialmedia ||
+        data.settings.poster !== price.poster;
+
+      setSaved(saveSettings || savePrice);
+    }
+  }, [adminSettingsQuery])
+
 
   return (
     <div className={styles.container}>
-
       <h4>Эксперт | Графический дизайн</h4>
       {isLoading ?
         <div className={styles.profile}>
@@ -59,7 +88,6 @@ function Profile() {
               <div className={styles.area}>
                 <input
                   placeholder='Имя / Фамилия'
-                  disabled={!edited}
                   value={user.name}
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
                 />
@@ -82,7 +110,6 @@ function Profile() {
               <div className={styles.area}>
                 <input
                   placeholder='1-3 дня'
-                  disabled={!edited}
                   value={user.timetowork}
                   onChange={(e) => setUser({ ...user, timetowork: e.target.value })}
                 />
@@ -109,11 +136,9 @@ function Profile() {
                 <div className={styles.input}>
                   <input
                     placeholder='Цена услуги в '
-                    disabled={!edited}
                     type='number'
                     value={price.logo}
                     onChange={(e) => setPrice({ ...price, logo: e.target.value })} />
-                  <p>руб.</p>
                 </div>
               </div>
 
@@ -124,11 +149,9 @@ function Profile() {
                 <div className={styles.input}>
                   <input
                     placeholder='Цена услуги в '
-                    disabled={!edited}
                     type='number'
                     value={price.polygraphy}
                     onChange={(e) => setPrice({ ...price, polygraphy: e.target.value })} />
-                  <p>руб.</p>
                 </div>
               </div>
 
@@ -139,11 +162,9 @@ function Profile() {
                 <div className={styles.input}>
                   <input
                     placeholder='Цена услуги в '
-                    disabled={!edited}
                     type='number'
                     value={price.poster}
                     onChange={(e) => setPrice({ ...price, poster: e.target.value })} />
-                  <p>руб.</p>
                 </div>
               </div>
 
@@ -154,18 +175,33 @@ function Profile() {
                 <div className={styles.input}>
                   <input
                     placeholder='Цена услуги в '
-                    disabled={!edited}
                     type='number'
                     value={price.socialmedia}
                     onChange={(e) => setPrice({ ...price, socialmedia: e.target.value })} />
-                  <p>руб.</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
+
+        </div>
       }
+      {saved &&
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.3 } }}
+          key="saved_profile_expert"
+          className={styles.save}>
+          <Savebutton action={editSettingsAdminMutation} user={user} price={price} />
+          <button className={styles.cancel} onClick={() => setData(data)}>
+            <p className={styles.text}>Отменить изменения</p>
+            <div className={styles.icon}>
+              <IoReturnDownBackSharp className={styles.svg} />
+            </div>
+          </button>
+        </motion.div>
+      }
+
     </div>
   )
 }

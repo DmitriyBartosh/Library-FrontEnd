@@ -6,20 +6,18 @@ import { addLinkDesign } from '../../functions/user';
 import { IoAddCircleOutline, IoCloseOutline, IoCheckmarkSharp, IoSyncOutline } from "react-icons/io5";
 import * as styles from './addlink.module.scss'
 
-function Addlink({ theme, hint }) {
+function Addlink({ theme, hint, title, id }) {
   const { updateLinkDesign } = useStateContext();
 
   const [isAdded, setIsAdded] = useState(false);
 
-  const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const isDifferent = name !== "" && link !== "";
+  const isDifferent = link !== "";
 
   const closeEdit = () => {
     setLink("");
-    setName("");
     setIsAdded(false);
   }
 
@@ -32,7 +30,7 @@ function Addlink({ theme, hint }) {
         key="addedlink">
         <div className={styles.container}>
           <div className={styles.input}>
-            <input placeholder='Имя работы' value={name} onChange={(e) => setName(e.target.value)} />
+            <input placeholder='Имя работы' value={title} disabled={true} />
           </div>
 
           <div className={styles.input}>
@@ -43,7 +41,7 @@ function Addlink({ theme, hint }) {
             <button
               className={cx(styles.save, isDifferent && styles.active)}
               disabled={!isDifferent || isLoading}
-              onClick={() => addLinkDesign(name, link, theme, setIsLoading, closeEdit, updateLinkDesign)}
+              onClick={() => addLinkDesign(id, title, link, theme, setIsLoading, closeEdit, updateLinkDesign)}
             >
               {isLoading ?
                 <motion.div
