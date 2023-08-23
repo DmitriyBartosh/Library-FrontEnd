@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import cx from 'classname'
 import { IoArrowBackSharp, IoReturnDownBackSharp } from "react-icons/io5";
 import { getAdminSettings, editSettingsAdmin } from '../../../functions/designexpert'
 import * as styles from './profile.module.scss'
@@ -12,7 +13,7 @@ function Profile() {
   const [user, setUser] = useState({
     name: "",
     status: false,
-    timetowork: ""
+    backtowork: ""
   })
 
   const [price, setPrice] = useState({
@@ -49,17 +50,18 @@ function Profile() {
     setUser({
       name: data.name,
       status: data.settings.status,
-      timetowork: data.settings.timetowork
+      backtowork: data.settings.backtowork
     })
   }
+
+  console.log(user)
 
   const { isLoading, data } = adminSettingsQuery;
 
 
-
   useEffect(() => {
     if (adminSettingsQuery.isSuccess) {
-      const saveSettings = data.name !== user.name || data.settings.status !== user.status || data.settings.timetowork !== user.timetowork;
+      const saveSettings = data.name !== user.name || data.settings.status !== user.status || data.settings.backtowork !== user.backtowork;
       const savePrice = data.settings.logo !== price.logo ||
         data.settings.polygraphy !== price.polygraphy ||
         data.settings.socialmedia !== price.socialmedia ||
@@ -106,17 +108,19 @@ function Profile() {
               </div>
             </div>
 
-            <div className={styles.block}>
+
+            <div className={cx(styles.block, user.status && styles.hidden)}>
               <div className={styles.area}>
                 <input
-                  placeholder='1-3 дня'
-                  value={user.timetowork}
-                  onChange={(e) => setUser({ ...user, timetowork: e.target.value })}
+                  placeholder='Число месяц'
+                  disabled={user.status}
+                  value={user.backtowork}
+                  onChange={(e) => setUser({ ...user, backtowork: e.target.value })}
                 />
               </div>
               <div className={styles.label}>
                 <IoArrowBackSharp className={styles.icon} />
-                <p>Время проверки</p>
+                <p>Вернусь</p>
               </div>
             </div>
           </div>

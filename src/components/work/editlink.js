@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
 import cx from 'classname';
-import { deleteLinkDesign, editLinkDesign } from '../../functions/user';
-import { useStateContext } from '../../context/ContextProvider';
+import { useMutation, useQueryClient, useIsFetching } from '@tanstack/react-query';
+import { editWork, deleteWork } from '../../functions/works';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IoTrashOutline, IoCloseOutline, IoCreateOutline, IoCheckmarkSharp, IoSyncOutline } from "react-icons/io5";
 import * as styles from './editlink.module.scss';
 
-function Editlink({ data, theme, id, index }) {
-  const { updateLinkDesign } = useStateContext();
-  const [isLoading, setIsLoading] = useState(false);
+function Editlink({ data }) {
+  const isFetchingWorks = useIsFetching({ queryKey: ['getAllWorks'] })
+  const queryClient = useQueryClient();
+
   const [edited, setEdited] = useState(false);
 
   const [name, setName] = useState(data.name);
   const [link, setLink] = useState(data.link);
 
-  const isDifferent = !(data.name === name && data.link === link);
+
+
+  const editWorkMutation = useMutation({
+    mutationFn: editWork,
+    onSuccess: () => {
+      setEdited(false);
+      queryClient.invalidateQueries({ queryKey: ['getAllWorks'] })
+    }
+  })
+
+  const deleteWorkMutation = useMutation({
+    mutationFn: deleteWork,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getAllWorks'] })
+    }
+  })
+
+  const isDifferent = !(data.link === link);
+  const isLoading = editWorkMutation.isLoading || deleteWorkMutation.isLoading || isFetchingWorks;
 
   const closeEdit = () => {
     setLink(data.link);
@@ -22,13 +41,11 @@ function Editlink({ data, theme, id, index }) {
     setEdited(false);
   }
 
-
   return (
     <div className={cx(styles.container, edited && styles.edited)}>
 
       <div className={styles.name}>
-        <p>{index + 1}.</p>
-        <input placeholder='Имя работы' disabled={!edited} value={name} onChange={(e) => setName(e.target.value)} />
+        <input placeholder='Имя работы' disabled={true} value={name} />
       </div>
 
       <div className={styles.link}>
@@ -41,7 +58,7 @@ function Editlink({ data, theme, id, index }) {
               <button
                 className={cx(styles.save, isDifferent && styles.active)}
                 disabled={!isDifferent || isLoading}
-                onClick={() => editLinkDesign(index, id, name, link, theme, updateLinkDesign, setEdited, setIsLoading)}
+                onClick={() => editWorkMutation.mutate({ id: data.id, link: link })}
               >
                 {isLoading ?
                   <motion.div
@@ -86,7 +103,7 @@ function Editlink({ data, theme, id, index }) {
               <button
                 disabled={isLoading}
                 className={styles.del}
-                onClick={() => deleteLinkDesign(index, theme, updateLinkDesign, setIsLoading)}>
+                onClick={() => deleteWorkMutation.mutate({ id: data.id })}>
                 {isLoading ?
                   <motion.div
                     animate={{ rotate: 360 }}

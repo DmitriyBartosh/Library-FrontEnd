@@ -1,28 +1,30 @@
 import { navigate } from "gatsby";
 import { useLocalStorage } from "react-use";
 import { useQuery } from "@tanstack/react-query";
-import { getUser, getDirections, getLinksDesign } from "../functions/user";
-import React, { createContext, useContext, useEffect } from "react";
+import { getUser, getDirections } from "../functions/user";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { getAllWorks } from "../functions/works";
 
 const StateContext = createContext({
   user: null,
   token: null,
-  links: null,
+  works: null,
   statusDirection: null,
   fontSize: "small",
+  showReview: false,
+  setShowReview: () => { },
   setStatusDirection: () => { },
   setFontSize: () => { },
   setLinks: () => { },
-  updateStatus: () => { },
-  updateLinkDesign: () => { },
   setUser: () => { },
   isLoggedIn: () => { },
 });
 
 export const ContextProvider = ({ children }) => {
+  const [showReview, setShowReview] = useState(false);
   const [token, setToken, removeToken] = useLocalStorage('token')
   const [user, _setUser, removeUser] = useLocalStorage('user');
-  const [links, setLinks, removeLinks] = useLocalStorage('links');
+  const [works, setWorks, removeWorks] = useLocalStorage('works');
   const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
   const [fontSize, setFontSize] = useLocalStorage('font-size', "small")
 
@@ -38,28 +40,16 @@ export const ContextProvider = ({ children }) => {
     enabled: !!token
   })
 
-  const linksDesignQuery = useQuery({
-    queryKey: ["getLinksDesign"],
-    queryFn: getLinksDesign,
-    enabled: statusDirection?.design || false,
+  const allWorksQuery = useQuery({
+    queryKey: ["getAllWorks"],
+    queryFn: getAllWorks,
+    enabled: !!token,
   })
 
-  // Обновить пользователя
-  const updateStatus = () => {
-    directionQuery.refetch();
-  }
-
-  // Обновить ссылки
-  const updateLinkDesign = (newlinks) => {
-    setLinks(newlinks);
-    linksDesignQuery.refetch();
-  }
-
   // обнулить пользователя
-  const setUser = (token, user, directions) => {
+  const setUser = (token, user) => {
     setToken(token);
     _setUser(user);
-    setStatusDirection(directions);
   };
 
   // Авторизирован ли пользователь
@@ -73,7 +63,7 @@ export const ContextProvider = ({ children }) => {
       removeToken();
       removeUser();
       removeStatusDirection();
-      removeLinks();
+      removeWorks();
 
       navigate("/");
     }
@@ -86,31 +76,25 @@ export const ContextProvider = ({ children }) => {
 
   // // Обновление информации о статусе направлений
   useEffect(() => {
-    if (directionQuery.isSuccess) {
-      const data = directionQuery.data;
-      const dataBoolean = {
-        design: data?.design === 1 ? true : false,
-        frontend: data?.frontend === 1 ? true : false,
-        photo: data?.photo === 1 ? true : false
-      }
-
-      setStatusDirection(dataBoolean);
+    if (directionQuery.isSuccess && !directionQuery.isFetching) {
+      const dataJSON = JSON.parse(directionQuery.data.direction);
+      setStatusDirection(dataJSON);
     }
   }, [directionQuery.isStale]);
 
   // Обновление информации о ссылках
   useEffect(() => {
-    if (linksDesignQuery.isSuccess) {
-      setLinks(linksDesignQuery.data);
+    if (allWorksQuery.isSuccess && !allWorksQuery.isFetching) {
+      setWorks(allWorksQuery.data);
     }
-  }, [linksDesignQuery.isStale])
+  }, [allWorksQuery.isStale])
 
   useEffect(() => {
     if (!token) {
       removeToken();
       removeUser();
       removeStatusDirection();
-      removeLinks();
+      removeWorks();
     }
   }, [token])
 
@@ -119,15 +103,15 @@ export const ContextProvider = ({ children }) => {
       value={{
         user,
         token,
-        links,
+        works,
         statusDirection,
         fontSize,
+        showReview,
+        setShowReview,
         setStatusDirection,
         setFontSize,
         setUser,
-        setLinks,
-        updateStatus,
-        updateLinkDesign,
+        setWorks,
         isLoggedIn
       }}
     >

@@ -1,23 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import { IoLayersOutline, IoDocumentTextOutline } from "react-icons/io5";
+import { IoLayersOutline, IoHomeOutline, IoBookOutline } from "react-icons/io5";
 import { useStateContext } from '../../context/ContextProvider'
-import * as button from '../../styles/base/button.module.scss'
+import * as styles from './account.module.scss'
 
-function Account() {
-  const { statusDirection } = useStateContext();
+function Account({ themes }) {
+  const { statusDirection, works, setShowReview } = useStateContext();
+  const [haveWorks, setHaveWorks] = useState(false);
 
   const directionSelected = statusDirection?.design || statusDirection?.frontend || statusDirection?.photo;
 
+  useEffect(() => {
+    if (works) {
+      for (let i = 0; i < themes.length; i++) {
+        const theme = themes[i].slug;
+        const work = works.filter(item => item.theme === theme);
+        if (work?.length > 0) {
+          setHaveWorks(true);
+          break;
+        } else {
+          setHaveWorks(false);
+        }
+      }
+    }
+  }, [works, themes])
+
+
   return directionSelected ?
-    <Link to='/profile' className={button.nav}>
-      <IoDocumentTextOutline className={button.icon} />
-      <p className={button.text}>Мое портфолио</p>
-    </Link>
+    <div className={styles.container}>
+      <Link to='/profile' className={styles.portfolio}>
+        <IoHomeOutline className={styles.icon} />
+        <p className={styles.text}>Мое портфолио</p>
+      </Link>
+      {haveWorks &&
+        <button className={styles.portfolio} onClick={() => setShowReview(true)}>
+          <IoBookOutline className={styles.icon} />
+          <p className={styles.text}>Рецензирование</p>
+        </button>
+      }
+
+    </div>
     :
-    <Link to='/directions' className={button.nav}>
-      <IoLayersOutline className={button.icon} />
-      <p className={button.text}>Направления</p>
+    <Link to='/directions' className={styles.portfolio}>
+      <IoLayersOutline className={styles.icon} />
+      <p className={styles.text}>Направления</p>
     </Link>
 }
 

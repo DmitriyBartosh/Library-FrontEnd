@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { IoOpenOutline, IoCopyOutline, IoCheckmarkSharp } from "react-icons/io5";
 import * as styles from './linkwork.module.scss';
 
-function Linkwork({ data, index }) {
+function Linkwork({ data }) {
   const { name, link } = data;
 
   const [isCopied, setIsCopied] = useState(false);
@@ -38,7 +38,7 @@ function Linkwork({ data, index }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 className={styles.text}
-                key={`name_${name}`}>{index + 1}. {name}</motion.p>
+                key={`name_${name}`}>{name}</motion.p>
             }
           </AnimatePresence>
         </div>

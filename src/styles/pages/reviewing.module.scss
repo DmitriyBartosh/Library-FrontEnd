@@ -1,0 +1,9 @@
+@import "../abstracts/variables.scss";
+
+.container {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  border-top: 1px solid $green;
+  .send {
+  }
+}

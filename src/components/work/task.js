@@ -7,14 +7,16 @@ import Editlink from './editlink';
 
 
 const Task = forwardRef((props, ref) => {
-  const { links } = useStateContext();
+  const { works } = useStateContext();
   const { html, frontmatter } = props.checklist;
-  const { theme } = props.pageContext;
+  const { theme, direction } = props.pageContext;
 
   const { data, selected, setSelected } = props;
 
-  const workcomplete = links && links[theme].filter(item => item.id === selected.index).length > 0;
-
+  // Все работы по теме
+  const relatedwork = works && works.filter(item => item.direction === direction && item.theme === theme);
+  // Прикреплена ли работа по теме
+  const thereIsWork = relatedwork.some(item => item.name === selected.title);
 
   return (
     <div className={styles.container} ref={ref}>
@@ -25,7 +27,7 @@ const Task = forwardRef((props, ref) => {
             const { title, complexity, time } = item.node.childMarkdownRemark.frontmatter;
             const { html, frontmatter } = item.node.childMarkdownRemark;
 
-            return <button className={cx(styles.item, selected.index === index && styles.active)} key={index} onClick={() => setSelected({ frontmatter: frontmatter, html: html, index: index })}>
+            return <button className={cx(styles.item, selected.title === frontmatter.title && styles.active)} key={index} onClick={() => setSelected({ frontmatter: frontmatter, html: html, title: frontmatter.title })}>
               <div className={styles.name}>
                 <p>{title}</p>
               </div>
@@ -43,13 +45,13 @@ const Task = forwardRef((props, ref) => {
           <div className={styles.checklist} dangerouslySetInnerHTML={{ __html: html }} />
         </div>
         <div className={styles.works}>
-          {workcomplete ?
-            links[theme].map((item, index) => {
-              return item.id === selected.index && <Editlink id={selected.index} data={item} theme={theme} index={index} key={index} />
+          {thereIsWork ?
+            relatedwork.map((item, index) => {
+              return item.name === selected.title && <Editlink data={item} key={index} />
             })
             :
             <div className={styles.links}>
-              <Addlink id={selected.index} theme={theme} hint={frontmatter.hint} title={frontmatter.title} />
+              <Addlink direction={direction} theme={theme} hint={frontmatter.hint} title={frontmatter.title} />
             </div>
           }
         </div>

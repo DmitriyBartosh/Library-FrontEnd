@@ -21,16 +21,13 @@ export const getAdminSettings = async () => {
 };
 
 export const editSettingsAdmin = ({ user, price }) => {
-  const { name, status, timetowork } = user;
+  const { name, status, backtowork } = user;
   const { logo, polygraphy, poster, socialmedia } = price;
-
-  console.log(user, price)
-
 
   axiosClient.put("admin/design/editsettings", {
     name: name,
     status: status,
-    timetowork: timetowork,
+    backtowork: backtowork,
     logo: logo,
     polygraphy: polygraphy,
     socialmedia: socialmedia,

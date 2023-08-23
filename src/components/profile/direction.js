@@ -1,12 +1,13 @@
 import React from 'react'
 import { useLocalStorage } from 'react-use';
 
-import Allworks from './portfoliomode';
+import Protfoliomode from './portfoliomode';
+import Classicmode from './classicmode';
 import Toggle from './toggle';
 
 import * as styles from './direction.module.scss';
 import * as global from '../../styles/base/global.module.scss';
-import Classicmode from './classicmode';
+
 
 
 function Direction({ data }) {
@@ -25,7 +26,7 @@ function Direction({ data }) {
         </div>
 
         {portfolioMode ?
-          <Allworks data={data} />
+          <Protfoliomode data={data} />
           :
           <Classicmode data={data} />
         }

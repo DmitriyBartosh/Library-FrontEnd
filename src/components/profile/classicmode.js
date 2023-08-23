@@ -6,16 +6,15 @@ import * as styles from './classicmode.module.scss';
 import { Link } from 'gatsby';
 
 function Classicmode({ data }) {
-  const { links } = useStateContext();
-
-  const { works, slug } = data;
+  const { works } = useStateContext();
 
   return (
     <div className={styles.container}>
-      {works.map((item, index) => {
-        const { title, description, order } = item;
-        const link = "/" + slug + "/" + item.slug;
-        const linksAdded = links && (links[item.slug].length > 0);
+      {data.works.map((item, index) => {
+        const { title, description, tags } = item;
+        const link = "/" + data.slug + "/" + item.slug;
+
+        const worksAdded = works && (works.filter(work => work.theme === item.slug)?.length > 0);
 
         return <div className={styles.theme} key={`about_${index}`}>
           <div className={styles.about}>
@@ -23,7 +22,7 @@ function Classicmode({ data }) {
             <div className={styles.text}>
               <p>{description}</p>
               <div className={styles.tags}>
-                {order.section.map((item, index) => {
+                {tags.map((item, index) => {
                   return <p key={index}>#{item.replace(/\s+/g, '_')}</p>
                 })}
               </div>
@@ -31,17 +30,17 @@ function Classicmode({ data }) {
           </div>
 
           <div className={styles.works}>
-            <p className={styles.title}>{linksAdded ? 'Добавленные работы:' : 'Нет прикрепленных работ'}</p>
-            {linksAdded &&
+            <p className={styles.title}>{worksAdded ? 'Добавленные работы:' : 'Нет прикрепленных работ'}</p>
+            {worksAdded &&
               <div className={styles.list}>
-                {links && links[item.slug].map((item, index) => {
+                {works && works.filter(work => work.theme === item.slug).map((item, index) => {
 
-                  return <Linkwork data={item} index={index} key={`link_${index}`} />
+                  return <Linkwork data={item} key={`link_${index}`} />
                 })}
               </div>
             }
             <Link to={link} className={styles.open}>
-              <p className={styles.text}>{linksAdded ? 'Продолжить тему' : 'Начать тему'}</p>
+              <p className={styles.text}>{worksAdded ? 'Продолжить тему' : 'Начать тему'}</p>
               <div className={styles.icon}>
                 <IoArrowForwardSharp className={styles.svg} />
               </div>

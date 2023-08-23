@@ -38,29 +38,40 @@
         justify-content: center;
         background: $background;
         width: 100%;
-        .remove {
+        .add,
+        .remove,
+        .hidden {
           height: 3rem;
           width: 100%;
           font-weight: 500;
+        }
+        .hidden {
+          border: 1px solid $grey;
+          color: $grey;
+          cursor: auto;
+          pointer-events: none;
+        }
+        .remove {
+          background-color: $background;
           color: $green;
           border: 1px solid $green;
           transition: all 0.3s;
           &.loading {
-            background: $lightgreen;
+            cursor: auto;
+            background: $green;
             color: white;
             pointer-events: none;
           }
         }
         .add {
-          height: 3rem;
-          width: 100%;
           background: $green;
           border: 1px solid transparent;
           color: white;
           transition: all 0.3s;
           &.loading {
-            background: $lightgreen;
-            color: white;
+            cursor: auto;
+            background: $background;
+            color: $green;
             border: 1px solid $green;
             pointer-events: none;
           }

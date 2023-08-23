@@ -22,10 +22,13 @@ function Work({ data, pageContext }) {
   const [selectedSpecification, setSelectedSpecification] = useState({
     frontmatter: firstSpecification.frontmatter,
     html: firstSpecification.html,
-    index: 0
+    title: firstSpecification.frontmatter.title
   });
 
-  const checklist = data.allChecklist.edges[selectedSpecification.index].node.childMarkdownRemark;
+  // ищем нужный чеклист по имени работы в выбранном селекте
+  const checklist = data.allChecklist.edges
+    .filter(item => item.node.childMarkdownRemark.frontmatter.title === selectedSpecification.title)
+    .find(item => item);
 
   const mainRef = useRef(null);
   const specificationRef = useRef(null)
@@ -85,7 +88,7 @@ function Work({ data, pageContext }) {
         </nav>
       </div>
       <div className={styles.content} ref={contentRef} data-font-size={fontSize}>
-        <Task data={specification} selected={selectedSpecification} setSelected={setSelectedSpecification} pageContext={pageContext} checklist={checklist} quantity={quantity} ref={mainRef} />
+        <Task data={specification} selected={selectedSpecification} setSelected={setSelectedSpecification} pageContext={pageContext} checklist={checklist.node.childMarkdownRemark} quantity={quantity} ref={mainRef} />
         <Specification html={selectedSpecification.html} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;

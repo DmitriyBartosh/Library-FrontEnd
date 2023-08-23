@@ -23,6 +23,19 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+        transition: all 0.3s;
+        &.hidden {
+          opacity: 0.25;
+          .area {
+            border: 1px solid $grey;
+            input {
+              color: $grey;
+            }
+          }
+          .label {
+            color: $grey;
+          }
+        }
         .label {
           display: flex;
           align-items: center;

@@ -71,13 +71,13 @@
     transform: translateX(0);
   }
   25% {
-    transform: translateX(-2px) rotate(-8deg);
+    transform: translateX(-2px) rotate(-6deg);
   }
   50% {
     transform: translateX(0) rotate(0);
   }
   75% {
-    transform: translateX(2px) rotate(8deg);
+    transform: translateX(2px) rotate(6deg);
   }
   100% {
     transform: translateX(0) rotate(0);

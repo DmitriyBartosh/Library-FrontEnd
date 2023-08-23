@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { checkBooleanObjectKeys } from "../../functions/other";
 import { useStateContext } from "../../context/ContextProvider";
 
 import { useLocation } from "react-use";
@@ -26,17 +27,14 @@ function Yandex() {
         return response.json();
       })
       .then((data) => {
-        const directions = data.directions;
+        const direction = JSON.parse(data.user.direction);
+        setUser(data.access_token, data.user);
 
-        const directionsBoolean = {
-          design: directions?.design === 1 ? true : false,
-          frontend: directions?.frontend === 1 ? true : false,
-          photo: directions?.photo === 1 ? true : false
+        if (direction !== null && checkBooleanObjectKeys(direction)) {
+          navigate("/profile");
+        } else {
+          navigate("/directions");
         }
-
-        setUser(data.access_token, data.user, directionsBoolean);
-
-        navigate("/profile");
       });
   }, []);
 

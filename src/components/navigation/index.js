@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useLocation } from 'react-use';
 import { useStateContext } from '../../context/ContextProvider';
 import * as styles from './navigation.module.scss'
+
 import Login from './login';
 import Account from './account';
 import Worksnav from './worksnav';
@@ -28,7 +29,6 @@ function Header() {
       }
     }
   `)
-
 
   const handleAnimationComplete = () => {
     const path = location.pathname;
@@ -69,7 +69,7 @@ function Header() {
 
 
         {isLoggedIn() ?
-          <Account />
+          <Account themes={dataDesignLinks.directionsJson.works} />
           :
           <Login isAuth={isAuth} />
         }

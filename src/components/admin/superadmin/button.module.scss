@@ -1,7 +1,7 @@
 @import "../../../styles/abstracts/variables.scss";
 
 .add,
-.remove {
+.edit {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,18 +9,13 @@
   height: 100%;
   padding-right: 12px;
   gap: 8px;
-  color: white;
   cursor: pointer;
   font-weight: 500;
-  &.loading {
-    pointer-events: none;
-  }
   .text {
     position: relative;
     text-align: center;
     line-height: 1;
     font-weight: 600;
-    color: white;
     &::after {
       position: absolute;
       right: -4px;
@@ -50,6 +45,7 @@
       height: 100%;
     }
   }
+
   &:hover .icon .svg {
     animation: shake 0.4s ease-in-out;
   }
@@ -60,11 +56,14 @@
 }
 
 .add {
-  background-color: $green;
+  background-color: $background;
+  border: 1px solid $green;
+  color: $green;
 }
 
-.remove {
-  background-color: $brown;
+.edit {
+  background-color: $green;
+  color: white;
 }
 
 @keyframes shake {

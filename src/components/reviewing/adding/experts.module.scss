@@ -1,0 +1,25 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .title {
+      overflow: hidden;
+      h4,
+      h5 {
+        display: block;
+      }
+    }
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 1rem;
+    h6 {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

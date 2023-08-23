@@ -81,7 +81,6 @@ exports.createPages = async ({ graphql, actions }) => {
         slug
         title
         description
-        instruction
       }
     }
   }
@@ -127,6 +126,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: "design/" + slug,
         specification: "design/" + slug + "/specifications",
         checklist: "design/" + slug + "/checklist",
+        direction: 'design',
         theme: slug,
         title: title,
         description: description,

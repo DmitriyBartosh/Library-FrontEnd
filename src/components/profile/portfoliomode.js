@@ -5,30 +5,29 @@ import * as styles from './portfoliomode.module.scss';
 import Linkwork from './linkwork';
 import { Link } from 'gatsby';
 
-function Allworks({ data }) {
-  const { links } = useStateContext();
+function Protfoliomode({ data }) {
+  const { works } = useStateContext();
 
-  const { works } = data;
+  console.log(works)
 
   return (
     <div className={styles.container}>
       <div className={styles.list}>
-        {works.map((item, index) => {
+        {data.works.map((item, index) => {
           const { slug, title } = item;
 
-          const work = links && links[slug];
+          const work = works && works.filter(item => item.theme === slug);
           const link = "/" + data.slug + "/" + item.slug;
 
-          return links && work.length > 0 &&
+          return works && work.length > 0 &&
             <div className={styles.item} key={index}>
               <div className={styles.head}>
                 <h4>{title}</h4>
-
               </div>
 
               <div className={styles.works}>
                 {work.map((item, index) => {
-                  return <Linkwork data={item} index={index} key={`works_${slug}_${index}`} />
+                  return <Linkwork data={item} key={`works_${slug}_${index}`} />
                 })}
                 <Link to={link} className={styles.link}>
                   <p className={styles.text}>Открыть тему</p>
@@ -37,13 +36,11 @@ function Allworks({ data }) {
                   </div>
                 </Link>
               </div>
-
             </div>
-
         })}
       </div>
     </div>
   )
 }
 
-export default Allworks
+export default Protfoliomode

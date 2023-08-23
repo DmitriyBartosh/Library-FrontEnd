@@ -1,38 +1,11 @@
 import React from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-
-import { useStateContext } from '../../../context/ContextProvider';
-import { getUsers, addDesignAdmin, removeDesignAdmin } from '../../../functions/superadmin';
-import Add from './add';
-import Remove from './remove';
+import Button from './button';
 
 import * as styles from './allusers.module.scss'
 
-function AllUsers() {
-  const { token } = useStateContext();
 
-  const queryClient = useQueryClient()
+function AllUsers({ openModal, allUsersQuery }) {
 
-  const allUsersQuery = useQuery({
-    queryKey: ["allusersforadmin"],
-    queryFn: getUsers,
-    enabled: !!token
-  })
-
-  const addAdminDesignMutation = useMutation({
-    mutationFn: addDesignAdmin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['allusersforadmin'] })
-    },
-  })
-
-  const removeAdminDesignMutation = useMutation({
-    mutationFn: removeDesignAdmin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['allusersforadmin'] })
-    }
-  })
 
   return (
     <div className={styles.container}>
@@ -57,15 +30,14 @@ function AllUsers() {
               <p>Статус</p>
             </div>
             <div className={styles.block}>
-              <p>Админ Дизайн</p>
-            </div>
-            <div className={styles.block}>
-              <p>Админ Frontend</p>
+              <p>Добавить эксперта</p>
             </div>
           </div>
           <div className={styles.users}>
             {allUsersQuery.data.data.map((item, index) => {
               const { id, name, email, design_admin, frontend_admin } = item;
+              const isExpert = design_admin || frontend_admin;
+
 
               return <div className={styles.item} key={index}>
                 <div className={styles.block}>
@@ -85,18 +57,9 @@ function AllUsers() {
                   </p>
                 </div>
                 <div className={styles.block}>
-                  {design_admin ?
-                    <Remove action={removeAdminDesignMutation} id={id} />
-                    :
-                    <Add action={addAdminDesignMutation} id={id} />
-                  }
-                </div>
-                <div className={styles.block}>
-                  {frontend_admin ?
-                    <Remove />
-                    :
-                    <Add />
-                  }
+                  <Button
+                    isExpert={isExpert}
+                    openModal={() => openModal(id, name, isExpert)} />
                 </div>
               </div>
             })}

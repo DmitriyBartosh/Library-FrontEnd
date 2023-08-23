@@ -1,48 +1,76 @@
-import React, { useState } from 'react'
-import cx from 'classname'
+import React, { useEffect, useState } from 'react'
+import cx from 'classname';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useStateContext } from '../context/ContextProvider'
-import { changeDesign, changeFrontend, changePhoto } from '../functions/direction'
+import { changeDirection } from '../functions/user'
+import { checkBooleanObjectKeys } from '../functions/other';
 import * as styles from '../styles/pages/directions.module.scss'
 import * as global from '../styles/base/global.module.scss'
+import { navigate } from 'gatsby';
 
 
-function DesignButton({ name, style }) {
-  const { updateStatus, statusDirection, setStatusDirection } = useStateContext();
-  const [isLoading, setIsLoading] = useState(false)
 
-  return <button
-    className={cx(style, isLoading && styles.loading)}
-    onClick={() => changeDesign(updateStatus, statusDirection, setStatusDirection, setIsLoading)}>
-    {isLoading ? "Меняем статус" : name}
-  </button>
+const dataTheme = {
+  design: {
+    title: 'Графический дизайн',
+    about: "В этом направлении вы научитесь работать с различными инструментами и программами для создания красивых и функциональных дизайнов. Вы также будете изучать теорию цвета, композицию и типографику, чтобы создавать эффективные графические решения для любого проекта.",
+    status: true
+  },
+  frontend: {
+    title: 'FrontEnd разработка',
+    about: 'В этом направлении вы научитесь работать с различными языками программирования, такими как HTML, CSS и JavaScript, чтобы создавать красивые и функциональные веб-сайты. Вы также будете изучать теорию дизайна интерфейсов и оптимизации сайтов для улучшения пользовательского опыта. В результате вы станете специалистом в области FrontEnd разработки и сможете создавать современные и удобные веб-приложения для любого проекта.',
+    status: false
+  },
+  photo: {
+    title: 'Фотография',
+    about: 'В этом направлении вы научитесь работать с камерами, светом и обработкой фотографий, чтобы создавать профессиональные и качественные фотографии. Вы также будете изучать теорию композиции и цвета, чтобы создавать уникальные и запоминающиеся фотографии. В результате вы станете специалистом в области фотографии и сможете создавать красивые и эмоциональные фотографии для любого проекта.',
+    status: false
+  }
 }
-
-function FrontendButton({ name, style }) {
-  const { updateStatus, statusDirection, setStatusDirection } = useStateContext();
-  const [isLoading, setIsLoading] = useState(false)
-
-  return <button
-    className={cx(style, isLoading && styles.loading)}
-    onClick={() => changeFrontend(updateStatus, statusDirection, setStatusDirection, setIsLoading)}>
-    {isLoading ? "Меняем статус" : name}
-  </button>
-}
-
-function PhotoButton({ name, style }) {
-  const { updateStatus, statusDirection, setStatusDirection } = useStateContext();
-  const [isLoading, setIsLoading] = useState(false)
-
-  return <button
-    className={cx(style, isLoading && styles.loading)}
-    onClick={() => changePhoto(updateStatus, statusDirection, setStatusDirection, setIsLoading)}>
-    {isLoading ? "Меняем статус" : name}
-  </button>
-}
-
-
 
 function Directions() {
-  const { updateStatus, statusDirection, setStatusDirection } = useStateContext();
+  const [isLoading, setIsLoading] = useState(null);
+  const queryClient = useQueryClient();
+  const { statusDirection, setStatusDirection } = useStateContext();
+
+  const changeDirectionMutation = useMutation({
+    mutationFn: changeDirection,
+    onSuccess: (data) => {
+      setIsLoading(null);
+      setStatusDirection(data.success);
+      queryClient.invalidateQueries({ queryKey: ['getDirections'] })
+
+      // Если хоть какое то направление с true, то редирект на страницу профиля
+      if (statusDirection !== null && checkBooleanObjectKeys(statusDirection)) {
+        navigate('/profile');
+      }
+    }
+  })
+
+
+
+  function updateDirection(theme, status) {
+    console.log(theme)
+    console.log(status)
+    setIsLoading(theme);
+    const object = statusDirection;
+    object[theme] = !status;
+    changeDirectionMutation.mutate({ object })
+  }
+
+  useEffect(() => {
+    // Если пользователь заходит впервые, ему присваиваются все направления как False
+    if (statusDirection === null) {
+      const directionObject = {}
+      for (let key in dataTheme) {
+        directionObject[key] = false;
+      }
+      setStatusDirection(directionObject)
+    } else return;
+
+
+  }, [statusDirection])
+
 
   return (
     <section className={styles.container}>
@@ -53,47 +81,35 @@ function Directions() {
         </div>
 
         <div className={styles.list}>
-          <div className={styles.block}>
-            <div className={styles.info}>
-              <h4>Графический дизайн</h4>
-              <div className={styles.body}>
-                <p>В этом направлении вы научитесь работать с различными инструментами и программами для создания красивых и функциональных дизайнов. Вы также будете изучать теорию цвета, композицию и типографику, чтобы создавать эффективные графические решения для любого проекта.</p>
+          {Object.keys(dataTheme).map((key, index) => {
+            const { title, about, status } = dataTheme[key];
+            const directionStatus = statusDirection && (statusDirection !== null ? statusDirection[key] : false);
+
+            const loading = isLoading !== null ? (isLoading === key ? true : false) : false;
+
+            return <div className={styles.block} key={`direction_${index}`}>
+              <div className={styles.info}>
+                <h4>{title}</h4>
+                <div className={styles.body}>
+                  <p>{about}</p>
+                </div>
+              </div>
+              <div className={styles.action}>
+                {statusDirection ?
+                  <button
+                    onClick={() => updateDirection(key, statusDirection[key])}
+                    disabled={changeDirectionMutation.isLoading}
+                    className={cx(status ? directionStatus ? styles.remove : styles.add : styles.hidden, loading && styles.loading)}>
+                    {status ? directionStatus ? loading ? "Добавляем направление" : "Скрыть направление" : loading ? "Скрываем направление" : "Добавить направление" : "Направление в разработке"}
+                  </button>
+                  :
+                  <button disabled={true} className={styles.remove}>
+                    Загрузка...
+                  </button>
+                }
               </div>
             </div>
-            <div className={styles.action}>
-              {statusDirection?.design ?
-                <DesignButton name="Скрыть направление" style={styles.remove} />
-                :
-                <DesignButton name="Добавить направление" style={styles.add} />
-              }
-            </div>
-          </div>
-          <div className={styles.block}>
-            <div className={styles.info}>
-              <h4>FrontEnd разработка</h4>
-              <p>В этом направлении вы научитесь работать с различными языками программирования, такими как HTML, CSS и JavaScript, чтобы создавать красивые и функциональные веб-сайты. Вы также будете изучать теорию дизайна интерфейсов и оптимизации сайтов для улучшения пользовательского опыта. В результате вы станете специалистом в области FrontEnd разработки и сможете создавать современные и удобные веб-приложения для любого проекта.</p>
-            </div>
-            <div className={styles.action}>
-              {statusDirection?.frontend ?
-                <FrontendButton name="Скрыть направление" style={styles.remove} />
-                :
-                <FrontendButton name="Добавить направление" style={styles.add} />
-              }
-            </div>
-          </div>
-          <div className={styles.block}>
-            <div className={styles.info}>
-              <h4>Фотография</h4>
-              <p>В этом направлении вы научитесь работать с камерами, светом и обработкой фотографий, чтобы создавать профессиональные и качественные фотографии. Вы также будете изучать теорию композиции и цвета, чтобы создавать уникальные и запоминающиеся фотографии. В результате вы станете специалистом в области фотографии и сможете создавать красивые и эмоциональные фотографии для любого проекта.</p>
-            </div>
-            <div className={styles.action}>
-              {statusDirection?.photo ?
-                <PhotoButton name="Скрыть направление" style={styles.remove} funcion={() => changePhoto(updateStatus, statusDirection, setStatusDirection)} />
-                :
-                <PhotoButton name="Добавить направление" style={styles.add} funcion={() => changePhoto(updateStatus, statusDirection, setStatusDirection)} />
-              }
-            </div>
-          </div>
+          })}
         </div>
       </div>
     </section>

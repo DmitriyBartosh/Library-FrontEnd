@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classname'
+import { useMutation, useQueryClient, useIsFetching } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion';
-import { useStateContext } from '../../context/ContextProvider';
-import { addLinkDesign } from '../../functions/user';
+import { addWork } from '../../functions/works';
 import { IoAddCircleOutline, IoCloseOutline, IoCheckmarkSharp, IoSyncOutline } from "react-icons/io5";
 import * as styles from './addlink.module.scss'
 
-function Addlink({ theme, hint, title, id }) {
-  const { updateLinkDesign } = useStateContext();
-
+function Addlink({ direction, theme, hint, title }) {
+  const isFetchingWorks = useIsFetching({ queryKey: ['getAllWorks'] })
   const [isAdded, setIsAdded] = useState(false);
-
   const [link, setLink] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const isDifferent = link !== "";
 
@@ -20,6 +19,13 @@ function Addlink({ theme, hint, title, id }) {
     setLink("");
     setIsAdded(false);
   }
+
+  const addWorkMutation = useMutation({
+    mutationFn: addWork,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getAllWorks'] })
+    }
+  })
 
   return <AnimatePresence initial={false} mode='popLayout'>
     {isAdded ?
@@ -40,10 +46,14 @@ function Addlink({ theme, hint, title, id }) {
           <div className={styles.navigation}>
             <button
               className={cx(styles.save, isDifferent && styles.active)}
-              disabled={!isDifferent || isLoading}
-              onClick={() => addLinkDesign(id, title, link, theme, setIsLoading, closeEdit, updateLinkDesign)}
-            >
-              {isLoading ?
+              disabled={!isDifferent || addWorkMutation.isLoading || isFetchingWorks}
+              onClick={() => addWorkMutation.mutate({
+                direction: direction,
+                theme: theme,
+                name: title,
+                link: link
+              })}>
+              {addWorkMutation.isLoading || isFetchingWorks ?
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1.25, repeat: Infinity }}
