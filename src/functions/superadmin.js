@@ -1,13 +1,17 @@
 import axiosClient from "../services/axiosClient";
+import { navigate } from "gatsby";
 
-export const getUsers = async () => {
-  try {
-    const { data } = await axiosClient
-      .get("admin/users");
-    return data;
-  } catch (err) {
-    return err;
-  }
+export const getUsers = () => {
+  return axiosClient
+    .get("admin/users")
+    .then(({ data }) => data)
+    .catch(({ response }) => {
+      const statusResponse = response.status;
+
+      if (statusResponse === 403) {
+        navigate("/profile");
+      }
+    });
 };
 
 export const getExpert = async (idExpert) => {
@@ -40,10 +44,10 @@ export const editAdmin = (data) => {
     .catch((err) => console.log(err))
 }
 
-export const removeAdmin = (id) => {
-  axiosClient.put("admin/design/remove", {
+export const deleteAdmin = (id) => {
+  return axiosClient.post("admin/expert/delete", {
     id: id
   })
-    .then(({ data }) => data.success)
+    .then((data) => data)
     .catch((err) => console.log(err))
 }

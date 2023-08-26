@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useStaticQuery, graphql } from "gatsby"
 import Add from './add';
 
 import * as styles from './modal.module.scss'
@@ -8,7 +9,6 @@ import Edit from './edit';
 
 
 function Modal({ editMode, closeModal, showModal, expert, setExpert, price, setPrice }) {
-
   const onImageLoad = (e, previewRef) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -43,6 +43,25 @@ function Modal({ editMode, closeModal, showModal, expert, setExpert, price, setP
     return true;
   }
 
+  const slugQuery = useStaticQuery(graphql`
+  query {
+    allDirectionsJson {
+      edges {
+        node {
+          slug
+          title
+          works {
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+`)
+
+  const slug = slugQuery.allDirectionsJson.edges;
+
   return (
     <AnimatePresence initial={false}>
       {showModal &&
@@ -55,7 +74,9 @@ function Modal({ editMode, closeModal, showModal, expert, setExpert, price, setP
               setExpert={setExpert}
               price={price}
               setPrice={setPrice}
-              areAllFieldsNotEmpty={areAllFieldsNotEmpty} />
+              areAllFieldsNotEmpty={areAllFieldsNotEmpty}
+              slug={slug}
+            />
             :
             <Add
               closeModal={closeModal}
@@ -64,7 +85,9 @@ function Modal({ editMode, closeModal, showModal, expert, setExpert, price, setP
               setPrice={setPrice}
               expert={expert}
               setExpert={setExpert}
-              areAllFieldsNotEmpty={areAllFieldsNotEmpty} />
+              areAllFieldsNotEmpty={areAllFieldsNotEmpty}
+              slug={slug}
+            />
           }
           <motion.div
             initial={{ opacity: 0 }}

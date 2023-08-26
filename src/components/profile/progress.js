@@ -7,17 +7,21 @@ import Direction from './direction';
 function Progress() {
   const { statusDirection } = useStateContext();
 
-  const design = useStaticQuery(graphql`
+  const directionQuery = useStaticQuery(graphql`
   query {
-    directionsJson(title: {eq: "Графический дизайн"}) {
-      title
-      slug
-      about
-      works {
-        slug
-        title
-        description
-        tags
+    allDirectionsJson {
+      edges {
+        node {
+          slug
+          title
+          works {
+            title
+            slug
+            tags
+            description
+          }
+          about
+        }
       }
     }
   }
@@ -25,7 +29,10 @@ function Progress() {
 
   return (
     <div className={styles.container}>
-      {statusDirection?.design && <Direction data={design.directionsJson} />}
+      {Object.entries(statusDirection).map(([key, value]) => {
+        const directionData = directionQuery.allDirectionsJson.edges.find(item => item.node.slug === key).node;
+        return value && <Direction data={directionData} key={`direction_${key}`} />
+      })}
     </div>
   )
 }

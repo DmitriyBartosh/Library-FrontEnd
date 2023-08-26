@@ -2,25 +2,33 @@ import React, { useRef, useEffect } from 'react'
 import cx from 'classname'
 import { useQuery } from '@tanstack/react-query';
 import { HiOutlineUpload } from 'react-icons/hi'
-import { IoAddOutline, IoArrowUpSharp } from "react-icons/io5";
+import { IoSave, IoArrowUpSharp, IoSyncOutline, IoTrashOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { themedata } from './themeData';
-import { getExpert, editAdmin } from '../../../functions/superadmin';
+import { getExpert, editAdmin, deleteAdmin } from '../../../functions/superadmin';
 import * as styles from './modal.module.scss'
 
 
-function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert, price, setPrice }) {
+function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert, price, setPrice, slug }) {
   const previewRef = useRef(null);
   const queryClient = useQueryClient();
 
   const result = useQuery({
-    queryKey: ['getexpert', expert.id],
+    queryKey: ['getexpertforadmin', expert.id],
     queryFn: () => getExpert(expert.id)
   })
 
   const editAdminMutation = useMutation({
     mutationFn: editAdmin,
+    onSuccess: () => {
+      closeModal();
+      queryClient.invalidateQueries({ queryKey: ['getexpertforadmin', expert.id] })
+      queryClient.invalidateQueries({ queryKey: ['allusersforadmin'] })
+    }
+  })
+
+  const deleteAdminMutation = useMutation({
+    mutationFn: deleteAdmin,
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries({ queryKey: ['allusersforadmin'] })
@@ -52,12 +60,11 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
         name: user.name,
         about: user.about,
         slug: user.slug,
-        direction: "design"
+        direction: user.direction
       })
       setPrice(priceNumber)
     }
 
-    console.log(result)
   }, [result.isStale])
 
   return (
@@ -68,6 +75,7 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
       transition={{ ease: [0.57, 0.14, 0.49, 0.91] }}
       className={styles.form}>
       <h5>Редактировать эксперта</h5>
+      {result.isLoading && <p>Загрузка...</p>}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: result.isLoading ? 0 : 1, pointerEvents: result.isLoading ? 'none' : 'auto' }} className={styles.info}>
 
         <div className={styles.avatar}>
@@ -76,6 +84,7 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
               type="file"
               accept="image/png,image/jpeg,image/jpg"
               className={styles.inputfile}
+              disabled={editAdminMutation.isLoading}
               onChange={(e) => onImageLoad(e, previewRef)}
             />
 
@@ -94,6 +103,7 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
           <input
             placeholder='Имя'
             value={expert.name}
+            disabled={editAdminMutation.isLoading}
             onChange={(e) => setExpert({ ...expert, name: e.target.value })} />
         </div>
 
@@ -101,6 +111,7 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
           <input
             placeholder='Об эксперте'
             value={expert.about}
+            disabled={editAdminMutation.isLoading}
             onChange={(e) => setExpert({ ...expert, about: e.target.value })} />
         </div>
 
@@ -108,15 +119,18 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
           <input
             placeholder='Ссылка'
             value={expert.slug}
+            disabled={editAdminMutation.isLoading}
             onChange={(e) => setExpert({ ...expert, slug: e.target.value })} />
         </div>
 
         <div className={styles.input}>
-          <select className={expert.direction && styles.selected} value={expert.direction} onChange={(e) => setExpert({ ...expert, direction: e.target.value })}>
+          <select className={expert.direction && styles.selected} disabled={editAdminMutation.isLoading} value={expert.direction} onChange={(e) => setExpert({ ...expert, direction: e.target.value })}>
             <option value="">Выберите вариант</option>
-            <option value="design">Графический дизайнер</option>
-            <option value="frontend">Frontend разработка</option>
-            <option value="photo">Фотография</option>
+            {slug.map((item) => {
+              const { title, slug } = item.node;
+
+              return <option value={slug} key={`option_${slug}`}>{title}</option>
+            })}
           </select>
         </div>
 
@@ -127,19 +141,19 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
             </div>
 
             <div className={styles.list}>
-              {Object.entries(themedata[expert.direction]).map(([key, value]) => {
-                const priceValue = price[key] || "";
+              {slug.find(item => item.node.slug === expert.direction).node.works.map((item) => {
+                const priceValue = price[item.slug] || "";
 
-                return <div className={styles.block} key={key}>
+                return <div className={styles.block} key={`price_${item.slug}`}>
                   <div className={styles.title}>
-                    <p>{value}</p>
+                    <p>{item.title}</p>
                   </div>
                   <div className={styles.input}>
                     <input
-                      placeholder={`Цена за рецензию на ${value}`}
+                      placeholder={`Цена за рецензию на ${item.title}`}
                       type='number'
                       disabled={editAdminMutation.isLoading}
-                      name={key}
+                      name={item.slug}
                       value={priceValue}
                       onChange={handlePriceChange} />
                     <p className={styles.rub}>₽</p>
@@ -150,12 +164,25 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
           </div>
         }
 
-        {areAllFieldsNotEmpty(expert) ?
-          <button className={styles.send}>
-            <div className={styles.icon}>
-              <IoAddOutline className={styles.svg} />
-            </div>
-            <p className={styles.text}>Назначить экспертом</p>
+        {areAllFieldsNotEmpty(expert) && areAllFieldsNotEmpty(price) ?
+          <button
+            className={cx(styles.send, editAdminMutation.isLoading && styles.loading)}
+            disabled={editAdminMutation.isLoading}
+            onClick={() => editAdminMutation.mutate({ expert, price })}>
+            {editAdminMutation.isLoading ?
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.25, repeat: Infinity }}
+                className={styles.load}>
+                <IoSyncOutline className={styles.svg} />
+              </motion.div>
+              :
+              <div className={styles.icon}>
+                <IoSave className={styles.svg} />
+              </div>
+            }
+
+            <p className={styles.text}>Сохранить изменения</p>
           </button>
           :
           <div className={styles.hint}>
@@ -165,6 +192,26 @@ function Edit({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert
             <p className={styles.text}>Заполните все поля</p>
           </div>
         }
+
+        <button
+          className={cx(styles.del, deleteAdminMutation.isLoading && styles.loading)}
+          disabled={deleteAdminMutation.isLoading}
+          onClick={() => deleteAdminMutation.mutate({ id: expert.id })}>
+          {deleteAdminMutation.isLoading ?
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.25, repeat: Infinity }}
+              className={styles.load}>
+              <IoSyncOutline className={styles.svg} />
+            </motion.div>
+            :
+            <div className={styles.icon}>
+              <IoTrashOutline className={styles.svg} />
+            </div>
+          }
+
+          <p className={styles.text}>Удалить эксперта</p>
+        </button>
       </motion.div>
     </motion.div>
   )

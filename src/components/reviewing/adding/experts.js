@@ -5,7 +5,6 @@ import * as styles from './experts.module.scss'
 
 function Expert({ choiseExpert, allDesignExpertQuery, setExpert, expert }) {
 
-
   return (
     <AnimatePresence initial={false} mode='popLayout'>
       {choiseExpert &&

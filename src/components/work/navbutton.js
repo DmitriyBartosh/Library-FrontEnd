@@ -32,14 +32,14 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
     initial={{ background: "#f3eee1", height: 0 }}
     key={`navbutton_${index}`}
     whileHover={{
-      background: "#43702c",
+      background: "#436b4c",
       color: "#ffffff",
       transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
     }}
     animate={{
       height: isActive ? 150 * ratio : 0,
-      background: isActive ? "#43702c" : "#f3eee1",
-      color: isActive ? "#ffffff" : "#43702c",
+      background: isActive ? "#436b4c" : "#f3eee1",
+      color: isActive ? "#ffffff" : "#436b4c",
       transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
     }}
     layout='size'

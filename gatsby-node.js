@@ -74,13 +74,19 @@ exports.createPages = async ({ graphql, actions }) => {
 `)
 
   // Страницы к Графическому дизайну
-  const designWorks = await graphql(`
+  const works = await graphql(`
   query {
-    directionsJson(slug: {eq: "design"}) {
-      works {
-        slug
-        title
-        description
+    allDirectionsJson {
+      edges {
+        node {
+          slug
+          title
+          works {
+            description
+            slug
+            title
+          }
+        }
       }
     }
   }
@@ -116,22 +122,23 @@ exports.createPages = async ({ graphql, actions }) => {
 
 
   // Работы в направлении Дизайн
-  designWorks.data.directionsJson.works.forEach((data) => {
-    const { slug, title, description, instruction } = data;
+  works.data.allDirectionsJson.edges.forEach((data) => {
+    const { slug, works } = data.node;
 
-    createPage({
-      path: `/design/${slug}`,
-      component: path.resolve('./src/templates/work.js'),
-      context: {
-        slug: "design/" + slug,
-        specification: "design/" + slug + "/specifications",
-        checklist: "design/" + slug + "/checklist",
-        direction: 'design',
-        theme: slug,
-        title: title,
-        description: description,
-        instruction: instruction
-      },
+    works.forEach((work) => {
+      createPage({
+        path: `/${slug}/${work.slug}`,
+        component: path.resolve('./src/templates/work.js'),
+        context: {
+          slug: `${slug}/` + work.slug,
+          specification: `${slug}/` + work.slug + "/specifications",
+          checklist: `${slug}/` + work.slug + "/checklist",
+          direction: slug,
+          theme: work.slug,
+          title: work.title,
+          description: work.description,
+        },
+      })
     })
   })
 }

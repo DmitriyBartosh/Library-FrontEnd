@@ -3,9 +3,10 @@ import { useStateContext } from '../context/ContextProvider'
 import { useEffectOnce } from 'react-use'
 import { navigate } from 'gatsby'
 import { useQuery } from '@tanstack/react-query'
-import axiosClient from '../services/axiosClient'
+import { graphql } from "gatsby"
+import { getExpert } from '../functions/expert'
 
-import DesignExpert from '../components/admin/design/designExpert'
+import Expert from '../components/admin/expert/expert'
 
 import * as styles from '../styles/pages/admin.module.scss'
 import * as global from '../styles/base/global.module.scss'
@@ -19,36 +20,23 @@ function Admin() {
     }
   })
 
-  const designexpert = () => {
-    return axiosClient
-      .get("/admin/expert")
-      .then(({ data }) => data)
-      .catch((error) => error);
-  };
-
-  const designExpertQuery = useQuery({
-    queryKey: ["designexpert"],
-    queryFn: designexpert,
+  const getExpertQuery = useQuery({
+    queryKey: ["getexpertforexpert"],
+    queryFn: getExpert,
     enabled: !!token
   })
 
-
-
-  const { data, isLoading, isError } = designExpertQuery;
+  const { data, isLoading, isError } = getExpertQuery;
 
   return (
     <section className={styles.container}>
       <div className={global.container}>
-        {isLoading ?
+        {isLoading &&
           <div className={styles.loading}>
             <p>Загрузка</p>
           </div>
-          :
-          <>
-            {data.design && <DesignExpert />}
-            {data.frontend && <p>Фронтенд направление</p>}
-          </>
         }
+        {data && <Expert data={data.expert} />}
         {isError && <p>Ошибка соединения</p>}
 
       </div>
@@ -57,3 +45,4 @@ function Admin() {
 }
 
 export default Admin
+

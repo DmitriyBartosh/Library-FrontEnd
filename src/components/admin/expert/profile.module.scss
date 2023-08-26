@@ -1,0 +1,107 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  h4 {
+    margin-bottom: 2rem;
+  }
+
+  .expert {
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+    gap: 2rem;
+    .profile {
+      display: flex;
+      gap: 2rem;
+      .avatar {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border: 1px solid $green;
+        padding: 2px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .name {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+        .about {
+          font-weight: 400;
+        }
+      }
+    }
+
+    .settings {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      .status {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 240px;
+        transition: all 0.4s;
+        &.active {
+          width: calc(3rem + 5px + 110px);
+          border: 1px solid $green;
+        }
+        .block {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          transition: all 0.3s;
+          .worked {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            height: 3rem;
+            padding: 0 1rem;
+            background: $background;
+            color: $green;
+            width: 110px;
+            font-weight: 500;
+            transition: all 0.4s;
+          }
+          .area {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            height: 3rem;
+            padding: 0 1rem;
+            background: $background;
+            color: $green;
+            width: 185px;
+            font-weight: 500;
+            transition: all 0.4s;
+            .hint {
+              color: $brown;
+              font-weight: 300;
+            }
+            input {
+              width: 100%;
+              height: 100%;
+              font-weight: 500;
+              color: $brown;
+              text-align: left;
+              &::placeholder {
+                font-weight: 300;
+                color: $brown;
+                transition: all 0.3s;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

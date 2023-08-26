@@ -24,15 +24,13 @@ function Secondbutton({ selected, scroll, top, height, contentRef }) {
 
   return (
     <motion.button
-      initial={{ background: "#335e1e", height: 0 }}
+      initial={{ height: 0 }}
       key={`specification_button`}
       whileHover={{
-        background: "#43702c",
         transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
       }}
       animate={{
         height: isActive ? 125 : 0,
-        background: isActive ? "#335e1e" : "#43702c",
         transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
       }}
       layout='size'

@@ -6,7 +6,6 @@ import * as styles from './allusers.module.scss'
 
 function AllUsers({ openModal, allUsersQuery }) {
 
-
   return (
     <div className={styles.container}>
       <h4>Все пользователи</h4>
@@ -30,14 +29,13 @@ function AllUsers({ openModal, allUsersQuery }) {
               <p>Статус</p>
             </div>
             <div className={styles.block}>
-              <p>Добавить эксперта</p>
+              <p>Изменить статус</p>
             </div>
           </div>
           <div className={styles.users}>
             {allUsersQuery.data.data.map((item, index) => {
-              const { id, name, email, design_admin, frontend_admin } = item;
-              const isExpert = design_admin || frontend_admin;
-
+              const { id, name, email, expert } = item;
+              const isExpert = expert !== null ? true : false;
 
               return <div className={styles.item} key={index}>
                 <div className={styles.block}>
@@ -50,15 +48,11 @@ function AllUsers({ openModal, allUsersQuery }) {
                   <p>{email}</p>
                 </div>
                 <div className={styles.block}>
-                  <p>
-                    {!(frontend_admin || design_admin) && "Пользователь"}
-                    {frontend_admin && "Админ frontend направления"}
-                    {design_admin && "Админ дизайн направления"}
-                  </p>
+                  <p>{isExpert ? "Эксперт" : "Пользователь"} </p>
                 </div>
                 <div className={styles.block}>
                   <Button
-                    isExpert={isExpert}
+                    isExpert={expert}
                     openModal={() => openModal(id, name, isExpert)} />
                 </div>
               </div>

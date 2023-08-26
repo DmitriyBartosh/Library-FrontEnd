@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { navigate } from 'gatsby';
 import { checkBooleanObjectKeys } from '../../functions/other';
 import { useEffectOnce } from 'react-use';
@@ -11,11 +11,13 @@ import Reviewstatus from '../reviewing/status/reviewstatus';
 function Index() {
   const { user, statusDirection } = useStateContext();
 
-  useEffectOnce(() => {
-    if (statusDirection === null || !checkBooleanObjectKeys(statusDirection)) {
-      navigate("/directions/");
+  useEffect(() => {
+    if (!(statusDirection === undefined)) {
+      if (!checkBooleanObjectKeys(statusDirection)) {
+        navigate("/directions/");
+      }
     }
-  })
+  }, [statusDirection])
 
   return (
     <section>

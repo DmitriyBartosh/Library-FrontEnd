@@ -6,7 +6,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid $green;
+  border: 1px solid $mainwork;
+  background-color: $mainwork;
   padding: 1rem;
   min-height: calc(3rem + 2px);
   cursor: pointer;

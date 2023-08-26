@@ -1,15 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { HiOutlineUpload } from 'react-icons/hi'
 import { IoAddOutline, IoArrowUpSharp, IoSyncOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { addAdmin } from '../../../functions/superadmin'
-import { themedata } from './themeData';
 import cx from 'classname'
 
 import * as styles from './modal.module.scss'
 
-function Add({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert, price, setPrice }) {
+function Add({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert, price, setPrice, slug }) {
   const previewRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -34,9 +33,9 @@ function Add({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert,
   useEffect(() => {
     const initialDesignState = {};
     if (expert.direction) {
-      Object.entries(themedata[expert.direction]).forEach(([key]) => {
-        initialDesignState[key] = 1000;
-      });
+      slug.find(item => item.node.slug === expert.direction).node.works.forEach(item => {
+        initialDesignState[item.slug] = 1000;
+      })
 
       setPrice(initialDesignState);
     } else {
@@ -102,9 +101,11 @@ function Add({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert,
         <div className={styles.input}>
           <select className={expert.direction && styles.selected} disabled={addAdminMutation.isLoading} value={expert.direction} onChange={(e) => setExpert({ ...expert, direction: e.target.value })}>
             <option value="">Выберите вариант</option>
-            <option value="design">Графический дизайнер</option>
-            <option value="frontend">Frontend разработка</option>
-            <option value="photo">Фотография</option>
+            {slug.map((item) => {
+              const { title, slug } = item.node;
+
+              return <option value={slug} key={`option_${slug}`}>{title}</option>
+            })}
           </select>
         </div>
 
@@ -115,19 +116,19 @@ function Add({ closeModal, onImageLoad, areAllFieldsNotEmpty, expert, setExpert,
             </div>
 
             <div className={styles.list}>
-              {Object.entries(themedata[expert.direction]).map(([key, value]) => {
-                const priceValue = price[key] || "";
+              {slug.find(item => item.node.slug === expert.direction).node.works.map((item) => {
+                const priceValue = price[item.slug] || "";
 
-                return <div className={styles.block} key={key}>
+                return <div className={styles.block} key={`price_${item.slug}`}>
                   <div className={styles.title}>
-                    <p>{value}</p>
+                    <p>{item.title}</p>
                   </div>
                   <div className={styles.input}>
                     <input
-                      placeholder={`Цена за рецензию на ${value}`}
+                      placeholder={`Цена за рецензию на ${item.title}`}
                       type='number'
                       disabled={addAdminMutation.isLoading}
-                      name={key}
+                      name={item.slug}
                       value={priceValue}
                       onChange={handlePriceChange} />
                     <p className={styles.rub}>₽</p>

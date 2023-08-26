@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { useStaticQuery, graphql } from 'gatsby';
 import { useStateContext } from '../../../context/ContextProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { getAllDesignExperts } from '../../../functions/user';
+import { getAllExperts } from '../../../functions/user';
 import { addWorkToReview } from '../../../functions/review';
 
 import Choisework from './choisework';
@@ -20,22 +19,9 @@ function Review() {
   const [expert, setExpert] = useState(null)
   const [choiseExpert, setChoiseExpert] = useState(false);
 
-  const designQuery = useStaticQuery(graphql`
-  query {
-    directionsJson(title: {eq: "Графический дизайн"}) {
-      works {
-        slug
-        title
-      }
-    }
-  }
-`)
-
-  const design = designQuery.directionsJson.works;
-
   const allDesignExpertQuery = useQuery({
     queryKey: ["alldesignexperts"],
-    queryFn: getAllDesignExperts,
+    queryFn: getAllExperts,
     enabled: !!token
   })
 
@@ -64,7 +50,7 @@ function Review() {
             exit={{ x: '100%', transition: { duration: 0.4 } }}
             transition={{ ease: [0.57, 0.14, 0.49, 0.91] }}
             className={styles.steps}>
-            <Choisework design={design} selected={selected} setSelected={setSelected} choiseExpert={choiseExpert} setChoiseExpert={setChoiseExpert} />
+            <Choisework selected={selected} setSelected={setSelected} choiseExpert={choiseExpert} setChoiseExpert={setChoiseExpert} />
             <Experts allDesignExpertQuery={allDesignExpertQuery} expert={expert} setExpert={setExpert} choiseExpert={choiseExpert} />
             <Nextstep choiseExpert={choiseExpert} selected={selected} expert={expert} nextStep={nextStep} />
           </motion.div>

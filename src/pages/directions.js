@@ -19,7 +19,7 @@ const dataTheme = {
   frontend: {
     title: 'FrontEnd разработка',
     about: 'В этом направлении вы научитесь работать с различными языками программирования, такими как HTML, CSS и JavaScript, чтобы создавать красивые и функциональные веб-сайты. Вы также будете изучать теорию дизайна интерфейсов и оптимизации сайтов для улучшения пользовательского опыта. В результате вы станете специалистом в области FrontEnd разработки и сможете создавать современные и удобные веб-приложения для любого проекта.',
-    status: false
+    status: true
   },
   photo: {
     title: 'Фотография',
@@ -50,8 +50,6 @@ function Directions() {
 
 
   function updateDirection(theme, status) {
-    console.log(theme)
-    console.log(status)
     setIsLoading(theme);
     const object = statusDirection;
     object[theme] = !status;

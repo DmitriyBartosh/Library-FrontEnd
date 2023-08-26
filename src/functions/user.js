@@ -30,10 +30,10 @@ export const changeDirection = (data) => {
 };
 
 
-export const getAllDesignExperts = async () => {
+export const getAllExperts = async (direction) => {
   try {
     const { data } = await axiosClient
-      .get("design/allexpert");
+      .get("review/allexperts", direction);
     return data;
   } catch (err) {
     return err;

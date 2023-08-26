@@ -114,13 +114,14 @@ function Work({ data, pageContext }) {
 export default Work
 
 export const Head = ({ pageContext }) => {
-  const { title, description } = pageContext;
+  const { title, description, slug } = pageContext;
+  console.log(pageContext);
 
   const data = {
     title: `Графикси | ${title}`,
     description: description,
     image: "../images/persons/kateshmidt/1.jpg",
-    slug: "/design/",
+    slug: `/${slug}`,
     keywords: "Слова",
     preview: "../images/tasklist/1.jpg"
   }
