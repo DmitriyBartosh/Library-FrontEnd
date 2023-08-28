@@ -6,8 +6,9 @@
   border: 1px solid $green;
   background: $background;
   height: 3rem;
-  width: 25rem;
+  width: 100%;
   overflow: hidden;
+  margin-bottom: 5px;
   &:hover {
     .name {
       transform: translate3d(-2.5rem, 0, 0);

@@ -7,9 +7,6 @@ import { Link } from 'gatsby';
 
 function Protfoliomode({ data }) {
   const { works } = useStateContext();
-
-  console.log(works)
-
   return (
     <div className={styles.container}>
       <div className={styles.list}>

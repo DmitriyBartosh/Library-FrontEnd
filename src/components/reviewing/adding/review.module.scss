@@ -21,12 +21,106 @@
     z-index: -1;
     will-change: auto;
   }
-  .steps {
+  .block {
     position: relative;
     height: 100%;
     width: 34rem;
     padding: 3rem 4rem;
     background-color: $background;
     border-left: 1px solid $green;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+    .selectdirection {
+      display: flex;
+      flex-direction: column;
+      h5 {
+        margin-bottom: 5px;
+      }
+      .directions {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 1rem;
+        .button {
+          display: flex;
+          align-items: center;
+          border: 1px solid $green;
+          height: 3rem;
+          width: 350px;
+          color: $green;
+          overflow: hidden;
+          transition: all 0.3s;
+          &:hover {
+            background-color: $green;
+            color: white;
+          }
+          .name {
+            width: 100%;
+            margin-right: -3rem;
+            font-weight: 500;
+            padding: 0 1rem;
+            font-weight: 500;
+            text-align: start;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .complete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+      width: 100%;
+      .head {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .close {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        .button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 3rem;
+          width: 200px;
+          color: $green;
+          font-weight: 500;
+          padding: 0 2rem;
+          border: 1px solid $green;
+          &:hover .text::after {
+            right: 0px;
+            opacity: 1;
+          }
+          .text {
+            position: relative;
+            text-align: center;
+            line-height: 1;
+            font-weight: 600;
+            &::after {
+              position: absolute;
+              right: -4px;
+              bottom: -4px;
+              content: "";
+              height: 1px;
+              width: 100%;
+              opacity: 0;
+              background: currentColor;
+              transition: all 0.15s;
+              transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+            }
+          }
+        }
+      }
+    }
   }
 }

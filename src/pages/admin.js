@@ -3,7 +3,6 @@ import { useStateContext } from '../context/ContextProvider'
 import { useEffectOnce } from 'react-use'
 import { navigate } from 'gatsby'
 import { useQuery } from '@tanstack/react-query'
-import { graphql } from "gatsby"
 import { getExpert } from '../functions/expert'
 
 import Expert from '../components/admin/expert/expert'

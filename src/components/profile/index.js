@@ -6,7 +6,7 @@ import { useStateContext } from '../../context/ContextProvider'
 
 import Progress from './progress';
 import Head from './head';
-import Reviewstatus from '../reviewing/status/reviewstatus';
+import Review from '../reviewing/status/reviewstatus';
 
 function Index() {
   const { user, statusDirection } = useStateContext();
@@ -22,7 +22,7 @@ function Index() {
   return (
     <section>
       <Head user={user} />
-      <Reviewstatus />
+      <Review />
       <Progress statusDirection={statusDirection} />
     </section>
   )

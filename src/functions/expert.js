@@ -40,3 +40,13 @@ export const editExpert = ({ expert }) => {
     .then(({ data }) => data)
     .catch((error) => error);
 }
+
+export const getAllWorksOnReviewForAdmin = async () => {
+  try {
+    const { data } = await axiosClient
+      .get("expert/allworks");
+    return data.works;
+  } catch (err) {
+    return err;
+  }
+}

@@ -28,14 +28,3 @@ export const changeDirection = (data) => {
     .then(({ data }) => data)
     .catch((err) => console.log(err));
 };
-
-
-export const getAllExperts = async (direction) => {
-  try {
-    const { data } = await axiosClient
-      .get("review/allexperts", direction);
-    return data;
-  } catch (err) {
-    return err;
-  }
-};

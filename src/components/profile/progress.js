@@ -29,7 +29,7 @@ function Progress() {
 
   return (
     <div className={styles.container}>
-      {Object.entries(statusDirection).map(([key, value]) => {
+      {statusDirection && Object.entries(statusDirection).map(([key, value]) => {
         const directionData = directionQuery.allDirectionsJson.edges.find(item => item.node.slug === key).node;
         return value && <Direction data={directionData} key={`direction_${key}`} />
       })}

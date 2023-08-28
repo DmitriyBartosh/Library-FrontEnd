@@ -4,6 +4,7 @@ import * as styles from './adminpanel.module.scss'
 import { useStaticQuery, graphql } from "gatsby"
 import Theme from './theme'
 import Profile from './profile'
+import Review from './review'
 
 function Expert({ data }) {
 
@@ -29,6 +30,7 @@ function Expert({ data }) {
   return (
     <div className={styles.container}>
       <Profile data={data} slug={slug} />
+      <Review />
       <Theme slug={slug} />
     </div>
   )

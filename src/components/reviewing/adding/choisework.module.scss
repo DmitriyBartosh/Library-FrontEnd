@@ -29,7 +29,6 @@
   .list {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     .theme {
       h6 {
         margin-top: 1rem;
@@ -84,8 +83,6 @@
       color: $green;
       font-weight: 500;
       height: 3rem;
-      width: 350px;
-      margin-top: 10px;
       &:hover .text::after {
         right: 0px;
         opacity: 1;

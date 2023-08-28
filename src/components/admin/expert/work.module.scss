@@ -1,0 +1,27 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 14rem 12rem repeat(3, 1fr);
+  height: 3rem;
+  border: 1px solid $green;
+  .block {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-right: 1px solid $green;
+    &:last-child {
+      border-right: none;
+    }
+    p {
+      color: $green;
+      font-weight: 500;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-align: start;
+      width: 100%;
+    }
+  }
+}
