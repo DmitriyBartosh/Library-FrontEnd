@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import cx from 'classname'
 import { useStateContext } from '../../context/ContextProvider';
 import * as styles from './task.module.scss';
@@ -11,12 +11,21 @@ const Task = forwardRef((props, ref) => {
   const { html, frontmatter } = props.checklist;
   const { theme, direction } = props.pageContext;
 
+  const [relatedwork, setRelatedwork] = useState(null);
+  const [thereIsWork, setThereIsWork] = useState(null);
+
   const { data, selected, setSelected } = props;
 
-  // Все работы по теме
-  const relatedwork = works && works.filter(item => item.direction === direction && item.theme === theme);
-  // Прикреплена ли работа по теме
-  const thereIsWork = relatedwork.some(item => item.name === selected.title);
+  useEffect(() => {
+    if (works) {
+      const related = works.filter(item => item.direction === direction && item.theme === theme);
+      // Все работы по теме
+      setRelatedwork(related);
+      // Прикреплена ли работа по теме
+      setThereIsWork(related.some(item => item.name === selected.title));
+    }
+  }, [works])
+
 
   return (
     <div className={styles.container} ref={ref}>

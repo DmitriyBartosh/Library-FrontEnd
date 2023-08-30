@@ -28,14 +28,14 @@
     ul {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.25rem;
       padding-left: 1.5rem;
     }
     ol {
       list-style: decimal;
     }
     ul {
-      list-style: circle;
+      list-style: disc;
     }
     blockquote {
       padding: 1rem 2rem;

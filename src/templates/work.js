@@ -40,7 +40,7 @@ function Work({ data, pageContext }) {
 
   const { y } = useScroll(contentRef);
 
-  const sumSections = data.allSteps.edges.length;
+  const sumSections = data.allSteps.edges.length > 9 ? data.allSteps.edges.length : '0' + data.allSteps.edges.length;
   const specification = data.allSpecification.edges;
 
   useEffect(() => {
@@ -92,6 +92,7 @@ function Work({ data, pageContext }) {
         <Specification html={selectedSpecification.html} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
+          const count = index >= 9 ? index + 1 : '0' + (index + 1);
 
           return <div
             className={styles.section}
@@ -101,7 +102,7 @@ function Work({ data, pageContext }) {
           >
             <div className={styles.header}>
               <p>{frontmatter.title}</p>
-              <p>0{index + 1} / 0{sumSections}</p>
+              <p>{count} / {sumSections}</p>
             </div>
             <div className={styles.text} dangerouslySetInnerHTML={{ __html: html }} />
           </div>
@@ -115,7 +116,6 @@ export default Work
 
 export const Head = ({ pageContext }) => {
   const { title, description, slug } = pageContext;
-  console.log(pageContext);
 
   const data = {
     title: `Графикси | ${title}`,
@@ -137,7 +137,7 @@ allSteps: allFile(
   filter: {
     relativeDirectory: {eq: $slug}
   }
-  sort: {name: ASC}
+  sort: {childMarkdownRemark: {frontmatter: {count: ASC}}}
 ) {
   edges {
     node {

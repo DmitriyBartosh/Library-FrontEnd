@@ -25,7 +25,7 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
     contentRef.current.scrollTo({ top: element.offsetTop - 30, behavior: "instant" });
   };
 
-
+  const count = index >= 9 ? index + 1 : '0' + (index + 1);
 
   return <motion.button
     className={styles.container}
@@ -45,7 +45,7 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
     layout='size'
     onClick={scrollToSection}
   >
-    <span className={styles.number}>0{index + 1}</span>
+    <span className={styles.number}>{count}</span>
     <span className={styles.text}>{frontmatter.title}</span>
     <motion.span
       className={styles.dot}

@@ -81,7 +81,6 @@ function Review() {
   }
 
   useEffect(() => {
-    console.log(works)
     if (statusDirection && works?.length > 0) {
       // Записываем в массив все направления с значением true (Которые выбрал пользователь, для отображения в профиле)
       const active = Object.keys(statusDirection).filter(key => statusDirection[key] === true);
