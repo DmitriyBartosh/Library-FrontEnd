@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { graphql } from "gatsby"
 import { useScroll } from 'react-use';
-import { useStateContext } from '../context/ContextProvider';
 import * as styles from '../styles/pages/work.module.scss'
 import MetaTag from '../components/metaTag';
 import Navbutton from '../components/work/navbutton';
@@ -15,8 +14,6 @@ function Work({ data, pageContext }) {
   const [maxHeight, setMaxHeight] = useState(0)
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
-
-  const { fontSize } = useStateContext();
 
   const firstSpecification = data.allSpecification.edges[0].node.childMarkdownRemark;
   const [selectedSpecification, setSelectedSpecification] = useState({
@@ -75,7 +72,7 @@ function Work({ data, pageContext }) {
     <section className={styles.container}>
       <div className={styles.navigation}>
         <nav>
-          <Mainbutton contentRef={contentRef} scroll={y} section={mainRef} theme={pageContext.title} />
+          <Mainbutton selected={selectedSpecification.frontmatter} contentRef={contentRef} scroll={y} section={mainRef} theme={pageContext.title} />
           <Secondbutton selected={selectedSpecification.frontmatter} contentRef={contentRef} top={specificationTop} height={specificationHeight} scroll={y} section={mainRef} />
           {data.allSteps.edges.map((item, index) => {
             const size = sectionRef.current[index]?.getBoundingClientRect();
@@ -87,12 +84,11 @@ function Work({ data, pageContext }) {
           })}
         </nav>
       </div>
-      <div className={styles.content} ref={contentRef} data-font-size={fontSize}>
+      <div className={styles.content} ref={contentRef}>
         <Task data={specification} selected={selectedSpecification} setSelected={setSelectedSpecification} pageContext={pageContext} checklist={checklist.node.childMarkdownRemark} quantity={quantity} ref={mainRef} />
         <Specification html={selectedSpecification.html} sumSections={sumSections} ref={specificationRef} />
         {data.allSteps.edges.map((item, index) => {
           const { frontmatter, html } = item.node.childMarkdownRemark;
-          const count = index >= 9 ? index + 1 : '0' + (index + 1);
 
           return <div
             className={styles.section}
@@ -101,8 +97,7 @@ function Work({ data, pageContext }) {
             data-section-number={index + 1}
           >
             <div className={styles.header}>
-              <p>{frontmatter.title}</p>
-              <p>{count} / {sumSections}</p>
+              <p className={styles.title}>{frontmatter.title}</p>
             </div>
             <div className={styles.text} dangerouslySetInnerHTML={{ __html: html }} />
           </div>

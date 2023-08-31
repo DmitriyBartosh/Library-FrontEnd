@@ -4,20 +4,32 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid $headwork;
+  max-width: $maxwidth;
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 2rem;
-    background-color: $headwork;
+    padding: 35px;
+    padding-bottom: 1rem;
+    margin-right: -35px;
+    margin-left: -35px;
+    background-color: $beige;
+    .title {
+      color: $brown;
+      font-weight: 600;
+      font-size: $headmain;
+    }
   }
   .text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    padding: 2rem;
+    padding: 40px 35px;
+    padding-top: 1rem;
+    margin-right: -35px;
+    margin-left: -35px;
+    background-color: $beige;
     strong {
       font-weight: 600;
     }
@@ -65,20 +77,8 @@
   }
 }
 
-[data-font-size="small"] {
-  .collection .item {
-    width: 250px;
-  }
-}
-
-[data-font-size="medium"] {
-  .item {
-    width: 280px;
-  }
-}
-
-[data-font-size="large"] {
-  .item {
-    width: 325px;
-  }
+.container p,
+.container li {
+  font-size: $regulartext;
+  line-height: 1.4;
 }

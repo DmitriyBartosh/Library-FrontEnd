@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import cx from 'classname'
 import * as styles from './navbutton.module.scss'
 
 
@@ -11,10 +12,10 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
 
   useEffect(() => {
     // Отступ от которого секция в поле видимости верхней границы экрана считается активной
-    const offset = -1 * (top - 31);
+    const offset = -1 * (top - 74);
 
     // Если в верхняя граница находится в поле секции, то она активна и просчитываем прогресс для точки
-    if (offset > 0 && offset < height + 31) {
+    if (offset > 0 && offset < height + 74) {
       setIsActive(true);
       setProgress(offset / height)
     } else setIsActive(false);
@@ -22,24 +23,17 @@ function Navbutton({ contentRef, data, scroll, height, top, ratio, index }) {
 
   const scrollToSection = () => {
     const element = document.querySelector(`[data-section-number="${index + 1}"]`);
-    contentRef.current.scrollTo({ top: element.offsetTop - 30, behavior: "instant" });
+    contentRef.current.scrollTo({ top: element.offsetTop - 55, behavior: "instant" });
   };
 
   const count = index >= 9 ? index + 1 : '0' + (index + 1);
 
   return <motion.button
-    className={styles.container}
-    initial={{ background: "#f3eee1", height: 0 }}
+    className={cx(styles.container, isActive && styles.active)}
+    initial={{ height: 0 }}
     key={`navbutton_${index}`}
-    whileHover={{
-      background: "#436b4c",
-      color: "#ffffff",
-      transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
-    }}
     animate={{
-      height: isActive ? 150 * ratio : 0,
-      background: isActive ? "#436b4c" : "#f3eee1",
-      color: isActive ? "#ffffff" : "#436b4c",
+      height: isActive ? 120 * ratio : 0,
       transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
     }}
     layout='size'

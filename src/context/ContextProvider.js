@@ -26,7 +26,6 @@ export const ContextProvider = ({ children }) => {
   const [user, _setUser, removeUser] = useLocalStorage('user');
   const [works, setWorks, removeWorks] = useLocalStorage('works');
   const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
-  const [fontSize, setFontSize] = useLocalStorage('font-size', "small")
 
   const userQuery = useQuery({
     queryKey: ["getUser"],
@@ -105,11 +104,9 @@ export const ContextProvider = ({ children }) => {
         token,
         works,
         statusDirection,
-        fontSize,
         showReview,
         setShowReview,
         setStatusDirection,
-        setFontSize,
         setUser,
         setWorks,
         isLoggedIn

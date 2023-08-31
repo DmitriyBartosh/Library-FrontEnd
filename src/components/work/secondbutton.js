@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import cx from 'classname';
 import * as styles from './secondbutton.module.scss';
 
 function Secondbutton({ selected, scroll, top, height, contentRef }) {
@@ -8,10 +9,10 @@ function Secondbutton({ selected, scroll, top, height, contentRef }) {
 
   useEffect(() => {
     // Отступ от которого секция в поле видимости верхней границы экрана считается активной
-    const offset = -1 * (top - 31);
+    const offset = -1 * (top - 74);
 
     // Если в верхняя граница находится в поле секции, то она активна и просчитываем прогресс для точки
-    if (offset > 0 && offset < height + 31) {
+    if (offset > 0 && offset < height + 74) {
       setIsActive(true);
       setProgress(offset / height);
     } else setIsActive(false);
@@ -19,40 +20,40 @@ function Secondbutton({ selected, scroll, top, height, contentRef }) {
 
   const scrollToSection = () => {
     const element = document.querySelector(`[data-section-number="${0}"]`);
-    contentRef.current.scrollTo({ top: element.offsetTop - 30, behavior: "instant" });
+    contentRef.current.scrollTo({ top: element.offsetTop - 74, behavior: "instant" });
   };
 
   return (
     <motion.button
+      className={cx(styles.container, isActive && styles.active)}
       initial={{ height: 0 }}
-      key={`specification_button`}
-      whileHover={{
-        transition: { duration: 0.3, ease: [0.42, 0.5, 0.39, 1] }
-      }}
+      key='secondbutton'
       animate={{
-        height: isActive ? 125 : 0,
+        height: isActive ? 150 : 0,
         transition: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }
       }}
       layout='size'
-      className={styles.container}
-      onClick={scrollToSection}>
-
-      <div className={styles.name}>
-        <p>{selected.title}</p>
+      onClick={scrollToSection}
+    >
+      <div>
+        <span className={styles.number}>00</span>
+        <AnimatePresence initial={false} mode='popLayout'>
+          {isActive &&
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.4, ease: [0.25, 0.62, 0.58, 1] } }}
+              exit={{ opacity: 0, y: -10 }} className={styles.level} key="level">
+              <p>Сложность: <span>{selected.complexity}</span></p>
+              <p>Сроки: <span>{selected.time}</span></p>
+            </motion.div>
+          }
+        </AnimatePresence>
       </div>
-      <AnimatePresence initial={false} mode='popLayout'>
-        {isActive &&
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.4, ease: [0.25, 0.62, 0.58, 1] } }}
-            exit={{ opacity: 0, y: -10 }} className={styles.level} key="level">
-            <p>Сложность: <span>{selected.complexity}</span></p>
-            <p>Время выполнения: <span>{selected.time}</span></p>
-          </motion.div>
-        }
-      </AnimatePresence>
 
 
+      <div className={styles.text}>
+        <p>Техническое задание</p>
+      </div>
 
       <motion.span
         className={styles.dot}
@@ -63,7 +64,6 @@ function Secondbutton({ selected, scroll, top, height, contentRef }) {
           transition: { opacity: { duration: 0.6, ease: [0.42, 0.5, 0.39, 1] }, top: { duration: 0.15 } }
         }}
       />
-
     </motion.button>
   )
 }

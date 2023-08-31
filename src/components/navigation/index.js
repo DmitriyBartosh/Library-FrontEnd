@@ -15,7 +15,6 @@ import Settings from './settings';
 function Header() {
   const [isPush, setIsPush] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-  const [isDesign, setIsDesign] = useState(false);
   const location = useLocation();
 
   const { isLoggedIn } = useStateContext();
@@ -34,15 +33,9 @@ function Header() {
     const path = location.pathname;
     const Auth = path.includes('auth');
 
-    // Для ссылок по темам дизайна
-    const designLinks = dataDesignLinks.directionsJson.works;
-    const isDesignTheme = designLinks.some((item) => path.includes(item.slug)) && path.includes('design');
-
-
     if (isPush) {
       setIsPush(false);
       setIsAuth(Auth);
-      setIsDesign(isDesignTheme);
     } return null;
   };
 
@@ -57,8 +50,7 @@ function Header() {
       transition={{ duration: isPush ? 0.4 : 0.6, ease: [0.15, 0.45, 0.4, 0.93] }}
       onAnimationComplete={handleAnimationComplete}
       className={styles.container}>
-      {isDesign && <Settings key="settings" />}
-      <nav className={cx(styles.navigation, isDesign && styles.settings)}>
+      <nav className={styles.navigation}>
         <Link
           to='/'
           style={{ transform: isAuth ? "translateX(50%)" : "translateX(0%)" }}

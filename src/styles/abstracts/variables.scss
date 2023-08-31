@@ -5,16 +5,26 @@ $tablet: 1025px;
 $mobile: 600px;
 $pager: 350px;
 
+// максимальная ширина текстового блока в заданиях
+$maxwidth: 800px;
+
+// Типографика для заданий
+$headmain: 40px;
+$headsecond: 24px;
+$regulartext: 18px;
+
 // Colors
 $background: #f3eee1;
-$green: #43702c;
+$green: #4e8a7f;
+$beige: #e9e1ce;
+
 $lightgreen: #89a17d;
 $darkgreen: #335e1e;
+
 $orange: #ed6c31;
 $brown: #a93601;
 $pink: #f1e0d6;
 $grey: #919091;
-$beige: #fcedc6;
 
 // Цвет для заголовков в теме
 $headwork: #d8ccb8;

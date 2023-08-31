@@ -14,6 +14,8 @@ function Review() {
     enabled: !!token
   })
 
+  console.log(directionQuery.data)
+
 
   return directionQuery.data && directionQuery.data.length > 0 &&
     <div className={styles.container}>

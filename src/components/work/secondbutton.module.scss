@@ -6,37 +6,47 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid $mainwork;
-  background-color: $mainwork;
+  background-color: $beige;
+  border-bottom: 2px solid $green;
+  margin-bottom: -2px;
   padding: 1rem;
-  min-height: calc(3rem + 2px);
   cursor: pointer;
+  min-height: 90px;
   width: 100%;
-  color: white;
   will-change: auto;
+  transition: background-color 0.6s cubic-bezier(0.42, 0.5, 0.39, 1);
+  &.active {
+    background-color: $green;
+    .text,
+    .level {
+      color: white;
+    }
+    .number {
+      display: none;
+    }
+  }
   .level {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    text-align: left;
-    will-change: auto;
-    span {
-      font-weight: 500;
-      font-size: 1rem;
+    width: 100%;
+    p span {
+      font-weight: 600;
     }
   }
-  .name {
-    position: relative;
-    font-weight: 500;
-    text-align: left;
-    span {
-      font-weight: 500;
-    }
-    p {
-      line-height: 1;
-    }
+  .number {
+    font-size: 0.9rem;
+    font-weight: 300;
   }
-
+  .text {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: start;
+  }
+  .level,
+  .text {
+    transition: color 0.6s cubic-bezier(0.42, 0.5, 0.39, 1);
+  }
   .dot {
     position: absolute;
     right: 8px;
@@ -44,6 +54,6 @@
     opacity: 0;
     height: 6px;
     width: 6px;
-    background-color: $background;
+    background-color: $beige;
   }
 }

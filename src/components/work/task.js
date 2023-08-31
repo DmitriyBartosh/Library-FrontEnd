@@ -50,7 +50,7 @@ const Task = forwardRef((props, ref) => {
       </div>
       <div className={styles.instruction}>
         <div className={styles.head}>
-          <h3>Инструкция</h3>
+          <h2 className={styles.title}>Инструкция</h2>
           <div className={styles.checklist} dangerouslySetInnerHTML={{ __html: html }} />
         </div>
         <div className={styles.works}>

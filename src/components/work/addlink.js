@@ -93,7 +93,7 @@ function Addlink({ direction, theme, hint, title }) {
         onClick={() => setIsAdded(true)}
         className={styles.button}>
         <IoAddCircleOutline className={styles.icon} />
-        <p className={styles.text}>Добавить работу</p>
+        <span className={styles.text}>Добавить работу</span>
       </motion.button>
     }
   </AnimatePresence>

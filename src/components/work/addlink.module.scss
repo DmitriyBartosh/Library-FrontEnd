@@ -11,8 +11,9 @@
       height: 3rem;
       width: 100%;
       padding: 0 1rem;
-      border: 1px solid white;
-      color: white;
+      border: 1px solid $green;
+      color: $green;
+      font-weight: 500;
       &::after {
         position: absolute;
         content: "";
@@ -23,7 +24,7 @@
         background: white;
       }
       &::placeholder {
-        color: white;
+        color: $green;
         transition: all 0.3s;
       }
       &:focus::placeholder {
@@ -44,7 +45,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid white;
+      color: $green;
+      border: 1px solid $green;
     }
     .back {
       .icon {
@@ -57,27 +59,27 @@
       }
     }
     .save {
-      background-color: $mainwork;
+      background-color: $beige;
       transition: background-color 0.3s;
       .icon {
         width: 1.15rem;
         height: 1.15rem;
         .svg {
-          color: white;
+          color: $green;
           width: 100%;
           height: 100%;
           transition: color 0.3s;
         }
         .load {
-          color: $mainwork;
+          color: white;
           width: 100%;
           height: 100%;
         }
       }
       &.active {
-        background-color: white;
+        background-color: $green;
         .icon .svg {
-          color: $mainwork;
+          color: white;
         }
       }
     }
@@ -89,10 +91,13 @@
   align-items: center;
   justify-content: flex-start;
   margin-top: 1rem;
-  padding: 0 1rem;
-  height: 3rem;
   background-color: $background;
-  color: $mainwork;
+  color: $green;
+  padding: 15px 25px;
+  width: 100%;
+  p {
+    font-size: $regulartext;
+  }
   span {
     font-weight: 600;
   }
@@ -106,11 +111,10 @@
   width: 250px;
   padding-right: 12px;
   gap: 8px;
-  border-left: 1px solid #43702c;
-  background: white;
-  color: #43702c;
+  background: $green;
+  width: 100%;
+  color: white;
   cursor: pointer;
-  font-weight: 500;
   .text {
     position: relative;
     text-align: center;

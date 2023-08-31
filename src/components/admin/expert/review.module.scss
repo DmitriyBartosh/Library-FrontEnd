@@ -8,8 +8,8 @@
     margin-bottom: 1rem;
   }
   .works {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 }
