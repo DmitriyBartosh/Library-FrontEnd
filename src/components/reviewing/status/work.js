@@ -1,27 +1,14 @@
 import React, { useState } from 'react'
 import { useStaticQuery, graphql } from 'gatsby';
-import { IoTrashOutline } from "react-icons/io5";
+import State from './state';
+import Detailed from './detailed';
+
 import * as styles from './work.module.scss'
 
 function Work({ data }) {
-  const { work, status } = data;
+  const { work } = data;
 
-  const [isCopied, setIsCopied] = useState(false);
-
-  const copiedLink = (link) => {
-    if (!isCopied) {
-      setIsCopied(true);
-      navigator.clipboard.writeText(link);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 800);
-    }
-  }
-
-  const workStatus = {
-    'link checking': "В обрбаботке"
-  }
+  const [showReview, setShowlReview] = useState(false);
 
   const slugQuery = useStaticQuery(graphql`
   query {
@@ -49,20 +36,13 @@ function Work({ data }) {
         <p className={styles.subtitle}>{direction} / {theme}</p>
         <a href={work.link} target='_blank' className={styles.title}>{work.name}</a>
       </div>
-      <div className={styles.status}>
-        {status === 'link checking' &&
-          <div className={styles.block}>
-            <div className={styles.message}>
-              <p>В обработке</p>
-            </div>
-            <button className={styles.cancel}>
-              <div className={styles.icon}>
-                <IoTrashOutline className={styles.svg} />
-              </div>
-            </button>
-          </div>
-        }
-      </div>
+      <State
+        data={data}
+        setShowlReview={setShowlReview} />
+      <Detailed
+        data={data}
+        showReview={showReview}
+        setShowlReview={setShowlReview} />
     </div>
   )
 }

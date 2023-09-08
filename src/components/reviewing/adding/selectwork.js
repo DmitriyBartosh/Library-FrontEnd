@@ -5,7 +5,7 @@ import cx from 'classname'
 import * as styles from './selectwork.module.scss'
 
 function Selectwork({ data, addWork, choiseExpert, isChecked }) {
-  const { id, name } = data;
+  const { id, theme, name } = data;
 
   return <AnimatePresence initial={false} mode='popLayout'>
     {(!choiseExpert || isChecked) &&
@@ -16,7 +16,7 @@ function Selectwork({ data, addWork, choiseExpert, isChecked }) {
         transition={{ duration: 0.4, ease: [0.49, 0.22, 0.27, 0.88] }}
         layout='position'
         className={cx(styles.container, isChecked && styles.checked, choiseExpert && styles.cursor)}
-        onClick={() => addWork(id)}
+        onClick={() => addWork(id, theme)}
         disabled={choiseExpert}>
         <div className={styles.check}>
           <IoCheckmarkSharp className={styles.icon} />

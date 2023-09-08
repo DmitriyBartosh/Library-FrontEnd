@@ -15,13 +15,6 @@ function Reviewstatus() {
     enabled: !!token
   })
 
-  useEffect(() => {
-    console.log(directionQuery)
-  }, [directionQuery])
-
-
-
-
   return directionQuery.data && directionQuery.data.length > 0 &&
     <div className={styles.container}>
       <div className={global.container}>

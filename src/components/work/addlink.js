@@ -36,11 +36,7 @@ function Addlink({ direction, theme, hint, title }) {
         key="addedlink">
         <div className={styles.container}>
           <div className={styles.input}>
-            <input placeholder='Имя работы' value={title} disabled={true} />
-          </div>
-
-          <div className={styles.input}>
-            <input placeholder='Ссылка' value={link} onChange={(e) => setLink(e.target.value)} />
+            <input placeholder='Ссылка на работу' value={link} onChange={(e) => setLink(e.target.value)} />
           </div>
 
           <div className={styles.navigation}>
@@ -86,9 +82,9 @@ function Addlink({ direction, theme, hint, title }) {
       </motion.div>
       :
       <motion.button
-        initial={{ opacity: 0, x: 10 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 10 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
         key="startaddlink"
         onClick={() => setIsAdded(true)}
         className={styles.button}>

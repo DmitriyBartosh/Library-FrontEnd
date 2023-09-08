@@ -112,6 +112,9 @@
           padding-right: 4rem;
           background: $blockquote;
           border-left: 5px solid $blockquoteline;
+          h2 {
+            margin-bottom: 0.5rem;
+          }
         }
         a {
           position: relative;

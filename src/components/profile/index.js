@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { navigate } from 'gatsby';
 import { checkBooleanObjectKeys } from '../../functions/other';
-import { useEffectOnce } from 'react-use';
 import { useStateContext } from '../../context/ContextProvider'
 
 import Progress from './progress';

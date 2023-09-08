@@ -29,7 +29,7 @@ function Theme({ slug }) {
             return <div className={styles.theme} key={`theme${index}`}>
               <h5>{item.title}</h5>
               <div className={styles.items}>
-                {data.works.filter(work => work.theme === item.slug).map((item, index) => {
+                {data?.works?.filter(work => work.theme === item.slug).map((item, index) => {
                   return <Linkwork item={item} user={item.user} key={index} />
                 })}
               </div>

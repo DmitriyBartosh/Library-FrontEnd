@@ -1,0 +1,88 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  position: relative;
+  .block {
+    width: 100%;
+    height: 3rem;
+    border-top: 1px solid $green;
+    &.one {
+      display: flex;
+      margin-top: 1px solid $green;
+    }
+    &.two {
+      display: grid;
+      grid-template-columns: 1fr 3rem;
+    }
+    .button,
+    .message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 8px;
+      .text {
+        text-align: center;
+        line-height: 1;
+        font-weight: 600;
+      }
+      .icon {
+        position: relative;
+        width: 1.25rem;
+        height: 1.25rem;
+        .svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .message {
+      background-color: $beige;
+      color: $green;
+    }
+    .button {
+      background-color: $green;
+      color: white;
+      .text {
+        position: relative;
+        &::after {
+          position: absolute;
+          left: -4px;
+          bottom: -4px;
+          content: "";
+          height: 1px;
+          width: 100%;
+          opacity: 0;
+          background: currentColor;
+          transition: all 0.15s;
+          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+        }
+      }
+      &:hover .icon {
+        animation: shake 0.4s ease-in-out;
+      }
+      &:hover .text::after {
+        left: 0px;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-8deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0);
+  }
+  75% {
+    transform: translateX(2px) rotate(8deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}

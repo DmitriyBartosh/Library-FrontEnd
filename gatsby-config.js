@@ -35,6 +35,7 @@ module.exports = {
               maxWidth: 2000,
               linkImagesToOriginal: false,
               quality: 85,
+              showCaptions: true,
               withWebp: true,
               withAvif: true,
 

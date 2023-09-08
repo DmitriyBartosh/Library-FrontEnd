@@ -1,0 +1,71 @@
+@import "../../../../styles/abstracts/variables.scss";
+
+.container {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $green;
+    color: white;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    .load {
+      width: 1.15rem;
+      height: 1.15rem;
+      .svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .action {
+    display: grid;
+    grid-template-columns: 1fr 8rem;
+    height: 100%;
+    .current,
+    .fail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      cursor: pointer;
+      .text {
+        position: relative;
+        text-align: center;
+        line-height: 1;
+        font-weight: 600;
+        &::after {
+          position: absolute;
+          left: -8px;
+          bottom: -4px;
+          content: "";
+          height: 1px;
+          width: 100%;
+          opacity: 0;
+          background: currentColor;
+          transition: all 0.15s;
+          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+        }
+      }
+      &:hover .text::after {
+        left: 0px;
+        opacity: 1;
+      }
+    }
+    .current {
+      background-color: $green;
+      font-weight: 600;
+      color: white;
+    }
+    .fail {
+      background-color: $beige;
+      color: $green;
+      font-weight: 400;
+      border-top: 1px solid $green;
+    }
+  }
+}

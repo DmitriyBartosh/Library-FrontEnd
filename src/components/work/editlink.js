@@ -44,10 +44,6 @@ function Editlink({ data }) {
   return (
     <div className={cx(styles.container, edited && styles.edited)}>
 
-      <div className={styles.name}>
-        <input placeholder='Имя работы' disabled={true} value={name} />
-      </div>
-
       <div className={styles.link}>
         <input placeholder='Ссылка' disabled={!edited} value={link} onChange={(e) => setLink(e.target.value)} />
       </div>

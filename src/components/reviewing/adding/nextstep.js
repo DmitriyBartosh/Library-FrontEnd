@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { IoArrowForwardSharp, IoSyncOutline } from 'react-icons/io5'
 import * as styles from './nextstep.module.scss'
 
-function Nextstep({ choiseExpert, selected, expert, nextStep, addWorkToReviewMutation }) {
+function Nextstep({ choiseExpert, selected, expert, nextStep, price, addWorkToReviewMutation }) {
   const isChoise = (selected.length === 0 && !choiseExpert) || (expert === null && choiseExpert)
 
   return (
@@ -15,11 +15,15 @@ function Nextstep({ choiseExpert, selected, expert, nextStep, addWorkToReviewMut
         ease: [0.49, 0.22, 0.27, 0.88]
       }}
       className={styles.container}>
-      <button disabled={addWorkToReviewMutation.isLoading} className={isChoise ? styles.chois : styles.button} onClick={() => nextStep()}>
+      <button
+        disabled={addWorkToReviewMutation.isLoading}
+        className={isChoise ? styles.chois : styles.button}
+        onClick={() => nextStep()}
+      >
         {isChoise ?
           <p className={styles.text}>Выберите</p>
           :
-          <p className={styles.text}>Продолжить</p>
+          <p className={styles.text}>Продолжить {price > 0 && `/ ${price} руб.`}</p>
         }
         {addWorkToReviewMutation.isLoading ?
           <motion.div

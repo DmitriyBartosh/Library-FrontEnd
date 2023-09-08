@@ -8,9 +8,9 @@ import * as styles from './choisework.module.scss'
 function Choisework({ selectedDirection, selected, setSelected, choiseExpert, setChoiseExpert }) {
   const { works } = useStateContext();
 
-  const addWork = (id) => {
+  const addWork = (id, theme) => {
 
-    const newWork = { id: id }
+    const newWork = { id: id, theme: theme }
 
     const isAdded = selected.some(item => item.id === newWork.id);
 

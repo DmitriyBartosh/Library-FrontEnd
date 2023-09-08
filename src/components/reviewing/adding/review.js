@@ -22,6 +22,7 @@ function Review() {
   const [expert, setExpert] = useState(null)
   const [choiseExpert, setChoiseExpert] = useState(false);
   const [selectedDirection, setSelectedDirection] = useState(null);
+  const [price, setPrice] = useState(0);
 
   const [directionWithWork, setDirectionWithWork] = useState([]);
 
@@ -44,7 +45,7 @@ function Review() {
   const nextStep = () => {
     if (choiseExpert) {
       addWorkToReviewMutation.mutate({
-        expert_id: expert,
+        expert_id: expert.id,
         works: selected
       })
     } else {
@@ -94,13 +95,16 @@ function Review() {
     }
   }, [statusDirection, works])
 
-
   useEffect(() => {
-    console.log(selectedDirection)
+    if (expert) {
+      var cost = 0;
+      for (let index = 0; index < selected.length; index++) {
+        cost = cost + parseInt(expert.price[selected[index].theme]);
+      }
+      setPrice(cost);
+    }
 
-
-  }, [selectedDirection])
-
+  }, [selected, expert])
 
 
   return (
@@ -148,7 +152,8 @@ function Review() {
                   choiseExpert={choiseExpert}
                   selected={selected}
                   expert={expert}
-                  nextStep={nextStep} />
+                  nextStep={nextStep}
+                  price={price} />
               </div>
             }
 

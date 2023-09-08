@@ -1,0 +1,33 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: $green;
+  .text {
+    line-height: 1;
+    font-weight: 500;
+    color: white;
+  }
+}
+
+.container {
+  .text {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 1px;
+      background: currentColor;
+      transition: all 0.3s;
+    }
+  }
+  &:hover .text::after {
+    width: 100%;
+  }
+}

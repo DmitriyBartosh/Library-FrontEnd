@@ -25,3 +25,35 @@ export const addWorkToReview = (data) => {
     .then((data) => data)
     .catch((err) => console.log(err))
 }
+
+export const deleteReview = (id) => {
+  console.log(id)
+  return axiosClient.delete(`review/delete/${id}`)
+    .then((data) => data)
+    .catch((err) => console.log(err))
+}
+
+// Внести коррективы в работу или исправить ссылку на работу
+export const fixWorkToReview = (data) => {
+  return axiosClient.post("review/fix", data)
+    .then((data) => data)
+    .catch((err) => console.log(err))
+}
+
+// Ссылка на оплату за ревью работы
+export const getPayment = async (data) => {
+  return axiosClient.post('review/payment/get', data)
+    .then((data) => data)
+    .catch((err) => console.log(err))
+};
+
+// Проверить статус оплаты, если создавалась платежка
+export const checkPayment = async (id) => {
+  try {
+    const { data } = await axiosClient
+      .get(`review/payment/${id}`);
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
