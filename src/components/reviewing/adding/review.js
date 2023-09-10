@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAllExperts } from '../../../functions/review';
 import { useStateContext } from '../../../context/ContextProvider';
 import { addWorkToReview } from '../../../functions/review';
@@ -17,6 +17,8 @@ function Review() {
   const { token, works, statusDirection, showReview, setShowReview } = useStateContext();
 
   const [isComplete, setIsComplete] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const [selected, setSelected] = useState([])
   const [expert, setExpert] = useState(null)
@@ -39,6 +41,7 @@ function Review() {
       setSelected([]);
       setExpert(null);
       setChoiseExpert(false);
+      queryClient.invalidateQueries({ queryKey: ['getAllWorksOnReview'] })
     }
   })
 

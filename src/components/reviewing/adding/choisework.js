@@ -6,7 +6,7 @@ import Selectwork from './selectwork'
 import * as styles from './choisework.module.scss'
 
 function Choisework({ selectedDirection, selected, setSelected, choiseExpert, setChoiseExpert }) {
-  const { works } = useStateContext();
+  const { works, reviews } = useStateContext();
 
   const addWork = (id, theme) => {
 
@@ -21,6 +21,8 @@ function Choisework({ selectedDirection, selected, setSelected, choiseExpert, se
       setSelected([...selected, newWork]);
     }
   }
+
+  const filteredWorks = works.filter(work => !reviews.some(review => review.work_id === work.id));
 
   return (
     <div className={styles.container}>
@@ -64,9 +66,9 @@ function Choisework({ selectedDirection, selected, setSelected, choiseExpert, se
         <div className={styles.list}>
           {selectedDirection && selectedDirection.works.map((item, indexTheme) => {
             const { slug, title } = item;
-            const work = works && works.filter(work => work.theme === slug);
+            const work = filteredWorks && filteredWorks.filter(work => work.theme === slug);
 
-            return works && work.length > 0 &&
+            return filteredWorks && work.length > 0 &&
               <div className={styles.theme} key={indexTheme}>
                 <AnimatePresence initial={false} mode='popLayout'>
                   {!choiseExpert &&

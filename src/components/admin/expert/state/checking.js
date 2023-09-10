@@ -6,7 +6,7 @@ import { workVerified } from '../../../../functions/expert'
 import * as styles from './checking.module.scss'
 
 
-function Checking({ id, setShowFailReview }) {
+function Checking({ id, setShowDetailed }) {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false)
 
@@ -50,7 +50,7 @@ function Checking({ id, setShowFailReview }) {
           }>
             <p className={styles.text}>Все в порядке</p>
           </button>
-          <button className={styles.fail} onClick={() => setShowFailReview(true)}>
+          <button className={styles.fail} onClick={() => setShowDetailed(true)}>
             <p className={styles.text}>Ошибка</p>
           </button>
         </motion.div>

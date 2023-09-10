@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { navigate } from 'gatsby';
+import { motion } from 'framer-motion'
+import cx from 'classname'
+import { IoSyncOutline } from 'react-icons/io5'
 import { getPayment, checkPayment } from '../../../functions/review'
 import { useStateContext } from '../../../context/ContextProvider';
 import * as styles from './pay.module.scss'
@@ -14,7 +17,13 @@ function Pay({ data }) {
   const checkPaymentQuery = useQuery({
     queryKey: ['checkpaymentreview', data.id],
     queryFn: () => checkPayment(data.id),
-    enabled: !!token && data.transaction_id != null
+    enabled: !!token && data.transaction_id != null,
+    refetchInterval: 1000,
+    onSuccess: (res) => {
+      if (res.message === 'Рецензия оплачена') {
+        queryClient.invalidateQueries({ queryKey: ['getAllWorksOnReview'] })
+      }
+    }
   })
 
   const getPaymentMutation = useMutation({
@@ -22,8 +31,6 @@ function Pay({ data }) {
     onSuccess: (res) => {
       const url = res.data.url;
       navigate(url);
-
-      queryClient.invalidateQueries({ queryKey: ['getexpertforadmin', data.id] })
     }
   })
 
@@ -40,14 +47,28 @@ function Pay({ data }) {
       </a>
       :
       <button
-        className={styles.container}
+        className={cx(styles.container, getPaymentMutation.isLoading && styles.loading)}
+        disabled={getPaymentMutation.isLoading}
         onClick={() => getPaymentMutation.mutate({
           cost: cost,
           work: data.work.id,
           expert: data.expert.id,
           review: data.id
         })}>
-        <p className={styles.text}>Оплатить / {cost} руб.</p>
+        {getPaymentMutation.isLoading ?
+          <>
+            <p className={styles.text}>Платеж создается...</p>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.25, repeat: Infinity }}
+              className={styles.load}>
+              <IoSyncOutline className={styles.svg} />
+            </motion.div>
+          </>
+          :
+          <p className={styles.text}>Оплатить / {cost} руб.</p>
+        }
+
       </button>
   )
 }

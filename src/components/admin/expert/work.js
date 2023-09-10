@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 import { useStaticQuery, graphql } from 'gatsby';
 import State from './state/state';
-import Failreview from './failreview'
-import Firstreview from './firstreview';
 
 import * as styles from './work.module.scss'
+import Detailed from './detailed';
 
 
 function Work({ data }) {
   const { user, work } = data;
 
-  const [showFailReview, setShowFailReview] = useState(false);
-  const [showMakeReview, setShowMakeReview] = useState(false);
+  const [showDetailed, setShowDetailed] = useState(false);
 
   const slugQuery = useStaticQuery(graphql`
   query {
@@ -43,9 +41,8 @@ function Work({ data }) {
           {user.email}
         </a>
       </div>
-      <State data={data} setShowFailReview={setShowFailReview} setShowMakeReview={setShowMakeReview} />
-      <Firstreview data={data} showMakeReview={showMakeReview} setShowMakeReview={setShowMakeReview} />
-      <Failreview data={data} showFailReview={showFailReview} setShowFailReview={setShowFailReview} />
+      <State data={data} setShowDetailed={setShowDetailed} />
+      <Detailed data={data} showDetailed={showDetailed} setShowDetailed={setShowDetailed} />
     </div>
   )
 }

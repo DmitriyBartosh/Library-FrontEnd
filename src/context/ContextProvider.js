@@ -2,6 +2,7 @@ import { navigate } from "gatsby";
 import { useLocalStorage } from "react-use";
 import { useQuery } from "@tanstack/react-query";
 import { getUser, getDirections } from "../functions/user";
+import { getAllWorksOnReview } from "../functions/review";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAllWorks } from "../functions/works";
 
@@ -9,6 +10,7 @@ const StateContext = createContext({
   user: null,
   token: null,
   works: null,
+  reviews: null,
   statusDirection: null,
   fontSize: "small",
   showReview: false,
@@ -25,6 +27,7 @@ export const ContextProvider = ({ children }) => {
   const [token, setToken, removeToken] = useLocalStorage('token')
   const [user, _setUser, removeUser] = useLocalStorage('user');
   const [works, setWorks, removeWorks] = useLocalStorage('works');
+  const [reviews, setReviews, removeReviews] = useLocalStorage('reviews');
   const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
 
   const userQuery = useQuery({
@@ -43,6 +46,12 @@ export const ContextProvider = ({ children }) => {
     queryKey: ["getAllWorks"],
     queryFn: getAllWorks,
     enabled: !!token,
+  })
+
+  const allWorkOnReviewQuery = useQuery({
+    queryKey: ["getAllWorksOnReview"],
+    queryFn: getAllWorksOnReview,
+    enabled: !!token
   })
 
   // обнулить пользователя
@@ -88,12 +97,20 @@ export const ContextProvider = ({ children }) => {
     }
   }, [allWorksQuery.isStale])
 
+  // Обновление информации о работах на проверке
+  useEffect(() => {
+    if (allWorkOnReviewQuery.isSuccess && !allWorkOnReviewQuery.isFetching) {
+      setReviews(allWorkOnReviewQuery.data);
+    }
+  }, [allWorkOnReviewQuery.isStale])
+
   useEffect(() => {
     if (!token) {
       removeToken();
       removeUser();
       removeStatusDirection();
       removeWorks();
+      removeReviews();
     }
   }, [token])
 
@@ -103,6 +120,7 @@ export const ContextProvider = ({ children }) => {
         user,
         token,
         works,
+        reviews,
         statusDirection,
         showReview,
         setShowReview,

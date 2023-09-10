@@ -40,6 +40,13 @@ export const fixWorkToReview = (data) => {
     .catch((err) => console.log(err))
 }
 
+// Дополнить работу после первой проверки и отправить эксперту
+export const revisionReview = (data) => {
+  return axiosClient.post("review/revision", data)
+    .then((data) => data)
+    .catch((err) => console.log(err))
+}
+
 // Ссылка на оплату за ревью работы
 export const getPayment = async (data) => {
   return axiosClient.post('review/payment/get', data)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoTimeOutline, IoDocumentTextOutline, IoCheckmarkSharp } from "react-icons/io5";
+import { IoTimeOutline, IoDocumentTextOutline, IoCheckmarkSharp, IoDuplicateOutline } from "react-icons/io5";
 import cx from 'classname'
 import Pay from './pay';
 import Del from './del'
@@ -40,7 +40,7 @@ function State({ data, setShowlReview }) {
         </div>
       }
 
-      {status === 'paid' &&
+      {status === 'firstchecked' &&
         <div className={cx(styles.block, styles.one)}>
           <div className={styles.message}>
             <p className={styles.text}>Работа проверяется</p>
@@ -51,16 +51,39 @@ function State({ data, setShowlReview }) {
         </div>
       }
 
+      {status === 'secondchecked' &&
+        <div className={cx(styles.block, styles.one)}>
+          <div className={styles.message}>
+            <p className={styles.text}>Вторая проверка</p>
+            <div className={styles.icon}>
+              <IoDocumentTextOutline className={styles.svg} />
+            </div>
+          </div>
+        </div>
+      }
+
+      {status === 'revision' &&
+        <div className={cx(styles.block, styles.one)}>
+          <button className={styles.button} onClick={() => setShowlReview(true)}>
+            <p className={styles.text}>Дополнить</p>
+            <div className={styles.icon}>
+              <IoDuplicateOutline className={styles.svg} />
+            </div>
+          </button>
+        </div>
+      }
+
       {status === 'complete' &&
         <div className={cx(styles.block, styles.one)}>
           <button className={styles.button} onClick={() => setShowlReview(true)}>
-            <p className={styles.text}>Работа зачтена</p>
+            <p className={styles.text}>Зачтено</p>
             <div className={styles.icon}>
               <IoCheckmarkSharp className={styles.svg} />
             </div>
           </button>
         </div>
       }
+
 
     </div>
   )
