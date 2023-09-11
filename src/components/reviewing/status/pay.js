@@ -57,7 +57,7 @@ function Pay({ data }) {
         })}>
         {getPaymentMutation.isLoading ?
           <>
-            <p className={styles.text}>Платеж создается...</p>
+            <p className={styles.text}>Платеж создается</p>
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 1.25, repeat: Infinity }}

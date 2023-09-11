@@ -6,7 +6,7 @@ import Detailed from './detailed';
 import * as styles from './work.module.scss'
 
 function Work({ data }) {
-  const { work } = data;
+  const { work, link } = data;
 
   const [showReview, setShowlReview] = useState(false);
 
@@ -34,7 +34,7 @@ function Work({ data }) {
     <div className={styles.container}>
       <div className={styles.head}>
         <p className={styles.subtitle}>{direction} / {theme}</p>
-        <a href={work.link} target='_blank' className={styles.title}>{work.name}</a>
+        <a href={link ? link : work.link} target='_blank' className={styles.title}>{work.name}</a>
       </div>
       <State
         data={data}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { IoWalletOutline, IoTimeOutline, IoDocumentTextOutline, IoAlertCircleOutline, IoCheckmarkDoneSharp } from 'react-icons/io5'
+import { IoWalletOutline, IoCloseSharp, IoTimeOutline, IoDocumentTextOutline, IoAlertCircleOutline, IoCheckmarkDoneSharp } from 'react-icons/io5'
 import Checking from './checking'
 
 import * as styles from './state.module.scss'
@@ -56,9 +56,18 @@ function State({ data, setShowDetailed }) {
           </button>
         }
 
+        {status === 'notcounted' &&
+          <button className={styles.button} onClick={() => setShowDetailed(true)}>
+            <p className={styles.text}>Не зачет</p>
+            <div className={styles.icon}>
+              <IoCloseSharp className={styles.svg} />
+            </div>
+          </button>
+        }
+
         {status === 'complete' &&
           <button className={styles.button} onClick={() => setShowDetailed(true)}>
-            <p className={styles.text}>Проверено</p>
+            <p className={styles.text}>Зачет</p>
             <div className={styles.icon}>
               <IoCheckmarkDoneSharp className={styles.svg} />
             </div>

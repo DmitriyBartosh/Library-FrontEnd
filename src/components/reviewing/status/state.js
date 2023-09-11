@@ -54,7 +54,7 @@ function State({ data, setShowlReview }) {
       {status === 'secondchecked' &&
         <div className={cx(styles.block, styles.one)}>
           <div className={styles.message}>
-            <p className={styles.text}>Вторая проверка</p>
+            <p className={styles.text}>Повторная проверка</p>
             <div className={styles.icon}>
               <IoDocumentTextOutline className={styles.svg} />
             </div>
@@ -65,9 +65,20 @@ function State({ data, setShowlReview }) {
       {status === 'revision' &&
         <div className={cx(styles.block, styles.one)}>
           <button className={styles.button} onClick={() => setShowlReview(true)}>
-            <p className={styles.text}>Дополнить</p>
+            <p className={styles.text}>Внести правки</p>
             <div className={styles.icon}>
               <IoDuplicateOutline className={styles.svg} />
+            </div>
+          </button>
+        </div>
+      }
+
+      {status === 'notcounted' &&
+        <div className={cx(styles.block, styles.one)}>
+          <button className={styles.button} onClick={() => setShowlReview(true)}>
+            <p className={styles.text}>Не зачтена</p>
+            <div className={styles.icon}>
+              <IoCheckmarkSharp className={styles.svg} />
             </div>
           </button>
         </div>

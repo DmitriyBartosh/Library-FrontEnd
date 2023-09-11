@@ -20,9 +20,11 @@ function Preview() {
           <Flowertwo className={styles.flowers} />
         </div>
         <div className={styles.info}>
-          <p>Получайте больше кайфа от обучения дизайну онлайн</p>
-          <h1>Создай свое портфолио<br />
-            вместе с Графикси</h1>
+          <h1>Дай старт своей<br />
+            карьере с Графикси</h1>
+          <p>Сервис, который помогает улучшить портфолио
+            и получить консультации от экспертов на любом
+            этапе твоей карьеры  </p>
           <Link className={cx(button.main, styles.button)} to='/portfolio'>Собрать портфолио</Link>
         </div>
       </div>

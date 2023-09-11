@@ -48,7 +48,7 @@ function Checking({ id, setShowDetailed }) {
             reviewVerifiedMutation.mutate({ id: id });
           }
           }>
-            <p className={styles.text}>Все в порядке</p>
+            <p className={styles.text}>Подтвердить</p>
           </button>
           <button className={styles.fail} onClick={() => setShowDetailed(true)}>
             <p className={styles.text}>Ошибка</p>

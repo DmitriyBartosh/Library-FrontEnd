@@ -35,7 +35,7 @@ function Detailed({ data, showReview, setShowlReview }) {
       <div className={styles.container}>
         <div className={styles.work}>
           <p className={styles.name}>Эксперт / {data.expert.name}</p>
-          <a href={data.work.link} target='_blank' rel="noreferrer" className={styles.titlelink}>{data.work.name}</a>
+          <a href={link ? link : data.work.link} target='_blank' rel="noreferrer" className={styles.titlelink}>{data.work.name}</a>
         </div>
         {data.status === 'fail' &&
           <>
@@ -96,7 +96,7 @@ function Detailed({ data, showReview, setShowlReview }) {
                 disabled={revisionReviewMutation.isLoading}
                 onClick={() => revisionReviewMutation.mutate({ id: data.id, comment: comment })}
               >
-                <p className={styles.text}>Дополнено</p>
+                <p className={styles.text}>Отправить</p>
                 {revisionReviewMutation.isLoading ?
                   <motion.div
                     animate={{ rotate: 360 }}
@@ -115,20 +115,39 @@ function Detailed({ data, showReview, setShowlReview }) {
           </>
         }
 
+        {data.status === 'notcounted' &&
+          <>
+            <p className={styles.title}>Рецензия</p>
+            <div className={styles.message}>
+              <pre>{data.message_revision}</pre>
+            </div>
+            <p className={styles.title}>Что исправить</p>
+            <div className={styles.message}>
+              <pre>{data.message_notcounted}</pre>
+            </div>
+            <button className={styles.repeat}>
+              <p className={styles.text}>Повторить рецензию</p>
+              <div className={styles.icon}>
+                <IoCheckmarkSharp className={styles.svg} />
+              </div>
+            </button>
+          </>
+        }
+
         {data.status === 'complete' &&
           <>
-            <p className={styles.hint}>Рецензия</p>
+            {data.message_revision &&
+              <>
+                <p className={styles.title}>Первая проверка</p>
+                <div className={styles.message}>
+                  <pre>{data.message_revision}</pre>
+                </div>
+              </>
+            }
+            <p className={styles.title}>Рецензия</p>
             <div className={styles.message}>
               <pre>{data.message_review}</pre>
             </div>
-            <a href={data.link} target='_blank' rel="noreferrer" className={styles.linkreviewed}>
-              <p className={styles.text}>
-                Ссылка провереной работы
-              </p>
-              <div className={styles.icon}>
-                <IoOpenOutline className={styles.svg} />
-              </div>
-            </a>
           </>
         }
       </div>

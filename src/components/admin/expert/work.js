@@ -7,7 +7,7 @@ import Detailed from './detailed';
 
 
 function Work({ data }) {
-  const { user, work } = data;
+  const { user, work, link } = data;
 
   const [showDetailed, setShowDetailed] = useState(false);
 
@@ -35,7 +35,7 @@ function Work({ data }) {
     <div className={styles.container}>
       <div className={styles.head}>
         <p className={styles.subtitle}>{direction} / {theme}</p>
-        <a href={work.link} target='_blank' rel="noreferrer" className={styles.title}>{work.name}</a>
+        <a href={link ? link : work.link} target='_blank' rel="noreferrer" className={styles.title}>{work.name}</a>
         <p>{user.name}</p>
         <a href={`mailto:${user.email}`} className={styles.mail}>
           {user.email}

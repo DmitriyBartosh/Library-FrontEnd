@@ -9,7 +9,7 @@ import Modal from '../../modal';
 import * as styles from './detailed.module.scss'
 
 function Detailed({ data, showDetailed, setShowDetailed }) {
-  const { status } = data;
+  const { status, link } = data;
   const queryClient = useQueryClient();
 
   const [message, setMessage] = useState('');
@@ -48,17 +48,15 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
     }
   })
 
-
-
   return (
     <Modal visible={showDetailed} close={() => setShowDetailed(false)}>
       <div className={styles.work}>
         <p className={styles.name}>{data.user.name}</p>
         <a href={`mailto:${data.user.email}`} className={styles.mail}>{data.user.email}</a>
-        <a href={data.work.link} target='_blank' rel="noreferrer" className={styles.link}>{data.work.name}</a>
+        <a href={link ? link : data.work.link} target='_blank' rel="noreferrer" className={styles.link}>{data.work.name}</a>
       </div>
       {status === 'checking' &&
-        <div className={styles.message}>
+        <>
           <p className={styles.title}>Что исправить / добавить</p>
           <div className={styles.area}>
             <textarea
@@ -86,12 +84,12 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
               </div>
             }
           </button>
-        </div>
+        </>
       }
 
       {status === 'firstchecked' &&
-        <div className={styles.message}>
-          <p className={styles.title}>Рецензия на работу</p>
+        <>
+          <p className={styles.title}>Рецензия</p>
           <div className={styles.area}>
             <textarea
               rows="10"
@@ -141,14 +139,21 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
             </button>
 
           </div>
-
-        </div>
+        </>
 
       }
 
       {status === 'secondchecked' &&
-        <div className={styles.message}>
+        <>
           <p className={styles.title}>Рецензия на работу</p>
+          <div className={styles.message}>
+            <pre>{data.message_revision}</pre>
+          </div>
+          <p className={styles.title}>Комментарии</p>
+          <div className={styles.message}>
+            <pre>{data.message_revision}</pre>
+          </div>
+          <p className={styles.title}>Заключительно</p>
           <div className={styles.area}>
             <textarea
               rows="10"
@@ -196,12 +201,55 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
                 </div>
               }
             </button>
-
           </div>
-
-        </div>
-
+        </>
       }
+
+      {data.status === 'notcounted' &&
+        <>
+          <p className={styles.title}>Рецензия</p>
+          <div className={styles.message}>
+            <pre>{data.message_revision}</pre>
+          </div>
+          <p className={styles.title}>Что исправить</p>
+          <div className={styles.message}>
+            <pre>{data.message_notcounted}</pre>
+          </div>
+          <button className={styles.repeat}>
+            <p className={styles.text}>Повторить рецензию</p>
+            <div className={styles.icon}>
+              <IoCheckmarkSharp className={styles.svg} />
+            </div>
+          </button>
+        </>
+      }
+
+      {data.status === 'complete' &&
+        <>
+          {data.message_revision &&
+            <>
+              <p className={styles.title}>Первая проверка</p>
+              <div className={styles.message}>
+                <pre>{data.message_revision}</pre>
+              </div>
+            </>
+          }
+          {data.user_comment &&
+            <>
+              <p className={styles.title}>Комментарии</p>
+              <div className={styles.message}>
+                <pre>{data.user_comment}</pre>
+              </div>
+            </>
+          }
+          <p className={styles.title}>Рецензия</p>
+          <div className={styles.message}>
+            <pre>{data.message_review}</pre>
+          </div>
+        </>
+      }
+
+
     </Modal>
   )
 }
