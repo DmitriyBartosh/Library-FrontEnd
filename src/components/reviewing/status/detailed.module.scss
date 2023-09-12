@@ -181,15 +181,14 @@
 .send {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   height: 3rem;
-  padding-right: 12px;
+  padding: 0 1rem;
   gap: 8px;
   color: white;
   background-color: $green;
   cursor: pointer;
-  font-weight: 500;
   border: 1px solid $green;
   &:hover .icon .svg {
     animation: shake 0.4s ease-in-out;

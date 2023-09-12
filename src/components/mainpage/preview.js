@@ -1,15 +1,20 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import cx from 'classname'
+import { IoArrowForwardSharp, IoLogInSharp } from 'react-icons/io5'
 import Bird from '../../images/svg/bird'
 import Birdonbranch from '../../images/svg/birdonbranch'
 import Flowerone from '../../images/svg/flower/flowerone'
 import Flowertwo from '../../images/svg/flower/flowertwo'
 import * as styles from './preview.module.scss'
 import * as global from '../../styles/base/global.module.scss'
-import * as button from '../../styles/base/button.module.scss'
+import { useStateContext } from '../../context/ContextProvider'
 
 function Preview() {
+  const { isLoggedIn } = useStateContext();
+
+  console.log(isLoggedIn())
+
   return (
     <>
       <div className={styles.section}>
@@ -25,7 +30,27 @@ function Preview() {
           <p>Сервис, который помогает улучшить портфолио
             и получить консультации от экспертов на любом
             этапе твоей карьеры  </p>
-          <Link className={cx(button.main, styles.button)} to='/portfolio'>Собрать портфолио</Link>
+
+          {isLoggedIn() ?
+            <Link className={cx(global.buttoncenter, styles.start)} to='/portfolio'>
+              <p className={global.text}>
+                Продолжить
+              </p>
+              <div className={global.icon}>
+                <IoArrowForwardSharp className={global.svg} />
+              </div>
+            </Link>
+            :
+            <Link className={cx(global.buttoncenter, styles.start)} to='/auth'>
+              <p className={global.text}>
+                Начать путь
+              </p>
+              <div className={global.icon}>
+                <IoLogInSharp className={global.svg} />
+              </div>
+            </Link>
+          }
+
         </div>
       </div>
 

@@ -35,7 +35,7 @@ function Detailed({ data, showReview, setShowlReview }) {
       <div className={styles.container}>
         <div className={styles.work}>
           <p className={styles.name}>Эксперт / {data.expert.name}</p>
-          <a href={link ? link : data.work.link} target='_blank' rel="noreferrer" className={styles.titlelink}>{data.work.name}</a>
+          <a href={data.link ? data.link : data.work.link} target='_blank' rel="noreferrer" className={styles.titlelink}>{data.work.name}</a>
         </div>
         {data.status === 'fail' &&
           <>
@@ -96,7 +96,7 @@ function Detailed({ data, showReview, setShowlReview }) {
                 disabled={revisionReviewMutation.isLoading}
                 onClick={() => revisionReviewMutation.mutate({ id: data.id, comment: comment })}
               >
-                <p className={styles.text}>Отправить</p>
+                <p className={styles.text}>Правки внесены</p>
                 {revisionReviewMutation.isLoading ?
                   <motion.div
                     animate={{ rotate: 360 }}

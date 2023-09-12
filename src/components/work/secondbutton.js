@@ -35,7 +35,7 @@ function Secondbutton({ selected, scroll, top, height, contentRef }) {
       layout='size'
       onClick={scrollToSection}
     >
-      <div>
+      <div className={styles.head}>
         <span className={styles.number}>00</span>
         <AnimatePresence initial={false} mode='popLayout'>
           {isActive &&

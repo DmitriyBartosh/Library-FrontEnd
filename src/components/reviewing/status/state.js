@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoTimeOutline, IoDocumentTextOutline, IoCheckmarkSharp, IoDuplicateOutline } from "react-icons/io5";
 import cx from 'classname'
-import Pay from './pay';
+import { useStateContext } from '../../../context/ContextProvider'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { checkPayment } from '../../../functions/review';
 import Del from './del'
 
 import * as styles from './state.module.scss'
 
-function State({ data, setShowlReview }) {
-  const { status, expert } = data;
+function State({ data, cost, setShowlReview, setShowPayment }) {
+  const [paymentLink, setPaymentLink] = useState(null);
+
+  const { token } = useStateContext();
+  const queryClient = useQueryClient();
+
+  const { status } = data;
+
+  const isTransation = data.transaction_id !== null ? true : false;
+
+  const checkPaymentQuery = useQuery({
+    queryKey: ['checkpaymentreview', data.id],
+    queryFn: () => checkPayment(data.id),
+    enabled: !!token && isTransation && status === 'verified',
+    refetchInterval: 1000,
+    onSuccess: (res) => {
+      console.log(res)
+      if (res.message === 'Рецензия оплачена') {
+        queryClient.invalidateQueries({ queryKey: ['getAllWorksOnReview'] })
+      } else if (res.message === 'Платеж уже создан') {
+        setPaymentLink(res.url)
+      }
+    }
+  })
 
   return (
     <div className={styles.container}>
@@ -35,7 +59,16 @@ function State({ data, setShowlReview }) {
 
       {status === 'verified' &&
         <div className={cx(styles.block, styles.two)}>
-          <Pay data={data} price={expert.price} />
+          {paymentLink ?
+            <a href={paymentLink} className={styles.button}>
+              <p className={styles.text}>Оплатить / {cost} руб.</p>
+            </a>
+            :
+            <button className={styles.button} disabled={checkPaymentQuery.isFetching} onClick={() => setShowPayment(true)}>
+              <p className={styles.text}>Оплатить / {cost} руб.</p>
+            </button>
+          }
+
           <Del id={data.id} />
         </div>
       }

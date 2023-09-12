@@ -30,49 +30,52 @@ function Addlink({ direction, theme, hint, title }) {
   return <AnimatePresence initial={false} mode='popLayout'>
     {isAdded ?
       <motion.div
-        initial={{ opacity: 0, x: 0, y: 15 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
+        initial={{ opacity: 0, x: 0, y: -10 }}
+        animate={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.3, ease: [0.25, 0.62, 0.58, 1] } }}
         exit={{ opacity: 0, transition: { duration: 0 } }}
         key="addedlink">
         <div className={styles.container}>
+          <div className={styles.navigation}>
+            {isDifferent ?
+              <button
+                className={cx(styles.save, isDifferent && styles.active)}
+                disabled={!isDifferent || addWorkMutation.isLoading || isFetchingWorks}
+                onClick={() => addWorkMutation.mutate({
+                  direction: direction,
+                  theme: theme,
+                  name: title,
+                  link: link
+                })}>
+                {addWorkMutation.isLoading || isFetchingWorks ?
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1.25, repeat: Infinity }}
+                    className={styles.icon}>
+                    <IoSyncOutline className={styles.load} />
+                  </motion.div>
+                  :
+                  <div className={styles.icon}>
+                    <IoCheckmarkSharp className={styles.svg} />
+                  </div>
+                }
+              </button>
+              :
+              <button className={styles.back} onClick={() => closeEdit()}>
+                <div className={styles.icon}>
+                  <IoCloseOutline className={styles.svg} />
+                </div>
+              </button>
+            }
+
+
+          </div>
           <div className={styles.input}>
             <input placeholder='Ссылка на работу' value={link} onChange={(e) => setLink(e.target.value)} />
           </div>
-
-          <div className={styles.navigation}>
-            <button
-              className={cx(styles.save, isDifferent && styles.active)}
-              disabled={!isDifferent || addWorkMutation.isLoading || isFetchingWorks}
-              onClick={() => addWorkMutation.mutate({
-                direction: direction,
-                theme: theme,
-                name: title,
-                link: link
-              })}>
-              {addWorkMutation.isLoading || isFetchingWorks ?
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1.25, repeat: Infinity }}
-                  className={styles.icon}>
-                  <IoSyncOutline className={styles.load} />
-                </motion.div>
-                :
-                <div className={styles.icon}>
-                  <IoCheckmarkSharp className={styles.svg} />
-                </div>
-              }
-
-            </button>
-            <button className={styles.back} onClick={() => closeEdit()}>
-              <div className={styles.icon}>
-                <IoCloseOutline className={styles.svg} />
-              </div>
-            </button>
-          </div>
         </div>
         <motion.div
-          initial={{ opacity: 0, x: 0, y: 15 }}
-          animate={{ opacity: 1, x: 0, y: 0, transition: { delay: 0.1, duration: 0.4, ease: [0.25, 0.62, 0.58, 1] } }}
+          initial={{ opacity: 0, x: 0, y: 10 }}
+          animate={{ opacity: 1, x: 0, y: 0, transition: { delay: 0.1, duration: 0.3, ease: [0.25, 0.62, 0.58, 1] } }}
           exit={{ opacity: 0, transition: { duration: 0 } }}
           className={styles.hint}>
           <p>
@@ -89,7 +92,7 @@ function Addlink({ direction, theme, hint, title }) {
         onClick={() => setIsAdded(true)}
         className={styles.button}>
         <IoAddCircleOutline className={styles.icon} />
-        <span className={styles.text}>Добавить работу</span>
+        <span className={styles.text}>Добавить</span>
       </motion.button>
     }
   </AnimatePresence>

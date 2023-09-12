@@ -151,9 +151,9 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
           </div>
           <p className={styles.title}>Комментарии</p>
           <div className={styles.message}>
-            <pre>{data.message_revision}</pre>
+            <pre>{data.user_comment}</pre>
           </div>
-          <p className={styles.title}>Заключительно</p>
+          <p className={styles.title}>Итог</p>
           <div className={styles.area}>
             <textarea
               rows="10"

@@ -25,6 +25,11 @@
       display: none;
     }
   }
+  .head {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
   .level {
     display: flex;
     flex-direction: column;

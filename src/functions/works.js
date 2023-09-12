@@ -22,9 +22,3 @@ export const editWork = (data) => {
     .then((data) => data)
     .catch((err) => console.log(err))
 }
-
-export const deleteWork = (data) => {
-  return axiosClient.post("works/delete", data)
-    .then((data) => data)
-    .catch((err) => console.log(err))
-}
