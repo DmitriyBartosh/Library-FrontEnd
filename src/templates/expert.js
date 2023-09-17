@@ -1,48 +1,44 @@
-import React from 'react'
-import Preview from '../components/experts/preview'
-import Tasklist from '../components/experts/tasklist';
-import Aboutauthor from '../components/experts/aboutauthor';
-import Analysis from '../components/experts/analysis';
-
+import React from "react";
+import Main from "../components/navigation/main";
+import Preview from "../components/experts/preview";
+import About from "../components/experts/about";
+import Footer from "../components/footer";
 
 function Expert(context) {
-  const {
-    author,
-    profession,
-    preview_text,
-    preview_photo,
-    about_main_photo,
-    about,
-    about_photos,
-    other_photos
-  } = context.pageContext.data;
+  const previewHtml = context.pageContext.preview.html;
+  const previewFrontmatter = context.pageContext.preview.frontmatter;
+
+  const aboutHtml = context.pageContext.about.html;
+  const aboutFrontmatter = context.pageContext.about.frontmatter;
 
   // Данные с Markdown для первого блока
   const previewData = {
-    author: author,
-    profession: profession,
-    text: preview_text,
-    preview: preview_photo
-  }
+    expert: previewFrontmatter.name,
+    profession: previewFrontmatter.direction,
+    text: previewHtml,
+    author: previewFrontmatter.author,
+    preview: previewFrontmatter.preview_photo,
+  };
 
   // Данные с Markdown для блока с описанием эксперта
   const aboutauthorData = {
-    photo: about_main_photo,
-    about: about,
-    photos: about_photos,
-  }
-
-  // Пять фотографией под описанием дизайн разбора
-  const photosData = other_photos;
+    photo: aboutFrontmatter.photo,
+    about: aboutHtml,
+    photos: aboutFrontmatter.photos,
+    other_photos: aboutFrontmatter.other_photos,
+    service: aboutFrontmatter.service,
+    title: aboutFrontmatter.title,
+    description: aboutFrontmatter.description,
+  };
 
   return (
     <section>
+      <Main />
       <Preview data={previewData} />
-      <Tasklist />
-      <Aboutauthor data={aboutauthorData} alt={author} />
-      <Analysis data={photosData} alt={author} />
+      <About data={aboutauthorData} alt={previewFrontmatter.name} />
+      <Footer />
     </section>
-  )
+  );
 }
 
-export default Expert
+export default Expert;

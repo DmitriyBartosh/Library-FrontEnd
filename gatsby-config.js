@@ -5,17 +5,17 @@
 module.exports = {
   siteMetadata: {
     title: `Графикси`,
-    siteUrl: `http://localhost:3000`
+    siteUrl: `http://localhost:3000`,
   },
   plugins: [
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: "gatsby-plugin-manifest",
       options: {
-        "icon": "src/images/icon.png"
-      }
+        icon: "src/images/icon.png",
+      },
     },
     {
       resolve: `gatsby-plugin-layout`,
@@ -38,7 +38,6 @@ module.exports = {
               showCaptions: true,
               withWebp: true,
               withAvif: true,
-
             },
           },
         ],
@@ -46,46 +45,46 @@ module.exports = {
     },
     `gatsby-transformer-json`,
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         name: "articlesdesign",
-        path: `${__dirname}/src/data/articles/design/`
-      }
+        path: `${__dirname}/src/data/articles/design/`,
+      },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         name: "articlesdesign",
-        path: `${__dirname}/src/data/articles/design/`
-      }
+        path: `${__dirname}/src/data/articles/design/`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: "experts",
-        path: `${__dirname}/src/data/experts/design/`
+        path: `${__dirname}/src/data/experts/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: "directions",
-        path: `${__dirname}/src/data/directions/`
+        path: `${__dirname}/src/data/directions/`,
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
-        path: `${__dirname}/src/images/`
-      }
+        path: `${__dirname}/src/images/`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: "works",
-        path: `${__dirname}/src/data/works/`
+        path: `${__dirname}/src/data/works/`,
       },
     },
-  ]
+  ],
 };

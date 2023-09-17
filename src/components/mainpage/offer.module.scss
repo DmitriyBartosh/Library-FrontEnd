@@ -1,0 +1,152 @@
+@import "../../styles/abstracts/variables.scss";
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  padding: 100px 2rem;
+  .head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    span {
+      font-weight: 600;
+    }
+  }
+  .four {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    .block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 2rem;
+      border: 1px solid $brown;
+      .icon {
+        height: 6rem;
+      }
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        .title {
+          font-weight: 700;
+          font-size: 1.15rem;
+        }
+        .text {
+          max-width: 400px;
+        }
+      }
+    }
+  }
+}
+
+.articles {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  border-bottom: 1px solid $green;
+  border-top: 1px solid $green;
+  height: 3rem;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    border-right: 1px solid $green;
+    height: 100%;
+    font-weight: 500;
+    .svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  .list {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    padding: 0 2.5rem;
+  }
+}
+
+.cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 22rem;
+    height: 28rem;
+    overflow: hidden;
+    padding: 2rem;
+    &.one {
+      background: $yellow;
+      padding-left: 3rem;
+      transform: matrix(0.99, -0.17, 0.16, 0.99, 0, 0);
+      z-index: 2;
+      p {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: $brown;
+      }
+    }
+    &.two {
+      background: $green;
+      color: white;
+      transform: matrix(0.99, 0.15, -0.14, 0.99, 0, 0);
+      z-index: 4;
+      .title {
+        font-weight: 600;
+        font-size: 1.75rem;
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+    }
+    &.three {
+      position: relative;
+      background: white;
+      transform: matrix(0.99, -0.17, 0.16, 0.99, 0, 0);
+      z-index: 3;
+      p {
+        margin-bottom: 15rem;
+        padding-left: 2rem;
+      }
+      .flowerone {
+        position: absolute;
+        bottom: 3rem;
+        left: 1.5rem;
+        z-index: 1;
+        width: 14rem;
+      }
+      .flowertwo {
+        position: absolute;
+        bottom: -2rem;
+        right: 1rem;
+        width: 16rem;
+        z-index: 2;
+      }
+    }
+    &.four {
+      justify-content: flex-start;
+      background: $orange;
+      color: white;
+      transform: matrix(0.99, 0.15, -0.14, 0.99, 0, 0);
+      z-index: 1;
+      overflow: visible;
+      p {
+        font-size: 2.25rem;
+        font-weight: 700;
+      }
+      .flowerthree {
+        position: absolute;
+        bottom: -3rem;
+        width: 7rem;
+      }
+    }
+  }
+}

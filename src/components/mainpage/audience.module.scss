@@ -1,0 +1,130 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  margin-top: 100px;
+  .header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    .right {
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      right: 2rem;
+      height: 3rem;
+      border-right: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
+      z-index: -1;
+    }
+    .left {
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+      right: 50%;
+      height: 3rem;
+      border-left: 1px solid $grey;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
+      z-index: -1;
+      .bird {
+        position: absolute;
+        left: 10vw;
+        bottom: 0.75rem;
+        height: 8rem;
+      }
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      span {
+        display: flex;
+        position: relative;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        background-color: $background;
+        padding: 0 2rem;
+        &.orange {
+          color: $orange;
+        }
+      }
+    }
+  }
+
+  .three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 100px;
+    .block {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid $grey;
+      padding: 2rem;
+      .number {
+        font-weight: 700;
+        line-height: 1;
+        font-size: 3rem;
+      }
+      .title {
+        font-weight: 600;
+        font-size: 1.15rem;
+        max-width: 250px;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-width: 250px;
+        padding-left: 12px;
+        li {
+          list-style-type: disc;
+          padding-left: 6px;
+        }
+      }
+      .flower {
+        width: 5rem;
+        margin-top: 1rem;
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .examples {
+    .list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      .block {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        background-color: $brown;
+        color: white;
+        padding: 2rem;
+        .text {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          .title {
+            font-weight: 700;
+            font-size: 1.15rem;
+          }
+        }
+        .icon {
+          max-height: 12rem;
+          max-width: 6rem;
+          stroke: currentColor;
+          fill: currentColor;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 @import "../../styles/abstracts/variables.scss";
 
 .section {
+  margin-top: 100px;
   .header {
     position: relative;
     display: flex;
@@ -8,7 +9,7 @@
     margin-bottom: 50px;
     .right {
       position: absolute;
-      top: 4.5rem;
+      top: 1rem;
       left: 50%;
       right: 2rem;
       height: 3rem;
@@ -19,7 +20,7 @@
     }
     .left {
       position: absolute;
-      top: 5rem;
+      top: 1rem;
       left: 2rem;
       right: 50%;
       height: 3rem;
@@ -29,45 +30,20 @@
       z-index: -1;
     }
 
-    .titleblock {
+    .title {
       display: flex;
       flex-direction: column;
-      margin-right: 4rem;
-      h1 {
-        color: $orange;
-        margin-left: 5rem;
-        margin-bottom: 0.5rem;
-      }
-      .title {
+      align-items: center;
+      gap: 10px;
+      span {
         display: flex;
-        flex-direction: column;
-        .text {
-          display: flex;
-          margin-bottom: 5px;
-          &:nth-child(1) {
-            margin-right: 3rem;
-            span {
-              padding-right: 2rem;
-              padding-left: 5rem;
-            }
-          }
-          &:nth-child(2) {
-            margin-left: 12rem;
-            span {
-              padding-right: 1rem;
-              padding-left: 2rem;
-            }
-          }
-          span {
-            display: flex;
-            position: relative;
-            font-family: "Inter", sans-serif;
-            font-weight: 700;
-            background-color: $background;
-            &.orange {
-              color: $orange;
-            }
-          }
+        position: relative;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        background-color: $background;
+        padding: 0 2rem;
+        &.orange {
+          color: $orange;
         }
       }
     }

@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "gatsby";
 import cx from "classname";
+import { Link } from "gatsby";
 import { useStaticQuery, graphql } from "gatsby";
 
 import Main from "../components/navigation/main";
-
 import * as styles from "../styles/pages/directions.module.scss";
 import * as global from "../styles/base/global.module.scss";
 
-function Directions() {
+function Direction(context) {
+  const { about, title, works } = context.pageContext.data;
+  console.log(context.pageContext.data);
+
   const directionQuery = useStaticQuery(graphql`
     query {
       allDirectionsJson {
@@ -38,7 +40,7 @@ function Directions() {
       <section className={cx(styles.section, global.container)}>
         <div className={styles.direction}>
           <div className={styles.title}>
-            <h2>Все направления площадки графикси</h2>
+            <h2>Направление {title}</h2>
           </div>
 
           <div className={styles.list}>
@@ -61,18 +63,15 @@ function Directions() {
           </div>
         </div>
         <div className={styles.themes}>
-          {direction.map((item) => {
-            const { works } = item.node;
-            return works.map((item, index) => {
-              const { title } = item;
-              console.log(title);
+          {works.map((item, index) => {
+            const { title } = item;
+            console.log(title);
 
-              return (
-                <div className={styles.theme} key={`theme_${index}`}>
-                  <p className={styles.title}>{title}</p>
-                </div>
-              );
-            });
+            return (
+              <div className={styles.theme} key={`theme_${index}`}>
+                <p className={styles.title}>{title}</p>
+              </div>
+            );
           })}
         </div>
       </section>
@@ -80,4 +79,4 @@ function Directions() {
   );
 }
 
-export default Directions;
+export default Direction;

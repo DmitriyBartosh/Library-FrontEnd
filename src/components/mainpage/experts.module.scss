@@ -1,0 +1,99 @@
+@import "../../styles/abstracts/variables.scss";
+
+.section {
+  margin-top: 100px;
+  margin-bottom: 75px;
+  h3 {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid $green;
+    .item {
+      border-bottom: 1px solid $green;
+      padding: 2rem 0;
+      .expert {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+        gap: 2rem;
+        .preview {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          width: 100%;
+          height: 300px;
+          .gatsbyimage {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .block {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 300px;
+          .head {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            height: 100px;
+            .direction {
+              font-weight: 600;
+              font-size: 1.15rem;
+            }
+          }
+          .info {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 200px;
+            width: 100%;
+            .theme {
+              display: flex;
+              flex-direction: column;
+              flex-wrap: wrap;
+              height: 100%;
+            }
+            .button {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 3rem;
+              background-color: $orange;
+              padding: 0 5rem;
+              .text {
+                position: relative;
+                color: white;
+                font-weight: 600;
+                line-height: 1;
+                &::after {
+                  position: absolute;
+                  right: 0px;
+                  bottom: -6px;
+                  content: "";
+                  height: 1px;
+                  width: 100%;
+                  opacity: 0;
+                  background: currentColor;
+                  transition: all 0.15s;
+                  transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+                }
+              }
+              &:hover .text::after {
+                bottom: -3px;
+                opacity: 1;
+              }
+            }
+          }
+        }
+        .theme span {
+          font-weight: 600;
+          font-size: 1.15rem;
+        }
+      }
+    }
+  }
+}

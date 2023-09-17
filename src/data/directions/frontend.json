@@ -2,6 +2,7 @@
   "slug": "frontend",
   "title": "FrontEnd разработка",
   "about": "Описание для направления",
+  "active": true,
   "works": [
     {
       "slug": "layout",

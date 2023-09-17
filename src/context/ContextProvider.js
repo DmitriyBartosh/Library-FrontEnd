@@ -14,21 +14,20 @@ const StateContext = createContext({
   statusDirection: null,
   fontSize: "small",
   showReview: false,
-  setShowReview: () => { },
-  setStatusDirection: () => { },
-  setFontSize: () => { },
-  setLinks: () => { },
-  setUser: () => { },
-  isLoggedIn: () => { },
+  setShowReview: () => {},
+  setStatusDirection: () => {},
+  setFontSize: () => {},
+  setLinks: () => {},
+  setUser: () => {},
+  isLoggedIn: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
   const [showReview, setShowReview] = useState(false);
-  const [token, setToken, removeToken] = useLocalStorage('token')
-  const [user, _setUser, removeUser] = useLocalStorage('user');
-  const [works, setWorks, removeWorks] = useLocalStorage('works');
-  const [reviews, setReviews, removeReviews] = useLocalStorage('reviews');
-  const [statusDirection, setStatusDirection, removeStatusDirection] = useLocalStorage('directions');
+  const [token, setToken, removeToken] = useLocalStorage("token");
+  const [user, _setUser, removeUser] = useLocalStorage("user");
+  const [works, setWorks, removeWorks] = useLocalStorage("works");
+  const [reviews, setReviews, removeReviews] = useLocalStorage("reviews");
 
   const userQuery = useQuery({
     queryKey: ["getUser"],
@@ -36,23 +35,17 @@ export const ContextProvider = ({ children }) => {
     enabled: !!token,
   });
 
-  const directionQuery = useQuery({
-    queryKey: ["getDirections"],
-    queryFn: getDirections,
-    enabled: !!token
-  })
-
   const allWorksQuery = useQuery({
     queryKey: ["getAllWorks"],
     queryFn: getAllWorks,
     enabled: !!token,
-  })
+  });
 
   const allWorkOnReviewQuery = useQuery({
     queryKey: ["getAllWorksOnReview"],
     queryFn: getAllWorksOnReview,
-    enabled: !!token
-  })
+    enabled: !!token,
+  });
 
   // обнулить пользователя
   const setUser = (token, user) => {
@@ -70,7 +63,6 @@ export const ContextProvider = ({ children }) => {
     if (userQuery.isError) {
       removeToken();
       removeUser();
-      removeStatusDirection();
       removeWorks();
 
       navigate("/");
@@ -81,38 +73,28 @@ export const ContextProvider = ({ children }) => {
     }
   }, [userQuery.isStale]);
 
-
-  // // Обновление информации о статусе направлений
-  useEffect(() => {
-    if (directionQuery.isSuccess && !directionQuery.isFetching) {
-      const dataJSON = JSON.parse(directionQuery.data.direction);
-      setStatusDirection(dataJSON);
-    }
-  }, [directionQuery.isStale]);
-
   // Обновление информации о ссылках
   useEffect(() => {
     if (allWorksQuery.isSuccess && !allWorksQuery.isFetching) {
       setWorks(allWorksQuery.data);
     }
-  }, [allWorksQuery.isStale])
+  }, [allWorksQuery.isStale]);
 
   // Обновление информации о работах на проверке
   useEffect(() => {
     if (allWorkOnReviewQuery.isSuccess && !allWorkOnReviewQuery.isFetching) {
       setReviews(allWorkOnReviewQuery.data);
     }
-  }, [allWorkOnReviewQuery.isStale])
+  }, [allWorkOnReviewQuery.isStale]);
 
   useEffect(() => {
     if (!token) {
       removeToken();
       removeUser();
-      removeStatusDirection();
       removeWorks();
       removeReviews();
     }
-  }, [token])
+  }, [token]);
 
   return (
     <StateContext.Provider
@@ -121,13 +103,11 @@ export const ContextProvider = ({ children }) => {
         token,
         works,
         reviews,
-        statusDirection,
         showReview,
         setShowReview,
-        setStatusDirection,
         setUser,
         setWorks,
-        isLoggedIn
+        isLoggedIn,
       }}
     >
       {children}

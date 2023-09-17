@@ -13,15 +13,16 @@ const queryClient = new QueryClient({
 });
 
 function Layout({ children }) {
-  return <QueryClientProvider client={queryClient}>
-    <ContextProvider>
-      <main>
-        <Navigation />
-        <Review />
-        {children}
-      </main>
-    </ContextProvider>
-  </QueryClientProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ContextProvider>
+        <main>
+          <Review />
+          {children}
+        </main>
+      </ContextProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default Layout;

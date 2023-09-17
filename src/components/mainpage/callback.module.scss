@@ -1,0 +1,114 @@
+@import "../../styles/abstracts/variables.scss";
+
+.join {
+  background-color: $brown;
+  color: white;
+  padding: 75px 0;
+  .block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      max-width: 650px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .action {
+      position: relative;
+      .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3rem;
+        background-color: white;
+        padding: 0 5rem;
+        .text {
+          position: relative;
+          color: $brown;
+          font-weight: 600;
+          line-height: 1;
+          &::after {
+            position: absolute;
+            right: 0px;
+            bottom: -6px;
+            content: "";
+            height: 1px;
+            width: 100%;
+            opacity: 0;
+            background: currentColor;
+            transition: all 0.15s;
+            transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+          }
+        }
+        &:hover .text::after {
+          bottom: -3px;
+          opacity: 1;
+        }
+      }
+      .bird {
+        position: absolute;
+        top: -2rem;
+        left: -9rem;
+        height: 7rem;
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 75px 0;
+  .block {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    span {
+      font-weight: 600;
+      font-size: 1.15rem;
+    }
+  }
+  .input {
+    display: flex;
+    align-items: center;
+    border: 1px solid $black;
+    height: 3rem;
+    input {
+      height: 100%;
+      padding: 0 1rem;
+    }
+    .send {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 3rem;
+      background-color: $black;
+      padding: 0 2rem;
+      .text {
+        position: relative;
+        color: white;
+        font-weight: 600;
+        line-height: 1;
+        &::after {
+          position: absolute;
+          right: 0px;
+          bottom: -6px;
+          content: "";
+          height: 1px;
+          width: 100%;
+          opacity: 0;
+          background: currentColor;
+          transition: all 0.15s;
+          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+        }
+      }
+      &:hover .text::after {
+        bottom: -3px;
+        opacity: 1;
+      }
+    }
+  }
+}
