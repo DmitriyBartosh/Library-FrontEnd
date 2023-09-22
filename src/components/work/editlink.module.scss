@@ -2,11 +2,11 @@
 
 .container {
   display: grid;
-  grid-template-columns: 14rem 1fr;
+  grid-template-columns: 10rem 1fr;
   transition: grid-template-columns 0.5s cubic-bezier(0.23, 0.67, 0.58, 1);
   will-change: auto;
   &.edited {
-    grid-template-columns: 3.5rem 1fr;
+    grid-template-columns: $heightButton 1fr;
     .navigate {
       .back,
       .save {
@@ -17,9 +17,8 @@
   .link {
     display: flex;
     align-items: center;
-    height: 3.5rem;
+    height: $heightButton;
     padding: 0 1rem;
-    font-size: $regulartext;
     border: 1px solid $green;
     border-left: none;
     transition: all 0.4s;
@@ -41,11 +40,10 @@
     justify-content: center;
     gap: 8px;
     background: $green;
-    padding-right: 12px;
+    padding-right: 6px;
     color: white;
     .text {
       position: relative;
-      font-size: $regulartext;
       line-height: 1;
       font-weight: 500;
       &::after {
@@ -64,8 +62,8 @@
     .icon {
       position: relative;
       bottom: 1px;
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
       .svg {
         width: 100%;
         height: 100%;
@@ -87,8 +85,8 @@
     border: 1px solid $green;
     color: $green;
     .icon {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
       .svg {
         width: 100%;
         height: 100%;
@@ -100,8 +98,8 @@
     transition: background-color 0.3s;
     pointer-events: none;
     .icon {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
       .svg {
         color: $green;
         width: 100%;

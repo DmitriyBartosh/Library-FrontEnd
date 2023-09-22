@@ -1,7 +1,8 @@
 @import "../../styles/abstracts/variables.scss";
 
 .section {
-  margin-top: 6rem;
+  padding-top: 6rem;
+  margin-bottom: 6rem;
   .direction {
     .title {
       display: flex;
@@ -19,7 +20,7 @@
         align-items: center;
         justify-content: center;
         border: 1px solid $black;
-        height: 3rem;
+        height: $heightButton;
         padding: 0 2rem;
         .text {
           line-height: 1;
@@ -41,5 +42,15 @@
     }
   }
   .themes {
+    margin-top: 50px;
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
   }
 }

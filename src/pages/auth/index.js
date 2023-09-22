@@ -6,9 +6,10 @@ import { vkAuth, yandexAuth, googleAuth } from "../../functions/auth";
 import Bird from "../../images/svg/bird";
 import Birdonbranch from "../../images/svg/birdonbranch";
 import Flower from "../../images/svg/flower/flowertwo";
+import Topnavigate from "../../components/navigation/topnavigate";
+
 import * as styles from "../../styles/pages/auth.module.scss";
 import * as button from "../../styles/base/button.module.scss";
-import Main from "../../components/navigation/main";
 
 function Index() {
   const vkAuthURL = useQuery({
@@ -28,7 +29,7 @@ function Index() {
 
   return (
     <>
-      <Main />
+      <Topnavigate />
       <section className={styles.container}>
         <Bird className={styles.bird} />
         <Birdonbranch className={styles.birdonbranch} />

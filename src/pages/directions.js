@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import cx from "classname";
 import { useStaticQuery, graphql } from "gatsby";
 
-import Main from "../components/navigation/main";
+import Topnavigate from "../components/navigation/topnavigate";
+import Footer from "../components/footer";
+import Detail from "../components/direction/detail";
 
 import * as styles from "../styles/pages/directions.module.scss";
 import * as global from "../styles/base/global.module.scss";
+import Theme from "../components/direction/theme";
 
 function Directions() {
+  const [payment, setPayment] = useState(false);
+  const [detail, setDetail] = useState({
+    visible: false,
+    data: {},
+    title: "",
+    direction: "",
+    price: 1000,
+    themes: [],
+  });
+
   const directionQuery = useStaticQuery(graphql`
     query {
       allDirectionsJson {
@@ -18,10 +31,13 @@ function Directions() {
             title
             active
             about
+            price
             works {
               title
               slug
+              time
               tags
+              steps
               description
             }
           }
@@ -32,9 +48,34 @@ function Directions() {
 
   const direction = directionQuery.allDirectionsJson.edges;
 
+  function closeDetail() {
+    setPayment(false);
+    setDetail({
+      visible: false,
+      data: {},
+      title: "",
+      direction: "",
+      price: 1000,
+      themes: [],
+    });
+  }
+
+  function openDetail(data, price, themes, title, direction) {
+    setPayment(false);
+    setDetail({
+      ...detail,
+      visible: true,
+      data: data,
+      title: title,
+      direction: direction,
+      price: price,
+      themes: themes,
+    });
+  }
+
   return (
     <>
-      <Main />
+      <Topnavigate />
       <section className={cx(styles.section, global.container)}>
         <div className={styles.direction}>
           <div className={styles.title}>
@@ -42,10 +83,15 @@ function Directions() {
           </div>
 
           <div className={styles.list}>
+            <Link
+              to="/directions"
+              className={styles.link}
+              activeClassName={styles.active}
+            >
+              <p className={styles.text}>Все направления</p>
+            </Link>
             {direction.map((item, index) => {
               const { title, slug, active } = item.node;
-
-              console.log(active);
 
               return (
                 <Link
@@ -61,21 +107,38 @@ function Directions() {
           </div>
         </div>
         <div className={styles.themes}>
-          {direction.map((item) => {
-            const { works } = item.node;
-            return works.map((item, index) => {
-              const { title } = item;
-              console.log(title);
+          <p className={styles.title}>Все темы</p>
+          <div className={styles.items}>
+            {direction.map((item) => {
+              const { works, title, active, price, slug } = item.node;
+              const allThemes = works.map((obj) => obj.title);
 
               return (
-                <div className={styles.theme} key={`theme_${index}`}>
-                  <p className={styles.title}>{title}</p>
-                </div>
+                active &&
+                works.map((item, index) => {
+                  return (
+                    <Theme
+                      openDetail={() =>
+                        openDetail(item, price, allThemes, title, slug)
+                      }
+                      title={item.title}
+                      description={title}
+                      key={`theme_${index}`}
+                    />
+                  );
+                })
               );
-            });
-          })}
+            })}
+          </div>
         </div>
       </section>
+      <Footer />
+      <Detail
+        payment={payment}
+        setPayment={setPayment}
+        detail={detail}
+        closeDetail={closeDetail}
+      />
     </>
   );
 }

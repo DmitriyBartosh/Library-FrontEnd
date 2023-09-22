@@ -83,10 +83,12 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             active
             about
+            price
             works {
               title
               slug
               tags
+              steps
               description
             }
           }

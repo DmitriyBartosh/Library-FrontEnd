@@ -1,7 +1,8 @@
 import { navigate } from "gatsby";
 import { useLocalStorage } from "react-use";
 import { useQuery } from "@tanstack/react-query";
-import { getUser, getDirections } from "../functions/user";
+import { getUser } from "../functions/user";
+import { getAllSubscribes } from "../functions/subscribe";
 import { getAllWorksOnReview } from "../functions/review";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAllWorks } from "../functions/works";
@@ -11,15 +12,13 @@ const StateContext = createContext({
   token: null,
   works: null,
   reviews: null,
-  statusDirection: null,
-  fontSize: "small",
+  subscribes: null,
   showReview: false,
   setShowReview: () => {},
-  setStatusDirection: () => {},
-  setFontSize: () => {},
   setLinks: () => {},
   setUser: () => {},
   isLoggedIn: () => {},
+  isSubscribe: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
@@ -27,6 +26,8 @@ export const ContextProvider = ({ children }) => {
   const [token, setToken, removeToken] = useLocalStorage("token");
   const [user, _setUser, removeUser] = useLocalStorage("user");
   const [works, setWorks, removeWorks] = useLocalStorage("works");
+  const [subscribes, setSubscribes, removeSubscribes] =
+    useLocalStorage("subscribes");
   const [reviews, setReviews, removeReviews] = useLocalStorage("reviews");
 
   const userQuery = useQuery({
@@ -47,6 +48,12 @@ export const ContextProvider = ({ children }) => {
     enabled: !!token,
   });
 
+  const allSubscribesQuery = useQuery({
+    queryKey: ["getAllSubscribes"],
+    queryFn: getAllSubscribes,
+    enabled: !!token,
+  });
+
   // обнулить пользователя
   const setUser = (token, user) => {
     setToken(token);
@@ -58,11 +65,21 @@ export const ContextProvider = ({ children }) => {
     return !!token && !!user;
   };
 
+  // Активна ли подписка по направлению
+  const isSubscribe = (direction) => {
+    const isActive = subscribes
+      ?.filter((item) => item.plan === direction)
+      .some((item) => item.active && item.transaction_status === "succeeded");
+
+    return isActive;
+  };
+
   // Обновление информации о пользовтеле (имя, почта)
   useEffect(() => {
     if (userQuery.isError) {
       removeToken();
       removeUser();
+      removeSubscribes();
       removeWorks();
 
       navigate("/");
@@ -80,6 +97,13 @@ export const ContextProvider = ({ children }) => {
     }
   }, [allWorksQuery.isStale]);
 
+  // Обновление информации о подписках
+  useEffect(() => {
+    if (allSubscribesQuery.isSuccess && !allSubscribesQuery.isFetching) {
+      setSubscribes(allSubscribesQuery.data.subscribes);
+    }
+  }, [allSubscribesQuery.isStale]);
+
   // Обновление информации о работах на проверке
   useEffect(() => {
     if (allWorkOnReviewQuery.isSuccess && !allWorkOnReviewQuery.isFetching) {
@@ -92,6 +116,7 @@ export const ContextProvider = ({ children }) => {
       removeToken();
       removeUser();
       removeWorks();
+      removeSubscribes();
       removeReviews();
     }
   }, [token]);
@@ -103,11 +128,13 @@ export const ContextProvider = ({ children }) => {
         token,
         works,
         reviews,
+        subscribes,
         showReview,
         setShowReview,
         setUser,
         setWorks,
         isLoggedIn,
+        isSubscribe,
       }}
     >
       {children}

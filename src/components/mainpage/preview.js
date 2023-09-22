@@ -55,13 +55,13 @@ function Preview() {
               className={cx(global.buttoncenter, styles.start)}
               to="/portfolio"
             >
-              <IoArrowForwardSharp className={global.icon} />
               <p className={global.text}>Продолжить</p>
+              <IoArrowForwardSharp className={global.icon} />
             </Link>
           ) : (
             <Link className={cx(global.buttoncenter, styles.start)} to="/auth">
-              <CiLogin className={global.icon} />
               <p className={global.text}>Начать путь</p>
+              <CiLogin className={global.icon} />
             </Link>
           )}
         </div>

@@ -5,11 +5,11 @@ import cx from "classname";
 import Logo from "../../images/svg/logo";
 import { useStateContext } from "../../context/ContextProvider";
 
-import * as styles from "./main.module.scss";
+import * as styles from "./topnavigate.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
-function Main() {
-  const { isLoggedIn } = useStateContext();
+function Topnavigate() {
+  const { isLoggedIn, setUser } = useStateContext();
 
   return (
     <nav className={cx(styles.container, global.container)}>
@@ -23,16 +23,13 @@ function Main() {
           </Link>
         </div>
         {isLoggedIn() ? (
-          <Link
-            to="/portfolio"
-            className={cx(global.buttoncenter, styles.start)}
-          >
-            <p className={global.text}>Мое портфолио</p>
+          <Link to="/portfolio" className={styles.portfolio}>
+            <p className={styles.text}>Мое портфолио</p>
           </Link>
         ) : (
-          <Link to="/auth" className={cx(global.buttoncenter, styles.start)}>
-            <CiLogin className={global.icon} />
-            <p className={global.text}>Авторизация</p>
+          <Link to="/auth" className={styles.login}>
+            <p className={styles.text}>Войти</p>
+            <CiLogin className={styles.icon} />
           </Link>
         )}
       </div>
@@ -40,4 +37,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Topnavigate;

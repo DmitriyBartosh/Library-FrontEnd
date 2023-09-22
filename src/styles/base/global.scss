@@ -17,10 +17,6 @@ body {
 .checklist {
   display: flex;
   flex-direction: column;
-  background-color: $beige;
-  padding: 35px;
-  margin-right: -35px;
-  margin-left: -35px;
   gap: 1rem;
   margin-top: 1rem;
   ul {
@@ -31,8 +27,7 @@ body {
   }
   li,
   p {
-    font-size: $regulartext;
-    line-height: 1.4rem;
+    line-height: 1.35rem;
   }
   .list {
     display: flex;

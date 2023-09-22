@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "../components/navigation/main";
+import Topnavigate from "../components/navigation/topnavigate";
 import Preview from "../components/experts/preview";
 import About from "../components/experts/about";
 import Footer from "../components/footer";
@@ -32,12 +32,14 @@ function Expert(context) {
   };
 
   return (
-    <section>
-      <Main />
-      <Preview data={previewData} />
-      <About data={aboutauthorData} alt={previewFrontmatter.name} />
-      <Footer />
-    </section>
+    <>
+      <Topnavigate />
+      <section>
+        <Preview data={previewData} />
+        <About data={aboutauthorData} alt={previewFrontmatter.name} />
+        <Footer />
+      </section>
+    </>
   );
 }
 

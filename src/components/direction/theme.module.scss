@@ -1,0 +1,22 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  border: 1px solid $black;
+  padding: 1rem;
+  .head {
+    text-align: start;
+    .description {
+      font-size: 0.8rem;
+    }
+    .title {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+  }
+  .preview {
+    height: 150px;
+  }
+}

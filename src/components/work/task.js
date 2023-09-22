@@ -1,31 +1,10 @@
-import React, { forwardRef, useEffect, useState } from 'react'
-import cx from 'classname'
-import { useStateContext } from '../../context/ContextProvider';
-import * as styles from './task.module.scss';
-import Addlink from './addlink';
-import Editlink from './editlink';
+import React, { forwardRef } from "react";
+import cx from "classname";
 
+import * as styles from "./task.module.scss";
 
 const Task = forwardRef((props, ref) => {
-  const { works } = useStateContext();
-  const { html, frontmatter } = props.checklist;
-  const { theme, direction } = props.pageContext;
-
-  const [relatedwork, setRelatedwork] = useState(null);
-  const [thereIsWork, setThereIsWork] = useState(null);
-
   const { data, selected, setSelected } = props;
-
-  useEffect(() => {
-    if (works) {
-      const related = works.filter(item => item.direction === direction && item.theme === theme);
-      // Все работы по теме
-      setRelatedwork(related);
-      // Прикреплена ли работа по теме
-      setThereIsWork(related.some(item => item.name === selected.title));
-    }
-  }, [works])
-
 
   return (
     <div className={styles.container} ref={ref}>
@@ -33,41 +12,43 @@ const Task = forwardRef((props, ref) => {
         <p className={styles.title}>Выберите задание:</p>
         <div className={styles.collection}>
           {data.map((item, index) => {
-            const { title, complexity, time } = item.node.childMarkdownRemark.frontmatter;
+            const { title, complexity, time } =
+              item.node.childMarkdownRemark.frontmatter;
             const { html, frontmatter } = item.node.childMarkdownRemark;
 
-            return <button className={cx(styles.item, selected.title === frontmatter.title && styles.active)} key={index} onClick={() => setSelected({ frontmatter: frontmatter, html: html, title: frontmatter.title })}>
-              <div className={styles.name}>
-                <p>{title}</p>
-              </div>
-              <div className={styles.level}>
-                <p>Сложность: <span>{complexity}</span></p>
-                <p>Время выполнения: <span>{time}</span></p>
-              </div>
-            </button>
+            return (
+              <button
+                className={cx(
+                  styles.item,
+                  selected.title === frontmatter.title && styles.active
+                )}
+                key={index}
+                onClick={() =>
+                  setSelected({
+                    frontmatter: frontmatter,
+                    html: html,
+                    title: frontmatter.title,
+                  })
+                }
+              >
+                <div className={styles.name}>
+                  <p>{title}</p>
+                </div>
+                <div className={styles.level}>
+                  <p>
+                    Сложность: <span>{complexity}</span>
+                  </p>
+                  <p>
+                    Время выполнения: <span>{time}</span>
+                  </p>
+                </div>
+              </button>
+            );
           })}
         </div>
       </div>
-      <div className={styles.instruction}>
-        <div className={styles.head}>
-          <h2 className={styles.title}>Инструкция</h2>
-          <div className={styles.checklist} dangerouslySetInnerHTML={{ __html: html }} />
-        </div>
-        <div className={styles.works}>
-          {thereIsWork ?
-            relatedwork.map((item, index) => {
-              return item.name === selected.title && <Editlink data={item} key={index} />
-            })
-            :
-            <div className={styles.links}>
-              <Addlink direction={direction} theme={theme} hint={frontmatter.hint} title={frontmatter.title} />
-            </div>
-          }
-        </div>
-      </div>
-
     </div>
-  )
-})
+  );
+});
 
-export default Task
+export default Task;

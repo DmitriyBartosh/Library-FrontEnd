@@ -5,7 +5,7 @@ import Offer from "../components/mainpage/offer";
 import Start from "../components/mainpage/start";
 import Next from "../components/mainpage/next";
 import Footer from "../components/footer";
-import Main from "../components/navigation/main";
+import Topnavigate from "../components/navigation/topnavigate";
 import Audience from "../components/mainpage/audience";
 import Experts from "../components/mainpage/experts";
 import Callback from "../components/mainpage/callback";
@@ -13,7 +13,7 @@ import Callback from "../components/mainpage/callback";
 function IndexPage() {
   return (
     <>
-      <Main />
+      <Topnavigate />
       <section>
         <Preview />
         <Offer />

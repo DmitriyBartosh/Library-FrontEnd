@@ -26,11 +26,12 @@
     z-index: -1;
     will-change: auto;
   }
-  .container {
+  .content {
     position: relative;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    width: 30rem;
-    padding: 3rem 4rem;
+    transform-origin: right;
     margin: 0;
     background-color: $background;
     border-left: 1px solid $green;
@@ -46,8 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3rem;
-  padding-right: 0.5rem;
+  height: $heightButton;
   gap: 8px;
   cursor: pointer;
   font-weight: 500;
@@ -57,7 +57,7 @@
     line-height: 1;
     &::after {
       position: absolute;
-      right: -5px;
+      left: -5px;
       bottom: -3px;
       content: "";
       height: 1px;
@@ -76,7 +76,7 @@
     animation: shake 0.4s ease-in-out;
   }
   &:hover .text::after {
-    right: 0px;
+    left: 0px;
     opacity: 1;
   }
 }
