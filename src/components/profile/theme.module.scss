@@ -1,0 +1,61 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  border: 1px solid $black;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 225px;
+    .head {
+      text-align: start;
+      padding: 1rem;
+      .title {
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 4px;
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+    .complexity {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 4px;
+    gap: 4px;
+    .button {
+      background-color: $green;
+      color: white;
+    }
+    .button {
+      flex-grow: 1;
+    }
+    .link {
+      border: 1px solid $green;
+      color: $green;
+      width: $heightButton;
+    }
+  }
+}

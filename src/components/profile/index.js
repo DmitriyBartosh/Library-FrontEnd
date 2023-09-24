@@ -4,6 +4,7 @@ import Topnavigate from "../navigation/topnavigate";
 import Head from "./head";
 import Review from "../reviewing/status/reviewstatus";
 import Direction from "./direction";
+import Portfolio from "./portfolio";
 
 function Index() {
   return (
@@ -12,6 +13,7 @@ function Index() {
       <section>
         <Head />
         <Review />
+        <Portfolio />
         <Direction />
       </section>
     </>

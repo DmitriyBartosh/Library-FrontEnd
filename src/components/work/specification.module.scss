@@ -58,6 +58,7 @@
     a {
       position: relative;
       font-weight: 600;
+      font-size: $regulartext;
       color: $green;
       &::after {
         content: "";

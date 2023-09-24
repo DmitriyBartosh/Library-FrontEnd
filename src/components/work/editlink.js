@@ -14,6 +14,7 @@ import {
   IoSyncOutline,
 } from "react-icons/io5";
 import * as styles from "./editlink.module.scss";
+import * as global from "../../styles/base/global.module.scss";
 
 function Editlink({ data }) {
   const isFetchingWorks = useIsFetching({ queryKey: ["getAllWorks"] });
@@ -44,7 +45,11 @@ function Editlink({ data }) {
         {edited ? (
           isDifferent ? (
             <button
-              className={cx(styles.save, isDifferent && styles.active)}
+              className={cx(
+                global.buttonicon,
+                styles.save,
+                isDifferent && styles.active
+              )}
               disabled={!isDifferent || isLoading}
               onClick={() =>
                 editWorkMutation.mutate({ id: data.id, link: link })
@@ -54,50 +59,56 @@ function Editlink({ data }) {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1.25, repeat: Infinity }}
-                  className={styles.icon}
+                  className={global.load}
                   key="loading_save"
                 >
-                  <IoSyncOutline className={styles.load} />
+                  <IoSyncOutline />
                 </motion.div>
               ) : (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={styles.icon}
+                  className={global.icon}
                   key="savelink"
                 >
-                  <IoCheckmarkSharp className={styles.svg} />
+                  <IoCheckmarkSharp />
                 </motion.div>
               )}
             </button>
           ) : (
-            <button className={styles.back} onClick={() => closeEdit()}>
+            <button
+              className={cx(global.buttonicon, styles.back)}
+              onClick={() => closeEdit()}
+            >
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={styles.icon}
+                className={global.icon}
                 key="closeedit"
               >
-                <IoCloseOutline className={styles.svg} />
+                <IoCloseOutline />
               </motion.div>
             </button>
           )
         ) : (
-          <button className={styles.edit} onClick={() => setEdited(true)}>
+          <button
+            className={cx(global.buttoncenter, styles.edit)}
+            onClick={() => setEdited(true)}
+          >
             <motion.p
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0, transition: { delay: 0.3 } }}
-              className={styles.text}
+              className={global.text}
             >
               Изменить
             </motion.p>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className={styles.icon}
+              className={global.icon}
               key="editlink"
             >
-              <IoCreateOutline className={styles.svg} />
+              <IoCreateOutline />
             </motion.div>
           </button>
         )}
