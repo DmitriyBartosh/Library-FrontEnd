@@ -4,13 +4,13 @@ import { useStateContext } from "../context/ContextProvider";
 import { useEffectOnce } from "react-use";
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-  const { token, user } = useStateContext();
+  const { isLoggedIn } = useStateContext();
 
   useEffectOnce(() => {
-    if (!token || !user && location.pathname !== `/`) {
+    if (!isLoggedIn()) {
       navigate("/");
     }
-  })
+  });
 
   return <Component {...rest} />;
 };

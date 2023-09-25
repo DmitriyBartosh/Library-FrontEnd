@@ -1,10 +1,9 @@
 import React from "react";
+import Index from "../components/profile/index";
 import PrivateRoute from "../components/privateRoute";
 
-import Index from "../components/portfolio/index";
-
 function Profile() {
-  return <PrivateRoute path="/portfolio" component={Index} />;
+  return <PrivateRoute path="/profile" component={Index} />;
 }
 
 export default Profile;

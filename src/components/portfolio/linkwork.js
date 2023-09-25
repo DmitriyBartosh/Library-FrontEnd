@@ -80,15 +80,19 @@ function Linkwork({ data }) {
       <div className={styles.block}>
         <div className={cx(styles.editlink, edited && styles.edited)}>
           <div className={styles.link}>
-            {!edited && (
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={styles.title}
-              >
-                Ссылка на работу
-              </motion.p>
-            )}
+            <AnimatePresence initial={false} mode="popLayout">
+              {!edited && (
+                <motion.p
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className={styles.title}
+                >
+                  Ссылка на работу
+                </motion.p>
+              )}
+            </AnimatePresence>
+
             <motion.input
               layout="position"
               placeholder="Ссылка"

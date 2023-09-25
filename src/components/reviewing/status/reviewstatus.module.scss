@@ -1,15 +1,21 @@
 @import "../../../styles/abstracts/variables.scss";
 
 .container {
-  border-top: 1px solid $green;
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
-  h4 {
+  h3 {
     margin-bottom: 1rem;
   }
   .works {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+  }
+  .review {
+    .addreview {
+      background-color: $green;
+      color: white;
+      width: 400px;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import { IoPersonOutline } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
 import cx from "classname";
 import Logo from "../../images/svg/logo";
@@ -17,19 +18,39 @@ function Topnavigate() {
         <Logo className={styles.svg} />
       </Link>
       <div className={styles.right}>
-        <div className={styles.links}>
-          <Link to="/directions" className={global.buttoncenter}>
-            <p className={global.text}>Направления</p>
-          </Link>
-        </div>
+        <Link
+          to="/directions"
+          activeClassName={styles.active}
+          className={cx(global.buttoncenter, styles.link)}
+        >
+          <p className={global.text}>Направления</p>
+        </Link>
+
         {isLoggedIn() ? (
-          <Link to="/portfolio" className={styles.portfolio}>
-            <p className={styles.text}>Мое портфолио</p>
-          </Link>
+          <>
+            <Link
+              to="/portfolio"
+              activeClassName={styles.active}
+              className={cx(global.buttoncenter, styles.link)}
+            >
+              <p className={global.text}>Мое портфолио</p>
+            </Link>
+            <Link
+              to="/profile"
+              activeClassName={styles.active}
+              className={cx(global.buttonicon, styles.profile)}
+            >
+              <IoPersonOutline className={global.icon} />
+            </Link>
+          </>
         ) : (
-          <Link to="/auth" className={styles.login}>
-            <p className={styles.text}>Войти</p>
-            <CiLogin className={styles.icon} />
+          <Link
+            to="/auth"
+            activeClassName={styles.active}
+            className={cx(global.buttoncenter, styles.link)}
+          >
+            <p className={global.text}>Войти</p>
+            <CiLogin className={global.icon} />
           </Link>
         )}
       </div>

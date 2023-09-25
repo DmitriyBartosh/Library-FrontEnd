@@ -26,83 +26,24 @@
   .right {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 6px;
     .links {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .login {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: $heightButton;
-      padding-right: 0.5rem;
-      gap: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      color: white;
-      background-color: $green;
-      padding: 0 2rem;
-      .text {
-        position: relative;
-        text-align: center;
-        line-height: 1;
-        &::after {
-          position: absolute;
-          left: -5px;
-          bottom: -3px;
-          content: "";
-          height: 1px;
-          width: 100%;
-          opacity: 0;
-          background: currentColor;
-          transition: all 0.15s;
-          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-        }
-      }
-      .icon {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-      &:hover .icon {
-        animation: shake 0.4s ease-in-out;
-      }
-      &:hover .text::after {
-        left: 0px;
-        opacity: 1;
+
+    .profile,
+    .link {
+      color: $green;
+      &.active {
+        background-color: $beige;
+        color: $green;
       }
     }
-
-    .portfolio {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 3rem;
-      padding-left: 1rem;
-      cursor: pointer;
-      font-weight: 600;
-      .text {
-        position: relative;
-        text-align: center;
-        line-height: 1;
-        &::after {
-          position: absolute;
-          left: -5px;
-          bottom: -3px;
-          content: "";
-          height: 1px;
-          width: 100%;
-          opacity: 0;
-          background: currentColor;
-          transition: all 0.15s;
-          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-        }
-      }
-      &:hover .text::after {
-        left: 0px;
-        opacity: 1;
-      }
+    .profile {
+      width: $heightButton;
+      border: 1px solid $beige;
     }
   }
 }

@@ -1,25 +1,29 @@
-import React from 'react'
-import { useStateContext } from '../../../context/ContextProvider'
-import Work from './work'
+import React from "react";
+import cx from "classname";
+import { useStateContext } from "../../../context/ContextProvider";
+import { IoArrowForwardSharp } from "react-icons/io5";
+import Work from "./work";
 
-import * as styles from './reviewstatus.module.scss'
-import * as global from '../../../styles/base/global.module.scss'
+import * as styles from "./reviewstatus.module.scss";
+import * as global from "../../../styles/base/global.module.scss";
 
 function Reviewstatus() {
   const { reviews } = useStateContext();
 
-  return reviews && reviews.length > 0 &&
-    <div className={styles.container}>
-      <div className={global.container}>
-        <h4>Работы на рецензий</h4>
+  console.log(reviews);
+
+  return (
+    <div className={global.container}>
+      <div className={styles.container}>
+        <h3>Рецензии от экспертов</h3>
         <div className={styles.works}>
-          {reviews.map((item, index) => {
-            return <Work data={item} key={`reviewwork_${index}`} />
+          {reviews?.map((item, index) => {
+            return <Work data={item} key={`reviewwork_${index}`} />;
           })}
         </div>
       </div>
     </div>
-
+  );
 }
 
-export default Reviewstatus
+export default Reviewstatus;

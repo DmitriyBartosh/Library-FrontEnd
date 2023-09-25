@@ -40,7 +40,7 @@ function Direction() {
   );
 
   return (
-    <section className={global.container}>
+    <div className={global.container}>
       <div className={styles.container}>
         {activeDirection?.map((item, index) => {
           const { plan } = item;
@@ -72,7 +72,7 @@ function Direction() {
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }
 

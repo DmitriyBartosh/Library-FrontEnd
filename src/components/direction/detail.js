@@ -2,7 +2,7 @@ import React from "react";
 import { IoArrowForwardSharp } from "react-icons/io5";
 import { useStateContext } from "../../context/ContextProvider";
 import Modal from "../modal";
-import Payment from "./payment";
+import Payment from "../payment";
 
 import * as styles from "./detail.module.scss";
 import { Link } from "gatsby";

@@ -4,12 +4,12 @@ import { navigate } from "gatsby";
 import { motion } from "framer-motion";
 import { IoSyncOutline } from "react-icons/io5";
 import cx from "classname";
-import { addSubscribe } from "../../functions/subscribe";
+import { addSubscribe } from "../functions/subscribe";
 import {
   BankCardSvg,
   SberBankSvg,
   YooMoneySvg,
-} from "../reviewing/status/icons";
+} from "./reviewing/status/icons";
 import * as styles from "./payment.module.scss";
 
 const methods = [
@@ -60,19 +60,18 @@ function Payment({ name, direction, cost, themes }) {
           <div className={styles.info}>
             <ul>
               <li>
-                <span>{themes.length} тем</span> в направлении{" "}
-                <span>{direction}</span>
+                <span>{themes.length} тем</span> в направлении
               </li>
               <li>
                 <span>от 1 до 3-х</span> технических задач в каждой из тем,{" "}
                 <span>из реальной практики</span> наших экспертов
               </li>
               <li>
-                <span>Обновление</span> и <span>добавление тем</span> в
-                направлении {direction}
+                Регулярное <span>обновление материалов</span> и{" "}
+                <span>добавление новых тем</span>
               </li>
               <li>
-                <span>Чат с поддержкой</span> в Telegram
+                <span>Чат сообщества</span> в Telegram
               </li>
             </ul>
           </div>
