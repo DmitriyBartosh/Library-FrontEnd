@@ -20,11 +20,11 @@ function Subscribes() {
     themes: [],
   });
 
-  const isActive = subscribes?.some(
-    (item) => item.active && item.transaction_status === "succeeded"
-  );
-
-  console.log(isActive);
+  const isActive =
+    Array.isArray(subscribes) &&
+    subscribes?.some(
+      (item) => item.active && item.transaction_status === "succeeded"
+    );
 
   const directionQuery = useStaticQuery(graphql`
     query {
@@ -95,14 +95,16 @@ function Subscribes() {
   }
 
   // Не оплаченные подписки
-  const subscribePending = subscribes.filter(
-    (item) => item.transaction_status === "pending"
-  );
+  const subscribePending =
+    Array.isArray(subscribes) &&
+    subscribes?.filter((item) => item.transaction_status === "pending");
 
   // Оплаченные подписки
-  const subscribeSucceeded = subscribes.filter(
-    (item) => item.transaction_status === "succeeded"
-  );
+  const subscribeSucceeded =
+    Array.isArray(subscribes) &&
+    subscribes?.filter(
+      (item) => item.transaction_status === "succeeded" && item.active
+    );
 
   return (
     <>
@@ -111,9 +113,9 @@ function Subscribes() {
           {subscribeSucceeded.length > 0 && (
             <div className={styles.list}>
               <p className={styles.title}>Активные подписки</p>
-              {subscribes
+              {subscribeSucceeded
                 .filter((item) => item.transaction_status === "succeeded")
-                .map((item) => {
+                .map((item, index) => {
                   const directionPending = direction.find(
                     (dir) => dir.node.slug === item.plan
                   ).node;
@@ -121,7 +123,7 @@ function Subscribes() {
                   return (
                     <div
                       className={styles.item}
-                      key={`succeeded_${directionPending.slug}`}
+                      key={`succeeded_${directionPending.slug}_${index}`}
                     >
                       <div className={styles.block}>
                         <p className={styles.hint}>Направление</p>

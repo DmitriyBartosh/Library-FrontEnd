@@ -52,21 +52,23 @@ function Direction() {
             <div className={styles.direction} key={`direction_${index}`}>
               <h3>{themes.title}</h3>
               <div className={styles.themes}>
-                {themes.works.map((item, index) => {
-                  const worksOnTheme = works.filter(
-                    (work) =>
-                      work.direction === themes.slug && work.theme === item.slug
-                  );
+                {Array.isArray(works) &&
+                  themes.works.map((item, index) => {
+                    const worksOnTheme = works.filter(
+                      (work) =>
+                        work.direction === themes.slug &&
+                        work.theme === item.slug
+                    );
 
-                  return (
-                    <Theme
-                      key={`theme_${index}`}
-                      data={item}
-                      themes={themes}
-                      worksOnTheme={worksOnTheme}
-                    />
-                  );
-                })}
+                    return (
+                      <Theme
+                        key={`theme_${index}`}
+                        data={item}
+                        themes={themes}
+                        worksOnTheme={worksOnTheme}
+                      />
+                    );
+                  })}
               </div>
             </div>
           );

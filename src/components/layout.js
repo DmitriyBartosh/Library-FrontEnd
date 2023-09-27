@@ -1,7 +1,6 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContextProvider } from "../context/ContextProvider";
-import Review from "./reviewing/adding/review";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,10 +14,7 @@ function Layout({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
-        <main>
-          <Review />
-          {children}
-        </main>
+        <main>{children}</main>
       </ContextProvider>
     </QueryClientProvider>
   );

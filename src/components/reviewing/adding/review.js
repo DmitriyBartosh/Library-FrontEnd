@@ -1,38 +1,52 @@
-import React, { useState, useEffect } from 'react'
-import { useStaticQuery, graphql } from 'gatsby';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getAllExperts } from '../../../functions/review';
-import { useStateContext } from '../../../context/ContextProvider';
-import { addWorkToReview } from '../../../functions/review';
+import React, { useState, useEffect } from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import { motion, AnimatePresence } from "framer-motion";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllExperts } from "../../../functions/review";
+import { useStateContext } from "../../../context/ContextProvider";
+import { addWorkToReview } from "../../../functions/review";
 
-import Choisework from './choisework';
-import Experts from './experts';
-import Nextstep from './nextstep';
+import Choisework from "./choisework";
+import Experts from "./experts";
+import Nextstep from "./nextstep";
 
-import * as styles from './review.module.scss'
-import Choisedirection from './choisedirection';
+import * as styles from "./review.module.scss";
+import Choisedirection from "./choisedirection";
 
 function Review() {
-  const { token, works, statusDirection, showReview, setShowReview } = useStateContext();
+  const { token, works, subscribes, showReview, setShowReview } =
+    useStateContext();
+
+  // Выбираем только те направления, в которых активна подписка и добавлена хоть одна работа
+  const directionWithWork =
+    Array.isArray(subscribes) &&
+    subscribes
+      ?.filter((item) => item.active)
+      .filter((element) => {
+        const thereIsJob =
+          Array.isArray(works) &&
+          works.some((work) => work.direction === element.plan);
+        return thereIsJob;
+      })
+      .map((item) => item.plan);
 
   const [isComplete, setIsComplete] = useState(false);
 
   const queryClient = useQueryClient();
 
-  const [selected, setSelected] = useState([])
-  const [expert, setExpert] = useState(null)
+  const [selected, setSelected] = useState([]);
+  const [expert, setExpert] = useState(null);
   const [choiseExpert, setChoiseExpert] = useState(false);
-  const [selectedDirection, setSelectedDirection] = useState(null);
+  const [selectedDirection, setSelectedDirection] = useState(
+    directionWithWork[0]
+  );
   const [price, setPrice] = useState(0);
 
-  const [directionWithWork, setDirectionWithWork] = useState([]);
-
   const allExpertQuery = useQuery({
-    queryKey: ["allexperts", selectedDirection?.slug],
-    queryFn: () => getAllExperts(selectedDirection?.slug),
-    enabled: !!token && selectedDirection !== null
-  })
+    queryKey: ["allexperts", selectedDirection],
+    queryFn: () => getAllExperts(selectedDirection),
+    enabled: !!token && selectedDirection !== null,
+  });
 
   const addWorkToReviewMutation = useMutation({
     mutationFn: addWorkToReview,
@@ -41,23 +55,23 @@ function Review() {
       setSelected([]);
       setExpert(null);
       setChoiseExpert(false);
-      queryClient.invalidateQueries({ queryKey: ['getAllWorksOnReview'] })
-    }
-  })
+      queryClient.invalidateQueries({ queryKey: ["getAllWorksOnReview"] });
+    },
+  });
 
   const nextStep = () => {
     if (choiseExpert) {
       addWorkToReviewMutation.mutate({
         expert_id: expert.id,
-        works: selected
-      })
+        works: selected,
+      });
     } else {
       setChoiseExpert(true);
     }
-  }
+  };
 
   const direcionQuery = useStaticQuery(graphql`
-  query {
+    query {
       allDirectionsJson {
         edges {
           node {
@@ -71,32 +85,18 @@ function Review() {
         }
       }
     }
-  `)
+  `);
 
   const directionData = direcionQuery.allDirectionsJson.edges;
 
   function changeDirection(direction) {
-    if (direction.slug !== selectedDirection.slug) {
+    if (direction !== selectedDirection) {
       setSelectedDirection(direction);
       setSelected([]);
       setExpert(null);
       setChoiseExpert(false);
     }
   }
-
-  useEffect(() => {
-    if (statusDirection && works?.length > 0) {
-      // Записываем в массив все направления с значением true (Которые выбрал пользователь, для отображения в профиле)
-      const active = Object.keys(statusDirection).filter(key => statusDirection[key] === true);
-      // Записываем в массив все направления с значением true, в которых есть хоть одна работа на выбор
-      const withWorks = active.filter(value => works.some(obj => obj.direction === value));
-
-      setDirectionWithWork(withWorks)
-
-      const onlyDirection = directionData && directionData.find(obj => obj.node.slug === withWorks[0]).node;
-      setSelectedDirection(onlyDirection);
-    }
-  }, [statusDirection, works])
 
   useEffect(() => {
     if (expert) {
@@ -106,60 +106,70 @@ function Review() {
       }
       setPrice(cost);
     }
-
-  }, [selected, expert])
-
+  }, [selected, expert]);
 
   return (
     <AnimatePresence initial={false}>
-      {showReview &&
+      {showReview && (
         <div className={styles.container} key="showreview">
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: '0%', transition: { duration: 0.6 } }}
-            exit={{ x: '100%', transition: { duration: 0.4 } }}
+            initial={{ x: "100%" }}
+            animate={{ x: "0%", transition: { duration: 0.6 } }}
+            exit={{ x: "100%", transition: { duration: 0.4 } }}
             transition={{ ease: [0.57, 0.14, 0.49, 0.91] }}
-            className={styles.block}>
-            {isComplete ?
+            className={styles.block}
+          >
+            {isComplete ? (
               <div className={styles.complete}>
                 <div className={styles.head}>
                   <h5>Работы приняты</h5>
-                  <p>Эксперт проверит что ссылка верна и работа выполнена в полной мере, затем на странице профиля будет отображена готовность проверить.</p>
+                  <p>
+                    Эксперт проверит что ссылка верна и работа выполнена в
+                    полной мере, затем на странице профиля будет отображена
+                    готовность проверить.
+                  </p>
                 </div>
                 <div className={styles.close}>
-                  <button className={styles.button} onClick={() => setShowReview(false)}>
+                  <button
+                    className={styles.button}
+                    onClick={() => setShowReview(false)}
+                  >
                     <p className={styles.text}>Понятно!</p>
                   </button>
                 </div>
               </div>
-              :
+            ) : (
               <div className={styles.steps}>
                 <Choisedirection
                   directionWithWork={directionWithWork}
                   changeDirection={changeDirection}
                   directionData={directionData}
-                  selectedDirection={selectedDirection} />
+                  selectedDirection={selectedDirection}
+                />
                 <Choisework
                   selectedDirection={selectedDirection}
                   selected={selected}
                   setSelected={setSelected}
                   choiseExpert={choiseExpert}
-                  setChoiseExpert={setChoiseExpert} />
+                  setChoiseExpert={setChoiseExpert}
+                  directionData={directionData}
+                />
                 <Experts
                   allExpertQuery={allExpertQuery}
                   expert={expert}
                   setExpert={setExpert}
-                  choiseExpert={choiseExpert} />
+                  choiseExpert={choiseExpert}
+                />
                 <Nextstep
                   addWorkToReviewMutation={addWorkToReviewMutation}
                   choiseExpert={choiseExpert}
                   selected={selected}
                   expert={expert}
                   nextStep={nextStep}
-                  price={price} />
+                  price={price}
+                />
               </div>
-            }
-
+            )}
           </motion.div>
 
           <motion.div
@@ -168,11 +178,12 @@ function Review() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className={styles.background}
-            onClick={() => setShowReview(false)} />
+            onClick={() => setShowReview(false)}
+          />
         </div>
-      }
+      )}
     </AnimatePresence>
-  )
+  );
 }
 
-export default Review
+export default Review;
