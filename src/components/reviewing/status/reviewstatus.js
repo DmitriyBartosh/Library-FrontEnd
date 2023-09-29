@@ -10,15 +10,16 @@ import * as global from "../../../styles/base/global.module.scss";
 function Reviewstatus() {
   const { reviews, setShowReview } = useStateContext();
 
-  console.log(reviews?.length);
-
   return (
     <div className={global.container}>
       <div className={styles.container}>
         {Array.isArray(reviews) && reviews?.length > 0 ? (
           <>
-            <h3>Рецензии от экспертов</h3>
+            <h3>Рецензии</h3>
             <div className={styles.works}>
+              {reviews?.map((item, index) => {
+                return <Work data={item} key={`reviewwork_${index}`} />;
+              })}
               <button
                 className={styles.morereview}
                 onClick={() => setShowReview(true)}
@@ -30,9 +31,6 @@ function Reviewstatus() {
                 </p>
                 <IoAddSharp className={styles.icon} />
               </button>
-              {reviews?.map((item, index) => {
-                return <Work data={item} key={`reviewwork_${index}`} />;
-              })}
             </div>
           </>
         ) : (

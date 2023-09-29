@@ -1,0 +1,94 @@
+@import "../styles/abstracts/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $green;
+  height: 100%;
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 1rem;
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border: 1px solid $green;
+      color: $green;
+      .text {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .icon {
+        width: 15px;
+        height: 15px;
+      }
+      &.active {
+        background-color: $green;
+        color: white;
+      }
+    }
+  }
+
+  .editor {
+    height: 300px;
+    padding: 1rem;
+    padding-top: 0;
+    .input {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      border: none;
+      outline: none;
+      height: 100%;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+        margin: 10px 0px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $green;
+        border-radius: 5px;
+      }
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      strong {
+        font-weight: 600;
+      }
+      em {
+        font-style: italic;
+      }
+      ol {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding-left: 30px;
+        li {
+          list-style: decimal;
+        }
+      }
+      mark {
+        background-color: $yellow;
+      }
+      blockquote {
+        padding: 15px 20px 15px 30px;
+        width: 100%;
+        border: 1px solid $green;
+        border-left: 4px solid $green;
+      }
+    }
+  }
+}

@@ -20,12 +20,6 @@ function Subscribes() {
     themes: [],
   });
 
-  const isActive =
-    Array.isArray(subscribes) &&
-    subscribes?.some(
-      (item) => item.active && item.transaction_status === "succeeded"
-    );
-
   const directionQuery = useStaticQuery(graphql`
     query {
       allDirectionsJson {
@@ -106,6 +100,11 @@ function Subscribes() {
       (item) => item.transaction_status === "succeeded" && item.active
     );
 
+  // Если не осталось возможных направлений для покупки
+  const isVisibleSubscribe =
+    direction.filter((item) => item.node.active).length !==
+    subscribeSucceeded.length;
+
   return (
     <>
       <section className={global.container}>
@@ -185,51 +184,61 @@ function Subscribes() {
             </div>
           )}
 
-          <div className={styles.offers}>
-            <p className={styles.title}>Направления</p>
-            <div className={styles.list}>
-              {sortedDirection
-                .filter((item) => item.node.active)
-                .map((item) => {
-                  const { slug, title, about, price, works } = item.node;
-                  const allThemes = works.map((obj) => obj.title);
+          {isVisibleSubscribe && (
+            <div className={styles.offers}>
+              <p className={styles.title}>Направления</p>
+              <div className={styles.list}>
+                {sortedDirection
+                  .filter((item) => item.node.active)
+                  .map((item) => {
+                    const { slug, title, about, price, works } = item.node;
+                    const allThemes = works.map((obj) => obj.title);
 
-                  return (
-                    <div className={styles.item} key={`direction_${slug}`}>
-                      <div className={styles.content}>
-                        <p className={styles.title}>{title}</p>
-                        <div className={styles.theme}>
-                          {works.map((item) => {
-                            return (
-                              <p key={`theme_${item.slug}`}>
-                                #{item.title.replace(/\s+/g, "_")}
-                              </p>
-                            );
-                          })}
+                    const isVisible =
+                      Array.isArray(subscribes) &&
+                      !subscribes.some(
+                        (sub) => sub.active && sub.plan === slug
+                      );
+
+                    return (
+                      isVisible && (
+                        <div className={styles.item} key={`direction_${slug}`}>
+                          <div className={styles.content}>
+                            <p className={styles.title}>{title}</p>
+                            <div className={styles.theme}>
+                              {works.map((item) => {
+                                return (
+                                  <p key={`theme_${item.slug}`}>
+                                    #{item.title.replace(/\s+/g, "_")}
+                                  </p>
+                                );
+                              })}
+                            </div>
+                            <p>{about}</p>
+                          </div>
+                          <div className={styles.action}>
+                            <button
+                              className={cx(global.buttontext, styles.main)}
+                              onClick={() =>
+                                openDetail(price, allThemes, title, slug)
+                              }
+                            >
+                              <p className={global.text}>Оформить подписку</p>
+                            </button>
+                            <Link
+                              to={`/directions/${slug}`}
+                              className={cx(global.buttontext, styles.second)}
+                            >
+                              <p className={global.text}>Все темы</p>
+                            </Link>
+                          </div>
                         </div>
-                        <p>{about}</p>
-                      </div>
-                      <div className={styles.action}>
-                        <button
-                          className={cx(global.buttontext, styles.main)}
-                          onClick={() =>
-                            openDetail(price, allThemes, title, slug)
-                          }
-                        >
-                          <p className={global.text}>Оформить подписку</p>
-                        </button>
-                        <Link
-                          to={`/directions/${slug}`}
-                          className={cx(global.buttontext, styles.second)}
-                        >
-                          <p className={global.text}>Все темы</p>
-                        </Link>
-                      </div>
-                    </div>
-                  );
-                })}
+                      )
+                    );
+                  })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
       <Modal visible={detail.visible} close={() => closeDetail()}>

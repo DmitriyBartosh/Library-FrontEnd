@@ -31,7 +31,7 @@ function Vk() {
       })
       .then((data) => {
         setUser(data.access_token, data.user);
-        navigate("/portfolio");
+        navigate("/profile");
       });
   }, []);
 

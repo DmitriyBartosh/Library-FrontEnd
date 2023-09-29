@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useStaticQuery, graphql } from 'gatsby';
-import State from './state';
-import Detailed from './detailed';
-import Payment from './payment';
+import React, { useState, useEffect } from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import State from "./state";
+import Detailed from "./detailed";
+import Payment from "./payment";
 
-import * as styles from './work.module.scss'
-
+import * as styles from "./work.module.scss";
+import Del from "./del";
 
 function Work({ data }) {
   const { work, link } = data;
@@ -15,40 +15,50 @@ function Work({ data }) {
 
   const [cost, setCost] = useState(0);
 
-
   const slugQuery = useStaticQuery(graphql`
-  query {
-    allDirectionsJson {
-      edges {
-        node {
-          slug
-          title
-          works {
-            title
+    query {
+      allDirectionsJson {
+        edges {
+          node {
             slug
+            title
+            works {
+              title
+              slug
+            }
           }
         }
       }
     }
-  }
-`)
+  `);
 
-  const direction = slugQuery.allDirectionsJson.edges.find(edge => edge.node.slug === work.direction).node.title;
-  const theme = slugQuery.allDirectionsJson.edges.find(edge => edge.node.slug === work.direction).node.works.find(item => item.slug === work.theme).title;
-
+  const direction = slugQuery.allDirectionsJson.edges.find(
+    (edge) => edge.node.slug === work.direction
+  ).node.title;
+  const theme = slugQuery.allDirectionsJson.edges
+    .find((edge) => edge.node.slug === work.direction)
+    .node.works.find((item) => item.slug === work.theme).title;
 
   useEffect(() => {
     const price = data.expert.price;
     const theme = data.work.theme;
     setCost(price[theme]);
-  }, [data])
-
+  }, [data]);
 
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <p className={styles.subtitle}>{direction} / {theme}</p>
-        <a href={link ? link : work.link} target='_blank' className={styles.title}>{work.name}</a>
+        <p className={styles.subtitle}>
+          {direction} / {theme}
+        </p>
+        <a
+          href={link ? link : work.link}
+          target="_blank"
+          className={styles.title}
+        >
+          {work.name}
+        </a>
+        <Del id={data.id} />
       </div>
       <State
         data={data}
@@ -68,7 +78,7 @@ function Work({ data }) {
         showPayment={showPayment}
       />
     </div>
-  )
+  );
 }
 
-export default Work
+export default Work;

@@ -17,6 +17,7 @@ import {
 import Modal from "../../modal";
 
 import * as styles from "./detailed.module.scss";
+import Texteditor from "../../texteditor";
 
 function Detailed({ data, showDetailed, setShowDetailed }) {
   const { status, link } = data;
@@ -87,14 +88,9 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
           <>
             <p className={styles.title}>Что исправить / добавить</p>
             <div className={styles.area}>
-              <textarea
-                rows="10"
-                placeholder="Текст для комментерий"
-                disabled={reviewFaildMutation.isLoading}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
+              <Texteditor setText={setMessage} text={message} />
             </div>
+
             <button
               className={cx(
                 styles.send,

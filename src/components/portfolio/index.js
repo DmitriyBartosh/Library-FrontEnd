@@ -14,7 +14,7 @@ function Index() {
     <>
       <Topnavigate />
       <section>
-        <Review />
+        {works?.length > 0 && <Review />}
         {works?.length > 0 && <Works />}
         <Direction />
       </section>

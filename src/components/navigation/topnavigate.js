@@ -10,7 +10,10 @@ import * as styles from "./topnavigate.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function Topnavigate() {
-  const { isLoggedIn, setUser } = useStateContext();
+  const { isLoggedIn, works, subscribes } = useStateContext();
+
+  const isActiveSubscribe =
+    Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   return (
     <nav className={cx(styles.container, global.container)}>
@@ -28,13 +31,15 @@ function Topnavigate() {
 
         {isLoggedIn() ? (
           <>
-            <Link
-              to="/portfolio"
-              activeClassName={styles.active}
-              className={cx(global.buttoncenter, styles.link)}
-            >
-              <p className={global.text}>Мое портфолио</p>
-            </Link>
+            {(works?.length > 0 || isActiveSubscribe) && (
+              <Link
+                to="/portfolio"
+                activeClassName={styles.active}
+                className={cx(global.buttoncenter, styles.link)}
+              >
+                <p className={global.text}>Мое портфолио</p>
+              </Link>
+            )}
             <Link
               to="/profile"
               activeClassName={styles.active}
