@@ -2,16 +2,17 @@
 
 .container {
   display: flex;
-  height: 3rem;
   width: 100%;
-  .block,
-  .button {
+  padding: 4px;
+  .block {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     width: 100%;
-    height: 100%;
+    height: $heightButton;
+    border: 1px solid $green;
+    color: $green;
     .text {
       text-align: center;
       line-height: 1;
@@ -21,44 +22,13 @@
       position: relative;
       width: 1.3rem;
       height: 1.3rem;
-      .svg {
-        width: 100%;
-        height: 100%;
-      }
     }
   }
 
-  .block {
-    background-color: $beige;
-    color: $green;
-    border-top: 1px solid $green;
-  }
-
-  .button {
+  .buttongreen {
     background-color: $green;
     color: white;
-    .text {
-      position: relative;
-      &::after {
-        position: absolute;
-        left: -4px;
-        bottom: -4px;
-        content: "";
-        height: 1px;
-        width: 100%;
-        opacity: 0;
-        background: currentColor;
-        transition: all 0.15s;
-        transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-      }
-    }
-    &:hover .icon {
-      animation: shake 0.4s ease-in-out;
-    }
-    &:hover .text::after {
-      left: 0px;
-      opacity: 1;
-    }
+    width: 100%;
   }
 }
 

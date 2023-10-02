@@ -164,3 +164,59 @@
     transform: translateX(0) rotate(0);
   }
 }
+
+.htmltext {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 0px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $green;
+    border-radius: 5px;
+  }
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  strong {
+    font-weight: 600;
+  }
+  em {
+    font-style: italic;
+  }
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 30px;
+    li {
+      list-style: decimal;
+    }
+  }
+  mark {
+    background-color: $yellow;
+  }
+  blockquote {
+    padding: 15px 20px 15px 30px;
+    width: 100%;
+    border: 1px solid $green;
+    border-left: 4px solid $green;
+    width: calc(100% - 15px);
+  }
+}

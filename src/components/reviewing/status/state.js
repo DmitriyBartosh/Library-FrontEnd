@@ -3,7 +3,7 @@ import {
   IoTimeOutline,
   IoDocumentTextOutline,
   IoCheckmarkSharp,
-  IoDuplicateOutline,
+  IoSparklesSharp,
   IoArrowForwardSharp,
 } from "react-icons/io5";
 import cx from "classname";
@@ -38,6 +38,28 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       }
     },
   });
+
+  const convertDate = (dateString) => {
+    const date = new Date(dateString);
+    const monthNames = [
+      "января",
+      "февраля",
+      "марта",
+      "апреля",
+      "мая",
+      "июня",
+      "июля",
+      "августа",
+      "сентября",
+      "октября",
+      "ноября",
+      "декабря",
+    ];
+    const month = monthNames[date.getMonth()];
+    const formatted = `${date.getDate()} ${month}`;
+
+    return formatted;
+  };
 
   return (
     <div className={styles.container}>
@@ -86,10 +108,8 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       {status === "firstchecked" && (
         <div className={styles.block}>
           <div className={styles.message}>
-            <p className={styles.text}>Работа проверяется</p>
-            <div className={styles.icon}>
-              <IoTimeOutline className={styles.svg} />
-            </div>
+            <p className={styles.text}>Первая проверка</p>
+            <IoTimeOutline className={styles.icon} />
           </div>
         </div>
       )}
@@ -97,10 +117,8 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       {status === "secondchecked" && (
         <div className={styles.block}>
           <div className={styles.message}>
-            <p className={styles.text}>Повторная проверка</p>
-            <div className={styles.icon}>
-              <IoDocumentTextOutline className={styles.svg} />
-            </div>
+            <p className={styles.text}>Вторая проверка</p>
+            <IoTimeOutline className={styles.icon} />
           </div>
         </div>
       )}
@@ -108,11 +126,12 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       {status === "revision" && (
         <div className={styles.block}>
           <button
-            className={cx(global.buttoncenter, styles.buttongreen)}
+            className={cx(global.buttontext, styles.buttongreen)}
             onClick={() => setShowlReview(true)}
           >
-            <p className={global.text}>Внести правки</p>
-            <IoArrowForwardSharp className={global.icon} />
+            <p className={global.text}>
+              Дополнить до {convertDate(data.time_for_revision)}
+            </p>
           </button>
         </div>
       )}
@@ -120,13 +139,11 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       {status === "notcounted" && (
         <div className={styles.block}>
           <button
-            className={styles.button}
+            className={cx(global.buttoncenter, styles.buttongreen)}
             onClick={() => setShowlReview(true)}
           >
-            <p className={styles.text}>Не зачтена</p>
-            <div className={styles.icon}>
-              <IoCheckmarkSharp className={styles.svg} />
-            </div>
+            <p className={global.text}>Работа проверена</p>
+            <IoCheckmarkSharp className={global.icon} />
           </button>
         </div>
       )}
@@ -134,13 +151,11 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
       {status === "complete" && (
         <div className={styles.block}>
           <button
-            className={styles.button}
+            className={cx(global.buttoncenter, styles.buttongreen)}
             onClick={() => setShowlReview(true)}
           >
-            <p className={styles.text}>Зачтено</p>
-            <div className={styles.icon}>
-              <IoCheckmarkSharp className={styles.svg} />
-            </div>
+            <p className={global.text}>Работа проверена</p>
+            <IoSparklesSharp className={global.icon} />
           </button>
         </div>
       )}

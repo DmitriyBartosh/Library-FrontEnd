@@ -56,14 +56,14 @@ const MenuBar = ({ editor }) => {
         <BsParagraph className={styles.icon} />
       </button>
       <button
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={cx(
           styles.button,
-          editor.isActive("blockquote") && styles.active
+          editor.isActive("orderedList") && styles.active
         )}
       >
-        <p className={styles.text}>Цитата</p>
-        <BsBlockquoteLeft className={styles.icon} />
+        <p className={styles.text}>Список</p>
+        <BsListOl className={styles.icon} />
       </button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -93,6 +93,16 @@ const MenuBar = ({ editor }) => {
         <BsTypeStrikethrough className={styles.icon} />
       </button>
       <button
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        className={cx(
+          styles.button,
+          editor.isActive("blockquote") && styles.active
+        )}
+      >
+        <p className={styles.text}>Цитата</p>
+        <BsBlockquoteLeft className={styles.icon} />
+      </button>
+      <button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         className={cx(
           styles.button,
@@ -101,16 +111,6 @@ const MenuBar = ({ editor }) => {
       >
         <p className={styles.text}>Выделить</p>
         <LuHighlighter className={styles.icon} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={cx(
-          styles.button,
-          editor.isActive("orderedList") && styles.active
-        )}
-      >
-        <p className={styles.text}>Список</p>
-        <BsListOl className={styles.icon} />
       </button>
     </div>
   );

@@ -33,7 +33,7 @@ function Checking({ id, setShowDetailed }) {
             key="changestatusreview"
             className={styles.loading}
           >
-            <p>Изменяем статус</p>
+            <p className={styles.text}>Изменяем статус</p>
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 1.25, repeat: Infinity }}
@@ -64,7 +64,7 @@ function Checking({ id, setShowDetailed }) {
               className={cx(global.buttontext, styles.fail)}
               onClick={() => setShowDetailed(true)}
             >
-              <p className={global.text}>Ошибка</p>
+              <p className={global.text}>Отказать</p>
             </button>
           </motion.div>
         )}
