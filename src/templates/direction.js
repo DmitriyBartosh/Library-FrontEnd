@@ -6,10 +6,10 @@ import { useStaticQuery, graphql } from "gatsby";
 import Topnavigate from "../components/navigation/topnavigate";
 import Footer from "../components/footer";
 import Detail from "../components/direction/detail";
+import Theme from "../components/direction/theme";
 
 import * as styles from "../styles/pages/directions.module.scss";
 import * as global from "../styles/base/global.module.scss";
-import Theme from "../components/direction/theme";
 
 function Direction(context) {
   const { title, works, price, slug } = context.pageContext.data;
@@ -109,11 +109,13 @@ function Direction(context) {
           <p className={styles.title}>Все темы</p>
           <div className={styles.items}>
             {works.map((item, index) => {
+              console.log(item);
               return (
                 <Theme
                   openDetail={() => openDetail(item)}
                   description={title}
                   title={item.title}
+                  icon={item.icon}
                   key={`theme_${index}`}
                 />
               );

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import Image from "@tiptap/extension-image";
 import { EditorContent, useEditor } from "@tiptap/react";
 import cx from "classname";
 import StarterKit from "@tiptap/starter-kit";
@@ -13,18 +14,53 @@ import {
   BsTypeStrikethrough,
   BsListOl,
   BsBlockquoteLeft,
+  BsImage,
 } from "react-icons/bs";
+import { IoCheckmarkSharp, IoCloseSharp } from "react-icons/io5";
 import { LuHighlighter } from "react-icons/lu";
 
 import * as styles from "./texteditor.module.scss";
 
 const MenuBar = ({ editor }) => {
+  const urlImageRef = useRef(null);
+  const [addLink, setAddLink] = useState(false);
+
   if (!editor) {
     return null;
   }
 
+  const addImage = (url) => {
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+      setAddLink(false);
+    }
+  };
+
   return (
     <div className={styles.menu}>
+      {addLink && (
+        <div className={styles.promt}>
+          <div className={styles.content}>
+            <p className={styles.hint}>Ссылка на изображение</p>
+            <input className={styles.url} type="text" ref={urlImageRef} />
+          </div>
+
+          <div className={styles.action}>
+            <button
+              className={styles.add}
+              onClick={() => addImage(urlImageRef.current.value)}
+            >
+              <p className={styles.text}>Добавить</p>
+              <IoCheckmarkSharp className={styles.icon} />
+            </button>
+            <button className={styles.close} onClick={() => setAddLink(false)}>
+              <p className={styles.text}>Скрыть</p>
+              <IoCloseSharp className={styles.icon} />
+            </button>
+          </div>
+        </div>
+      )}
+
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={cx(
@@ -112,6 +148,10 @@ const MenuBar = ({ editor }) => {
         <p className={styles.text}>Выделить</p>
         <LuHighlighter className={styles.icon} />
       </button>
+      <button className={styles.button} onClick={() => setAddLink(true)}>
+        <p className={styles.text}>Картинка</p>
+        <BsImage className={styles.icon} />
+      </button>
     </div>
   );
 };
@@ -120,6 +160,7 @@ export default ({ setText, text }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Image,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),

@@ -21,7 +21,6 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
   const queryClient = useQueryClient();
 
   const { status } = data;
-  console.log(data);
 
   const isTransation = data.transaction_id !== null ? true : false;
 
@@ -132,6 +131,17 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
             <p className={global.text}>
               Дополнить до {convertDate(data.time_for_revision)}
             </p>
+          </button>
+        </div>
+      )}
+
+      {status === "overdue" && (
+        <div className={styles.block}>
+          <button
+            className={cx(global.buttontext, styles.buttongreen)}
+            onClick={() => setShowlReview(true)}
+          >
+            <p className={global.text}>Проверено / Без доработок</p>
           </button>
         </div>
       )}

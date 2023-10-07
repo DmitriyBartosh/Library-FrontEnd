@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { navigate } from "gatsby";
 import { motion } from "framer-motion";
 import { IoSyncOutline } from "react-icons/io5";
@@ -40,9 +40,12 @@ function Payment({ name, direction, cost, themes }) {
     styles: styles.bank,
   });
 
+  const queryClient = useQueryClient();
+
   const addSubscribeMutation = useMutation({
     mutationFn: addSubscribe,
     onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["getAllSubscribes"] });
       const url = res.data.url;
       navigate(url);
     },

@@ -6,8 +6,8 @@ import cx from "classname";
 import Logo from "../../images/svg/logo";
 import { useStateContext } from "../../context/ContextProvider";
 
-import * as styles from "./topnavigate.module.scss";
 import * as global from "../../styles/base/global.module.scss";
+import * as styles from "./topnavigate.module.scss";
 
 function Topnavigate() {
   const { isLoggedIn, works, subscribes } = useStateContext();

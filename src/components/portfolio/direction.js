@@ -35,9 +35,7 @@ function Direction() {
   `);
 
   const directions = directionQuery.allDirectionsJson.edges;
-  const activeDirection = subscribes?.filter(
-    (item) => item.active && item.transaction_status === "succeeded"
-  );
+  const activeDirection = subscribes?.filter((item) => item.active);
 
   return (
     <div className={global.container}>

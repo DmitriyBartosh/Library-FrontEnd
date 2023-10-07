@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { IoSyncOutline } from "react-icons/io5";
 import cx from "classname";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { workVerified } from "../../../../functions/expert";
+import { IoSyncOutline } from "react-icons/io5";
+import { AnimatePresence, motion } from "framer-motion";
+import { extendDeadline } from "../../../../functions/expert";
 
 import * as global from "../../../../styles/base/global.module.scss";
 import * as styles from "./state.module.scss";
 
-function Checking({ id, setShowDetailed }) {
-  const queryClient = useQueryClient();
+function Extenddeadline({ id }) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const reviewVerifiedMutation = useMutation({
-    mutationFn: workVerified,
+  const queryClient = useQueryClient();
+
+  const extendDeadlineMutation = useMutation({
+    mutationFn: extendDeadline,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllWorksOnReviewForAdmin"],
@@ -49,22 +50,16 @@ function Checking({ id, setShowDetailed }) {
             exit={{ y: "100%" }}
             transition={{ duration: 0.4, ease: [0.35, 0.7, 0.58, 1] }}
             key="loadingchangestatusreview"
-            className={cx(styles.action, styles.two)}
+            className={styles.action}
           >
             <button
               className={cx(global.buttontext, styles.current)}
               onClick={() => {
                 setIsLoading(true);
-                reviewVerifiedMutation.mutate({ id: id });
+                extendDeadlineMutation.mutate({ id: id });
               }}
             >
-              <p className={global.text}>Принять</p>
-            </button>
-            <button
-              className={cx(global.buttontext, styles.fail)}
-              onClick={() => setShowDetailed(true)}
-            >
-              <p className={global.text}>Отказать</p>
+              <p className={global.text}>Продлить на 5 дней</p>
             </button>
           </motion.div>
         )}
@@ -73,4 +68,4 @@ function Checking({ id, setShowDetailed }) {
   );
 }
 
-export default Checking;
+export default Extenddeadline;

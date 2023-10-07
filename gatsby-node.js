@@ -90,6 +90,7 @@ exports.createPages = async ({ graphql, actions }) => {
               tags
               steps
               description
+              icon
             }
           }
         }

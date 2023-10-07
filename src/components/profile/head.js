@@ -5,6 +5,7 @@ import { useStateContext } from "../../context/ContextProvider";
 import axiosClient from "../../services/axiosClient";
 import * as styles from "./head.module.scss";
 import * as global from "../../styles/base/global.module.scss";
+import Promocode from "./promocode";
 
 function Head() {
   const { user, subscribes, setUser } = useStateContext();
@@ -34,6 +35,7 @@ function Head() {
             <button>Привязать телеграм</button>
           </div>
         </div>
+        <Promocode />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import cx from "classname";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoArrowForwardSharp } from "react-icons/io5";
+import { convertDate } from "../../../functions/other";
 import Save from "./save";
 
 import * as styles from "./status.module.scss";
@@ -9,32 +10,9 @@ import * as styles from "./status.module.scss";
 function Status({ olddata, expert, setExpert }) {
   const [showSave, setShowSave] = useState(false);
 
-  const convertDate = (dateString) => {
-    const date = new Date(dateString);
-    const monthNames = [
-      "января",
-      "февраля",
-      "марта",
-      "апреля",
-      "мая",
-      "июня",
-      "июля",
-      "августа",
-      "сентября",
-      "октября",
-      "ноября",
-      "декабря",
-    ];
-    const month = monthNames[date.getMonth()];
-    const formatted = `${date.getDate()} ${month}`;
-
-    return formatted;
-  };
-
   const handleDateChange = (event) => {
     const { value } = event.target;
-    const formatted = convertDate(value);
-    setExpert({ ...expert, backtowork: formatted });
+    setExpert({ ...expert, backtowork: value });
   };
 
   useEffect(() => {
@@ -93,7 +71,7 @@ function Status({ olddata, expert, setExpert }) {
                 <p className={styles.hint}>Дата возвращения</p>
               ) : (
                 <p className={styles.hint}>
-                  Вернусь <span>{expert.backtowork}</span>
+                  Вернусь <span>{convertDate(expert.backtowork)}</span>
                 </p>
               )}
 

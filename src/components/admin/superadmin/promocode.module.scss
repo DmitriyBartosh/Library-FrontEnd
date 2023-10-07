@@ -1,0 +1,72 @@
+@import "../../../styles/abstracts/variables.scss";
+
+.section {
+  margin-bottom: 50px;
+  h4 {
+    margin-bottom: 1rem;
+  }
+  .settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 500px;
+    background-color: $beige;
+    padding: 8px;
+    padding-top: 20px;
+    .block {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: flex-end;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      .name {
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .select {
+        border-bottom: 1px solid $green;
+        padding: 6px 10px;
+        min-height: calc(1rem + 20px);
+        color: $grey;
+        font-size: 0.9rem;
+        border-radius: 0;
+        &.selected {
+          font-size: 1rem;
+          font-weight: 500;
+          color: $black;
+        }
+      }
+      .field {
+        position: relative;
+        border-bottom: 1px solid $green;
+        padding: 6px 10px;
+        font-weight: 500;
+        &::placeholder,
+        .placeholder {
+          font-size: 0.9rem;
+          color: $grey;
+        }
+        .datepicker {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+
+          &::-webkit-calendar-picker-indicator {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.addpromo {
+  margin-top: 1rem;
+  background-color: $green;
+  color: white;
+}

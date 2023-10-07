@@ -39,6 +39,7 @@ function Directions() {
               tags
               steps
               description
+              icon
             }
           }
         }
@@ -123,6 +124,7 @@ function Directions() {
                       }
                       title={item.title}
                       description={title}
+                      icon={item.icon}
                       key={`theme_${index}`}
                     />
                   );

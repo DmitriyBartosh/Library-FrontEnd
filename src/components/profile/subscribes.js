@@ -93,12 +93,9 @@ function Subscribes() {
     Array.isArray(subscribes) &&
     subscribes?.filter((item) => item.transaction_status === "pending");
 
-  // Оплаченные подписки
+  // Активные подписки
   const subscribeSucceeded =
-    Array.isArray(subscribes) &&
-    subscribes?.filter(
-      (item) => item.transaction_status === "succeeded" && item.active
-    );
+    Array.isArray(subscribes) && subscribes?.filter((item) => item.active);
 
   // Если не осталось возможных направлений для покупки
   const isVisibleSubscribe =
@@ -113,7 +110,7 @@ function Subscribes() {
             <div className={styles.list}>
               <p className={styles.title}>Активные подписки</p>
               {subscribeSucceeded
-                .filter((item) => item.transaction_status === "succeeded")
+                .filter((item) => item.active)
                 .map((item, index) => {
                   const directionPending = direction.find(
                     (dir) => dir.node.slug === item.plan

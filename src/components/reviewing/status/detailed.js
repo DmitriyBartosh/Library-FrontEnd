@@ -131,6 +131,20 @@ function Detailed({ data, showReview, setShowlReview }) {
         </>
       )}
 
+      {data.status === "overdue" && (
+        <div className={styles.content}>
+          <Detailedhead data={data} />
+
+          <p className={styles.title}>Рецензия / Без доработок</p>
+          <div className={styles.message}>
+            <div
+              className={global.htmltext}
+              dangerouslySetInnerHTML={{ __html: data.message_revision }}
+            />
+          </div>
+        </div>
+      )}
+
       {data.status === "notcounted" && (
         <div className={styles.content}>
           <Detailedhead data={data} />

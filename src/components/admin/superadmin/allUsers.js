@@ -1,19 +1,17 @@
-import React from 'react'
-import Button from './button';
+import React from "react";
+import Button from "./button";
 
-import * as styles from './allusers.module.scss'
-
+import * as styles from "./allusers.module.scss";
 
 function AllUsers({ openModal, allUsersQuery }) {
-
   return (
     <div className={styles.container}>
-      <h4>Все пользователи</h4>
-      {allUsersQuery.isLoading ?
+      <h3>Все пользователи</h3>
+      {allUsersQuery.isLoading ? (
         <div className={styles.loading}>
           <p>Загрузка пользователей</p>
         </div>
-        :
+      ) : (
         <div className={styles.list}>
           <div className={styles.head}>
             <div className={styles.block}>
@@ -37,33 +35,34 @@ function AllUsers({ openModal, allUsersQuery }) {
               const { id, name, email, expert } = item;
               const isExpert = expert !== null ? true : false;
 
-              return <div className={styles.item} key={index}>
-                <div className={styles.block}>
-                  <p>{id}</p>
+              return (
+                <div className={styles.item} key={index}>
+                  <div className={styles.block}>
+                    <p>{id}</p>
+                  </div>
+                  <div className={styles.block}>
+                    <p>{name}</p>
+                  </div>
+                  <div className={styles.block}>
+                    <p>{email}</p>
+                  </div>
+                  <div className={styles.block}>
+                    <p>{isExpert ? "Эксперт" : "Пользователь"} </p>
+                  </div>
+                  <div className={styles.block}>
+                    <Button
+                      isExpert={expert}
+                      openModal={() => openModal(id, name, isExpert)}
+                    />
+                  </div>
                 </div>
-                <div className={styles.block}>
-                  <p>{name}</p>
-                </div>
-                <div className={styles.block}>
-                  <p>{email}</p>
-                </div>
-                <div className={styles.block}>
-                  <p>{isExpert ? "Эксперт" : "Пользователь"} </p>
-                </div>
-                <div className={styles.block}>
-                  <Button
-                    isExpert={expert}
-                    openModal={() => openModal(id, name, isExpert)} />
-                </div>
-              </div>
+              );
             })}
           </div>
         </div>
-
-
-      }
+      )}
     </div>
-  )
+  );
 }
 
-export default AllUsers
+export default AllUsers;

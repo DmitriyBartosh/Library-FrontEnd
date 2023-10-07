@@ -12,10 +12,10 @@ import Checking from "./checking";
 
 import * as global from "../../../../styles/base/global.module.scss";
 import * as styles from "./state.module.scss";
+import Extenddeadline from "./extenddeadline";
 
 function State({ data, setShowDetailed }) {
   const { id, status } = data;
-  console.log(data);
 
   const convertDate = (dateString) => {
     const date = new Date(dateString);
@@ -57,6 +57,7 @@ function State({ data, setShowDetailed }) {
             <IoTimeOutline className={styles.icon} />
           </div>
         )}
+
         {status === "revision" && (
           <div className={styles.block}>
             <p className={styles.text}>
@@ -64,6 +65,9 @@ function State({ data, setShowDetailed }) {
             </p>
           </div>
         )}
+
+        {status === "overdue" && <Extenddeadline id={id} />}
+
         {status === "firstchecked" && (
           <button
             className={cx(global.buttoncenter, styles.buttongreen)}
