@@ -15,6 +15,17 @@ function Direction(context) {
   const { title, works, price, slug } = context.pageContext.data;
   const allThemes = works.map((obj) => obj.title);
 
+  // сортируем, чтобы сначала шли бесплатные темы
+  const sortedWork = works.sort((a, b) => {
+    if (a.free && !b.free) {
+      return -1;
+    } else if (!a.free && b.free) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
   const [payment, setPayment] = useState(false);
   const [detail, setDetail] = useState({
     visible: false,
@@ -47,6 +58,16 @@ function Direction(context) {
   `);
 
   const direction = directionQuery.allDirectionsJson.edges;
+  // сортируем, чтобы сначала шли ссылки на активные темы
+  const sortedDirection = direction.sort((a, b) => {
+    if (a.node.active && !b.node.active) {
+      return -1;
+    } else if (!a.node.active && b.node.active) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
   function closeDetail() {
     setPayment(false);
@@ -90,7 +111,7 @@ function Direction(context) {
             >
               <p className={styles.text}>Все направления</p>
             </Link>
-            {direction.map((item, index) => {
+            {sortedDirection.map((item, index) => {
               const { title, active, slug } = item.node;
               return (
                 <Link
@@ -108,13 +129,13 @@ function Direction(context) {
         <div className={styles.themes}>
           <p className={styles.title}>Все темы</p>
           <div className={styles.items}>
-            {works.map((item, index) => {
-              console.log(item);
+            {sortedWork.map((item, index) => {
               return (
                 <Theme
                   openDetail={() => openDetail(item)}
                   description={title}
                   title={item.title}
+                  free={item.free}
                   icon={item.icon}
                   key={`theme_${index}`}
                 />

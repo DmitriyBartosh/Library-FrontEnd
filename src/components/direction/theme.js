@@ -1,12 +1,17 @@
 import React from "react";
+import cx from "classname";
 import * as styles from "./theme.module.scss";
 
-function Theme({ openDetail, title, description, icon }) {
-  console.log(`../../images/direction/${icon}`);
+function Theme({ openDetail, title, description, icon, free }) {
   const Component = React.lazy(() => import(`../../images/direction/${icon}`));
   return (
-    <button onClick={openDetail} className={styles.container}>
-      <p className={styles.subscribe}>По подписке</p>
+    <button
+      onClick={openDetail}
+      className={cx(styles.container, free && styles.free)}
+    >
+      <div className={styles.subscribe}>
+        <p>{free ? "Бесплатно" : "Доступно по подписке"}</p>
+      </div>
       <div className={styles.preview}>
         <React.Suspense>
           <Component className={styles.icon} />

@@ -23,8 +23,9 @@ function Topnavigate() {
       <div className={styles.right}>
         <Link
           to="/directions"
+          partiallyActive={true}
           activeClassName={styles.active}
-          className={cx(global.buttoncenter, styles.link)}
+          className={cx(global.buttontext, styles.link)}
         >
           <p className={global.text}>Направления</p>
         </Link>
@@ -35,7 +36,7 @@ function Topnavigate() {
               <Link
                 to="/portfolio"
                 activeClassName={styles.active}
-                className={cx(global.buttoncenter, styles.link)}
+                className={cx(global.buttontext, styles.link)}
               >
                 <p className={global.text}>Мое портфолио</p>
               </Link>
@@ -52,7 +53,7 @@ function Topnavigate() {
           <Link
             to="/auth"
             activeClassName={styles.active}
-            className={cx(global.buttoncenter, styles.link)}
+            className={cx(global.buttontext, styles.link)}
           >
             <p className={global.text}>Войти</p>
             <CiLogin className={global.icon} />

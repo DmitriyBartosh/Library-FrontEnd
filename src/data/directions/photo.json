@@ -6,6 +6,7 @@
   "price": 200,
   "works": [
     {
+      "free": false,
       "slug": "mobilephoto",
       "title": "Мобильная съемка",
       "description": "Описание для мобильной съемки",

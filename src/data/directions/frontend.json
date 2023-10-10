@@ -2,10 +2,11 @@
   "slug": "frontend",
   "title": "FrontEnd разработка",
   "about": "Описание для направления",
-  "active": true,
+  "active": false,
   "price": 200,
   "works": [
     {
+      "free": false,
       "slug": "layout",
       "title": "Верстка сайта",
       "description": "Описание для верстки сайта",

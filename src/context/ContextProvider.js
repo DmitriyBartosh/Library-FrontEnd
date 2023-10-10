@@ -69,7 +69,7 @@ export const ContextProvider = ({ children }) => {
   const isSubscribe = (direction) => {
     const isActive = subscribes
       ?.filter((item) => item.plan === direction)
-      .some((item) => item.active && item.transaction_status === "succeeded");
+      .some((item) => item.active);
 
     return isActive;
   };

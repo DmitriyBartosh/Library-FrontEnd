@@ -33,6 +33,7 @@ function Directions() {
             about
             price
             works {
+              free
               title
               slug
               time
@@ -48,6 +49,17 @@ function Directions() {
   `);
 
   const direction = directionQuery.allDirectionsJson.edges;
+
+  // сортируем, чтобы сначала шли ссылки на активные темы
+  const sortedDirection = direction.sort((a, b) => {
+    if (a.node.active && !b.node.active) {
+      return -1;
+    } else if (!a.node.active && b.node.active) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
   function closeDetail() {
     setPayment(false);
@@ -91,7 +103,7 @@ function Directions() {
             >
               <p className={styles.text}>Все направления</p>
             </Link>
-            {direction.map((item, index) => {
+            {sortedDirection.map((item, index) => {
               const { title, slug, active } = item.node;
 
               return (
@@ -110,25 +122,53 @@ function Directions() {
         <div className={styles.themes}>
           <p className={styles.title}>Все темы</p>
           <div className={styles.items}>
+            {/* Сначала добавляем все бесплатные темы */}
             {direction.map((item) => {
               const { works, title, active, price, slug } = item.node;
               const allThemes = works.map((obj) => obj.title);
 
               return (
                 active &&
-                works.map((item, index) => {
-                  return (
-                    <Theme
-                      openDetail={() =>
-                        openDetail(item, price, allThemes, title, slug)
-                      }
-                      title={item.title}
-                      description={title}
-                      icon={item.icon}
-                      key={`theme_${index}`}
-                    />
-                  );
-                })
+                works
+                  .filter((item) => item.free)
+                  .map((item, index) => {
+                    return (
+                      <Theme
+                        openDetail={() =>
+                          openDetail(item, price, allThemes, title, slug)
+                        }
+                        title={item.title}
+                        description={title}
+                        free={item.free}
+                        icon={item.icon}
+                        key={`theme_${index}`}
+                      />
+                    );
+                  })
+              );
+            })}
+            {/* После добавляем платные темы */}
+            {direction.map((item) => {
+              const { works, title, active, price, slug } = item.node;
+              const allThemes = works.map((obj) => obj.title);
+
+              return (
+                active &&
+                works
+                  .filter((item) => !item.free)
+                  .map((item, index) => {
+                    return (
+                      <Theme
+                        openDetail={() =>
+                          openDetail(item, price, allThemes, title, slug)
+                        }
+                        title={item.title}
+                        description={title}
+                        icon={item.icon}
+                        key={`theme_${index}`}
+                      />
+                    );
+                  })
               );
             })}
           </div>
