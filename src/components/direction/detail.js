@@ -8,9 +8,10 @@ import * as styles from "./detail.module.scss";
 import { Link } from "gatsby";
 
 function Detail({ detail, payment, setPayment, closeDetail }) {
-  const { title, tags, steps, time, description } = detail.data;
+  const { title, tags, steps, time, description, free } = detail.data;
   const { isSubscribe } = useStateContext();
 
+  console.log(free);
   return (
     <Modal visible={detail.visible} close={() => closeDetail()}>
       {payment ? (
@@ -67,7 +68,7 @@ function Detail({ detail, payment, setPayment, closeDetail }) {
             </div>
           </div>
           <div className={styles.actions}>
-            {isSubscribe(detail.direction) ? (
+            {isSubscribe(detail.direction) || free ? (
               <Link
                 to={`/${detail.direction}/${detail.data.slug}`}
                 className={styles.button}

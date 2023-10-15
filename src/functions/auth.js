@@ -22,3 +22,10 @@ export const googleAuth = () => {
     .then(({ data }) => data.url)
     .catch((error) => error);
 };
+
+export const telegramAuth = () => {
+  return axiosClient
+    .get("/auth/telegram")
+    .then(({ data }) => data)
+    .catch((error) => error);
+};

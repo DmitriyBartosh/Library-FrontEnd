@@ -6,9 +6,10 @@ import axiosClient from "../../services/axiosClient";
 import * as styles from "./head.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 import Promocode from "./promocode";
+import Telegram from "./telegram";
 
 function Head() {
-  const { user, subscribes, setUser } = useStateContext();
+  const { user, setUser } = useStateContext();
 
   const onLogout = (ev) => {
     ev.preventDefault();
@@ -32,7 +33,11 @@ function Head() {
             </button>
           </div>
           <div className={styles.telegram}>
-            <button>Привязать телеграм</button>
+            <Telegram />
+          </div>
+          <div>
+            <p>Добавить в Dock</p>
+            <button>Добавить</button>
           </div>
         </div>
         <Promocode />

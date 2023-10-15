@@ -8,7 +8,10 @@ import * as styles from "./work.module.scss";
 import Del from "./del";
 
 function Work({ data }) {
-  const { work, link } = data;
+  const { work, link, status } = data;
+  const activeDeleteStatus = ["checking", "fail", "verified"].some(
+    (item) => item === status
+  );
 
   const [showReview, setShowlReview] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
@@ -58,7 +61,7 @@ function Work({ data }) {
         >
           {work.name}
         </a>
-        <Del id={data.id} />
+        {activeDeleteStatus && <Del id={data.id} />}
       </div>
       <State
         data={data}

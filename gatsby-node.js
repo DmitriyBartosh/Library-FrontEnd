@@ -142,7 +142,6 @@ exports.createPages = async ({ graphql, actions }) => {
   // Страницы направлений
   directionData.data.allDirectionsJson.edges.forEach((data) => {
     const slug = data.node.slug;
-    console.log(data);
 
     createPage({
       path: `/directions/${slug}`,
