@@ -1,0 +1,102 @@
+@import "../abstracts/variables.scss";
+
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+  .flower {
+    position: absolute;
+    bottom: -7vw;
+    width: 60vw;
+    z-index: -1;
+  }
+  .bird {
+    position: absolute;
+    top: 120px;
+    left: 15vw;
+    width: 12vw;
+  }
+  .birdonbranch {
+    position: absolute;
+    right: 10vw;
+    width: 7vw;
+  }
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  width: 500px;
+  background-color: $beige;
+  span {
+    font-weight: 600;
+  }
+  .name {
+    font-size: 0.9rem;
+    color: $grey;
+  }
+  .title {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    padding-left: 1.5rem;
+    a {
+      font-weight: 600;
+      color: $green;
+      text-decoration: underline;
+    }
+    li {
+      list-style: decimal;
+    }
+  }
+}
+
+.action {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 8px;
+  padding: 16px 20px;
+  width: 500px;
+  background-color: $beige;
+  .field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $heightButton;
+    border: 1px solid $green;
+    margin-bottom: 4px;
+    input {
+      width: 100%;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+}
+
+.buttongreen {
+  width: 100%;
+  background-color: $green;
+  border: 1px solid $green;
+  color: white;
+}
+
+.buttongrey {
+  width: 100%;
+  background-color: $beige;
+  color: $green;
+  border: 1px solid $green;
+  pointer-events: none;
+}

@@ -8,3 +8,10 @@ export const getUser = async () => {
     return err;
   }
 };
+
+export const addTelegramId = (data) => {
+  return axiosClient
+    .post("telegram/add", data)
+    .then(({ data }) => data)
+    .catch((error) => error);
+};

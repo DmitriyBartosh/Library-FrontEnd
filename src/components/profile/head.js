@@ -1,12 +1,14 @@
 import React from "react";
-import { navigate } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { CiLogout } from "react-icons/ci";
+import { FaTelegramPlane } from "react-icons/fa";
+
 import { useStateContext } from "../../context/ContextProvider";
 import axiosClient from "../../services/axiosClient";
+import Promocode from "./promocode";
+
 import * as styles from "./head.module.scss";
 import * as global from "../../styles/base/global.module.scss";
-import Promocode from "./promocode";
-import Telegram from "./telegram";
 
 function Head() {
   const { user, setUser } = useStateContext();
@@ -27,17 +29,20 @@ function Head() {
           <div className={styles.info}>
             <p className={styles.name}>{user?.name}</p>
             <p>{user?.email}</p>
+            <Link className={styles.telegram} to="/telegram">
+              <FaTelegramPlane className={styles.icon} />
+              {user.telegram === null ? (
+                <p className={styles.text}>Привязать Telegram</p>
+              ) : (
+                <p className={styles.text}>
+                  Telegram - <span>@{user.telegram.username}</span>
+                </p>
+              )}
+            </Link>
             <button className={styles.logout} onClick={onLogout}>
               <CiLogout className={styles.icon} />
               <p className={styles.text}>Выйти</p>
             </button>
-          </div>
-          <div className={styles.telegram}>
-            <Telegram />
-          </div>
-          <div>
-            <p>Добавить в Dock</p>
-            <button>Добавить</button>
           </div>
         </div>
         <Promocode />

@@ -71,15 +71,16 @@
       }
     }
   }
-  .buttongreen,
-  .buttonbrown {
-    width: 100%;
-    color: white;
-  }
-  .buttongreen {
-    background-color: $green;
-  }
-  .buttonbrown {
-    background-color: $brown;
-  }
+}
+
+.buttongreen,
+.buttonbrown {
+  width: 100%;
+  color: white;
+}
+.buttongreen {
+  background-color: $green;
+}
+.buttonbrown {
+  background-color: $brown;
 }

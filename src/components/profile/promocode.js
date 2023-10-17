@@ -9,24 +9,25 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./promocode.module.scss";
 
 function Promocode() {
-  const [code, setCode] = useState("");
+  const [promo, setPromo] = useState({
+    code: "",
+    apply: false,
+  });
 
   const queryClient = useQueryClient();
 
   const activatePromocodeMutation = useMutation({
     mutationFn: activatePromoCode,
     onSuccess: (res) => {
-      console.log(res.data);
+      setPromo({ ...promo, apply: true });
       queryClient.invalidateQueries({ queryKey: ["getAllSubscribes"] });
     },
   });
 
-  console.log(activatePromocodeMutation.data);
-
   return (
     <div className={styles.container}>
       <p className={styles.title}>Добавить промокод</p>
-      {activatePromocodeMutation.data ? (
+      {promo.apply ? (
         <div className={styles.result}>
           {activatePromocodeMutation.data.data.activate ? (
             <div className={styles.message}>
@@ -39,6 +40,17 @@ function Promocode() {
               <p>{activatePromocodeMutation.data.data.message}</p>
             </div>
           )}
+
+          <button
+            className={cx(global.buttontext, styles.buttongreen)}
+            onClick={() => setPromo({ code: "", apply: false })}
+          >
+            {activatePromocodeMutation.data.data.activate ? (
+              <p className={global.text}>Закрыть</p>
+            ) : (
+              <p className={global.text}>Попробовать другой</p>
+            )}
+          </button>
         </div>
       ) : (
         <>
@@ -48,12 +60,14 @@ function Promocode() {
                 maxLength={8}
                 placeholder="Поле для промокода"
                 type="text"
-                onChange={(e) => setCode(e.target.value.toUpperCase())}
+                onChange={(e) =>
+                  setPromo({ ...promo, code: e.target.value.toUpperCase() })
+                }
               />
             </div>
           </div>
           <AnimatePresence initial={false}>
-            {code.length === 8 && (
+            {promo.code.length === 8 && (
               <motion.div
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -64,7 +78,7 @@ function Promocode() {
                   disabled={activatePromocodeMutation.isLoading}
                   onClick={() =>
                     activatePromocodeMutation.mutate({
-                      code: code,
+                      code: promo.code,
                     })
                   }
                 >
