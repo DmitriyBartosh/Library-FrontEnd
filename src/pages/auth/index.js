@@ -21,7 +21,7 @@ function Index() {
     queryKey: ["yandex_auth"],
     queryFn: yandexAuth,
   });
-
+  console.log(yandexAuthURL);
   const googleAuthURL = useQuery({
     queryKey: ["google_auth"],
     queryFn: googleAuth,

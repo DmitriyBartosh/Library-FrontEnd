@@ -2,6 +2,7 @@ import { navigate } from "gatsby";
 import { useLocalStorage } from "react-use";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../functions/user";
+import axiosClient from "../services/axiosClient";
 import { getAllSubscribes } from "../functions/subscribe";
 import { getAllWorksOnReview } from "../functions/review";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -17,14 +18,14 @@ const StateContext = createContext({
   setShowReview: () => {},
   setLinks: () => {},
   setUser: () => {},
+  onLogout: () => {},
   isLoggedIn: () => {},
   isSubscribe: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
   const [showReview, setShowReview] = useState(false);
-  const [token, setToken, removeToken] = useLocalStorage("token");
-  const [user, _setUser, removeUser] = useLocalStorage("user");
+  const [user, setUser, removeUser] = useLocalStorage("user");
   const [works, setWorks, removeWorks] = useLocalStorage("works");
   const [subscribes, setSubscribes, removeSubscribes] =
     useLocalStorage("subscribes");
@@ -33,37 +34,33 @@ export const ContextProvider = ({ children }) => {
   const userQuery = useQuery({
     queryKey: ["getUser"],
     queryFn: getUser,
-    enabled: !!token,
+    enabled: !!user,
   });
 
   const allWorksQuery = useQuery({
     queryKey: ["getAllWorks"],
     queryFn: getAllWorks,
-    enabled: !!token,
+    enabled: !!user,
   });
 
   const allWorkOnReviewQuery = useQuery({
     queryKey: ["getAllWorksOnReview"],
     queryFn: getAllWorksOnReview,
-    enabled: !!token,
+    enabled: !!user,
   });
 
   const allSubscribesQuery = useQuery({
     queryKey: ["getAllSubscribes"],
     queryFn: getAllSubscribes,
-    enabled: !!token,
+    enabled: !!user,
   });
-
-  // обнулить пользователя
-  const setUser = (token, user) => {
-    setToken(token);
-    _setUser(user);
-  };
 
   // Авторизирован ли пользователь
   const isLoggedIn = () => {
-    return !!token && !!user;
+    return !!user;
   };
+
+  console.log(isLoggedIn());
 
   // Активна ли подписка по направлению
   const isSubscribe = (direction) => {
@@ -74,19 +71,38 @@ export const ContextProvider = ({ children }) => {
     return isActive;
   };
 
+  // Выйти из системы
+  const onLogout = (event, setIsLoading) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    axiosClient.post("auth/logout").then(() => {
+      removeUser();
+      removeWorks();
+      removeSubscribes();
+      removeReviews();
+
+      navigate("/");
+      setIsLoading(false);
+    });
+  };
+
   // Обновление информации о пользовтеле (имя, почта)
   useEffect(() => {
     if (userQuery.isError) {
-      removeToken();
       removeUser();
       removeSubscribes();
       removeWorks();
-
       navigate("/");
     }
 
     if (userQuery.isSuccess) {
-      _setUser(userQuery.data);
+      // Обновляем пользователя
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...userQuery.data,
+        access_token: prevUser.access_token,
+      }));
     }
   }, [userQuery.isStale]);
 
@@ -112,20 +128,18 @@ export const ContextProvider = ({ children }) => {
   }, [allWorkOnReviewQuery.isStale]);
 
   useEffect(() => {
-    if (!token) {
-      removeToken();
+    if (!user?.access_token) {
       removeUser();
       removeWorks();
       removeSubscribes();
       removeReviews();
     }
-  }, [token]);
+  }, [user]);
 
   return (
     <StateContext.Provider
       value={{
         user,
-        token,
         works,
         reviews,
         subscribes,
@@ -133,6 +147,7 @@ export const ContextProvider = ({ children }) => {
         setShowReview,
         setUser,
         setWorks,
+        onLogout,
         isLoggedIn,
         isSubscribe,
       }}

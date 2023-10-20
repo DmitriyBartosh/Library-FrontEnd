@@ -1,0 +1,85 @@
+@import "../../styles/abstracts/variables.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 400px;
+  .head {
+    background-color: $beige;
+    padding: 25px 4px;
+    padding-bottom: 21px;
+    .profile {
+      font-size: 0.9rem;
+      padding: 0 16px;
+      span {
+        font-weight: 500;
+      }
+    }
+    .name {
+      .field {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        height: $heightButton;
+        transition: all 0.3s;
+        &:hover,
+        &:has(.input:focus) {
+          margin-top: 8px;
+          margin-bottom: 8px;
+        }
+        &:hover .hidden,
+        .input:focus + div .hidden {
+          opacity: 1;
+          pointer-events: all;
+        }
+        &:hover .input {
+          background-color: $background;
+        }
+
+        .hidden {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .input {
+          padding: 0 1rem;
+          width: 100%;
+          height: 100%;
+          font-size: 1.15rem;
+          font-weight: 500;
+          transition: all 0.3s;
+          &:focus {
+            background-color: $background;
+          }
+        }
+      }
+      .hint {
+        position: relative;
+        top: -4px;
+        padding: 0 16px;
+        font-size: 0.9rem;
+        font-weight: 300;
+        max-width: 300px;
+      }
+    }
+  }
+  .action {
+    display: grid;
+    grid-template-columns: 1fr 125px;
+    gap: 4px;
+    background-color: $beige;
+    padding: 4px;
+  }
+}
+
+.buttongreen {
+  width: 100%;
+  background-color: $green;
+  color: white;
+}
+
+.buttontransparent {
+  color: $green;
+  background-color: $background;
+  width: 100%;
+}

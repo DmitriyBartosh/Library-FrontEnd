@@ -30,9 +30,10 @@ function Yandex() {
         return response.json();
       })
       .then((data) => {
-        setUser(data.access_token, data.user);
+        setUser(data);
         navigate("/profile");
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

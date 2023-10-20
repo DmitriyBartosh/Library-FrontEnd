@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import cx from "classname";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,7 +9,6 @@ import {
 } from "react-icons/io5";
 import { navigate } from "gatsby";
 import { addTelegramId } from "../functions/user";
-import { useSearchParam, useEffectOnce } from "react-use";
 import { useStateContext } from "../context/ContextProvider";
 
 import Bird from "../images/svg/bird";
@@ -24,30 +23,34 @@ function Telegram() {
   const { user } = useStateContext();
   const queryClient = useQueryClient();
 
-  const id = useSearchParam("id");
-
   const [telegram, setTelegram] = useState("");
-  console.log(user);
+  const [error, setError] = useState(false);
 
   const addTelegramIdMutation = useMutation({
     mutationFn: addTelegramId,
     onSuccess: (res) => {
       console.log(res);
-      navigate("/profile");
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
+      if (!res.telegram.error) {
+        navigate("/profile");
+      }
     },
   });
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setTelegram(event.target.value);
+    const inputValue = event.target.value;
+    const regex = /^[0-9]+$/;
 
-    navigate(`?id=${event.target.value.toString()}`);
+    if (regex.test(inputValue) || inputValue === "") {
+      setTelegram(inputValue);
+      if (error) {
+        setError(false);
+      }
+    } else {
+      setError(true);
+    }
   };
-
-  useEffectOnce(() => {
-    setTelegram(id || "");
-  });
 
   return (
     <>
@@ -57,8 +60,11 @@ function Telegram() {
         <Birdonbranch className={styles.birdonbranch} />
         <Flower className={styles.flower} />
 
-        {user.telegram === null ? (
+        {user.telegram === null || user.telegram.error ? (
           <div className={styles.block}>
+            <p className={styles.name}>
+              {user.name} / {user.email}
+            </p>
             <p className={styles.title}>Telegram Bot | Графикси</p>
             <p>
               Получайте уведомления об изменении статуса рецензии, обновлениях
@@ -86,7 +92,7 @@ function Telegram() {
         )}
 
         <div className={styles.block}>
-          {user.telegram === null ? (
+          {user.telegram === null || user.telegram?.error ? (
             <>
               <p className={styles.title}>Как привязать к профилю</p>
               <ul>
@@ -104,11 +110,8 @@ function Telegram() {
                   Нажми кнопку <span>"Начать"</span>
                 </li>
                 <li>
-                  Открой ссылку полученной после команды <span>"Начать"</span>{" "}
-                  или скопируй <span>ID</span> вручную
-                </li>
-                <li>
-                  Нажми <span>"Применить"</span>
+                  Вставь <span>ID</span> из сообщения и нажми{" "}
+                  <span>"Применить"</span>
                 </li>
               </ul>
               <p>
@@ -146,11 +149,29 @@ function Telegram() {
           )}
         </div>
 
+        {user.telegram?.error && (
+          <div className={cx(styles.block, styles.error)}>
+            <p>
+              Добавленный <span>ID</span> телеграма <span>не найден</span>.
+              Проверьте что ID <span>скопирован полностью</span> и повторите
+              попытку.
+            </p>
+          </div>
+        )}
+
+        {error && (
+          <div className={cx(styles.block, styles.error)}>
+            <p>
+              <span>ID</span> телеграм состоит <span>только из цифр</span>.
+            </p>
+          </div>
+        )}
+
         <div className={styles.action}>
           <div className={styles.field}>
             <input
               maxLength={20}
-              placeholder="Поле для ID телеграма"
+              placeholder="ID телеграма"
               type="text"
               value={telegram}
               onChange={handleFormSubmit}

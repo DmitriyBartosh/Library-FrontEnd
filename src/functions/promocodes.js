@@ -17,6 +17,7 @@ export const addPromoCodes = (data) => {
 };
 
 export const activatePromoCode = (data) => {
+  console.log(data);
   return axiosClient
     .post("promo/activate", data)
     .then((data) => data)
