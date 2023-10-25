@@ -9,6 +9,13 @@ export const getUser = async () => {
   }
 };
 
+export const setName = (data) => {
+  return axiosClient
+    .post("user/setname", data)
+    .then(({ data }) => data)
+    .catch((error) => error);
+};
+
 export const addTelegramId = (data) => {
   return axiosClient
     .post("telegram/add", data)

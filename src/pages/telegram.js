@@ -60,168 +60,172 @@ function Telegram() {
         <Birdonbranch className={styles.birdonbranch} />
         <Flower className={styles.flower} />
 
-        {user.telegram === null || user.telegram.error ? (
-          <div className={styles.block}>
-            <p className={styles.name}>
-              {user.name} / {user.email}
-            </p>
-            <p className={styles.title}>Telegram Bot | Графикси</p>
-            <p>
-              Получайте уведомления об изменении статуса рецензии, обновлениях
-              на ресурсе и полезных материалах!
-            </p>
-          </div>
-        ) : (
-          <div className={styles.block}>
-            <p className={styles.name}>
-              {user.name} / {user.email}
-            </p>
-            <p className={styles.title}>Telegram Bot | Графикси</p>
-            <p>
-              Привет{" "}
-              <span>
-                {user.telegram.first_name} {user.telegram.last_name}!
-              </span>
-            </p>
-            <p>
-              Теперь уведомления об изменении статуса рецензии, обновлениях на
-              ресурсе и полезных материалах будут приходить прямо в{" "}
-              <span>@{user.telegram.username}</span> телеграм!
-            </p>
-          </div>
-        )}
+        {user && (
+          <>
+            {user.telegram === null || user.telegram.error ? (
+              <div className={styles.block}>
+                <p className={styles.name}>
+                  {user.name} / {user.email}
+                </p>
+                <p className={styles.title}>Telegram Bot | Графикси</p>
+                <p>
+                  Получайте уведомления об изменении статуса рецензии,
+                  обновлениях на ресурсе и полезных материалах!
+                </p>
+              </div>
+            ) : (
+              <div className={styles.block}>
+                <p className={styles.name}>
+                  {user.name} / {user.email}
+                </p>
+                <p className={styles.title}>Telegram Bot | Графикси</p>
+                <p>
+                  Привет{" "}
+                  <span>
+                    {user.telegram.first_name} {user.telegram.last_name}!
+                  </span>
+                </p>
+                <p>
+                  Теперь уведомления об изменении статуса рецензии, обновлениях
+                  на ресурсе и полезных материалах будут приходить прямо в{" "}
+                  <span>@{user.telegram.username}</span> телеграм!
+                </p>
+              </div>
+            )}
 
-        <div className={styles.block}>
-          {user.telegram === null || user.telegram?.error ? (
-            <>
-              <p className={styles.title}>Как привязать к профилю</p>
-              <ul>
-                <li>
-                  Открой{" "}
-                  <a
-                    href="https://t.me/graphiksi_bot"
-                    target="_blank"
-                    rel="noreferrer"
+            <div className={styles.block}>
+              {user.telegram === null || user.telegram?.error ? (
+                <>
+                  <p className={styles.title}>Как привязать к профилю</p>
+                  <ul>
+                    <li>
+                      Открой{" "}
+                      <a
+                        href="https://t.me/graphiksi_bot"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Телеграм бота Графикси
+                      </a>
+                    </li>
+                    <li>
+                      Нажми кнопку <span>"Начать"</span>
+                    </li>
+                    <li>
+                      Вставь <span>ID</span> из сообщения и нажми{" "}
+                      <span>"Применить"</span>
+                    </li>
+                  </ul>
+                  <p>
+                    После все уведомления о статусе рецензий будут прямо в
+                    телеграм!
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className={styles.title}>
+                    Если нужно привязать другой телеграм
+                  </p>
+                  <ul>
+                    <li>
+                      Открой{" "}
+                      <a
+                        href="https://t.me/graphiksi_bot"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Телеграм бота Графикси
+                      </a>
+                    </li>
+                    <li>
+                      Нажми кнопку <span>"Начать"</span>
+                    </li>
+                    <li>
+                      Открой ссылку полученной после команды{" "}
+                      <span>"Начать"</span> или скопируй <span>ID</span> вручную
+                    </li>
+                    <li>
+                      Нажми <span>"Применить"</span>
+                    </li>
+                  </ul>
+                </>
+              )}
+            </div>
+            {user.telegram?.error && (
+              <div className={cx(styles.block, styles.error)}>
+                <p>
+                  Добавленный <span>ID</span> телеграма <span>не найден</span>.
+                  Проверьте что ID <span>скопирован полностью</span> и повторите
+                  попытку.
+                </p>
+              </div>
+            )}
+            {error && (
+              <div className={cx(styles.block, styles.error)}>
+                <p>
+                  <span>ID</span> телеграм состоит <span>только из цифр</span>.
+                </p>
+              </div>
+            )}
+            <div className={styles.action}>
+              <div className={styles.field}>
+                <input
+                  maxLength={20}
+                  placeholder="ID телеграма"
+                  type="text"
+                  value={telegram}
+                  onChange={handleFormSubmit}
+                />
+              </div>
+
+              <AnimatePresence initial={false}>
+                <motion.div
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 4 }}
+                >
+                  <button
+                    className={cx(
+                      global.buttoncenter,
+                      telegram.length > 5
+                        ? styles.buttongreen
+                        : styles.buttongrey
+                    )}
+                    disabled={addTelegramIdMutation.isLoading}
+                    onClick={() =>
+                      addTelegramIdMutation.mutate({
+                        id: telegram,
+                      })
+                    }
                   >
-                    Телеграм бота Графикси
-                  </a>
-                </li>
-                <li>
-                  Нажми кнопку <span>"Начать"</span>
-                </li>
-                <li>
-                  Вставь <span>ID</span> из сообщения и нажми{" "}
-                  <span>"Применить"</span>
-                </li>
-              </ul>
-              <p>
-                После все уведомления о статусе рецензий будут прямо в телеграм!
-              </p>
-            </>
-          ) : (
-            <>
-              <p className={styles.title}>
-                Если нужно привязать другой телеграм
-              </p>
-              <ul>
-                <li>
-                  Открой{" "}
-                  <a
-                    href="https://t.me/graphiksi_bot"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Телеграм бота Графикси
-                  </a>
-                </li>
-                <li>
-                  Нажми кнопку <span>"Начать"</span>
-                </li>
-                <li>
-                  Открой ссылку полученной после команды <span>"Начать"</span>{" "}
-                  или скопируй <span>ID</span> вручную
-                </li>
-                <li>
-                  Нажми <span>"Применить"</span>
-                </li>
-              </ul>
-            </>
-          )}
-        </div>
-
-        {user.telegram?.error && (
-          <div className={cx(styles.block, styles.error)}>
-            <p>
-              Добавленный <span>ID</span> телеграма <span>не найден</span>.
-              Проверьте что ID <span>скопирован полностью</span> и повторите
-              попытку.
-            </p>
-          </div>
+                    {addTelegramIdMutation.isLoading ? (
+                      <>
+                        <p className={global.text}>Загрузка</p>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1.25, repeat: Infinity }}
+                          className={global.load}
+                        >
+                          <IoSyncOutline className={global.svg} />
+                        </motion.div>
+                      </>
+                    ) : telegram.length > 5 ? (
+                      <>
+                        <p className={global.text}>Применить</p>
+                        <IoCheckmarkSharp className={global.icon} />
+                      </>
+                    ) : (
+                      <>
+                        <p className={global.text}>Введите ID</p>
+                        <IoArrowUpSharp className={global.icon} />
+                      </>
+                    )}
+                  </button>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </>
         )}
-
-        {error && (
-          <div className={cx(styles.block, styles.error)}>
-            <p>
-              <span>ID</span> телеграм состоит <span>только из цифр</span>.
-            </p>
-          </div>
-        )}
-
-        <div className={styles.action}>
-          <div className={styles.field}>
-            <input
-              maxLength={20}
-              placeholder="ID телеграма"
-              type="text"
-              value={telegram}
-              onChange={handleFormSubmit}
-            />
-          </div>
-
-          <AnimatePresence initial={false}>
-            <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-            >
-              <button
-                className={cx(
-                  global.buttoncenter,
-                  telegram.length > 5 ? styles.buttongreen : styles.buttongrey
-                )}
-                disabled={addTelegramIdMutation.isLoading}
-                onClick={() =>
-                  addTelegramIdMutation.mutate({
-                    id: telegram,
-                  })
-                }
-              >
-                {addTelegramIdMutation.isLoading ? (
-                  <>
-                    <p className={global.text}>Загрузка</p>
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1.25, repeat: Infinity }}
-                      className={global.load}
-                    >
-                      <IoSyncOutline className={global.svg} />
-                    </motion.div>
-                  </>
-                ) : telegram.length > 5 ? (
-                  <>
-                    <p className={global.text}>Применить</p>
-                    <IoCheckmarkSharp className={global.icon} />
-                  </>
-                ) : (
-                  <>
-                    <p className={global.text}>Введите ID</p>
-                    <IoArrowUpSharp className={global.icon} />
-                  </>
-                )}
-              </button>
-            </motion.div>
-          </AnimatePresence>
-        </div>
       </section>
     </>
   );

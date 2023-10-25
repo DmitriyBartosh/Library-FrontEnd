@@ -13,7 +13,7 @@ import Rightnavigate from "../components/navigation/rightnavigate";
 import Addwork from "../components/work/addwork";
 
 function Work({ data, pageContext }) {
-  const { works } = useStateContext();
+  const { works, subscribes } = useStateContext();
   const [isVisibleWork, setIsVisibleWork] = useState(false);
   const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
@@ -23,6 +23,9 @@ function Work({ data, pageContext }) {
   const sectionRef = useRef([]);
 
   const { theme, direction } = pageContext;
+
+  const isActiveSubscribe =
+    Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   const firstSpecification =
     data.allSpecification.edges[0].node.childMarkdownRemark;
@@ -144,17 +147,20 @@ function Work({ data, pageContext }) {
           </nav>
         </div>
         <div className={styles.content} ref={contentRef}>
-          <Task
-            data={specification}
-            selected={selectedSpecification}
-            setSelected={setSelectedSpecification}
-            ref={mainRef}
-          />
-          <Specification
-            html={selectedSpecification.html}
-            sumSections={sumSections}
-            ref={specificationRef}
-          />
+          <div className={styles.head}>
+            <Task
+              data={specification}
+              selected={selectedSpecification}
+              setSelected={setSelectedSpecification}
+              ref={mainRef}
+            />
+            <Specification
+              html={selectedSpecification.html}
+              sumSections={sumSections}
+              ref={specificationRef}
+            />
+          </div>
+
           {data.allSteps.edges.map((item, index) => {
             const { frontmatter, html } = item.node.childMarkdownRemark;
 
@@ -179,6 +185,7 @@ function Work({ data, pageContext }) {
         <Rightnavigate
           addWork={() => setIsVisibleWork(true)}
           thereIsWork={thereIsWork}
+          backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
         />
       </section>
       <Addwork

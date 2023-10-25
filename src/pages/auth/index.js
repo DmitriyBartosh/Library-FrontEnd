@@ -1,6 +1,7 @@
 import React from "react";
 import { SlSocialVkontakte } from "react-icons/sl";
 import { useQuery } from "@tanstack/react-query";
+import cx from "classname";
 import { FaYandex, FaGoogle } from "react-icons/fa";
 import { vkAuth, yandexAuth, googleAuth } from "../../functions/auth";
 import Bird from "../../images/svg/bird";
@@ -8,8 +9,8 @@ import Birdonbranch from "../../images/svg/birdonbranch";
 import Flower from "../../images/svg/flower/flowertwo";
 import Topnavigate from "../../components/navigation/topnavigate";
 
+import * as global from "../../styles/base/global.module.scss";
 import * as styles from "../../styles/pages/auth.module.scss";
-import * as button from "../../styles/base/button.module.scss";
 
 function Index() {
   const vkAuthURL = useQuery({
@@ -35,26 +36,37 @@ function Index() {
         <Birdonbranch className={styles.birdonbranch} />
         <Flower className={styles.flower} />
         <div className={styles.form}>
-          <h3>Авторизация на Графикси</h3>
-          <p>Давайте познакомимся и начнем создавть Ваше портфолио!</p>
+          <h3>Авторизация Графикси</h3>
+          <p className={styles.description}>
+            Давайте познакомимся и начнем создавть Ваше портфолио!
+          </p>
           <div className={styles.authlink}>
-            <a className={button.social} href={vkAuthURL.data}>
-              <SlSocialVkontakte className={button.vk} />
-              <p className={button.text}>
+            <a
+              className={cx(global.buttonwide, styles.buttongreen)}
+              href={vkAuthURL.data}
+            >
+              <p className={global.text}>
                 Войти с <span>VK</span>
               </p>
+              <SlSocialVkontakte className={global.icon} />
             </a>
-            <a className={button.social} href={yandexAuthURL.data}>
-              <FaYandex className={button.yandex} />
-              <p className={button.text}>
+            <a
+              className={cx(global.buttonwide, styles.buttongreen)}
+              href={yandexAuthURL.data}
+            >
+              <p className={global.text}>
                 Войти с <span>Yandex</span>
               </p>
+              <FaYandex className={global.icon} />
             </a>
-            <a className={button.social} href={googleAuthURL.data}>
-              <FaGoogle className={button.google} />
-              <p className={button.text}>
+            <a
+              className={cx(global.buttonwide, styles.buttongreen)}
+              href={googleAuthURL.data}
+            >
+              <p className={global.text}>
                 Войти с <span>Google</span>
               </p>
+              <FaGoogle className={global.icon} />
             </a>
           </div>
         </div>

@@ -8,7 +8,7 @@ import Works from "./works";
 import { useStateContext } from "../../context/ContextProvider";
 
 function Index() {
-  const { works, reviews } = useStateContext();
+  const { works } = useStateContext();
 
   return (
     <>

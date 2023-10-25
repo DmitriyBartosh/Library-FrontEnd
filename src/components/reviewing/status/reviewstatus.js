@@ -8,7 +8,10 @@ import * as styles from "./reviewstatus.module.scss";
 import * as global from "../../../styles/base/global.module.scss";
 
 function Reviewstatus() {
-  const { reviews, setShowReview } = useStateContext();
+  const { reviews, subscribes, setShowReview } = useStateContext();
+
+  const isActiveSubscribe =
+    Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   return (
     <div className={global.container}>
@@ -33,7 +36,7 @@ function Reviewstatus() {
               </button>
             </div>
           </>
-        ) : (
+        ) : isActiveSubscribe ? (
           <div className={styles.firstreview}>
             <div className={styles.content}>
               <p className={styles.title}>Добавь первую рецензию</p>
@@ -53,6 +56,8 @@ function Reviewstatus() {
               </button>
             </div>
           </div>
+        ) : (
+          <div></div>
         )}
       </div>
     </div>

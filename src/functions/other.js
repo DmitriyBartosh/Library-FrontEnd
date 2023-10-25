@@ -1,3 +1,5 @@
+import axiosClient from "../services/axiosClient";
+
 export function checkBooleanObjectKeys(obj) {
   for (let key in obj) {
     if (obj[key]) {
@@ -5,6 +7,24 @@ export function checkBooleanObjectKeys(obj) {
     }
   }
   return false;
+}
+
+// Находим изображение с максимальным разрешением из Вконтакте
+export function findMaxResolutionPoster(photos) {
+  let maxResolution = 0;
+  let maxResolutionPhoto = null;
+
+  for (let i = 0; i < photos.length; i++) {
+    const photo = photos[i];
+    const resolution = photo.width * photo.height;
+
+    if (resolution > maxResolution) {
+      maxResolution = resolution;
+      maxResolutionPhoto = photo;
+    }
+  }
+
+  return maxResolutionPhoto;
 }
 
 export function convertDate(dateString) {
@@ -28,3 +48,38 @@ export function convertDate(dateString) {
 
   return formatted;
 }
+
+export function convertDateJson(dateString) {
+  const date = new Date(dateString);
+  const monthNames = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  const month = monthNames[date.getMonth()];
+
+  return {
+    day: date.getDate(),
+    month: month,
+    year: date.getFullYear(),
+  };
+}
+
+// Все статьи
+export const getAllWall = async () => {
+  try {
+    const { data } = await axiosClient.post("vk/wall");
+    return data;
+  } catch (err) {
+    return err;
+  }
+};

@@ -6,16 +6,15 @@ import {
   IoHomeOutline,
   IoHeartOutline,
   IoChatbubbleOutline,
-  IoCallOutline,
   IoCreateOutline,
 } from "react-icons/io5";
 import * as styles from "./rightnavigate.module.scss";
 
-function Rightnavigate({ addWork, thereIsWork }) {
+function Rightnavigate({ addWork, thereIsWork, backLink }) {
   return (
     <nav className={styles.container}>
       <div className={styles.block}>
-        <Link to="/portfolio" className={styles.button}>
+        <Link to={backLink} className={styles.button}>
           <IoHomeOutline className={styles.icon} />
           <div className={styles.label}>
             <p className={styles.text}>Мое портфолио</p>
@@ -27,12 +26,6 @@ function Rightnavigate({ addWork, thereIsWork }) {
           <IoHeartOutline className={styles.icon} />
           <div className={styles.label}>
             <p className={styles.text}>Оставить отзыв</p>
-          </div>
-        </button>
-        <button className={styles.button}>
-          <IoCallOutline className={styles.icon} />
-          <div className={styles.label}>
-            <p className={styles.text}>Позвоните мне</p>
           </div>
         </button>
         <button className={styles.button}>

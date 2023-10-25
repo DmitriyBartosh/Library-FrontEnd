@@ -65,118 +65,124 @@ function Promocode() {
     <>
       <Topnavigate />
       <section className={styles.container}>
-        <Bird className={styles.bird} />
-        <Birdonbranch className={styles.birdonbranch} />
-        <Flower className={styles.flower} />
+        {user && (
+          <>
+            <Bird className={styles.bird} />
+            <Birdonbranch className={styles.birdonbranch} />
+            <Flower className={styles.flower} />
 
-        <div className={styles.block}>
-          <div>
-            <p className={styles.name}>
-              {user.name} / {user.email}
-            </p>
-            <p className={styles.title}>Добавить промокод</p>
-          </div>
-          <p>
-            После активации промокода будет добавлена подписка на профиль{" "}
-            <span>{user.email}</span>.
-          </p>
-          <p>
-            Если у тебя <span>есть активная подписка</span>, то активировав
-            промокод мы <span>добавим дни</span> к уже активной подписке.
-          </p>
-        </div>
-
-        {promo.apply &&
-          (activatePromocodeMutation.data.data.activate ? (
             <div className={styles.block}>
-              <p className={styles.title}>Активирован</p>
-              <p>{activatePromocodeMutation.data.data.message}</p>
-              <Link
-                to="/portfolio"
-                className={cx(
-                  global.buttontext,
-                  styles.buttongreen,
-                  styles.margintop
-                )}
-              >
-                <p className={global.text}>За работу</p>
-              </Link>
+              <div>
+                <p className={styles.name}>
+                  {user.name} / {user.email}
+                </p>
+                <p className={styles.title}>Добавить промокод</p>
+              </div>
+              <p>
+                После активации промокода будет добавлена подписка на профиль{" "}
+                <span>{user.email}</span>.
+              </p>
+              <p>
+                Если у тебя <span>есть активная подписка</span>, то активировав
+                промокод мы <span>добавим дни</span> к уже активной подписке.
+              </p>
             </div>
-          ) : (
-            <div className={styles.block}>
-              <p className={styles.title}>Не активирован</p>
-              <p>{activatePromocodeMutation.data.data.message}</p>
-              <p>Попробуй ввести другой промокод</p>
-            </div>
-          ))}
 
-        {error && (
-          <div className={cx(styles.block, styles.error)}>
-            <p>
-              <span>Переключи раскладку</span> клавиатуры, промокод состоит
-              только из <span>английских букв</span> и <span>цифры</span>.
-            </p>
-          </div>
+            {promo.apply &&
+              (activatePromocodeMutation.data.data.activate ? (
+                <div className={styles.block}>
+                  <p className={styles.title}>Активирован</p>
+                  <p>{activatePromocodeMutation.data.data.message}</p>
+                  <Link
+                    to="/portfolio"
+                    className={cx(
+                      global.buttontext,
+                      styles.buttongreen,
+                      styles.margintop
+                    )}
+                  >
+                    <p className={global.text}>За работу</p>
+                  </Link>
+                </div>
+              ) : (
+                <div className={styles.block}>
+                  <p className={styles.title}>Не активирован</p>
+                  <p>
+                    {activatePromocodeMutation.data.data.message}, попробуй
+                    ввести другой.
+                  </p>
+                </div>
+              ))}
+
+            {error && (
+              <div className={cx(styles.block, styles.error)}>
+                <p>
+                  <span>Переключи раскладку</span> клавиатуры, промокод состоит
+                  только из <span>английских букв</span> и <span>цифры</span>.
+                </p>
+              </div>
+            )}
+
+            <div className={styles.action}>
+              <div className={styles.field}>
+                <input
+                  maxLength={8}
+                  placeholder="Поле для промокода"
+                  type="text"
+                  value={promo.code || ""}
+                  onChange={handleFormSubmit}
+                />
+              </div>
+
+              <AnimatePresence initial={false}>
+                <motion.div
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 4 }}
+                >
+                  <button
+                    className={cx(
+                      global.buttoncenter,
+                      promo.code.length === 8
+                        ? styles.buttongreen
+                        : styles.buttongrey
+                    )}
+                    disabled={activatePromocodeMutation.isLoading}
+                    onClick={() => {
+                      setPromo({ ...promo, apply: false });
+                      activatePromocodeMutation.mutate({
+                        code: promo.code,
+                      });
+                    }}
+                  >
+                    {activatePromocodeMutation.isLoading ? (
+                      <>
+                        <p className={global.text}>Загрузка</p>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1.25, repeat: Infinity }}
+                          className={global.load}
+                        >
+                          <IoSyncOutline className={global.svg} />
+                        </motion.div>
+                      </>
+                    ) : promo.code.length === 8 ? (
+                      <>
+                        <p className={global.text}>Применить</p>
+                        <IoCheckmarkSharp className={global.icon} />
+                      </>
+                    ) : (
+                      <>
+                        <IoArrowBackSharp className={global.icon} />
+                        <p className={global.text}>Введите промокод</p>
+                      </>
+                    )}
+                  </button>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </>
         )}
-
-        <div className={styles.action}>
-          <div className={styles.field}>
-            <input
-              maxLength={8}
-              placeholder="Поле для промокода"
-              type="text"
-              value={promo.code || ""}
-              onChange={handleFormSubmit}
-            />
-          </div>
-
-          <AnimatePresence initial={false}>
-            <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-            >
-              <button
-                className={cx(
-                  global.buttoncenter,
-                  promo.code.length === 8
-                    ? styles.buttongreen
-                    : styles.buttongrey
-                )}
-                disabled={activatePromocodeMutation.isLoading}
-                onClick={() => {
-                  setPromo({ ...promo, apply: false });
-                  activatePromocodeMutation.mutate({
-                    code: promo.code,
-                  });
-                }}
-              >
-                {activatePromocodeMutation.isLoading ? (
-                  <>
-                    <p className={global.text}>Загрузка</p>
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1.25, repeat: Infinity }}
-                      className={global.load}
-                    >
-                      <IoSyncOutline className={global.svg} />
-                    </motion.div>
-                  </>
-                ) : promo.code.length === 8 ? (
-                  <>
-                    <p className={global.text}>Применить</p>
-                    <IoCheckmarkSharp className={global.icon} />
-                  </>
-                ) : (
-                  <>
-                    <IoArrowBackSharp className={global.icon} />
-                    <p className={global.text}>Введите промокод</p>
-                  </>
-                )}
-              </button>
-            </motion.div>
-          </AnimatePresence>
-        </div>
       </section>
     </>
   );

@@ -4,15 +4,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: $maxwidth;
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 35px;
     padding-bottom: 1rem;
-    margin-right: -35px;
-    margin-left: -35px;
     background-color: $beige;
     .title {
       color: $brown;
@@ -27,8 +24,6 @@
     gap: 1rem;
     padding: 40px 35px;
     padding-top: 1rem;
-    margin-right: -35px;
-    margin-left: -35px;
     background-color: $beige;
     strong {
       font-weight: 600;

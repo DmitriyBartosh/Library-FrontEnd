@@ -60,8 +60,6 @@ export const ContextProvider = ({ children }) => {
     return !!user;
   };
 
-  console.log(isLoggedIn());
-
   // Активна ли подписка по направлению
   const isSubscribe = (direction) => {
     const isActive = subscribes

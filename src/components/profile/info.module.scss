@@ -17,6 +17,17 @@
       }
     }
     .name {
+      .visible {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        div .hidden {
+          opacity: 1;
+          pointer-events: all;
+        }
+        .input {
+          background-color: $background;
+        }
+      }
       .field {
         display: flex;
         align-items: center;
@@ -38,8 +49,10 @@
         }
 
         .hidden {
+          width: 150px;
           opacity: 0;
           pointer-events: none;
+          transition: all 0.3s;
         }
         .input {
           padding: 0 1rem;
@@ -65,7 +78,7 @@
   }
   .action {
     display: grid;
-    grid-template-columns: 1fr 125px;
+    grid-template-columns: 1fr 150px;
     gap: 4px;
     background-color: $beige;
     padding: 4px;

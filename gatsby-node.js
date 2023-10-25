@@ -100,18 +100,27 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   // Страницы для статей
-  const articleData = await graphql(`
+  const articlesData = await graphql(`
     query {
-      allFile(filter: { sourceInstanceName: { eq: "articlesdesign" } }) {
+      allFile(
+        filter: { sourceInstanceName: { eq: "articles" } }
+        sort: { birthTime: ASC }
+      ) {
         edges {
           node {
-            name
+            birthTime
             childMarkdownRemark {
               html
-              excerpt(format: HTML)
+              timeToRead
               frontmatter {
+                slug
                 title
-                subtitle
+                tags
+                preview {
+                  childImageSharp {
+                    gatsbyImageData
+                  }
+                }
               }
             }
           }
@@ -171,14 +180,15 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   // Страницы статей
-  articleData.data.allFile.edges.forEach((data) => {
-    const { name, childMarkdownRemark } = data.node;
+  articlesData.data.allFile.edges.forEach((data) => {
+    const { childMarkdownRemark, birthTime } = data.node;
 
     createPage({
-      path: `/articles/${name}`,
+      path: `/articles/${childMarkdownRemark.frontmatter.slug}`,
       component: path.resolve("./src/templates/article.js"),
       context: {
         data: childMarkdownRemark,
+        birthTime: birthTime,
       },
     });
   });

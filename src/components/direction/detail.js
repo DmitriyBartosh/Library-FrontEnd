@@ -11,7 +11,6 @@ function Detail({ detail, payment, setPayment, closeDetail }) {
   const { title, tags, steps, time, description, free } = detail.data;
   const { isSubscribe } = useStateContext();
 
-  console.log(free);
   return (
     <Modal visible={detail.visible} close={() => closeDetail()}>
       {payment ? (

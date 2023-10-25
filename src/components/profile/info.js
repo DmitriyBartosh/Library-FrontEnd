@@ -1,24 +1,37 @@
 import React, { useState, useRef } from "react";
-import { navigate } from "gatsby";
 import cx from "classname";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "gatsby";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CiLogout } from "react-icons/ci";
-import { IoSyncOutline } from "react-icons/io5";
+import { IoSyncOutline, IoCheckmarkSharp } from "react-icons/io5";
 import { FaTelegramPlane } from "react-icons/fa";
+import { setName } from "../../functions/user";
 import { useStateContext } from "../../context/ContextProvider";
 
 import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./info.module.scss";
 
 function Info() {
+  const queryClient = useQueryClient();
   const { user, setUser, onLogout } = useStateContext();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({
+    name: false,
+    save: false,
+  });
 
   const userNameRef = useRef(user?.name);
 
   const isDifferent = user && userNameRef.current !== user.name;
+
+  const setNameMutation = useMutation({
+    mutationFn: setName,
+    onSuccess: (res) => {
+      userNameRef.current = res.name;
+      setIsLoading({ ...isLoading, name: false });
+    },
+  });
 
   return (
     <div className={styles.content}>
@@ -30,7 +43,9 @@ function Info() {
             </p>
 
             <div className={styles.name}>
-              <div className={styles.field}>
+              <div
+                className={cx(styles.field, isLoading.name && styles.visible)}
+              >
                 <input
                   placeholder="Как к вам обращаться?"
                   type="text"
@@ -49,12 +64,34 @@ function Info() {
                     >
                       <button
                         className={cx(
-                          global.buttontext,
+                          global.buttoncenter,
                           styles.buttongreen,
                           styles.hidden
                         )}
+                        onClick={() => {
+                          setIsLoading({ ...isLoading, name: true });
+                          setNameMutation.mutate({
+                            name: user.name,
+                          });
+                        }}
                       >
-                        <p className={global.text}>Сохранить</p>
+                        {isLoading.name ? (
+                          <>
+                            <p className={global.text}>Сохранить</p>
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1.25, repeat: Infinity }}
+                              className={global.load}
+                            >
+                              <IoSyncOutline className={global.svg} />
+                            </motion.div>
+                          </>
+                        ) : (
+                          <>
+                            <p className={global.text}>Сохранить</p>
+                            <IoCheckmarkSharp className={global.icon} />
+                          </>
+                        )}
                       </button>
                     </motion.div>
                   )}
@@ -98,7 +135,7 @@ function Info() {
                   disabled={isLoading}
                   onClick={(event) => onLogout(event, setIsLoading)}
                 >
-                  {isLoading ? (
+                  {isLoading.save ? (
                     <>
                       <p className={global.text}>Выйти</p>
                       <motion.div

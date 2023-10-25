@@ -47,15 +47,8 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "articlesdesign",
-        path: `${__dirname}/src/data/articles/design/`,
-      },
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "articlesdesign",
-        path: `${__dirname}/src/data/articles/design/`,
+        name: "articles",
+        path: `${__dirname}/src/data/articles/`,
       },
     },
     {
@@ -87,4 +80,5 @@ module.exports = {
       },
     },
   ],
+  trailingSlash: "never",
 };
