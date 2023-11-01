@@ -97,10 +97,10 @@ function Direction(context) {
   return (
     <>
       <Topnavigate />
-      <section className={cx(styles.section, global.container)}>
+      <section className={cx(global.container, global.top)}>
         <div className={styles.direction}>
           <div className={styles.title}>
-            <h2>Направление {title}</h2>
+            <h1>Направления Графикси</h1>
           </div>
 
           <div className={styles.list}>
@@ -127,7 +127,7 @@ function Direction(context) {
           </div>
         </div>
         <div className={styles.themes}>
-          <p className={styles.title}>Все темы</p>
+          <p className={styles.title}>Все темы / {title}</p>
           <div className={styles.items}>
             {sortedWork.map((item, index) => {
               return (

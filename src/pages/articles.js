@@ -1,15 +1,18 @@
-import React from "react";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import React, { useState, useEffect } from "react";
+import { useStaticQuery, graphql, Link, navigate } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import cx from "classname";
 import { useSearchParam } from "react-use";
 import { convertDate, convertDateJson } from "../functions/other";
 import Topnavigate from "../components/navigation/topnavigate";
+import Footer from "../components/footer";
 
 import * as global from "../styles/base/global.module.scss";
-import * as styles from "../styles/pages/articles.module.scss";
+import * as styles from "../styles/pages/articleslist.module.scss";
 
 function Articles() {
+  const tag = useSearchParam("tag");
+  const [tagParams, setTagParams] = useState(tag);
   const data = useStaticQuery(graphql`
     query {
       allFile(
@@ -24,6 +27,7 @@ function Articles() {
               frontmatter {
                 slug
                 title
+                tags
                 preview {
                   childImageSharp {
                     gatsbyImageData
@@ -37,17 +41,72 @@ function Articles() {
     }
   `);
 
-  const tag = useSearchParam("tag");
+  const uniqueTags = [
+    ...new Set(
+      data.allFile.edges.flatMap(
+        (obj) => obj.node.childMarkdownRemark.frontmatter.tags
+      )
+    ),
+  ];
 
-  console.log(tag);
+  const filterArticles =
+    tagParams === null
+      ? data.allFile.edges
+      : data.allFile.edges.filter((item) =>
+          item.node.childMarkdownRemark.frontmatter.tags.includes(tagParams)
+        );
+
+  function selectTag(name) {
+    if (name === tagParams) {
+      setTagParams(null);
+      navigate(`/articles`);
+    } else {
+      setTagParams(name);
+      navigate(`/articles?tag=${name}`);
+    }
+  }
+
+  useEffect(() => {
+    setTagParams(tag);
+  }, [tag]);
 
   return (
     <>
       <Topnavigate />
-      <section className={cx(styles.section, global.container)}>
-        <p>Статьи</p>
+      <section className={cx(global.container, global.top)}>
+        <h1 className={styles.head}>Полезные статьи</h1>
+        <div className={styles.tags}>
+          <button
+            className={cx(
+              global.buttontext,
+              styles.tag,
+              tagParams === null && styles.active
+            )}
+            onClick={() => {
+              setTagParams(null);
+              navigate(`/articles`);
+            }}
+          >
+            <p className={global.text}>Все статьи</p>
+          </button>
+          {uniqueTags.map((item, index) => {
+            return (
+              <button
+                className={cx(
+                  global.buttontext,
+                  styles.tag,
+                  item === tagParams && styles.active
+                )}
+                onClick={() => selectTag(item)}
+                key={`tag-button_${index}`}
+              >
+                <p className={global.text}>{item}</p>
+              </button>
+            );
+          })}
+        </div>
         <div className={styles.list}>
-          {data.allFile.edges.map((item, index) => {
+          {filterArticles.map((item, index) => {
             const { slug, title, preview } =
               item.node.childMarkdownRemark.frontmatter;
             const date = convertDateJson(item.node.birthTime);
@@ -55,9 +114,9 @@ function Articles() {
 
             const prevDate =
               index !== 0 &&
-              convertDate(data.allFile.edges[index - 1].node.birthTime);
+              convertDate(filterArticles[index - 1].node.birthTime);
             const currentDate = convertDate(
-              data.allFile.edges[index].node.birthTime
+              filterArticles[index].node.birthTime
             );
 
             const notunique = prevDate === currentDate;
@@ -86,6 +145,7 @@ function Articles() {
           })}
         </div>
       </section>
+      <Footer />
     </>
   );
 }

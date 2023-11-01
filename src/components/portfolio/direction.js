@@ -38,40 +38,36 @@ function Direction() {
   const activeDirection = subscribes?.filter((item) => item.active);
 
   return (
-    <div className={global.container}>
-      <div className={styles.container}>
-        {activeDirection?.map((item, index) => {
-          const { plan } = item;
-          const themes = directions.find(
-            (item) => item.node.slug === plan
-          ).node;
+    <div className={styles.container}>
+      {activeDirection?.map((item, index) => {
+        const { plan } = item;
+        const themes = directions.find((item) => item.node.slug === plan).node;
 
-          return (
+        return (
+          Array.isArray(works) && (
             <div className={styles.direction} key={`direction_${index}`}>
-              <h3>{themes.title}</h3>
+              <h1>{themes.title}</h1>
               <div className={styles.themes}>
-                {Array.isArray(works) &&
-                  themes.works.map((item, index) => {
-                    const worksOnTheme = works.filter(
-                      (work) =>
-                        work.direction === themes.slug &&
-                        work.theme === item.slug
-                    );
+                {themes.works.map((item, index) => {
+                  const worksOnTheme = works.filter(
+                    (work) =>
+                      work.direction === themes.slug && work.theme === item.slug
+                  );
 
-                    return (
-                      <Theme
-                        key={`theme_${index}`}
-                        data={item}
-                        themes={themes}
-                        worksOnTheme={worksOnTheme}
-                      />
-                    );
-                  })}
+                  return (
+                    <Theme
+                      key={`theme_${index}`}
+                      data={item}
+                      themes={themes}
+                      worksOnTheme={worksOnTheme}
+                    />
+                  );
+                })}
               </div>
             </div>
-          );
-        })}
-      </div>
+          )
+        );
+      })}
     </div>
   );
 }

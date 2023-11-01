@@ -1,68 +1,79 @@
 import React from "react";
 import cx from "classname";
 import { motion } from "framer-motion";
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { IoAddSharp, IoLinkSharp, IoCheckmarkSharp } from "react-icons/io5";
 import { convertDate } from "../../../functions/other";
-import { Link } from "gatsby";
 
 import * as styles from "./profile.module.scss";
 
-function Profile({ data, index, setExpert, expert }) {
+function Profile({ data, index, review, setReview }) {
   const { id, price, name, about, status, avatar, backtowork, slug } = data;
 
   return (
-    <motion.button
+    <motion.div
       initial={{ opacity: 0, y: 20 + index * 15 }}
       animate={{
         opacity: 1,
         y: 0,
         transition: { delay: 0.3 + index * 0.1, duration: 0.4 },
       }}
-      disabled={!status}
-      onClick={() => setExpert({ id: id, price: price })}
       className={cx(
         styles.container,
         !status && styles.offline,
-        data.id === expert?.id && styles.selected
+        data.id === review.expert?.id && styles.selected
       )}
     >
-      <div className={styles.left}>
-        <div className={styles.avatar}>
-          <img
-            src={`${process.env.GATSBY_API_BASE_URL}${avatar}`}
-            className={styles.image}
-          />
+      <a href={`/expert/${slug}`} target="_blank" className={styles.avatar}>
+        <img
+          src={`${process.env.GATSBY_API_BASE_URL}${avatar}`}
+          className={styles.image}
+          alt={`Эксперт ${name}`}
+        />
+        <div className={styles.hint}>
+          <p>
+            Открыть
+            <br />
+            страницу
+            <br />
+            эксперта
+          </p>
+          <IoLinkSharp className={styles.icon} />
         </div>
-        <Link
-          to={`/expert/${slug}`}
-          className={styles.personpage}
-          target="_blank"
-        >
-          <div className={styles.icon}>
-            <IoPersonCircleOutline className={styles.svg} />
-          </div>
-          <p className={styles.text}>@{slug}</p>
-        </Link>
-      </div>
+      </a>
 
-      <div className={styles.info}>
+      <button
+        disabled={!status}
+        onClick={() =>
+          setReview({ ...review, expert: { id: id, price: price } })
+        }
+        className={styles.info}
+      >
         <div className={styles.head}>
           <p className={styles.name}>{name}</p>
           <p className={styles.about}>{about}</p>
         </div>
-        {status ? (
-          <div className={styles.status}>
-            <p>Доступен для рецензии</p>
-          </div>
-        ) : (
-          <div className={styles.status}>
-            <p>
-              Вернется: <span>{convertDate(backtowork)}</span>
-            </p>
-          </div>
-        )}
-      </div>
-    </motion.button>
+        <div className={styles.action}>
+          {status ? (
+            data.id === review.expert?.id ? (
+              <div className={styles.select}>
+                <IoCheckmarkSharp className={styles.icon} />
+              </div>
+            ) : (
+              <div className={styles.select}>
+                <p className={styles.text}>Выбрать эксперта</p>
+                <IoAddSharp className={styles.icon} />
+              </div>
+            )
+          ) : (
+            <div className={styles.status}>
+              <p className={styles.text}>
+                Вернется: <span>{convertDate(backtowork)}</span>
+              </p>
+            </div>
+          )}
+        </div>
+      </button>
+    </motion.div>
   );
 }
 

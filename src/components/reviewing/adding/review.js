@@ -1,75 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { motion, AnimatePresence } from "framer-motion";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { FaTelegramPlane } from "react-icons/fa";
+import cx from "classname";
+import { Link } from "gatsby";
 import { getAllExperts } from "../../../functions/review";
 import { useStateContext } from "../../../context/ContextProvider";
 import { addWorkToReview } from "../../../functions/review";
 
+import Choisedirection from "./choisedirection";
 import Choisework from "./choisework";
 import Experts from "./experts";
 import Nextstep from "./nextstep";
+import Modal from "../../modal";
 
+import * as global from "../../../styles/base/global.module.scss";
 import * as styles from "./review.module.scss";
-import Choisedirection from "./choisedirection";
 
 function Review() {
-  const { token, works, subscribes, showReview, setShowReview } =
+  const queryClient = useQueryClient();
+  const { user, works, subscribes, showReview, setShowReview } =
     useStateContext();
 
-  // Выбираем только те направления, в которых активна подписка и добавлена хоть одна работа
-  const directionWithWork =
-    Array.isArray(subscribes) &&
-    subscribes
-      ?.filter((item) => item.active)
-      .filter((element) => {
-        const thereIsJob =
-          Array.isArray(works) &&
-          works.some((work) => work.direction === element.plan);
-        return thereIsJob;
-      })
-      .map((item) => item.plan);
-
-  const [isComplete, setIsComplete] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  const [selected, setSelected] = useState([]);
-  const [expert, setExpert] = useState(null);
-  const [choiseExpert, setChoiseExpert] = useState(false);
-  const [selectedDirection, setSelectedDirection] = useState(
-    directionWithWork[0]
-  );
-  const [price, setPrice] = useState(0);
-
-  const allExpertQuery = useQuery({
-    queryKey: ["allexperts", selectedDirection],
-    queryFn: () => getAllExperts(selectedDirection),
-    enabled: !!token && selectedDirection !== null,
-  });
-
-  const addWorkToReviewMutation = useMutation({
-    mutationFn: addWorkToReview,
-    onSuccess: () => {
-      setIsComplete(true);
-      setSelected([]);
-      setExpert(null);
-      setChoiseExpert(false);
-      queryClient.invalidateQueries({ queryKey: ["getAllWorksOnReview"] });
-    },
-  });
-
-  const nextStep = () => {
-    if (choiseExpert) {
-      addWorkToReviewMutation.mutate({
-        expert_id: expert.id,
-        works: selected,
-      });
-    } else {
-      setChoiseExpert(true);
-    }
-  };
-
+  // Все направления площадки
   const direcionQuery = useStaticQuery(graphql`
     query {
       allDirectionsJson {
@@ -89,100 +42,234 @@ function Review() {
 
   const directionData = direcionQuery.allDirectionsJson.edges;
 
+  // Отправляем ревью
+  const addWorkToReviewMutation = useMutation({
+    mutationFn: addWorkToReview,
+    onSuccess: () => {
+      setReview({ ...review, complete: true });
+      queryClient.invalidateQueries({ queryKey: ["getAllWorksOnReview"] });
+    },
+  });
+
+  // Выбираем только те направления, в которых активна подписка и добавлена хоть одна работа
+  const directionWithWork =
+    Array.isArray(subscribes) &&
+    subscribes
+      ?.filter((item) => item.active)
+      .filter((element) => {
+        const thereIsJob =
+          Array.isArray(works) &&
+          works.some((work) => work.direction === element.plan);
+        return thereIsJob;
+      })
+      .map((item) => item.plan);
+
+  const [review, setReview] = useState({
+    works: [],
+    expert: null,
+    direction: directionWithWork[0],
+    price: 0,
+    select: "work",
+    complete: false,
+  });
+
+  // Находим всех экспертов в выбранном направлении
+  const allExpertQuery = useQuery({
+    queryKey: ["allexperts", review.direction],
+    queryFn: () => getAllExperts(review.direction),
+    enabled: !!user && review.direction !== null,
+  });
+
+  const nextStep = () => {
+    if (review.select === "expert" && review.expert !== null) {
+      addWorkToReviewMutation.mutate({
+        expert_id: review.expert.id,
+        works: review.works,
+      });
+    } else {
+      setReview({ ...review, select: "expert" });
+    }
+  };
+
+  // Изменить направления
   function changeDirection(direction) {
-    if (direction !== selectedDirection) {
-      setSelectedDirection(direction);
-      setSelected([]);
-      setExpert(null);
-      setChoiseExpert(false);
+    if (direction !== review.direction) {
+      setReview({
+        works: [],
+        expert: null,
+        direction: direction,
+        price: 0,
+        select: "work",
+      });
     }
   }
 
   useEffect(() => {
-    if (expert) {
+    if (review.expert) {
       var cost = 0;
-      for (let index = 0; index < selected.length; index++) {
-        cost = cost + parseInt(expert.price[selected[index].theme]);
+      for (let index = 0; index < review.works.length; index++) {
+        cost = cost + parseInt(review.expert.price[review.works[index].theme]);
       }
-      setPrice(cost);
+      setReview({ ...review, price: cost });
     }
-  }, [selected, expert]);
+  }, [review.expert]);
+
+  const expertOnReview =
+    review.complete &&
+    allExpertQuery.data.experts.find((item) => item.id === review.expert.id);
 
   return (
-    <AnimatePresence initial={false}>
-      {showReview && (
-        <div className={styles.container} key="showreview">
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: "0%", transition: { duration: 0.6 } }}
-            exit={{ x: "100%", transition: { duration: 0.4 } }}
-            transition={{ ease: [0.57, 0.14, 0.49, 0.91] }}
-            className={styles.block}
-          >
-            {isComplete ? (
-              <div className={styles.complete}>
-                <div className={styles.head}>
-                  <h5>Работы приняты</h5>
-                  <p>
-                    Эксперт проверит что ссылка верна и работа выполнена в
-                    полной мере, затем на странице профиля будет отображена
-                    готовность проверить.
-                  </p>
-                </div>
-                <div className={styles.close}>
-                  <button
-                    className={styles.button}
-                    onClick={() => setShowReview(false)}
+    <Modal visible={showReview} close={() => setShowReview(false)}>
+      {review.complete ? (
+        <>
+          <div className={styles.content}>
+            <h5>
+              {review.works.length === 1
+                ? "Принята работа на рецензию"
+                : "Приняты работы на рецензии"}
+            </h5>
+            <div className={styles.block}>
+              {review.works.map((item, index) => {
+                const work = works.find(
+                  (item_work) => item_work.id === item.id
+                );
+                return (
+                  <a
+                    className={styles.link}
+                    href={work.link}
+                    target="_blank"
+                    key={`link_work_${index}`}
                   >
-                    <p className={styles.text}>Понятно!</p>
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.steps}>
-                <Choisedirection
-                  directionWithWork={directionWithWork}
-                  changeDirection={changeDirection}
-                  directionData={directionData}
-                  selectedDirection={selectedDirection}
-                />
-                <Choisework
-                  selectedDirection={selectedDirection}
-                  selected={selected}
-                  setSelected={setSelected}
-                  choiseExpert={choiseExpert}
-                  setChoiseExpert={setChoiseExpert}
-                  directionData={directionData}
-                />
-                <Experts
-                  allExpertQuery={allExpertQuery}
-                  expert={expert}
-                  setExpert={setExpert}
-                  choiseExpert={choiseExpert}
-                />
-                <Nextstep
-                  addWorkToReviewMutation={addWorkToReviewMutation}
-                  choiseExpert={choiseExpert}
-                  selected={selected}
-                  expert={expert}
-                  nextStep={nextStep}
-                  price={price}
-                />
-              </div>
-            )}
-          </motion.div>
+                    {review.works.length > 1 && `${index + 1}.`} {work.name}
+                  </a>
+                );
+              })}
+            </div>
+            <h5>Проверит</h5>
+            <div className={styles.block}>
+              <a
+                href={`/expert/${expertOnReview.slug}`}
+                target="_blank"
+                className={styles.link}
+              >
+                {expertOnReview.name}
+              </a>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className={styles.background}
-            onClick={() => setShowReview(false)}
-          />
-        </div>
+              <p>{expertOnReview.about}</p>
+            </div>
+            <h5>Стоимость</h5>
+            <div className={styles.block}>
+              <p>
+                {review.works.length === 1
+                  ? "Рецензия на работу - "
+                  : "Рецензий всех работ - "}
+                <span>{review.price} руб.</span>
+              </p>
+            </div>
+
+            <div className={styles.block}>
+              <h5>Что дальше?</h5>
+              <ul>
+                <li>
+                  Эксперт <span>проверит</span> ссылку и убедится, что задание
+                  правильно понято и <span>работа выполнена</span> полностью.{" "}
+                  После этого на странице вашего портфолио будет отображаться
+                  готовность к проверке и ссылка на оплату.
+                </li>
+                <li>
+                  После оплаты, эксперт <span>проверит</span> работу{" "}
+                  <span>в течении трех дней</span>. Если мы{" "}
+                  <span>не успеем</span>, то <span>вернем деньги</span> за
+                  рецензию на карту и <span>сделаем рецензию бесплатно!</span>
+                </li>
+                <li>
+                  Эксперт оставит свою рецензию и, если это будет необходимо,
+                  даст тебе рекомендации по тому, как можно улучшить работу. В
+                  течении <span>пяти дней</span> ты можешь{" "}
+                  <span>внести коррективы</span> и отправить эксперту для
+                  повторной проверки.
+                </li>
+                <li>
+                  <span>Лучшие работы</span> мы добавляем{" "}
+                  <span>на сайт Графикси</span>. Когда рецензия будет готова и
+                  эксперт выделит твою работу, ты получишь уведомление с
+                  подробной инструкцией о том, как опубликовать свою работу на
+                  Графикси!
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className={cx(styles.action, styles.twobutton)}>
+            {
+              <Link
+                className={cx(
+                  global.buttoncenter,
+                  user.telegram === null
+                    ? styles.buttongreen
+                    : styles.buttontransparent
+                )}
+                to="/telegram"
+                onClick={() => setShowReview(false)}
+              >
+                {user.telegram === null || user.telegram.error ? (
+                  <p className={global.text}>Подключить уведомления</p>
+                ) : (
+                  <p className={global.text}>
+                    Уведомления в <span>@{user?.telegram?.username}</span>
+                  </p>
+                )}
+                <FaTelegramPlane className={global.icon} />
+              </Link>
+            }
+            <button
+              className={cx(global.buttontext, styles.buttontransparent)}
+              onClick={() => {
+                setReview({
+                  works: [],
+                  expert: null,
+                  direction: directionWithWork[0],
+                  price: 0,
+                  select: "work",
+                  complete: false,
+                });
+                setShowReview(false);
+              }}
+            >
+              <p className={global.text}>Закрыть</p>
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.content}>
+            <Choisedirection
+              directionWithWork={directionWithWork}
+              changeDirection={changeDirection}
+              directionData={directionData}
+              review={review}
+            />
+            <Choisework
+              review={review}
+              setReview={setReview}
+              directionData={directionData}
+            />
+            <Experts
+              review={review}
+              setReview={setReview}
+              allExpertQuery={allExpertQuery}
+            />
+          </div>
+
+          <div className={styles.action}>
+            <Nextstep
+              review={review}
+              addWorkToReviewMutation={addWorkToReviewMutation}
+              nextStep={nextStep}
+            />
+          </div>
+        </>
       )}
-    </AnimatePresence>
+    </Modal>
   );
 }
 

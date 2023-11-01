@@ -4,11 +4,11 @@ import * as styles from "./choisedirection.module.scss";
 function Choisedirection({
   directionWithWork,
   directionData,
-  selectedDirection,
   changeDirection,
+  review,
 }) {
   const title = directionData.find(
-    (item) => item.node.slug === selectedDirection
+    (item) => item.node.slug === review.direction
   ).node.title;
 
   return (
@@ -18,7 +18,7 @@ function Choisedirection({
     >
       <h5>{title}</h5>
       {directionWithWork
-        .filter((item) => item !== selectedDirection)
+        .filter((item) => item !== review.direction)
         .map((item) => {
           const direction = directionData.find(
             (dir) => dir.node.slug === item

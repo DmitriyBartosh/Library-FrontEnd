@@ -52,7 +52,7 @@ function Detail({ detail, payment, setPayment, closeDetail }) {
 
             <div className={styles.description}>
               <p className={styles.title}>О чем эта тема</p>
-              <p>{description}</p>
+              <div dangerouslySetInnerHTML={{ __html: description }} />
             </div>
 
             <div className={styles.steps}>

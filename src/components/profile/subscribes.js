@@ -104,49 +104,13 @@ function Subscribes() {
 
   return (
     <>
-      <section className={global.container}>
-        <div className={styles.container}>
-          {subscribeSucceeded.length > 0 && (
-            <div className={styles.list}>
-              <p className={styles.title}>Активные подписки</p>
-              {subscribeSucceeded
-                .filter((item) => item.active)
-                .map((item, index) => {
-                  const directionPending = direction.find(
-                    (dir) => dir.node.slug === item.plan
-                  ).node;
-
-                  return (
-                    <div
-                      className={styles.item}
-                      key={`succeeded_${directionPending.slug}_${index}`}
-                    >
-                      <div className={styles.block}>
-                        <p className={styles.hint}>Направление</p>
-                        <p className={styles.text}>{directionPending.title}</p>
-                      </div>
-
-                      <div className={styles.block}>
-                        <p className={styles.hint}>Дата окончания</p>
-                        <p className={styles.text}>
-                          До {convertDate(item.end_subscribe)}
-                        </p>
-                      </div>
-
-                      <div className={styles.active}>
-                        <p className={styles.text}>Подписка активна</p>
-                        <IoCheckmarkDoneSharp className={styles.icon} />
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-
-          {subscribePending.length > 0 && (
-            <div className={styles.list}>
-              <p className={styles.title}>Подписка не оплачена</p>
-              {subscribePending.map((item) => {
+      <div className={styles.container}>
+        {subscribeSucceeded.length > 0 && (
+          <div className={styles.list}>
+            <p className={styles.title}>Активные подписки</p>
+            {subscribeSucceeded
+              .filter((item) => item.active)
+              .map((item, index) => {
                 const directionPending = direction.find(
                   (dir) => dir.node.slug === item.plan
                 ).node;
@@ -154,7 +118,7 @@ function Subscribes() {
                 return (
                   <div
                     className={styles.item}
-                    key={`pending_${directionPending.slug}`}
+                    key={`succeeded_${directionPending.slug}_${index}`}
                   >
                     <div className={styles.block}>
                       <p className={styles.hint}>Направление</p>
@@ -168,76 +132,108 @@ function Subscribes() {
                       </p>
                     </div>
 
-                    <a
-                      href={item?.redirect_url}
-                      target="_blank"
-                      className={cx(global.buttontext, styles.button)}
-                    >
-                      <p className={global.text}>Завершить оплату</p>
-                    </a>
+                    <div className={styles.active}>
+                      <p className={styles.text}>Подписка активна</p>
+                      <IoCheckmarkDoneSharp className={styles.icon} />
+                    </div>
                   </div>
                 );
               })}
-            </div>
-          )}
+          </div>
+        )}
 
-          {isVisibleSubscribe && (
-            <div className={styles.offers}>
-              <p className={styles.title}>Направления</p>
-              <div className={styles.list}>
-                {sortedDirection
-                  .filter((item) => item.node.active)
-                  .map((item) => {
-                    const { slug, title, about, price, works } = item.node;
-                    const allThemes = works.map((obj) => obj.title);
+        {subscribePending.length > 0 && (
+          <div className={styles.list}>
+            <p className={styles.title}>Подписка не оплачена</p>
+            {subscribePending.map((item) => {
+              const directionPending = direction.find(
+                (dir) => dir.node.slug === item.plan
+              ).node;
 
-                    const isVisible =
-                      Array.isArray(subscribes) &&
-                      !subscribes.some(
-                        (sub) => sub.active && sub.plan === slug
-                      );
+              return (
+                <div
+                  className={styles.item}
+                  key={`pending_${directionPending.slug}`}
+                >
+                  <div className={styles.block}>
+                    <p className={styles.hint}>Направление</p>
+                    <p className={styles.text}>{directionPending.title}</p>
+                  </div>
 
-                    return (
-                      isVisible && (
-                        <div className={styles.item} key={`direction_${slug}`}>
-                          <div className={styles.content}>
-                            <p className={styles.title}>{title}</p>
-                            <div className={styles.theme}>
-                              {works.map((item) => {
-                                return (
-                                  <p key={`theme_${item.slug}`}>
-                                    #{item.title.replace(/\s+/g, "_")}
-                                  </p>
-                                );
-                              })}
-                            </div>
-                            <p>{about}</p>
+                  <div className={styles.block}>
+                    <p className={styles.hint}>Дата окончания</p>
+                    <p className={styles.text}>
+                      До {convertDate(item.end_subscribe)}
+                    </p>
+                  </div>
+
+                  <a
+                    href={item?.redirect_url}
+                    target="_blank"
+                    className={cx(global.buttontext, styles.button)}
+                  >
+                    <p className={global.text}>Завершить оплату</p>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {isVisibleSubscribe && (
+          <div className={styles.offers}>
+            <p className={styles.title}>Направления</p>
+            <div className={styles.list}>
+              {sortedDirection
+                .filter((item) => item.node.active)
+                .map((item) => {
+                  const { slug, title, about, price, works } = item.node;
+                  const allThemes = works.map((obj) => obj.title);
+
+                  const isVisible =
+                    Array.isArray(subscribes) &&
+                    !subscribes.some((sub) => sub.active && sub.plan === slug);
+
+                  return (
+                    isVisible && (
+                      <div className={styles.item} key={`direction_${slug}`}>
+                        <div className={styles.content}>
+                          <p className={styles.title}>{title}</p>
+                          <div className={styles.theme}>
+                            {works.map((item) => {
+                              return (
+                                <p key={`theme_${item.slug}`}>
+                                  #{item.title.replace(/\s+/g, "_")}
+                                </p>
+                              );
+                            })}
                           </div>
-                          <div className={styles.action}>
-                            <button
-                              className={cx(global.buttontext, styles.main)}
-                              onClick={() =>
-                                openDetail(price, allThemes, title, slug)
-                              }
-                            >
-                              <p className={global.text}>Оформить подписку</p>
-                            </button>
-                            <Link
-                              to={`/directions/${slug}`}
-                              className={cx(global.buttontext, styles.second)}
-                            >
-                              <p className={global.text}>Все темы</p>
-                            </Link>
-                          </div>
+                          <p>{about}</p>
                         </div>
-                      )
-                    );
-                  })}
-              </div>
+                        <div className={styles.action}>
+                          <button
+                            className={cx(global.buttontext, styles.main)}
+                            onClick={() =>
+                              openDetail(price, allThemes, title, slug)
+                            }
+                          >
+                            <p className={global.text}>Оформить подписку</p>
+                          </button>
+                          <Link
+                            to={`/directions/${slug}`}
+                            className={cx(global.buttontext, styles.second)}
+                          >
+                            <p className={global.text}>Все темы</p>
+                          </Link>
+                        </div>
+                      </div>
+                    )
+                  );
+                })}
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        )}
+      </div>
       <Modal visible={detail.visible} close={() => closeDetail()}>
         <Payment
           name={detail.title}

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import cx from "classname";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "gatsby";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { CiLogout } from "react-icons/ci";
 import { IoSyncOutline, IoCheckmarkSharp } from "react-icons/io5";
 import { FaTelegramPlane } from "react-icons/fa";
@@ -13,7 +13,6 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./info.module.scss";
 
 function Info() {
-  const queryClient = useQueryClient();
   const { user, setUser, onLogout } = useStateContext();
 
   const [isLoading, setIsLoading] = useState({
@@ -124,37 +123,29 @@ function Info() {
               <FaTelegramPlane className={global.icon} />
             </Link>
 
-            <AnimatePresence initial={false}>
-              <motion.div
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 4 }}
-              >
-                <button
-                  className={cx(global.buttoncenter, styles.buttontransparent)}
-                  disabled={isLoading}
-                  onClick={(event) => onLogout(event, setIsLoading)}
-                >
-                  {isLoading.save ? (
-                    <>
-                      <p className={global.text}>Выйти</p>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1.25, repeat: Infinity }}
-                        className={global.load}
-                      >
-                        <IoSyncOutline className={global.svg} />
-                      </motion.div>
-                    </>
-                  ) : (
-                    <>
-                      <p className={global.text}>Выйти</p>
-                      <CiLogout className={global.icon} />
-                    </>
-                  )}
-                </button>
-              </motion.div>
-            </AnimatePresence>
+            <button
+              className={cx(global.buttoncenter, styles.buttontransparent)}
+              disabled={isLoading.save}
+              onClick={(event) => onLogout(event, isLoading, setIsLoading)}
+            >
+              {isLoading.save ? (
+                <>
+                  <p className={global.text}>Выйти</p>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1.25, repeat: Infinity }}
+                    className={global.load}
+                  >
+                    <IoSyncOutline className={global.svg} />
+                  </motion.div>
+                </>
+              ) : (
+                <>
+                  <p className={global.text}>Выйти</p>
+                  <CiLogout className={global.icon} />
+                </>
+              )}
+            </button>
           </div>
         </>
       )}

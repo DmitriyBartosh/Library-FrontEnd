@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
 
   useEffectOnce(() => {
     if (!isLoggedIn()) {
-      navigate("/");
+      navigate("/auth");
     }
   });
 

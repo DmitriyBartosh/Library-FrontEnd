@@ -3,18 +3,16 @@
 .container {
   display: flex;
   align-items: center;
-  border: 1px solid $green;
-  background: $background;
-  height: 3rem;
+  background: $beige;
+  height: $heightButton;
   width: 100%;
   overflow: hidden;
-  margin-bottom: 5px;
   &:hover {
     .name {
-      transform: translate3d(-2.5rem, 0, 0);
+      transform: translate3d(-$heightButton + 8, 0, 0);
     }
     .check {
-      transform: translate3d(-2.75rem, 0, 0);
+      transform: translate3d(-$heightButton + 6, 0, 0);
     }
   }
   &.cursor {
@@ -22,12 +20,12 @@
   }
   &.checked {
     .check {
-      transform: translate3d(0rem, 0, 0);
+      transform: translate3d(0, 0, 0);
       transition: transform 0.3s;
       animation-timing-function: cubic-bezier(0.49, 0.14, 0.36, 0.88);
     }
     .name {
-      transform: translate3d(0rem, 0, 0);
+      transform: translate3d(0, 0, 0);
       transition: transform 0.4s;
       animation-timing-function: cubic-bezier(0.49, 0.14, 0.36, 0.88);
     }
@@ -37,9 +35,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    width: 3rem;
+    width: $heightButton;
     background-color: $green;
-    transform: translate3d(-3rem, 0, 0);
+    transform: translate3d(-$heightButton, 0, 0);
     transition: transform 0.3s;
     animation-timing-function: cubic-bezier(0.49, 0.14, 0.36, 0.88);
     .icon {
@@ -50,16 +48,15 @@
   }
   .name {
     width: 100%;
-    margin-right: -3rem;
+    margin-right: -$heightButton;
     color: $green;
-    font-weight: 500;
     padding: 0 1rem;
     font-weight: 500;
     text-align: start;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transform: translate3d(-3rem, 0, 0);
+    transform: translate3d(-$heightButton, 0, 0);
     transition: transform 0.5s;
     animation-timing-function: cubic-bezier(0.49, 0.14, 0.36, 0.88);
   }

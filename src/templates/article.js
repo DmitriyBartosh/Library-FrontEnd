@@ -9,11 +9,12 @@ import {
 import { SlSocialVkontakte } from "react-icons/sl";
 import { FaTelegramPlane } from "react-icons/fa";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import Topnavigate from "../components/navigation/topnavigate";
 import { convertDateJson } from "../functions/other";
+import Topnavigate from "../components/navigation/topnavigate";
+import Footer from "../components/footer";
 
 import * as global from "../styles/base/global.module.scss";
-import * as styles from "../styles/pages/articles.module.scss";
+import * as styles from "../styles/pages/article.module.scss";
 
 function Article(context) {
   const data = context.pageContext.data;
@@ -58,6 +59,7 @@ function Article(context) {
           </div>
           <div className={styles.preview}>
             <GatsbyImage
+              className={styles.gatsbyimage}
               image={image}
               alt={`Постер для статьи ${frontmatter.title}`}
             />
@@ -107,6 +109,7 @@ function Article(context) {
           </div>
         </article>
       </section>
+      <Footer />
     </>
   );
 }

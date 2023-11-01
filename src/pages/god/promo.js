@@ -12,12 +12,12 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "../../styles/pages/god.module.scss";
 
 function Promo() {
-  const { token } = useStateContext();
+  const { user } = useStateContext();
 
   const allPromoCodesQuery = useQuery({
     queryKey: ["allpromocodes"],
     queryFn: getAllPromoCodes,
-    enabled: !!token,
+    enabled: !!user,
   });
 
   const slugQuery = useStaticQuery(graphql`

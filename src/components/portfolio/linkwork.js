@@ -12,7 +12,7 @@ import {
   useQueryClient,
   useIsFetching,
 } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import cx from "classname";
 import { editWork } from "../../functions/works";
 import * as styles from "./linkwork.module.scss";
@@ -71,30 +71,17 @@ function Linkwork({ data }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.block}>
-        <p className={styles.title}>
-          {directionName} / {themeName}
-        </p>
+      <a
+        href={data.link}
+        target="_blank"
+        className={cx(styles.block, styles.linkwork)}
+      >
         <p className={styles.text}>{data.name}</p>
-      </div>
+      </a>
       <div className={styles.block}>
         <div className={cx(styles.editlink, edited && styles.edited)}>
-          <div className={styles.link}>
-            <AnimatePresence initial={false} mode="popLayout">
-              {!edited && (
-                <motion.p
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  className={styles.title}
-                >
-                  Ссылка на работу
-                </motion.p>
-              )}
-            </AnimatePresence>
-
-            <motion.input
-              layout="position"
+          <div className={cx(styles.link, edited && styles.visible)}>
+            <input
               placeholder="Ссылка"
               disabled={!edited}
               value={link}
@@ -154,14 +141,6 @@ function Linkwork({ data }) {
           )}
         </div>
       </div>
-      <a
-        href={data.link}
-        target="_blank"
-        className={cx(global.buttoncenter, styles.open)}
-      >
-        <p className={global.text}>Открыть</p>
-        <IoOpenOutline className={global.icon} />
-      </a>
     </div>
   );
 }

@@ -89,10 +89,10 @@ function Directions() {
   return (
     <>
       <Topnavigate />
-      <section className={cx(styles.section, global.container)}>
+      <section className={cx(global.container, global.top)}>
         <div className={styles.direction}>
           <div className={styles.title}>
-            <h2>Все направления площадки графикси</h2>
+            <h1>Направления Графикси</h1>
           </div>
 
           <div className={styles.list}>

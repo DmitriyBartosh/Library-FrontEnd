@@ -4,15 +4,17 @@
   display: flex;
   flex-direction: column;
   gap: 75px;
-  padding-top: 75px;
   .direction {
-    h3 {
-      margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    h1 {
+      font-weight: 500;
     }
     .themes {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
   }
 }

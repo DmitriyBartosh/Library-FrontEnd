@@ -61,7 +61,7 @@ function Topnavigate() {
           <Link
             to="/auth"
             activeClassName={styles.active}
-            className={cx(global.buttontext, styles.link)}
+            className={cx(global.buttoncenter, styles.link)}
           >
             <p className={global.text}>Войти</p>
             <CiLogin className={global.icon} />

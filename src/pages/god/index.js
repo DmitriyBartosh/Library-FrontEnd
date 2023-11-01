@@ -11,7 +11,7 @@ import * as styles from "../../styles/pages/god.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function God() {
-  const { token } = useStateContext();
+  const { user } = useStateContext();
 
   const [showModal, setShowModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -29,7 +29,7 @@ function God() {
   const allUsersQuery = useQuery({
     queryKey: ["allusersforadmin"],
     queryFn: getUsers,
-    enabled: !!token,
+    enabled: !!user,
   });
 
   const openModal = (id, name, isExpert) => {

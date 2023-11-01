@@ -17,7 +17,7 @@ import * as global from "../../../styles/base/global.module.scss";
 function State({ data, cost, setShowlReview, setShowPayment }) {
   const [paymentLink, setPaymentLink] = useState(null);
 
-  const { token } = useStateContext();
+  const { user } = useStateContext();
   const queryClient = useQueryClient();
 
   const { status } = data;
@@ -27,7 +27,7 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
   const checkPaymentQuery = useQuery({
     queryKey: ["checkpaymentreview", data.id],
     queryFn: () => checkPayment(data.id),
-    enabled: !!token && isTransation && status === "verified",
+    enabled: !!user && isTransation && status === "verified",
     refetchInterval: 1000,
     onSuccess: (res) => {
       if (res.message === "Рецензия оплачена") {

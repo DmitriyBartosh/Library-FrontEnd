@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 1rem;
+    padding: 16px;
+    padding-right: 32px;
     .subtitle {
       font-size: 0.9rem;
       color: $grey;

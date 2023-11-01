@@ -70,9 +70,9 @@ export const ContextProvider = ({ children }) => {
   };
 
   // Выйти из системы
-  const onLogout = (event, setIsLoading) => {
+  const onLogout = (event, isLoading, setIsLoading) => {
     event.preventDefault();
-    setIsLoading(true);
+    setIsLoading({ ...isLoading, save: true });
 
     axiosClient.post("auth/logout").then(() => {
       removeUser();
