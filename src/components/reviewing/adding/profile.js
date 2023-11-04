@@ -23,7 +23,7 @@ function Profile({ data, index, review, setReview }) {
         data.id === review.expert?.id && styles.selected
       )}
     >
-      <a href={`/expert/${slug}`} target="_blank" className={styles.avatar}>
+      <a href={`/experts/${slug}`} target="_blank" className={styles.avatar}>
         <img
           src={`${process.env.GATSBY_API_BASE_URL}${avatar}`}
           className={styles.image}

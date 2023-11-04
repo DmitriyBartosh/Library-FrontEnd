@@ -5,7 +5,7 @@ import cx from "classname";
 import { useStateContext } from "../context/ContextProvider";
 import Topnavigate from "../components/navigation/topnavigate";
 import Head from "../components/profile/head";
-import Subscribes from "../components/profile/subscribes";
+import Subscribesold from "../components/profile/subscribesold";
 import Footer from "../components/footer";
 
 import * as global from "../styles/base/global.module.scss";
@@ -24,7 +24,6 @@ function Profile() {
       <Topnavigate />
       <section className={cx(global.container, global.top)}>
         <Head />
-        <Subscribes />
       </section>
       <Footer />
     </>

@@ -6,9 +6,6 @@
   flex-direction: column;
   border: 1px solid $orange;
   padding: 20px 25px;
-  &:hover .preview {
-    transform: translateY(-4px);
-  }
   &:hover .preview .icon {
     color: $green;
   }
@@ -40,14 +37,10 @@
     width: 100%;
     margin-top: 25px;
     margin-bottom: 25px;
-    transition: transform 0.4s;
-    transition-timing-function: ease-in-out;
-    will-change: auto;
     .icon {
       height: 125px;
       color: $orange;
-      transition: color 0.2s;
-      transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+      transition: color 0.2s ease-in-out;
     }
   }
   .head {

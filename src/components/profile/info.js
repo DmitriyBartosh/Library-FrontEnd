@@ -11,6 +11,7 @@ import { useStateContext } from "../../context/ContextProvider";
 
 import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./info.module.scss";
+import Subscribes from "./subscribes";
 
 function Info() {
   const { user, setUser, onLogout } = useStateContext();
@@ -33,74 +34,80 @@ function Info() {
   });
 
   return (
-    <div className={styles.content}>
+    <div className={styles.container}>
       {user && (
         <>
-          <div className={styles.head}>
-            <p className={styles.profile}>
-              Ваш профиль / <span>{user?.email}</span>
-            </p>
-
-            <div className={styles.name}>
-              <div
-                className={cx(styles.field, isLoading.name && styles.visible)}
-              >
-                <input
-                  placeholder="Как к вам обращаться?"
-                  type="text"
-                  value={user.name}
-                  className={styles.input}
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
-                />
-
-                <AnimatePresence initial={false} mode="popLayout">
-                  {isDifferent && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 2 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 2 }}
-                      key="savename"
-                    >
-                      <button
-                        className={cx(
-                          global.buttoncenter,
-                          styles.buttongreen,
-                          styles.hidden
-                        )}
-                        onClick={() => {
-                          setIsLoading({ ...isLoading, name: true });
-                          setNameMutation.mutate({
-                            name: user.name,
-                          });
-                        }}
-                      >
-                        {isLoading.name ? (
-                          <>
-                            <p className={global.text}>Сохранить</p>
-                            <motion.div
-                              animate={{ rotate: 360 }}
-                              transition={{ duration: 1.25, repeat: Infinity }}
-                              className={global.load}
-                            >
-                              <IoSyncOutline className={global.svg} />
-                            </motion.div>
-                          </>
-                        ) : (
-                          <>
-                            <p className={global.text}>Сохранить</p>
-                            <IoCheckmarkSharp className={global.icon} />
-                          </>
-                        )}
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <p className={styles.hint}>
-                Это имя отображается в ваших работах на рецензию
+          <div className={styles.content}>
+            <div className={styles.user}>
+              <p className={styles.profile}>
+                Ваш профиль / <span>{user?.email}</span>
               </p>
+
+              <div className={styles.name}>
+                <div
+                  className={cx(styles.field, isLoading.name && styles.visible)}
+                >
+                  <input
+                    placeholder="Как к вам обращаться?"
+                    type="text"
+                    value={user.name}
+                    className={styles.input}
+                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  />
+
+                  <AnimatePresence initial={false} mode="popLayout">
+                    {isDifferent && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 2 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 2 }}
+                        key="savename"
+                      >
+                        <button
+                          className={cx(
+                            global.buttoncenter,
+                            styles.buttongreen,
+                            styles.hidden
+                          )}
+                          onClick={() => {
+                            setIsLoading({ ...isLoading, name: true });
+                            setNameMutation.mutate({
+                              name: user.name,
+                            });
+                          }}
+                        >
+                          {isLoading.name ? (
+                            <>
+                              <p className={global.text}>Сохранить</p>
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{
+                                  duration: 1.25,
+                                  repeat: Infinity,
+                                }}
+                                className={global.load}
+                              >
+                                <IoSyncOutline className={global.svg} />
+                              </motion.div>
+                            </>
+                          ) : (
+                            <>
+                              <p className={global.text}>Сохранить</p>
+                              <IoCheckmarkSharp className={global.icon} />
+                            </>
+                          )}
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <p className={styles.hint}>
+                  Это имя видит эксперт при отправке на рецензию
+                </p>
+              </div>
             </div>
+            <Subscribes />
           </div>
 
           <div className={styles.action}>

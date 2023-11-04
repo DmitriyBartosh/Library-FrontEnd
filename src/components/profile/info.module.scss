@@ -1,78 +1,85 @@
 @import "../../styles/abstracts/variables.scss";
 
-.content {
+.container {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 400px;
-  .head {
+  width: 100%;
+  max-width: 800px;
+  .content {
+    display: flex;
+    justify-content: space-between;
     background-color: $beige;
     padding: 25px 4px;
     padding-bottom: 21px;
-    .profile {
-      font-size: 0.9rem;
-      padding: 0 16px;
-      span {
-        font-weight: 500;
-      }
-    }
-    .name {
-      .visible {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        div .hidden {
-          opacity: 1;
-          pointer-events: all;
-        }
-        .input {
-          background-color: $background;
+    .user {
+      display: flex;
+      flex-direction: column;
+      .profile {
+        font-size: 0.9rem;
+        padding: 0 16px;
+        span {
+          font-weight: 500;
         }
       }
-      .field {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        height: $heightButton;
-        transition: all 0.3s;
-        &:hover,
-        &:has(.input:focus) {
+      .name {
+        .visible {
           margin-top: 8px;
           margin-bottom: 8px;
-        }
-        &:hover .hidden,
-        .input:focus + div .hidden {
-          opacity: 1;
-          pointer-events: all;
-        }
-        &:hover .input {
-          background-color: $background;
-        }
-
-        .hidden {
-          width: 150px;
-          opacity: 0;
-          pointer-events: none;
-          transition: all 0.3s;
-        }
-        .input {
-          padding: 0 1rem;
-          width: 100%;
-          height: 100%;
-          font-size: 1.15rem;
-          font-weight: 500;
-          transition: all 0.3s;
-          &:focus {
+          div .hidden {
+            opacity: 1;
+            pointer-events: all;
+          }
+          .input {
             background-color: $background;
           }
         }
-      }
-      .hint {
-        position: relative;
-        top: -4px;
-        padding: 0 16px;
-        font-size: 0.9rem;
-        font-weight: 300;
-        max-width: 300px;
+        .field {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          height: $heightButton;
+          transition: all 0.3s;
+          &:hover,
+          &:has(.input:focus) {
+            margin-top: 8px;
+            margin-bottom: 8px;
+          }
+          &:hover .hidden,
+          .input:focus + div .hidden {
+            opacity: 1;
+            pointer-events: all;
+          }
+          &:hover .input {
+            background-color: $background;
+          }
+
+          .hidden {
+            width: 150px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+          }
+          .input {
+            padding: 0 1rem;
+            width: 100%;
+            height: 100%;
+            font-size: 1.15rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            &:focus {
+              background-color: $background;
+            }
+          }
+        }
+        .hint {
+          position: relative;
+          top: -4px;
+          padding: 0 16px;
+          font-size: 0.9rem;
+          font-weight: 300;
+          max-width: 300px;
+        }
       }
     }
   }
