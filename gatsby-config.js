@@ -37,7 +37,6 @@ module.exports = {
               quality: 85,
               showCaptions: true,
               withWebp: true,
-              withAvif: true,
             },
           },
         ],

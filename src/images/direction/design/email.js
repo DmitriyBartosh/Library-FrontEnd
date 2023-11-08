@@ -23,5 +23,4 @@ function Email(props) {
   );
 }
 
-const MemoEmail = React.memo(Email);
-export default MemoEmail;
+export default Email;

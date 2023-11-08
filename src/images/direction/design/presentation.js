@@ -31,5 +31,4 @@ function Presentation(props) {
   );
 }
 
-const MemoPresentation = React.memo(Presentation);
-export default MemoPresentation;
+export default Presentation;

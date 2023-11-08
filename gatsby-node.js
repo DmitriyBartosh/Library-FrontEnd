@@ -129,7 +129,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  // Страницы к Графическому дизайну
+  // Страницы к темам
   const works = await graphql(`
     query {
       allDirectionsJson {
@@ -138,6 +138,7 @@ exports.createPages = async ({ graphql, actions }) => {
             slug
             title
             works {
+              free
               description
               slug
               title
@@ -209,6 +210,7 @@ exports.createPages = async ({ graphql, actions }) => {
           theme: work.slug,
           title: work.title,
           description: work.description,
+          free: work.free,
         },
       });
     });

@@ -40,6 +40,11 @@ function Payment({ name, direction, cost, themes }) {
     styles: styles.bank,
   });
 
+  console.log(name);
+  console.log(direction);
+  console.log(cost);
+  console.log(themes);
+
   const queryClient = useQueryClient();
 
   const addSubscribeMutation = useMutation({
@@ -96,7 +101,6 @@ function Payment({ name, direction, cost, themes }) {
       <div className={styles.action}>
         <div className={styles.method}>
           <p className={styles.title}>Выберите способ оплаты</p>
-          <p>Подписка </p>
           <div className={styles.list}>
             {methods.map((item) => {
               return (

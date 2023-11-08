@@ -1,0 +1,53 @@
+@import "../../styles/abstracts/variables.scss";
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $beige;
+  .content {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 20px;
+    .title {
+      position: relative;
+      font-weight: 500;
+      color: $green;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0%;
+        height: 1px;
+        background: $green;
+        transition: all 0.3s;
+      }
+      &:hover::after {
+        width: 100%;
+      }
+    }
+
+    .text {
+      font-weight: 300;
+      font-size: 0.9rem;
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    padding: 0 14px;
+  }
+}
+
+.button {
+  background-color: $background;
+  color: $green;
+  width: 100%;
+}

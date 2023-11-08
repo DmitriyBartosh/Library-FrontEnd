@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { graphql } from "gatsby";
-import { useScroll } from "react-use";
+import { graphql, navigate } from "gatsby";
+import { useScroll, useEffectOnce } from "react-use";
 import { useStateContext } from "../context/ContextProvider";
 import * as styles from "../styles/pages/work.module.scss";
 import MetaTag from "../components/metaTag";
@@ -13,19 +13,32 @@ import Rightnavigate from "../components/navigation/rightnavigate";
 import Addwork from "../components/work/addwork";
 
 function Work({ data, pageContext }) {
-  const { works, subscribes } = useStateContext();
+  const { works, subscribes, isLoggedIn } = useStateContext();
   const [isVisibleWork, setIsVisibleWork] = useState(false);
   const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
   const [relatedwork, setRelatedwork] = useState(null);
   const [thereIsWork, setThereIsWork] = useState(null);
+
+  const navigateRef = useRef(null);
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
 
-  const { theme, direction } = pageContext;
+  const { theme, direction, free } = pageContext;
 
+  // Проверяем активна ли подписка на направление или тема бесплатная
   const isActiveSubscribe =
-    Array.isArray(subscribes) && subscribes.some((item) => item.active);
+    subscribes &&
+    subscribes.some((item) => item.plan === direction && item.active === true);
+
+  useEffectOnce(() => {
+    if (!isLoggedIn()) {
+      navigate("/auth");
+    }
+    if (!isActiveSubscribe && !free) {
+      navigate("/profile");
+    }
+  });
 
   const firstSpecification =
     data.allSpecification.edges[0].node.childMarkdownRemark;
@@ -61,31 +74,37 @@ function Work({ data, pageContext }) {
   const specification = data.allSpecification.edges;
 
   useEffect(() => {
-    const sections = contentRef.current.childNodes;
+    const sections = contentRef.current?.childNodes;
 
     let smallestHeight = Infinity;
     let biggestHeight = 0;
-    for (let i = 0; i < sections.length; i++) {
-      const elementHeight = sections[i].offsetHeight;
-      if (elementHeight < smallestHeight) {
-        smallestHeight = elementHeight;
-      }
-    }
 
-    for (let i = 0; i < sections.length; i++) {
-      const elementHeight = sections[i].offsetHeight;
-      if (elementHeight > biggestHeight) {
-        biggestHeight = elementHeight;
+    if (sections) {
+      for (let i = 0; i < sections.length; i++) {
+        const elementHeight = sections[i].offsetHeight;
+        if (elementHeight < smallestHeight) {
+          smallestHeight = elementHeight;
+        }
       }
+
+      for (let i = 0; i < sections.length; i++) {
+        const elementHeight = sections[i].offsetHeight;
+        if (elementHeight > biggestHeight) {
+          biggestHeight = elementHeight;
+        }
+      }
+      setMaxHeight(biggestHeight);
+      setMinHeight(smallestHeight);
     }
-    setMaxHeight(biggestHeight);
-    setMinHeight(smallestHeight);
   }, [contentRef]);
 
   useEffect(() => {
-    const links = contentRef.current.querySelectorAll("a");
-    links.forEach((link) => link.setAttribute("target", "_blank"));
-  }, []);
+    if (contentRef) {
+      contentRef.current
+        ?.querySelectorAll("a")
+        .forEach((link) => link.setAttribute("target", "_blank"));
+    }
+  }, [contentRef]);
 
   useEffect(() => {
     if (works) {
@@ -103,102 +122,107 @@ function Work({ data, pageContext }) {
   }, [works]);
 
   return (
-    <>
-      <section className={styles.container}>
-        <div className={styles.navigation}>
-          <nav>
-            <Mainbutton
-              selected={selectedSpecification.frontmatter}
-              contentRef={contentRef}
-              scroll={y}
-              section={mainRef}
-              theme={pageContext.title}
-            />
-            <Secondbutton
-              selected={selectedSpecification.frontmatter}
-              contentRef={contentRef}
-              top={specificationTop}
-              height={specificationHeight}
-              scroll={y}
-              section={mainRef}
-            />
-            {data.allSteps.edges.map((item, index) => {
-              const size = sectionRef.current[index]?.getBoundingClientRect();
-              const difference = maxHeight - minHeight;
+    (isActiveSubscribe || free) && (
+      <>
+        <div className={styles.container}>
+          <div className={styles.navigation} ref={navigateRef}>
+            <nav>
+              <Mainbutton
+                selected={selectedSpecification.frontmatter}
+                contentRef={contentRef}
+                navigateRef={navigateRef}
+                scroll={y}
+                section={mainRef}
+                theme={pageContext.title}
+              />
+              <Secondbutton
+                selected={selectedSpecification.frontmatter}
+                contentRef={contentRef}
+                navigateRef={navigateRef}
+                top={specificationTop}
+                height={specificationHeight}
+                scroll={y}
+                section={mainRef}
+              />
+              {data.allSteps.edges.map((item, index) => {
+                const size = sectionRef.current[index]?.getBoundingClientRect();
+                const difference = maxHeight - minHeight;
 
-              const ratio =
-                Math.round(
-                  (Math.round(size?.height - minHeight) / difference + 1) * 10
-                ) / 10;
+                const ratio =
+                  Math.round(
+                    (Math.round(size?.height - minHeight) / difference + 1) * 10
+                  ) / 10;
+
+                return (
+                  <Navbutton
+                    contentRef={contentRef}
+                    navigateRef={navigateRef}
+                    data={item}
+                    scroll={y}
+                    height={size?.height}
+                    top={size?.top}
+                    ratio={ratio}
+                    index={index}
+                    key={`buttonnav_${index}`}
+                  />
+                );
+              })}
+            </nav>
+          </div>
+          <div className={styles.content} ref={contentRef}>
+            <div className={styles.head}>
+              <Task
+                data={specification}
+                selected={selectedSpecification}
+                setSelected={setSelectedSpecification}
+                ref={mainRef}
+              />
+              <Specification
+                html={selectedSpecification.html}
+                sumSections={sumSections}
+                ref={specificationRef}
+              />
+            </div>
+
+            {data.allSteps.edges.map((item, index) => {
+              const { frontmatter, html } = item.node.childMarkdownRemark;
 
               return (
-                <Navbutton
-                  contentRef={contentRef}
-                  data={item}
-                  scroll={y}
-                  height={size?.height}
-                  top={size?.top}
-                  ratio={ratio}
-                  index={index}
-                  key={`buttonnav_${index}`}
-                />
+                <section
+                  className={styles.section}
+                  key={`sectionwork_${index}`}
+                  ref={(el) => (sectionRef.current[index] = el)}
+                  data-section-number={index + 1}
+                >
+                  <div className={styles.header}>
+                    <p className={styles.title}>{frontmatter.title}</p>
+                  </div>
+                  <div
+                    className={styles.text}
+                    dangerouslySetInnerHTML={{ __html: html }}
+                  />
+                </section>
               );
             })}
-          </nav>
-        </div>
-        <div className={styles.content} ref={contentRef}>
-          <div className={styles.head}>
-            <Task
-              data={specification}
-              selected={selectedSpecification}
-              setSelected={setSelectedSpecification}
-              ref={mainRef}
-            />
-            <Specification
-              html={selectedSpecification.html}
-              sumSections={sumSections}
-              ref={specificationRef}
-            />
           </div>
-
-          {data.allSteps.edges.map((item, index) => {
-            const { frontmatter, html } = item.node.childMarkdownRemark;
-
-            return (
-              <div
-                className={styles.section}
-                key={`sectionwork_${index}`}
-                ref={(el) => (sectionRef.current[index] = el)}
-                data-section-number={index + 1}
-              >
-                <div className={styles.header}>
-                  <p className={styles.title}>{frontmatter.title}</p>
-                </div>
-                <div
-                  className={styles.text}
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
-              </div>
-            );
-          })}
+          <Rightnavigate
+            addWork={() => setIsVisibleWork(true)}
+            thereIsWork={thereIsWork}
+            backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
+          />
         </div>
-        <Rightnavigate
-          addWork={() => setIsVisibleWork(true)}
+        <Addwork
+          visible={isVisibleWork}
+          close={() => setIsVisibleWork(false)}
+          pageContext={pageContext}
+          checklist={checklist.node.childMarkdownRemark}
+          selected={selectedSpecification}
+          relatedwork={relatedwork}
           thereIsWork={thereIsWork}
-          backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
+          setSelected={setSelectedSpecification}
         />
-      </section>
-      <Addwork
-        visible={isVisibleWork}
-        close={() => setIsVisibleWork(false)}
-        pageContext={pageContext}
-        checklist={checklist.node.childMarkdownRemark}
-        selected={selectedSpecification}
-        relatedwork={relatedwork}
-        thereIsWork={thereIsWork}
-        setSelected={setSelectedSpecification}
-      />
-    </>
+      </>
+    )
   );
 }
 

@@ -50,5 +50,4 @@ function Moodboard(props) {
   );
 }
 
-const MemoMoodboard = React.memo(Moodboard);
-export default MemoMoodboard;
+export default Moodboard;

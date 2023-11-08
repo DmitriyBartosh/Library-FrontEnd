@@ -60,6 +60,7 @@ function Review() {
         const thereIsJob =
           Array.isArray(works) &&
           works.some((work) => work.direction === element.plan);
+        console.log(thereIsJob);
         return thereIsJob;
       })
       .map((item) => item.plan);
@@ -103,6 +104,11 @@ function Review() {
       });
     }
   }
+
+  // При оформлении подписки, записываем направление
+  useEffect(() => {
+    setReview({ ...review, direction: directionWithWork[0] });
+  }, [subscribes]);
 
   useEffect(() => {
     if (review.expert) {

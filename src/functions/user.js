@@ -9,6 +9,15 @@ export const getUser = async () => {
   }
 };
 
+export const getTransactions = async () => {
+  try {
+    const { data } = await axiosClient.get("transactions/all");
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const setName = (data) => {
   return axiosClient
     .post("user/setname", data)

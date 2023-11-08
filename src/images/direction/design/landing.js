@@ -37,5 +37,4 @@ function Landing(props) {
   );
 }
 
-const MemoLanding = React.memo(Landing);
-export default MemoLanding;
+export default Landing;

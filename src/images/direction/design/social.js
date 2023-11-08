@@ -23,5 +23,4 @@ function Social(props) {
   );
 }
 
-const MemoSocial = React.memo(Social);
-export default MemoSocial;
+export default Social;

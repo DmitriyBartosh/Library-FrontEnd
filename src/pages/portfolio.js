@@ -1,5 +1,4 @@
 import React from "react";
-import { useStateContext } from "../context/ContextProvider";
 import cx from "classname";
 
 import Review from "../components/reviewing/status/reviewstatus";
@@ -11,13 +10,11 @@ import Footer from "../components/footer";
 import * as global from "../styles/base/global.module.scss";
 
 function Profile() {
-  const { works } = useStateContext();
-
   return (
     <>
       <Topnavigate />
       <section className={cx(global.container, global.top)}>
-        {works?.length > 0 && <Review />}
+        <Review />
         <Direction />
       </section>
       <AddReview />

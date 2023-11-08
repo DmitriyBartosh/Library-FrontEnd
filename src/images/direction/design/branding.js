@@ -35,5 +35,4 @@ function Branding(props) {
   );
 }
 
-const MemoBranding = React.memo(Branding);
-export default MemoBranding;
+export default Branding;

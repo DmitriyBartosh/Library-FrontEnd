@@ -56,5 +56,4 @@ function Poster(props) {
   );
 }
 
-const MemoPoster = React.memo(Poster);
-export default MemoPoster;
+export default Poster;

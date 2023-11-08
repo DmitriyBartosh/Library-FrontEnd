@@ -39,5 +39,4 @@ function Logo(props) {
   );
 }
 
-const MemoLogo = React.memo(Logo);
-export default MemoLogo;
+export default Logo;
