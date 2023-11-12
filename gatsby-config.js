@@ -4,8 +4,8 @@
 
 module.exports = {
   siteMetadata: {
-    title: `Графикси`,
-    siteUrl: `http://localhost:3000`,
+    title: `Графикси | Онлайн практикум`,
+    siteUrl: `https://graphiksi.ru`,
   },
   plugins: [
     "gatsby-plugin-sass",
@@ -14,7 +14,12 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/images/icon.jpg",
+        name: `Графикси | Онлайн практикум`,
+        short_name: `Графикси`,
+        start_url: `/`,
+        background_color: `#f3eee1`,
+        display: `standalone`,
       },
     },
     {

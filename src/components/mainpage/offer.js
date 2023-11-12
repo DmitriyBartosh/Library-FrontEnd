@@ -11,78 +11,78 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./offer.module.scss";
 
 function Practice() {
-  // В будущем тут будут список актуальных ссылок на статьи
-  const articlesList = [
-    "Как начать проект",
-    "типографика",
-    "FIGMA",
-    "композиция",
-    "цветовые сочетания",
-  ];
-
   return (
     <>
-      <section className={cx(styles.section, global.container)}>
-        <div className={styles.head}>
-          <h2>Что предлагаем: </h2>
-          <p>
-            <span>
-              В Графикси есть два направления: Графический Дизайн и Разработка.
-            </span>{" "}
-            С помощью пакета Технических Заданий, инструкций, конспектов с
-            теорией, которые мы тщательно собирали вместе с экспертами для тебя,
-            ты сможешь создать классное портфолио и начать свой путь в карьере
-          </p>
-        </div>
+      <section className={global.container}>
+        <div className={styles.section}>
+          <div className={styles.head}>
+            <h2>Что предлагаем: </h2>
+            <p>
+              <span>
+                В Графикси ты сможешь познакомиться с направлением Графический
+                Дизайн.
+              </span>
+              <br />
+              <br />
+              С помощью пакета Технических Заданий, инструкций, конспектов с
+              теорией, которые мы тщательно собирали вместе с экспертами для
+              тебя, ты сможешь создать классное портфолио и начать свой путь в
+              карьере. <br />
+              <br />
+              На нашей площадке будут добавляться новые направления, связанные с
+              разработкой, фотографией и другими актуальными сферами!
+            </p>
+          </div>
 
-        <div className={styles.four}>
-          <div className={styles.block}>
-            <div className={styles.text}>
-              <p className={styles.title}>
-                ГОТОВЫЕ ТЕХНИЧЕСКИЕ
-                <br />
-                ЗАДАНИЯ C ГАЙДАМИ
-              </p>
-              <p className={styles.text}>
-                Мы создали теоретические материалы, которые помогут тебе
-                выполнять ТЗ и пополнять портфолио
-              </p>
+          <div className={styles.four}>
+            <div className={styles.block}>
+              <div className={styles.text}>
+                <p className={styles.title}>
+                  ГОТОВЫЕ ТЕХНИЧЕСКИЕ
+                  <br />
+                  ЗАДАНИЯ C ГАЙДАМИ
+                </p>
+                <p className={styles.text}>
+                  Мы создали теоретические материалы, которые помогут тебе
+                  выполнять ТЗ и пополнять портфолио
+                </p>
+              </div>
+              <One className={styles.icon} />
             </div>
-            <One className={styles.icon} />
-          </div>
-          <div className={styles.block}>
-            <div className={styles.text}>
-              <p className={styles.title}>
-                САМОСТОЯТЕЛЬНОЕ
-                <br />
-                ИЗУЧЕНИЕ БЕЗ ДЕДЛАЙНОВ
-              </p>
-              <p className={styles.text}>
-                Мы топим за взрослое самостоятельное обучение с комфортными
-                временными рамками
-              </p>
+            <div className={styles.block}>
+              <div className={styles.text}>
+                <p className={styles.title}>
+                  САМОСТОЯТЕЛЬНОЕ
+                  <br />
+                  ИЗУЧЕНИЕ БЕЗ ДЕДЛАЙНОВ
+                </p>
+                <p className={styles.text}>
+                  Мы топим за взрослое самостоятельное обучение с комфортными
+                  временными рамками
+                </p>
+              </div>
+              <Two className={styles.icon} />
             </div>
-            <Two className={styles.icon} />
-          </div>
-          <div className={styles.block}>
-            <div className={styles.text}>
-              <p className={styles.title}>РАЗБОРЫ ОТ ЭКСПЕРТОВ</p>
-              <p className={styles.text}>
-                По желанию, ты сможешь выбрать и отправить проекты эксперту,
-                получить подробную обратную связь по их улучшению
-              </p>
+            <div className={styles.block}>
+              <div className={styles.text}>
+                <p className={styles.title}>РАЗБОРЫ ОТ ЭКСПЕРТОВ</p>
+                <p className={styles.text}>
+                  По желанию, ты сможешь выбрать и отправить проекты эксперту,
+                  получить подробную обратную связь по их улучшению
+                </p>
+              </div>
+              <Three className={styles.icon} />
             </div>
-            <Three className={styles.icon} />
-          </div>
-          <div className={styles.block}>
-            <div className={styles.text}>
-              <p className={styles.title}>НОВЫЕ ЗНАКОМСТВА И ПОБЕДЫ</p>
-              <p className={styles.text}>
-                У нас есть общий чат со всеми пользователями, где мы
-                обмениваемся опытом и просто болтаем о насущном
-              </p>
+            <div className={styles.block}>
+              <div className={styles.text}>
+                <p className={styles.title}>НОВЫЕ ЗНАКОМСТВА И ПОБЕДЫ</p>
+                <p className={styles.text}>
+                  У нас есть общий чат со всеми пользователями, где мы
+                  обмениваемся опытом и просто болтаем о насущном
+                </p>
+              </div>
+              <Four className={styles.icon} />
             </div>
-            <Four className={styles.icon} />
           </div>
         </div>
       </section>

@@ -3,14 +3,20 @@ import { useStaticQuery, graphql, Link, navigate } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import cx from "classname";
 import { useSearchParam } from "react-use";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 import { convertDate, convertDateJson } from "../functions/other";
 import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Footer from "../components/footer";
+import MetaTag from "../components/metaTag";
 
 import * as global from "../styles/base/global.module.scss";
 import * as styles from "../styles/pages/articleslist.module.scss";
 
 function Articles() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const tag = useSearchParam("tag");
   const [tagParams, setTagParams] = useState(tag);
   const data = useStaticQuery(graphql`
@@ -72,7 +78,8 @@ function Articles() {
 
   return (
     <>
-      <Topnavigate />
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
         <h1 className={styles.head}>Полезные статьи</h1>
         <div className={styles.tags}>
@@ -149,5 +156,20 @@ function Articles() {
     </>
   );
 }
+
+export const Head = () => {
+  const title = "Полезные статьи";
+  const description =
+    "Полезные статьи которые пригодятся тебе при изучении материалов от наших экспертов";
+
+  const data = {
+    title: `Графикси | ${title}`,
+    description: description,
+    slug: `/articles`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} themeColor="#f3eee1" />;
+};
 
 export default Articles;

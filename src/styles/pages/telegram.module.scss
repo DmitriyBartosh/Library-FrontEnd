@@ -14,17 +14,33 @@
     bottom: -7vw;
     width: 60vw;
     z-index: -1;
+    @media (max-width: $tablet) {
+      bottom: 30px;
+      width: 100%;
+      max-width: 500px;
+    }
   }
   .bird {
     position: absolute;
     top: 120px;
     left: 15vw;
     width: 12vw;
+    @media (max-width: $tablet) {
+      top: auto;
+      bottom: 87%;
+      width: 75px;
+      left: 45px;
+    }
   }
   .birdonbranch {
     position: absolute;
     right: 10vw;
     width: 7vw;
+    @media (max-width: $tablet) {
+      right: 50px;
+      bottom: 75%;
+      width: 75px;
+    }
   }
 }
 
@@ -32,8 +48,13 @@
   display: flex;
   flex-direction: column;
   padding: 16px 20px;
+  margin: 0 20px;
   width: 500px;
+  z-index: 3;
   background-color: $beige;
+  @media (max-width: $mobile) {
+    width: auto;
+  }
   &.error {
     border: 2px solid $brown;
   }
@@ -72,8 +93,16 @@
   grid-template-columns: 3fr 2fr;
   gap: 8px;
   padding: 16px 20px;
+  margin: 0 20px;
   width: 500px;
   background-color: $beige;
+  @media (max-width: $mobile) {
+    width: calc(100% - 40px);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
   .field {
     display: flex;
     align-items: center;

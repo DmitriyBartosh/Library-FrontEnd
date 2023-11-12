@@ -12,6 +12,10 @@
   padding-right: 40px;
   margin-right: 2px;
   overflow-y: auto;
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding: 30px 20px;
+  }
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -25,6 +29,10 @@
   }
   .title {
     font-weight: 600;
+    @media (max-width: $mobile) {
+      font-weight: 500;
+      margin-right: 50px;
+    }
   }
   .checklist {
     display: flex;
@@ -90,4 +98,8 @@
   padding: 20px 50px;
   padding-right: 45px;
   border-top: 1px solid $green;
+  @media (max-width: $mobile) {
+    padding: 15px 20px;
+    width: 100%;
+  }
 }

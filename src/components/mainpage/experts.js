@@ -60,8 +60,6 @@ function Experts() {
 
           const imagePreview = getImage(frontmatter.preview_photo);
 
-          console.log(item);
-
           return (
             <div className={styles.item} key={index}>
               <div className={cx(styles.expert, global.container)}>
@@ -75,21 +73,30 @@ function Experts() {
                 <div className={styles.block}>
                   <div className={styles.head}>
                     <h4>Эксперт {frontmatter.name}</h4>
-                    <p className={styles.direction}>
+                    <Link
+                      to={`/directions/${frontmatter.themefromdireciton}`}
+                      className={styles.direction}
+                    >
                       Направление: {frontmatter.direction}
-                    </p>
+                    </Link>
                   </div>
                   <div className={styles.info}>
-                    <div className={styles.theme}>
-                      <p>
+                    <div className={styles.themes}>
+                      <p className={styles.title}>
                         <span>Список тем:</span>
                       </p>
-                      {themes.map((item, index) => {
-                        return <p key={index}>{item.title}</p>;
-                      })}
+                      <div className={styles.all}>
+                        {themes.map((item, index) => {
+                          return <p key={index}>#{item.title}</p>;
+                        })}
+                      </div>
                     </div>
-                    <Link to={`/experts/${slug}`} className={styles.button}>
-                      <p className={styles.text}>Подробнее</p>
+
+                    <Link
+                      to={`/experts/${slug}`}
+                      className={cx(global.buttontext, styles.buttonorange)}
+                    >
+                      <p className={global.text}>Подробнее</p>
                     </Link>
                   </div>
                 </div>

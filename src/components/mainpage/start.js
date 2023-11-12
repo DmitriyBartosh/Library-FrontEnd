@@ -1,10 +1,14 @@
 import React from "react";
 import cx from "classname";
+import { Link } from "gatsby";
+import { useStateContext } from "../../context/ContextProvider";
 import Linesteps from "../../images/svg/linesteps";
 import * as styles from "./start.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function Start() {
+  const { isLoggedIn } = useStateContext();
+
   return (
     <section className={styles.section}>
       <div className={cx(styles.header, global.container)}>
@@ -22,9 +26,12 @@ function Start() {
           <div className={styles.text}>
             <h5>1 шаг</h5>
             <p>
-              Для того, чтобы начать работу, ты можешь ознакомиться с личными
-              страничками и опытом наших экспертов, а также выбрать удобный
-              пакет заданий для себя.
+              До начала работы ты можешь{" "}
+              <Link to="/directions" className={styles.link}>
+                ознакомиться с нашими направлениями
+              </Link>{" "}
+              и страничками экспертов ниже, а так же попробовать бесплатные темы
+              в каждом из направлений.
             </p>
           </div>
         </div>
@@ -32,11 +39,25 @@ function Start() {
           <Linesteps className={styles.icon} />
           <div className={styles.text}>
             <h5>2 шаг</h5>
-            <p>
-              Авторизуйся в личном кабинете и оплати подписку. После оформления
-              в личном кабинете откроются нужные тебе задания и возможность
-              связаться с экспертами.
-            </p>
+            {isLoggedIn() ? (
+              <p>
+                <Link to="/direction" className={styles.link}>
+                  Выбрать направление
+                </Link>{" "}
+                которое тебе интересно и оформить подписку. С подпиской на
+                странице портфолио появятся все темы и возможность отправить
+                выполненную работу на рецензию эксперту.
+              </p>
+            ) : (
+              <p>
+                <Link to="/auth" className={styles.link}>
+                  Авторизуйся на Графикси
+                </Link>{" "}
+                и оформить подписку на выбранное направление. С подпиской на
+                странице портфолио появятся все темы и возможность отправить
+                выполненную работу на рецензию эксперту.
+              </p>
+            )}
           </div>
         </div>
         <div className={styles.block}>

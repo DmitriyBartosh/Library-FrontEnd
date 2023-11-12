@@ -10,8 +10,6 @@ function About({ data, alt }) {
 
   const photoImage = getImage(photo);
 
-  console.log(data);
-
   return (
     <section className={cx(styles.container, global.container)}>
       <div className={styles.info}>

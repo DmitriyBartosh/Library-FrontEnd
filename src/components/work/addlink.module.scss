@@ -91,6 +91,9 @@
   color: $green;
   padding: 15px 0;
   width: 100%;
+  @media (max-width: $mobile) {
+    padding-top: 0;
+  }
   p {
     width: 100%;
     text-align: start;

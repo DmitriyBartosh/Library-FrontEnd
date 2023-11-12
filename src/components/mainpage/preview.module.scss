@@ -5,23 +5,46 @@
   display: flex;
   align-items: center;
   height: 700px;
+  @media (max-width: $tablet) {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 75px;
+  }
+  @media (max-width: $mobile) {
+    padding-top: 100px;
+  }
   .birdonbranch {
     position: absolute;
     top: min(14vw, 150px);
     right: min(16vw, 175px);
     width: min(6vw, 90px);
+    @media (max-width: $mobile) {
+      top: 15px;
+      right: 0px;
+      width: 50px;
+    }
   }
   .bird {
     position: absolute;
     left: 350px;
     bottom: 125px;
     width: min(6vw, 90px);
+    @media (max-width: $mobile) {
+      display: none;
+    }
   }
   .flower {
     position: absolute;
-    bottom: -70px;
-    right: -20px;
+    bottom: -85px;
+    right: -50px;
     width: 350px;
+    @media (max-width: $mobile) {
+      bottom: -38px;
+      right: -30px;
+      width: 150px;
+    }
   }
   .mask {
     position: absolute;
@@ -34,14 +57,21 @@
     z-index: -1;
     .flowers {
       position: relative;
-      bottom: -245px;
+      bottom: -275px;
       width: min(60vw, 1000px);
+      @media (max-width: $mobile) {
+        width: 350px;
+        bottom: -210px;
+      }
     }
   }
   .info {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    @media (max-width: $tablet) {
+      padding-bottom: 150px;
+    }
     h1 {
       color: $orange;
       margin-bottom: 1rem;
@@ -57,19 +87,6 @@
       margin-top: 2rem;
     }
   }
-  .directions {
-    position: absolute;
-    bottom: 2rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 30vw;
-    column-gap: 1rem;
-    .link {
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-  }
 }
 
 .about {
@@ -83,6 +100,11 @@
     gap: 2rem;
     .title {
       margin-top: 60px;
+      @media (max-width: $tablet) {
+        margin-top: 40px;
+        max-width: 500px;
+        text-align: center;
+      }
     }
     .list {
       display: grid;
@@ -90,12 +112,19 @@
       gap: 2rem;
       width: 100%;
       margin-bottom: 60px;
+      @media (max-width: $tablet) {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        gap: 10px;
+        margin-bottom: 40px;
+      }
       .block {
         display: flex;
         align-items: center;
         justify-content: center;
         border: 1px solid white;
-        height: 50px;
+        height: $heightButton;
       }
     }
   }

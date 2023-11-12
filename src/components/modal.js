@@ -1,4 +1,5 @@
 import React from "react";
+import { IoCloseOutline } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
 
 import * as global from "../styles/base/global.module.scss";
@@ -16,6 +17,9 @@ function Modal({ children, visible, close }) {
             key="modal"
             className={global.content}
           >
+            <button className={global.close} onClick={close}>
+              <IoCloseOutline className={global.icon} />
+            </button>
             {children}
           </motion.div>
           <motion.div

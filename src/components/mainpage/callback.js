@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import cx from "classname";
 import { Link } from "gatsby";
-
+import { useStateContext } from "../../context/ContextProvider";
 import Birdonbranch from "../../images/svg/birdonbranch";
-import * as styles from "./callback.module.scss";
+
 import * as global from "../../styles/base/global.module.scss";
+import * as styles from "./callback.module.scss";
 
 function Callback() {
-  const [form, setForm] = useState({
-    phone: "",
-    message: "",
-  });
+  const { isLoggedIn, subscribes } = useStateContext();
+  const [phone, setPhone] = useState("");
+
+  const isActiveSubscribe =
+    Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   return (
     <>
@@ -21,8 +23,21 @@ function Callback() {
             200₽
           </h2>
           <div className={styles.action}>
-            <Link to="/auth" className={styles.button}>
-              <p className={styles.text}>Присоединиться к Графикси</p>
+            <Link
+              to={
+                isLoggedIn()
+                  ? isActiveSubscribe
+                    ? "/portfolio"
+                    : "/profile"
+                  : "/auth"
+              }
+              className={cx(global.buttontext, styles.buttonwhite)}
+            >
+              <p className={global.text}>
+                {isLoggedIn()
+                  ? "Начать творчество c Графикси"
+                  : "Присоединиться к Графикси"}
+              </p>
             </Link>
             <Birdonbranch className={styles.bird} />
           </div>
@@ -38,11 +53,11 @@ function Callback() {
         <div className={styles.input}>
           <input
             placeholder="Номер телефона"
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
-          <button className={styles.send}>
-            <p className={styles.text}>Отправить</p>
+          <button className={cx(global.buttontext, styles.buttonblack)}>
+            <p className={global.text}>Отправить</p>
           </button>
         </div>
       </section>

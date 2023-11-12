@@ -2,11 +2,15 @@
 
 .section {
   margin-top: 100px;
+  @media (max-width: $tablet) {
+    margin-top: 75px;
+  }
   .header {
     position: relative;
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+
     .right {
       position: absolute;
       top: 1rem;
@@ -17,6 +21,9 @@
       border-top: 1px solid $grey;
       border-bottom: 1px solid $grey;
       z-index: -1;
+      @media (max-width: $tablet) {
+        display: none;
+      }
     }
     .left {
       position: absolute;
@@ -28,6 +35,9 @@
       border-top: 1px solid $grey;
       border-bottom: 1px solid $grey;
       z-index: -1;
+      @media (max-width: $tablet) {
+        display: none;
+      }
     }
 
     .title {
@@ -35,6 +45,9 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      @media (max-width: $tablet) {
+        gap: 2px;
+      }
       span {
         display: flex;
         position: relative;
@@ -42,6 +55,9 @@
         font-weight: 700;
         background-color: $background;
         padding: 0 2rem;
+        @media (max-width: $tablet) {
+          background-color: transparent;
+        }
         &.orange {
           color: $orange;
         }
@@ -57,9 +73,16 @@
       display: flex;
       align-items: center;
       gap: 2rem;
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+      }
       .icon {
         position: relative;
         height: 12rem;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
       &:nth-child(1) {
         justify-content: flex-start;
@@ -67,18 +90,38 @@
       &:nth-child(2) {
         justify-content: center;
         margin-right: 25rem;
+        @media (max-width: $tablet) {
+          justify-content: flex-start;
+          margin: 0;
+        }
         .icon {
           margin-right: 6vw;
           bottom: 1rem;
+          @media (max-width: $tablet) {
+            margin-right: 0px;
+            margin-left: 25px;
+            bottom: 40px;
+            width: 120px;
+            transform: rotate(30deg);
+          }
         }
       }
       &:nth-child(3) {
         justify-content: flex-end;
         margin-right: 5rem;
+        @media (max-width: $tablet) {
+          margin: 0;
+        }
         .icon {
           transform: rotate(18deg);
           margin-right: 6vw;
           bottom: 4rem;
+          @media (max-width: $tablet) {
+            margin: 0;
+            bottom: 50px;
+            width: 100px;
+            transform: rotate(40deg);
+          }
         }
       }
 
@@ -86,12 +129,24 @@
         display: flex;
         align-items: center;
         gap: 2rem;
+        @media (max-width: $mobile) {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
         h5 {
           font-family: "Inter", sans-serif;
           font-weight: 700;
         }
+        .link {
+          color: $green;
+          font-weight: 500;
+        }
         p {
           max-width: 300px;
+          @media (max-width: $mobile) {
+            max-width: none;
+          }
         }
       }
     }

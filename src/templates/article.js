@@ -10,13 +10,19 @@ import { SlSocialVkontakte } from "react-icons/sl";
 import { FaTelegramPlane } from "react-icons/fa";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { convertDateJson } from "../functions/other";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Footer from "../components/footer";
+import MetaTag from "../components/metaTag";
 
 import * as global from "../styles/base/global.module.scss";
 import * as styles from "../styles/pages/article.module.scss";
 
 function Article(context) {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const data = context.pageContext.data;
   const birthTime = convertDateJson(context.pageContext.birthTime);
 
@@ -39,7 +45,8 @@ function Article(context) {
 
   return (
     <>
-      <Topnavigate />
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
       <section className={cx(styles.section, global.container)}>
         <Link to="/articles" className={styles.back}>
           <IoArrowBackSharp className={styles.icon} />
@@ -113,5 +120,18 @@ function Article(context) {
     </>
   );
 }
+
+export const Head = (context) => {
+  const { frontmatter } = context.pageContext.data;
+
+  const data = {
+    title: `Графикси | ${frontmatter.title}`,
+    description: frontmatter.description,
+    slug: `/articles/${frontmatter.slug}`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} themeColor="#f3eee1" />;
+};
 
 export default Article;

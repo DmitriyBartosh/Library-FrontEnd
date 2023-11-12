@@ -1,5 +1,6 @@
 import React from "react";
 import cx from "classname";
+import { Link } from "gatsby";
 import * as styles from "./footer.module.scss";
 import * as global from "../styles/base/global.module.scss";
 
@@ -11,28 +12,32 @@ function Footer() {
       <div className={cx(styles.container, global.container)}>
         <div className={styles.left}>
           <div className={styles.logo}></div>
-          <p>Наша Web-Студия</p>
-          <p>Бесплатные материалы</p>
-          <p>Личный кабинет</p>
+          <a href="https://heycoddes.ru" target="_blank" rel="noreferrer">
+            Наша Web-Студия
+          </a>
+          <Link to="/articles">Полезные материалы</Link>
+          <Link to="/profile">Личный кабинет</Link>
         </div>
         <div className={styles.center}>
           <p>
-            ©2022 — {year}, Графикси by <span>Hey, Coddes</span>
+            ©2022 — {year}, Графикси сделан{" "}
+            <a href="https://heycoddes.ru" target="_blank" rel="noreferrer">
+              Hey, Coddes
+            </a>
           </p>
         </div>
         <div className={styles.right}>
           <p>
             <span>Контакты:</span>
           </p>
-          <p>
+          <a href="https://t.me/KateShmidt" target="_blank" rel="noreferrer">
             Написать в <span>Telegram</span>
-          </p>
-          <p>
+          </a>
+          <a href="https://wa.me/+79538533877" target="_blank" rel="noreferrer">
             Написать в <span>WhatsApp</span>
-          </p>
-          <p>
-            <span>Graphiksy@mail.ru</span>
-          </p>
+          </a>
+          <Link to="/agreement">Соглашение</Link>
+          <Link to="/privacy">Политика</Link>
         </div>
       </div>
     </footer>

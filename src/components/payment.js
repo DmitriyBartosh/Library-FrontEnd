@@ -121,7 +121,8 @@ function Payment({ name, direction, cost, themes }) {
           </div>
         </div>
         <button
-          disabled={addSubscribeMutation.isLoading}
+          // disabled={addSubscribeMutation.isLoading}
+          disabled={true}
           onClick={() =>
             addSubscribeMutation.mutate({
               name: name,
@@ -145,8 +146,11 @@ function Payment({ name, direction, cost, themes }) {
             </>
           ) : (
             <>
-              <p className={styles.text}>
+              {/* <p className={styles.text}>
                 Перейти к оплате / <span>{cost} руб.</span>
+              </p> */}
+              <p className={styles.text}>
+                Скоро будет доступна / <span>{cost} руб.</span>
               </p>
               <div className={styles.icon}>{methodPay.icon}</div>
             </>

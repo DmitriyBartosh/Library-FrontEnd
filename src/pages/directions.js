@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "gatsby";
-import cx from "classname";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 import { useStaticQuery, graphql } from "gatsby";
+import cx from "classname";
 
 import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Footer from "../components/footer";
 import Detail from "../components/direction/detail";
+import Theme from "../components/direction/theme";
+import MetaTag from "../components/metaTag";
 
 import * as styles from "../styles/pages/directions.module.scss";
 import * as global from "../styles/base/global.module.scss";
-import Theme from "../components/direction/theme";
 
 function Directions() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const [payment, setPayment] = useState(false);
   const [detail, setDetail] = useState({
     visible: false,
@@ -51,15 +57,17 @@ function Directions() {
   const direction = directionQuery.allDirectionsJson.edges;
 
   // сортируем, чтобы сначала шли ссылки на активные темы
-  const sortedDirection = direction.sort((a, b) => {
-    if (a.node.active && !b.node.active) {
-      return -1;
-    } else if (!a.node.active && b.node.active) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
+  const sortedDirection = direction
+    .filter((item) => item.node.active)
+    .sort((a, b) => {
+      if (a.node.active && !b.node.active) {
+        return -1;
+      } else if (!a.node.active && b.node.active) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
 
   function closeDetail() {
     setPayment(false);
@@ -88,7 +96,8 @@ function Directions() {
 
   return (
     <>
-      <Topnavigate />
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
         <div className={styles.direction}>
           <div className={styles.title}>
@@ -98,10 +107,10 @@ function Directions() {
           <div className={styles.list}>
             <Link
               to="/directions"
-              className={styles.link}
+              className={cx(global.buttontext, styles.link)}
               activeClassName={styles.active}
             >
-              <p className={styles.text}>Все направления</p>
+              <p className={global.text}>Все направления</p>
             </Link>
             {sortedDirection.map((item, index) => {
               const { title, slug, active } = item.node;
@@ -109,11 +118,15 @@ function Directions() {
               return (
                 <Link
                   to={`/directions/${slug}`}
-                  className={cx(styles.link, !active && styles.hidden)}
+                  className={cx(
+                    global.buttontext,
+                    styles.link,
+                    !active && styles.hidden
+                  )}
                   activeClassName={styles.active}
                   key={`direction_${index}`}
                 >
-                  <p className={styles.text}>{title}</p>
+                  <p className={global.text}>{title}</p>
                 </Link>
               );
             })}
@@ -184,5 +197,20 @@ function Directions() {
     </>
   );
 }
+
+export const Head = () => {
+  const title = "Направления";
+  const description =
+    "Выбери актуальное для себя направления и начинай практиковаться на реальных задачах от наших экспертов.";
+
+  const data = {
+    title: `Графикси | ${title}`,
+    description: description,
+    slug: `/directions`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} themeColor="#f3eee1" />;
+};
 
 export default Directions;

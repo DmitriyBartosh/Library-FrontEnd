@@ -21,6 +21,10 @@
     background-color: $green;
     border-radius: 5px;
   }
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding: 25px 20px;
+  }
   .title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -42,6 +46,9 @@
   padding: 20px 50px;
   padding-right: 45px;
   border-top: 1px solid #4e8a7f;
+  @media (max-width: $mobile) {
+    padding: 15px 20px;
+  }
   &.two {
     display: grid;
     grid-template-columns: 1fr 1fr;

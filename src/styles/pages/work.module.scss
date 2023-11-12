@@ -3,6 +3,9 @@
 .container {
   display: grid;
   grid-template-columns: 18rem 1fr auto;
+  @media (max-width: $tablet) {
+    display: flex;
+  }
   .navigation {
     display: flex;
     align-items: center;
@@ -12,6 +15,9 @@
     overflow-y: auto;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
+    @media (max-width: $tablet) {
+      display: none;
+    }
     &::-webkit-scrollbar {
       width: 0px;
     }
@@ -39,6 +45,10 @@
     overflow-y: auto;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
+    @media (max-width: $tablet) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
     &::-webkit-scrollbar {
       width: 0px;
     }
@@ -62,6 +72,10 @@
         .title {
           font-weight: 600;
           font-size: $headmain;
+          @media (max-width: $mobile) {
+            line-height: 1;
+            font-size: $headmainmobile;
+          }
         }
       }
       .text {
@@ -97,6 +111,11 @@
           width: 100%;
           border: 1px solid $green;
           border-left: 8px solid $green;
+          @media (max-width: $mobile) {
+            padding: 15px 25px;
+            padding-right: 25px;
+            border-left: 4px solid $green;
+          }
           ol {
             margin-top: 10px;
           }
@@ -163,7 +182,10 @@
 }
 
 .section h2 {
-  margin-top: 1rem;
+  margin-top: 15px;
   font-size: $headsecond;
   font-weight: 600;
+  @media (max-width: $mobile) {
+    font-size: $headsecondmobile;
+  }
 }

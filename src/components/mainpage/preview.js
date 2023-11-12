@@ -10,75 +10,51 @@ import Bird from "../../images/svg/bird";
 import Birdonbranch from "../../images/svg/birdonbranch";
 import Flowerone from "../../images/svg/flower/flowerone";
 import Flowertwo from "../../images/svg/flower/flowertwo";
+
 import * as styles from "./preview.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function Preview() {
   const { isLoggedIn } = useStateContext();
 
-  const directionQuery = useStaticQuery(graphql`
-    query {
-      allDirectionsJson {
-        edges {
-          node {
-            slug
-            title
-          }
-        }
-      }
-    }
-  `);
-
-  const allDirection = directionQuery.allDirectionsJson.edges;
-
   return (
     <>
-      <section className={cx(styles.section, global.container)}>
-        <Bird className={styles.bird} />
-        <Birdonbranch className={styles.birdonbranch} />
-        <Flowerone className={styles.flower} />
-        <div className={styles.mask}>
-          <Flowertwo className={styles.flowers} />
-        </div>
-        <div className={styles.info}>
-          <h1>
-            Дай старт своей
-            <br />
-            карьере с Графикси
-          </h1>
-          <p>
-            Сервис, который помогает улучшить портфолио и получить консультации
-            от экспертов на любом этапе твоей карьеры{" "}
-          </p>
-          {isLoggedIn() ? (
-            <Link
-              className={cx(global.buttoncenter, styles.start)}
-              to="/portfolio"
-            >
-              <p className={global.text}>Продолжить</p>
-              <IoArrowForwardSharp className={global.icon} />
-            </Link>
-          ) : (
-            <Link className={cx(global.buttoncenter, styles.start)} to="/auth">
-              <p className={global.text}>Начать путь</p>
-              <CiLogin className={global.icon} />
-            </Link>
-          )}
-        </div>
-        <div className={styles.directions}>
-          {allDirection.map((item, index) => {
-            const { slug, title } = item.node;
-
-            return (
+      <section className={global.container}>
+        <div className={styles.section}>
+          <Bird className={styles.bird} />
+          <Birdonbranch className={styles.birdonbranch} />
+          <Flowerone className={styles.flower} />
+          <div className={styles.mask}>
+            <Flowertwo className={styles.flowers} />
+          </div>
+          <div className={styles.info}>
+            <h1>
+              Дай старт своей
+              <br />
+              карьере с Графикси
+            </h1>
+            <p>
+              Сервис, который помогает улучшить портфолио и получить
+              консультации от экспертов на любом этапе твоей карьеры{" "}
+            </p>
+            {isLoggedIn() ? (
               <Link
-                to={`/portfolio/${slug}`}
-                className={styles.link}
-                key={`direction_link_${index}`}
+                className={cx(global.buttoncenter, styles.start)}
+                to="/portfolio"
               >
-                <p>#{title.replace(/\s+/g, "_")}</p>
+                <p className={global.text}>Продолжить</p>
+                <IoArrowForwardSharp className={global.icon} />
               </Link>
-            );
-          })}
+            ) : (
+              <Link
+                className={cx(global.buttoncenter, styles.start)}
+                to="/auth"
+              >
+                <p className={global.text}>Начать путь</p>
+                <CiLogin className={global.icon} />
+              </Link>
+            )}
+          </div>
         </div>
       </section>
 

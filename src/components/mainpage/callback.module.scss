@@ -4,6 +4,9 @@
   background-color: $brown;
   color: white;
   padding: 75px 0;
+  @media (max-width: $mobile) {
+    padding: 50px 0;
+  }
   .block {
     position: relative;
     display: flex;
@@ -16,41 +19,14 @@
     }
     .action {
       position: relative;
-      .button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 3rem;
-        background-color: white;
-        padding: 0 5rem;
-        .text {
-          position: relative;
-          color: $brown;
-          font-weight: 600;
-          line-height: 1;
-          &::after {
-            position: absolute;
-            right: 0px;
-            bottom: -6px;
-            content: "";
-            height: 1px;
-            width: 100%;
-            opacity: 0;
-            background: currentColor;
-            transition: all 0.15s;
-            transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-          }
-        }
-        &:hover .text::after {
-          bottom: -3px;
-          opacity: 1;
-        }
-      }
       .bird {
         position: absolute;
         top: -2rem;
         left: -9rem;
         height: 7rem;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
     }
   }
@@ -62,6 +38,10 @@
   justify-content: center;
   gap: 2rem;
   margin: 75px 0;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    margin: 50px 0;
+  }
   .block {
     display: flex;
     align-items: center;
@@ -75,40 +55,36 @@
     display: flex;
     align-items: center;
     border: 1px solid $black;
-    height: 3rem;
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      width: 300px;
+    }
     input {
       height: 100%;
       padding: 0 1rem;
-    }
-    .send {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 3rem;
-      background-color: $black;
-      padding: 0 2rem;
-      .text {
-        position: relative;
-        color: white;
-        font-weight: 600;
-        line-height: 1;
-        &::after {
-          position: absolute;
-          right: 0px;
-          bottom: -6px;
-          content: "";
-          height: 1px;
-          width: 100%;
-          opacity: 0;
-          background: currentColor;
-          transition: all 0.15s;
-          transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-        }
-      }
-      &:hover .text::after {
-        bottom: -3px;
-        opacity: 1;
+      @media (max-width: $mobile) {
+        height: $heightButton;
+        width: 100%;
+        text-align: center;
       }
     }
+  }
+}
+
+.buttonwhite {
+  background-color: white;
+  color: $brown;
+  width: 400px;
+  @media (max-width: $mobile) {
+    width: 300px;
+  }
+}
+
+.buttonblack {
+  background-color: $black;
+  color: white;
+  width: 150px;
+  @media (max-width: $mobile) {
+    width: 100%;
   }
 }

@@ -7,7 +7,7 @@ import Logo from "../../images/svg/logo";
 import { useStateContext } from "../../context/ContextProvider";
 
 import * as global from "../../styles/base/global.module.scss";
-import * as styles from "./topnavigate.module.scss";
+import * as styles from "./desktopnav.module.scss";
 
 function Topnavigate() {
   const { isLoggedIn, works, subscribes } = useStateContext();
@@ -16,11 +16,11 @@ function Topnavigate() {
     Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   return (
-    <nav className={cx(styles.container, global.container)}>
+    <nav className={cx(styles.top, global.container)}>
       <Link to="/" className={styles.logo}>
         <Logo className={styles.svg} />
       </Link>
-      <div className={styles.right}>
+      <div className={styles.links}>
         <Link
           to="/directions"
           partiallyActive={true}

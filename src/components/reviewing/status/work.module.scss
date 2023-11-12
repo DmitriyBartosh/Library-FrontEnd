@@ -26,6 +26,10 @@
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      @media (max-width: $mobile) {
+        display: block;
+        overflow: auto;
+      }
       &::after {
         content: "";
         position: absolute;
@@ -35,6 +39,9 @@
         height: 1px;
         background: currentColor;
         transition: all 0.3s;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
       &:hover::after {
         width: 100%;

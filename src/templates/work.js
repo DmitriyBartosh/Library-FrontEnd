@@ -11,8 +11,13 @@ import Mainbutton from "../components/work/mainbutton";
 import Secondbutton from "../components/work/secondbutton";
 import Rightnavigate from "../components/navigation/rightnavigate";
 import Addwork from "../components/work/addwork";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
+import Bottomnavigate from "../components/navigation/bottomnavigate";
 
 function Work({ data, pageContext }) {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const { works, subscribes, isLoggedIn } = useStateContext();
   const [isVisibleWork, setIsVisibleWork] = useState(false);
   const [minHeight, setMinHeight] = useState(0);
@@ -205,11 +210,20 @@ function Work({ data, pageContext }) {
               );
             })}
           </div>
-          <Rightnavigate
-            addWork={() => setIsVisibleWork(true)}
-            thereIsWork={thereIsWork}
-            backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
-          />
+          {isDesktop && (
+            <Rightnavigate
+              addWork={() => setIsVisibleWork(true)}
+              thereIsWork={thereIsWork}
+              backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
+            />
+          )}
+          {isTablet && (
+            <Bottomnavigate
+              addWork={() => setIsVisibleWork(true)}
+              thereIsWork={thereIsWork}
+              backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
+            />
+          )}
         </div>
         <Addwork
           visible={isVisibleWork}

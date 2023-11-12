@@ -10,17 +10,23 @@ import {
 import { Link, navigate } from "gatsby";
 import { activatePromoCode } from "../functions/promocodes";
 import { useSearchParam, useEffectOnce } from "react-use";
+import { useIsTablet, useIsDesktop } from "../hooks/mediaQuery";
 import { useStateContext } from "../context/ContextProvider";
 
 import Bird from "../images/svg/bird";
 import Birdonbranch from "../images/svg/birdonbranch";
 import Flower from "../images/svg/flower/flowertwo";
+import MetaTag from "../components/metaTag";
 import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 
 import * as global from "../styles/base/global.module.scss";
 import * as styles from "../styles/pages/promocode.module.scss";
 
 function Promocode() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const { user } = useStateContext();
   const queryClient = useQueryClient();
 
@@ -63,7 +69,8 @@ function Promocode() {
 
   return (
     <>
-      <Topnavigate />
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
       <section className={styles.container}>
         {user && (
           <>
@@ -187,5 +194,20 @@ function Promocode() {
     </>
   );
 }
+
+export const Head = () => {
+  const title = "Активировать промокод";
+  const description =
+    "Добавить промокод на активацию одного из направления площадки Графикси";
+
+  const data = {
+    title: `Графикси | ${title}`,
+    description: description,
+    slug: `/promocode`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} themeColor="#f3eee1" />;
+};
 
 export default Promocode;

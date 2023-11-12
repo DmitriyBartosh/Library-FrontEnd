@@ -17,6 +17,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+      }
       .item {
         display: flex;
         flex-direction: column;

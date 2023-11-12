@@ -88,7 +88,8 @@ function Payment({ showPayment, cost, data, setShowPayment }) {
           </div>
         </div>
         <button
-          disabled={getPaymentMutation.isLoading}
+          // disabled={getPaymentMutation.isLoading}
+          disabled={true}
           onClick={() =>
             getPaymentMutation.mutate({
               cost: cost,
@@ -113,8 +114,11 @@ function Payment({ showPayment, cost, data, setShowPayment }) {
             </>
           ) : (
             <>
-              <p className={styles.text}>
+              {/* <p className={styles.text}>
                 Оплата <span>/ {cost} руб.</span>
+              </p> */}
+              <p className={styles.text}>
+                Скоро будет доступна / <span>{cost} руб.</span>
               </p>
               <div className={styles.icon}>{methodPay.icon}</div>
             </>

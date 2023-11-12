@@ -20,6 +20,9 @@
     display: flex;
     border-top: 1px solid $grey;
     padding: 32px 0;
+    @media (max-width: $tablet) {
+      flex-direction: column;
+    }
     &:first-child {
       border-top: none;
       padding-top: 0;
@@ -39,6 +42,9 @@
       min-width: 200px;
       height: 100%;
       margin-right: 32px;
+      @media (max-width: $tablet) {
+        display: none;
+      }
       .day {
         font-size: 2.25rem;
         line-height: 1.2;
@@ -52,6 +58,11 @@
       display: grid;
       grid-template-columns: 1fr 275px;
       width: 100%;
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
       &:hover .preview .gatsbyimage {
         transform: scale(1.1);
       }
@@ -66,6 +77,9 @@
       .preview {
         margin-left: 40px;
         overflow: hidden;
+        @media (max-width: $mobile) {
+          margin: 0;
+        }
         .gatsbyimage {
           width: 100%;
           height: auto;
@@ -78,6 +92,7 @@
 
 .tag {
   background-color: $beige;
+  color: $green;
   transition: all 0.3s;
   &.active {
     background-color: $green;

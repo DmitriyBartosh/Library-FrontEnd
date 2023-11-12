@@ -9,17 +9,23 @@ import {
 } from "react-icons/io5";
 import { navigate } from "gatsby";
 import { addTelegramId } from "../functions/user";
+import { useIsTablet, useIsDesktop } from "../hooks/mediaQuery";
 import { useStateContext } from "../context/ContextProvider";
 
 import Bird from "../images/svg/bird";
 import Birdonbranch from "../images/svg/birdonbranch";
 import Flower from "../images/svg/flower/flowertwo";
+import MetaTag from "../components/metaTag";
+import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 
 import * as global from "../styles/base/global.module.scss";
 import * as styles from "../styles/pages/telegram.module.scss";
-import Topnavigate from "../components/navigation/topnavigate";
 
 function Telegram() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const { user } = useStateContext();
   const queryClient = useQueryClient();
 
@@ -54,7 +60,8 @@ function Telegram() {
 
   return (
     <>
-      <Topnavigate />
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
       <section className={styles.container}>
         <Bird className={styles.bird} />
         <Birdonbranch className={styles.birdonbranch} />
@@ -230,5 +237,20 @@ function Telegram() {
     </>
   );
 }
+
+export const Head = () => {
+  const title = "Привязать телеграм";
+  const description =
+    "Привязка телеграма чтобы получать уведомления о статусах рецензии и полезных материалов площадки Графикси";
+
+  const data = {
+    title: `Графикси | ${title}`,
+    description: description,
+    slug: `/telegram`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} themeColor="#f3eee1" />;
+};
 
 export default Telegram;

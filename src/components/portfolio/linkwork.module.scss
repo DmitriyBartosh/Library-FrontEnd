@@ -5,10 +5,15 @@
   grid-template-columns: 1fr 2fr;
   align-items: center;
   width: 100%;
+  margin-bottom: 15px;
+  @media (max-width: $mobile) {
+    display: flex;
+  }
   .block {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
     &.linkwork .text {
       position: relative;
       transition: color 0.2s cubic-bezier(0.23, 0.67, 0.58, 1);
@@ -39,6 +44,9 @@
       transition: all 0.2s cubic-bezier(0.23, 0.67, 0.58, 1);
       border: 1px solid transparent;
       width: 100%;
+      @media (max-width: $mobile) {
+        display: none;
+      }
       &.edited {
         border: 1px solid $green;
         .link {

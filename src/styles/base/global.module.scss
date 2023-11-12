@@ -5,8 +5,27 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  @media (max-width: $mobile) {
+    padding: 0 20px;
+  }
   &.top {
     margin-top: 100px;
+    @media (max-width: $tablet) {
+      margin-top: 40px;
+    }
+  }
+}
+
+.policy {
+  padding-top: 100px;
+  max-width: 1000px;
+  h3 {
+    margin-bottom: 15px;
+    font-weight: 400;
+  }
+  h6 {
+    margin-bottom: 4px;
+    margin-top: 12px;
   }
 }
 
@@ -20,6 +39,21 @@
   width: 100%;
   height: 100%;
   z-index: 100;
+  .close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 25px;
+    right: 25px;
+    padding: 5px;
+    height: $heightButton;
+    width: $heightButton;
+    .icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .background {
     position: absolute;
     top: 0;
@@ -29,6 +63,9 @@
     background-color: $background;
     z-index: -1;
     will-change: auto;
+    @media (max-width: $mobile) {
+      display: none;
+    }
   }
   .content {
     position: relative;
@@ -58,6 +95,9 @@
     text-align: center;
     font-weight: 500;
     line-height: 1;
+    @media (hover: none) {
+      transition: transform 0.2s;
+    }
     &::after {
       position: absolute;
       right: 0px;
@@ -71,9 +111,20 @@
       transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
     }
   }
-  &:hover .text::after {
-    bottom: -3px;
-    opacity: 1;
+  @media (hover: hover) {
+    &:hover .text::after,
+    &:active .text::after {
+      bottom: -3px;
+      opacity: 1;
+    }
+  }
+  @media (hover: none) {
+    &:active .text {
+      transform: scale(0.95);
+    }
+    &:active .icon {
+      transform: scale(0.925);
+    }
   }
 }
 
@@ -90,6 +141,9 @@
     text-align: center;
     line-height: 1;
     font-weight: 500;
+    @media (hover: none) {
+      transition: transform 0.2s;
+    }
     &::after {
       position: absolute;
       left: -5px;
@@ -107,17 +161,37 @@
   .load {
     width: 1.25rem;
     height: 1.25rem;
+    @media (max-width: $mobile) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .icon {
+    @media (hover: none) {
+      transition: transform 0.2s;
+      transition-delay: 0.1s;
+    }
   }
   .load .svg {
     width: 100%;
     height: 100%;
   }
-  &:hover .icon {
-    animation: shake 0.4s ease-in-out;
+  @media (hover: hover) {
+    &:hover .icon {
+      animation: shake 0.4s ease-in-out;
+    }
+    &:hover .text::after {
+      left: 0px;
+      opacity: 1;
+    }
   }
-  &:hover .text::after {
-    left: 0px;
-    opacity: 1;
+  @media (hover: none) {
+    &:active .text {
+      transform: scale(0.95);
+    }
+    &:active .icon {
+      transform: scale(0.925);
+    }
   }
 }
 

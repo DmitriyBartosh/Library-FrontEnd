@@ -29,8 +29,7 @@ function Reviewstatus() {
                 onClick={() => setShowReview(true)}
               >
                 <p className={styles.text}>
-                  Добавить
-                  <br />
+                  Добавить <br />
                   рецензию
                 </p>
                 <IoAddSharp className={styles.icon} />

@@ -6,6 +6,16 @@
   margin-top: 6rem;
   gap: 50px;
   height: 500px;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 25px;
+  }
+  @media (max-width: $mobile) {
+    display: flex;
+    flex-direction: column-reverse;
+    height: auto;
+  }
   .left {
     display: flex;
     justify-content: center;

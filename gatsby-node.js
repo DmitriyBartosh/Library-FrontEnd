@@ -176,6 +176,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         preview: data.node.childMarkdownRemark,
         about: about,
+        slug: slug,
       },
     });
   });

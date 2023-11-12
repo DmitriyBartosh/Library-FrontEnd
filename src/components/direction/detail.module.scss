@@ -10,6 +10,10 @@
   padding: 30px 50px;
   padding-right: 40px;
   margin-right: 2px;
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding: 25px 20px;
+  }
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -34,6 +38,19 @@
     padding-bottom: 2rem;
     padding-top: 1rem;
     border-top: 1px solid $grey;
+    @media (max-width: $mobile) {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 15px;
+      padding-bottom: 25px;
+    }
+    .name {
+      @media (max-width: $mobile) {
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+    }
     .info {
       display: flex;
       align-items: center;
@@ -53,6 +70,9 @@
     color: white;
     padding: 18px 25px;
     padding-bottom: 25px;
+    @media (max-width: $mobile) {
+      margin-top: 15px;
+    }
     span {
       font-weight: 600;
     }
@@ -77,8 +97,6 @@
         font-weight: 500;
         font-size: 1.15rem;
       }
-      .title {
-      }
     }
   }
 }
@@ -89,12 +107,15 @@
   padding: 20px 50px;
   padding-right: 45px;
   border-top: 1px solid $green;
+  @media (max-width: $mobile) {
+    padding: 15px 20px;
+  }
   .button {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    height: 3rem;
+    height: $heightButton;
     background-color: $green;
     color: white;
     width: 100%;

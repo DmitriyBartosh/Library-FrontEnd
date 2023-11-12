@@ -8,6 +8,12 @@
     grid-template-columns: 450px 1fr;
     align-items: center;
     gap: 6rem;
+    @media (max-width: $tablet) {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      border: none;
+    }
     .photo {
       position: relative;
       display: flex;
@@ -16,6 +22,9 @@
       overflow: hidden;
       .gatsbyimage {
         height: min(46vw, 450px);
+        @media (max-width: $tablet) {
+          height: 125vw;
+        }
       }
       &::after {
         position: absolute;
@@ -28,10 +37,19 @@
       }
     }
     .right {
+      @media (max-width: $tablet) {
+        width: 100%;
+      }
       .about {
         margin-top: 5rem;
+        @media (max-width: $tablet) {
+          margin-top: 25px;
+        }
         h3 {
           margin-bottom: 2rem;
+          @media (max-width: $tablet) {
+            margin-bottom: 15px;
+          }
         }
         p {
           max-width: 400px;
@@ -57,9 +75,17 @@
         margin-left: 2rem;
         display: flex;
         align-items: center;
+        @media (max-width: $tablet) {
+          justify-content: center;
+          top: 40px;
+        }
         .gatsbyimage {
           height: 22rem;
           width: 15rem;
+          @media (max-width: $mobile) {
+            height: 250px;
+            width: 200px;
+          }
           &:nth-child(1) {
             transform: rotate(10deg);
             z-index: 1;
@@ -74,8 +100,15 @@
   }
   .analysis {
     margin-top: 6rem;
+
     h3 {
       margin-bottom: 4rem;
+      @media (max-width: $tablet) {
+        margin-bottom: 50px;
+      }
+      @media (max-width: $mobile) {
+        margin-bottom: 25px;
+      }
     }
     .about {
       display: grid;
@@ -83,6 +116,15 @@
       gap: 4rem;
       align-items: center;
       margin-bottom: 8rem;
+      @media (max-width: $tablet) {
+        gap: 10px;
+        margin-bottom: 50px;
+        align-items: flex-start;
+      }
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+      }
       .left {
         max-width: 400px;
         p {
@@ -102,9 +144,16 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 8rem;
+      @media (max-width: $mobile) {
+        margin-bottom: 75px;
+        flex-wrap: wrap;
+      }
       .item {
         position: relative;
         height: 22rem;
+        @media (max-width: $tablet) {
+          height: 60vw;
+        }
 
         .gatsbyimage {
           width: 100%;
@@ -114,24 +163,47 @@
           left: 2rem;
           transform: rotate(-2.95deg);
           width: 15rem;
+          @media (max-width: $mobile) {
+            width: 50%;
+            left: 0;
+            transform: rotate(-4.95deg);
+          }
         }
         &:nth-child(2) {
           left: 1rem;
           top: 1.5rem;
           width: 17rem;
+          @media (max-width: $mobile) {
+            width: 50%;
+            left: 0;
+            top: 6px;
+            transform: rotate(3.95deg);
+          }
         }
         &:nth-child(3) {
           transform: rotate(1.61deg);
           width: 16rem;
+          @media (max-width: $mobile) {
+            width: 50%;
+            transform: rotate(4.61deg);
+          }
         }
         &:nth-child(4) {
           right: 1rem;
           top: 2rem;
           width: 17rem;
+          @media (max-width: $mobile) {
+            display: none;
+          }
         }
         &:nth-child(5) {
           right: 2rem;
           width: 14rem;
+          @media (max-width: $mobile) {
+            width: 50%;
+            right: 4px;
+            transform: rotate(-2.61deg);
+          }
         }
       }
     }

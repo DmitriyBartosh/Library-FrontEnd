@@ -10,6 +10,10 @@
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
     gap: 1rem;
+    @media (max-width: $mobile) {
+      display: flex;
+      flex-direction: column;
+    }
     .morereview {
       position: relative;
       display: flex;
@@ -20,6 +24,13 @@
       background-color: $green;
       color: white;
       max-width: 175px;
+      @media (max-width: $mobile) {
+        height: $heightButton;
+        flex-direction: row;
+        width: 100%;
+        max-width: none;
+      }
+
       &::after {
         position: absolute;
         content: "";
@@ -30,22 +41,51 @@
         border: 1px solid $background;
         transition: all 0.3s;
         transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
-      }
-      &:hover::after {
-        width: 90%;
-        height: 90%;
-        opacity: 1;
-      }
-      &:hover .icon {
-        animation: shake 0.4s ease-in-out;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
       .text {
         font-size: 1.15rem;
         font-weight: 600;
+        @media (max-width: $mobile) {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+        @media (hover: none) {
+          transition: transform 0.2s;
+        }
+        br {
+          @media (max-width: $mobile) {
+            display: none;
+          }
+        }
       }
       .icon {
         width: 1.5rem;
         height: 1.5rem;
+        @media (max-width: $mobile) {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+      @media (hover: hover) {
+        &:hover::after {
+          width: 90%;
+          height: 90%;
+          opacity: 1;
+        }
+        &:hover .icon {
+          animation: shake 0.4s ease-in-out;
+        }
+      }
+      @media (hover: none) {
+        &:active .text {
+          transform: scale(0.95);
+        }
+        &:active .icon {
+          transform: scale(0.925);
+        }
       }
     }
   }
