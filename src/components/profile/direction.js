@@ -1,10 +1,5 @@
 import React from "react";
 import cx from "classname";
-import {
-  IoCardOutline,
-  IoAddSharp,
-  IoFileTrayFullOutline,
-} from "react-icons/io5";
 import { Link } from "gatsby";
 
 import * as global from "../../styles/base/global.module.scss";
@@ -51,7 +46,7 @@ function Direction({ data, action }) {
           <p className={global.text}>
             {data.status === "active" && "Продлить"}
             {data.status === "pending" && "Оплатить"}
-            {data.status === "other" && "Подписаться"}
+            {data.status === "other" && "Подписка 200 руб."}
           </p>
         </button>
       </div>

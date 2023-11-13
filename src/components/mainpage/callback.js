@@ -19,8 +19,8 @@ function Callback() {
       <section className={styles.join}>
         <div className={cx(styles.block, global.container)}>
           <h2>
-            Только проверенная информация без духоты, воды и сложных терминов за
-            200₽
+            Только проверенная информация без духоты, воды и сложных терминов с
+            подпиской за 200₽
           </h2>
           <div className={styles.action}>
             <Link

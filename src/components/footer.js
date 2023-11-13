@@ -17,6 +17,8 @@ function Footer() {
           </a>
           <Link to="/articles">Полезные материалы</Link>
           <Link to="/profile">Личный кабинет</Link>
+          <Link to="/agreement">Соглашение</Link>
+          <Link to="/privacy">Политика</Link>
         </div>
         <div className={styles.center}>
           <p>
@@ -25,19 +27,21 @@ function Footer() {
               Hey, Coddes
             </a>
           </p>
+          <p>Бартош Дмитрий Сергеевич / ИНН 246007567440</p>
         </div>
         <div className={styles.right}>
           <p>
             <span>Контакты:</span>
           </p>
+          <a href="mailto:bartoshds@yandex.ru" target="_blank" rel="noreferrer">
+            bartoshds@yandex.ru
+          </a>
           <a href="https://t.me/KateShmidt" target="_blank" rel="noreferrer">
             Написать в <span>Telegram</span>
           </a>
           <a href="https://wa.me/+79538533877" target="_blank" rel="noreferrer">
             Написать в <span>WhatsApp</span>
           </a>
-          <Link to="/agreement">Соглашение</Link>
-          <Link to="/privacy">Политика</Link>
         </div>
       </div>
     </footer>
