@@ -24,7 +24,7 @@ function Transactions() {
   }
 
   return (
-    data.transactions.length > 0 && (
+    data?.transactions?.length > 0 && (
       <section className={styles.container}>
         <p className={styles.title}>Покупки</p>
         <div className={styles.list}>

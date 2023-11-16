@@ -115,8 +115,8 @@ function Expert({ review, setReview, allExpertQuery }) {
                   key="noctiveexpert"
                   className={styles.noactiveexpert}
                 >
-                  <h6 className={styles.main}>Все эксперты заняты</h6>
-                  <p className={styles.second}>
+                  <h6>Все эксперты заняты</h6>
+                  <p>
                     В данный момент все эксперты заняты. В каждом профиле есть
                     дата, после которой эксперт будет снова доступен.
                   </p>

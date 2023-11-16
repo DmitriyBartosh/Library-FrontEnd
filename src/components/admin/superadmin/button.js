@@ -1,27 +1,27 @@
-import React from 'react'
+import React from "react";
+import cx from "classname";
 import { IoAddOutline, IoCreateOutline } from "react-icons/io5";
 
-import * as styles from './button.module.scss'
+import * as global from "../../../styles/base/global.module.scss";
 
 function Button({ isExpert, openModal }) {
-
-  return isExpert ?
-    <button className={styles.edit} onClick={() => openModal()}>
-      <div className={styles.icon}>
-        <IoCreateOutline className={styles.svg} />
-      </div>
-      <p className={styles.text}>Редактировать</p>
+  return isExpert ? (
+    <button
+      className={cx(global.buttoncenter, global.buttongreen)}
+      onClick={() => openModal()}
+    >
+      <IoCreateOutline className={global.icon} />
+      <p className={global.text}>Редактировать</p>
     </button>
-    :
-    <button className={styles.add} onClick={() => openModal()}>
-      <div className={styles.icon}>
-        <IoAddOutline className={styles.svg} />
-      </div>
-      <p className={styles.text}>Добавить</p>
+  ) : (
+    <button
+      className={cx(global.buttoncenter, global.buttonbeige)}
+      onClick={() => openModal()}
+    >
+      <IoAddOutline className={global.icon} />
+      <p className={global.text}>Добавить</p>
     </button>
-
-
-
+  );
 }
 
-export default Button
+export default Button;

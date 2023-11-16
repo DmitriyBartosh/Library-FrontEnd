@@ -57,6 +57,7 @@ function Work({ data }) {
         <a
           href={link ? link : work.link}
           target="_blank"
+          rel="noreferrer"
           className={styles.title}
         >
           {work.name}

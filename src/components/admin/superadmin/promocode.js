@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cx from "classname";
-import { IoAddSharp, IoAddOutline, IoSyncOutline } from "react-icons/io5";
+import { IoAddSharp, IoSyncOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { addPromoCodes } from "../../../functions/promocodes";
@@ -38,7 +38,7 @@ function Promocode({ slug }) {
 
   return (
     <section className={styles.section}>
-      <h4 className={styles.title}>Добавить промокоды</h4>
+      <h4>Добавить промокоды</h4>
       <div className={styles.settings}>
         <div className={styles.block}>
           <p className={styles.name}>Имя промокода:</p>
@@ -101,7 +101,7 @@ function Promocode({ slug }) {
             {promo.expired_at === undefined ? (
               <p className={styles.placeholder}>Выбрать дату</p>
             ) : (
-              <p className={styles.date}>{convertDate(promo.expired_at)}</p>
+              <p>{convertDate(promo.expired_at)}</p>
             )}
           </div>
         </div>

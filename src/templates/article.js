@@ -104,6 +104,7 @@ function Article(context) {
                 return (
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href={`${item.share}${process.env.GATSBY_SITE_BASE_URL}/articles/${frontmatter.slug}`}
                     key={`share_${index}`}
                     className={cx(global.buttonicon, styles.share)}

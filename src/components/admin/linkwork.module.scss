@@ -2,18 +2,29 @@
 
 .container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 1rem;
-  padding-right: 8px;
-  border: 1px solid $green;
+  flex-direction: column;
+  padding: 8px 12px;
+  background-color: $beige;
   color: $green;
-  .text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    .name {
-      font-weight: 600;
-    }
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  &:hover {
+    border: 1px solid $green;
+  }
+  .name {
+    font-weight: 600;
+  }
+  .theme {
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+  .link {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 300;
+    font-size: 0.9rem;
+    width: 300px;
   }
 }

@@ -43,12 +43,29 @@ function Direction() {
         const { plan } = item;
         const themes = directions.find((item) => item.node.slug === plan).node;
 
+        const sortedThemes = themes.works.sort((a, b) => {
+          const worksOnThemeA = works.filter(
+            (work) => work.direction === themes.slug && work.theme === a.slug
+          );
+          const worksOnThemeB = works.filter(
+            (work) => work.direction === themes.slug && work.theme === b.slug
+          );
+
+          if (worksOnThemeA.length === 0 && worksOnThemeB.length > 0) {
+            return -1;
+          } else if (worksOnThemeA.length > 0 && worksOnThemeB.length === 0) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+
         return (
           Array.isArray(works) && (
             <div className={styles.direction} key={`direction_${index}`}>
               <h1>{themes.title}</h1>
               <div className={styles.themes}>
-                {themes.works.map((item, index) => {
+                {sortedThemes.map((item, index) => {
                   const worksOnTheme = works.filter(
                     (work) =>
                       work.direction === themes.slug && work.theme === item.slug

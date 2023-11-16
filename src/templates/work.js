@@ -29,7 +29,7 @@ function Work({ data, pageContext }) {
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
 
-  const { theme, direction, free } = pageContext;
+  const { theme, direction, free, programs } = pageContext;
 
   // Проверяем активна ли подписка на направление или тема бесплатная
   const isActiveSubscribe =
@@ -184,6 +184,7 @@ function Work({ data, pageContext }) {
               />
               <Specification
                 html={selectedSpecification.html}
+                programs={programs}
                 sumSections={sumSections}
                 ref={specificationRef}
               />

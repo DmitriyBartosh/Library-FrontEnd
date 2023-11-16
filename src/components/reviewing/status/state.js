@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   IoTimeOutline,
-  IoDocumentTextOutline,
   IoCheckmarkSharp,
   IoSparklesSharp,
   IoArrowForwardSharp,
@@ -63,7 +62,7 @@ function State({ data, cost, setShowlReview, setShowPayment }) {
   return (
     <div className={styles.container}>
       {status === "checking" && (
-        <div className={cx(styles.block, styles.bordergreen)}>
+        <div className={styles.block}>
           <div className={styles.message}>
             <p className={styles.text}>В обработке</p>
             <IoTimeOutline className={styles.icon} />

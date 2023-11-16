@@ -140,6 +140,10 @@ exports.createPages = async ({ graphql, actions }) => {
             works {
               free
               description
+              programs {
+                choise
+                list
+              }
               slug
               title
             }
@@ -195,7 +199,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // Работы в направлении Дизайн
+  // Работы в направлении
   works.data.allDirectionsJson.edges.forEach((data) => {
     const { slug, works } = data.node;
 
@@ -212,6 +216,7 @@ exports.createPages = async ({ graphql, actions }) => {
           title: work.title,
           description: work.description,
           free: work.free,
+          programs: work.programs,
         },
       });
     });

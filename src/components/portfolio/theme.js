@@ -4,6 +4,7 @@ import {
   IoArrowForwardSharp,
   IoArrowDownSharp,
   IoCloseSharp,
+  IoAddSharp,
 } from "react-icons/io5";
 import { Link } from "gatsby";
 import Linkwork from "./linkwork";
@@ -66,6 +67,7 @@ function Theme({ data, themes, worksOnTheme }) {
               </>
             )}
           </div>
+          <IoAddSharp className={styles.openmobile} />
         </button>
         <div className={styles.link}>
           <Link

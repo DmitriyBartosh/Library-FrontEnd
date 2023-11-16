@@ -21,6 +21,7 @@ function IndexPage() {
     <>
       {isDesktop && <Topnavigate />}
       {isTablet && <Topmobilenavigate />}
+
       <section>
         <Preview />
         <Offer />

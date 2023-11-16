@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import cx from "classname";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "gatsby";
-import { CiLogin } from "react-icons/ci";
-import { IoMenu } from "react-icons/io5";
+import { IoMenu, IoArrowDownSharp } from "react-icons/io5";
 import { useStateContext } from "../../context/ContextProvider";
 import Logo from "../../images/svg/logo";
 
@@ -12,6 +11,8 @@ import * as styles from "./mobilenav.module.scss";
 
 function Topmobilenavigate() {
   const { isLoggedIn, subscribes, works } = useStateContext();
+
+  const isStandalone = window.navigator.standalone;
 
   const [visible, setVisible] = useState(false);
 
@@ -36,7 +37,7 @@ function Topmobilenavigate() {
     Array.isArray(subscribes) && subscribes.some((item) => item.active);
 
   return (
-    <div className={styles.top}>
+    <div className={cx(styles.top, isStandalone && styles.standalone)}>
       <nav className={styles.navigate}>
         <AnimatePresence initial={false}>
           {visible && (
@@ -110,7 +111,7 @@ function Topmobilenavigate() {
                       custom={3}
                       to="/portfolio"
                       activeClassName={styles.active}
-                      className={cx(styles.buttontext, styles.link)}
+                      className={styles.link}
                     >
                       <p className={styles.title}>Мое портфолио</p>
                       <p className={styles.description}>
@@ -154,15 +155,6 @@ function Topmobilenavigate() {
                   </p>
                 </MotionLink>
               )}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.6, delay: 0.5 },
-                }}
-                exit={{ opacity: 0 }}
-                className={styles.line}
-              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -179,8 +171,17 @@ function Topmobilenavigate() {
             className={cx(global.buttoncenter, styles.menu)}
             onClick={() => setVisible(!visible)}
           >
-            <p className={global.text}>Навигация</p>
-            <IoMenu className={global.icon} />
+            {visible ? (
+              <>
+                <p className={global.text}>Скрыть</p>
+                <IoArrowDownSharp className={global.icon} />
+              </>
+            ) : (
+              <>
+                <p className={global.text}>Навигация</p>
+                <IoMenu className={global.icon} />
+              </>
+            )}
           </button>
         </div>
       </nav>

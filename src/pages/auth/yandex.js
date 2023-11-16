@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { checkBooleanObjectKeys } from "../../functions/other";
 import { useStateContext } from "../../context/ContextProvider";
 
 import { useLocation } from "react-use";

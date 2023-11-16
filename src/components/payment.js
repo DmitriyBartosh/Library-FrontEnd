@@ -40,11 +40,6 @@ function Payment({ name, direction, cost, themes }) {
     styles: styles.bank,
   });
 
-  console.log(name);
-  console.log(direction);
-  console.log(cost);
-  console.log(themes);
-
   const queryClient = useQueryClient();
 
   const addSubscribeMutation = useMutation({
@@ -64,9 +59,13 @@ function Payment({ name, direction, cost, themes }) {
         </div>
 
         <div className={styles.block}>
-          <p className={styles.name}>Что входит</p>
+          <p>Что входит</p>
           <div className={styles.info}>
             <ul>
+              <li>
+                <span>30 дней</span> доступа ко все материалам и функционалу
+                площадки, для продуктивной работы над своим портфолио
+              </li>
               <li>
                 <span>{themes.length} тем</span> в направлении
               </li>
@@ -85,7 +84,7 @@ function Payment({ name, direction, cost, themes }) {
           </div>
         </div>
         <div className={styles.block}>
-          <p className={styles.name}>Список тем</p>
+          <p>Список тем</p>
           <div className={styles.info}>
             {themes.map((item, index) => {
               return (
@@ -121,8 +120,7 @@ function Payment({ name, direction, cost, themes }) {
           </div>
         </div>
         <button
-          // disabled={addSubscribeMutation.isLoading}
-          disabled={true}
+          disabled={addSubscribeMutation.isLoading}
           onClick={() =>
             addSubscribeMutation.mutate({
               name: name,
@@ -146,11 +144,8 @@ function Payment({ name, direction, cost, themes }) {
             </>
           ) : (
             <>
-              {/* <p className={styles.text}>
-                Перейти к оплате / <span>{cost} руб.</span>
-              </p> */}
               <p className={styles.text}>
-                Скоро будет доступна / <span>{cost} руб.</span>
+                Перейти к оплате / <span>{cost} руб.</span>
               </p>
               <div className={styles.icon}>{methodPay.icon}</div>
             </>

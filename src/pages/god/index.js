@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import cx from "classname";
 import { getUsers } from "../../functions/superadmin";
 import { useStateContext } from "../../context/ContextProvider";
+import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
 
 import Topnavigate from "../../components/navigation/topnavigate";
+import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import AllUsers from "../../components/admin/superadmin/allUsers";
-import Modal from "../../components/admin/superadmin/modal";
+import ExpertChange from "../../components/admin/superadmin/expertChange";
 
-import * as styles from "../../styles/pages/god.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function God() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const { user } = useStateContext();
 
   const [showModal, setShowModal] = useState(false);
@@ -56,19 +61,21 @@ function God() {
     setShowModal(false);
   };
 
+  if (allUsersQuery.isLoading) {
+    <section className={cx(global.container, global.top)}>
+      <p>Загрузка данных...</p>
+    </section>;
+  }
+
   return (
-    <section className={styles.users}>
-      <Topnavigate />
-      <div className={global.container}>
-        {allUsersQuery.isLoading && (
-          <div>
-            <h3>Загрузка</h3>
-          </div>
-        )}
+    <>
+      {isDesktop && <Topnavigate />}
+      {isTablet && <Topmobilenavigate />}
+      <section className={cx(global.container, global.top)}>
         {allUsersQuery.data && (
-          <div className={styles.table}>
+          <>
             <AllUsers openModal={openModal} allUsersQuery={allUsersQuery} />
-            <Modal
+            <ExpertChange
               editMode={editMode}
               showModal={showModal}
               closeModal={closeModal}
@@ -77,12 +84,10 @@ function God() {
               setPrice={setPrice}
               setExpert={setExpert}
             />
-          </div>
+          </>
         )}
-
-        {allUsersQuery.error && <p>Ошибка соединения</p>}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

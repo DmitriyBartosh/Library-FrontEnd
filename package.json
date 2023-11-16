@@ -1,11 +1,11 @@
 {
-  "name": "my-gatsby-site",
-  "version": "1.0.0",
+  "name": "Графикси | Онлайн практикум",
+  "version": "1.0.1",
   "private": true,
-  "description": "my-gatsby-site",
-  "author": "Dmitriy",
+  "description": "Онлайн практикум",
+  "author": "Dmitriy Bartosh",
   "keywords": [
-    "gatsby"
+    "онлайн практикум, графикси"
   ],
   "scripts": {
     "develop": "gatsby develop -p 3000 -H 192.168.0.192",

@@ -2,15 +2,21 @@ import React from "react";
 import { useStateContext } from "../context/ContextProvider";
 import { useEffectOnce } from "react-use";
 import { navigate } from "gatsby";
+import cx from "classname";
 import { useQuery } from "@tanstack/react-query";
 import { getExpert } from "../functions/expert";
 
 import Expert from "../components/admin/expert/expert";
+import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 
-import * as styles from "../styles/pages/admin.module.scss";
 import * as global from "../styles/base/global.module.scss";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 
 function Admin() {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   const { user, isLoggedIn } = useStateContext();
 
   useEffectOnce(() => {
@@ -25,20 +31,29 @@ function Admin() {
     enabled: !!user,
   });
 
-  const { data, isLoading, isError } = getExpertQuery;
+  const { data, isLoading } = getExpertQuery;
+
+  if (isLoading) {
+    return (
+      <>
+        {isDesktop && <Topnavigate />}
+        {isTablet && <Topmobilenavigate />}
+        <section className={cx(global.container, global.top)}>
+          <p>Загрузка данных...</p>
+        </section>
+        ;
+      </>
+    );
+  }
 
   return (
-    <section className={styles.container}>
-      <div className={global.container}>
-        {isLoading && (
-          <div className={styles.loading}>
-            <p>Загрузка</p>
-          </div>
-        )}
-        {data && <Expert data={data.expert} />}
-        {isError && <p>Ошибка соединения</p>}
-      </div>
-    </section>
+    data && (
+      <>
+        {isDesktop && <Topnavigate />}
+        {isTablet && <Topmobilenavigate />}
+        <Expert data={data.expert} />;
+      </>
+    )
   );
 }
 

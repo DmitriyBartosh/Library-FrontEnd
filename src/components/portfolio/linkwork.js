@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import {
-  IoOpenOutline,
   IoCloseOutline,
   IoCreateOutline,
   IoCheckmarkSharp,
   IoSyncOutline,
 } from "react-icons/io5";
-import { useStaticQuery, graphql } from "gatsby";
 import {
   useMutation,
   useQueryClient,
@@ -33,34 +31,6 @@ function Linkwork({ data }) {
     },
   });
 
-  const directionQuery = useStaticQuery(graphql`
-    query {
-      allDirectionsJson {
-        edges {
-          node {
-            slug
-            title
-            works {
-              title
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  const directions = directionQuery.allDirectionsJson.edges;
-
-  const direction = directions.find(
-    (item) => item.node.slug === data.direction
-  ).node;
-
-  const directionName = direction.title;
-  const themeName = direction.works.find(
-    (item) => item.slug === data.theme
-  ).title;
-
   const isDifferent = !(data.link === link);
   const isLoading = editWorkMutation.isLoading || isFetchingWorks;
 
@@ -74,6 +44,7 @@ function Linkwork({ data }) {
       <a
         href={data.link}
         target="_blank"
+        rel="noreferrer"
         className={cx(styles.block, styles.linkwork)}
       >
         <p className={styles.text}>{data.name}</p>
@@ -92,11 +63,7 @@ function Linkwork({ data }) {
           {edited ? (
             isDifferent ? (
               <button
-                className={cx(
-                  global.buttoncenter,
-                  styles.save,
-                  isDifferent && styles.active
-                )}
+                className={cx(global.buttoncenter, styles.save)}
                 disabled={!isDifferent || isLoading}
                 onClick={() =>
                   editWorkMutation.mutate({ id: data.id, link: link })

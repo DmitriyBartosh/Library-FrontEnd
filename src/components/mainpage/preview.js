@@ -3,11 +3,9 @@ import { Link } from "gatsby";
 import cx from "classname";
 import { IoArrowForwardSharp } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
-import { useStaticQuery, graphql } from "gatsby";
 import { useStateContext } from "../../context/ContextProvider";
 
-import Bird from "../../images/svg/bird";
-import Birdonbranch from "../../images/svg/birdonbranch";
+import Flower from "../../images/svg/flower";
 import Flowerone from "../../images/svg/flower/flowerone";
 import Flowertwo from "../../images/svg/flower/flowertwo";
 
@@ -21,8 +19,7 @@ function Preview() {
     <>
       <section className={global.container}>
         <div className={styles.section}>
-          <Bird className={styles.bird} />
-          <Birdonbranch className={styles.birdonbranch} />
+          <Flower className={styles.floweryellow} />
           <Flowerone className={styles.flower} />
           <div className={styles.mask}>
             <Flowertwo className={styles.flowers} />
@@ -65,13 +62,13 @@ function Preview() {
           </div>
           <div className={styles.list}>
             <div className={styles.block}>
-              <p className={styles.text}>Выполняй Задания</p>
+              <p>Выполняй Задания</p>
             </div>
             <div className={styles.block}>
-              <p className={styles.text}>Изучай конспекты в удобном формате</p>
+              <p>Изучай конспекты в удобном формате</p>
             </div>
             <div className={styles.block}>
-              <p className={styles.text}>Получай разборы от экспертов</p>
+              <p>Получай разборы от экспертов</p>
             </div>
           </div>
         </div>

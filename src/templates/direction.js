@@ -121,15 +121,11 @@ function Direction(context) {
               <p className={global.text}>Все направления</p>
             </Link>
             {sortedDirection.map((item, index) => {
-              const { title, active, slug } = item.node;
+              const { title, slug } = item.node;
               return (
                 <Link
                   to={`/directions/${slug}`}
-                  className={cx(
-                    global.buttontext,
-                    styles.link,
-                    !active && styles.hidden
-                  )}
+                  className={cx(global.buttontext, styles.link)}
                   activeClassName={styles.active}
                   key={`direction_${index}`}
                 >

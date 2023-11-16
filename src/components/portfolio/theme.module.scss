@@ -3,7 +3,7 @@
 .container {
   background-color: $beige;
   &.complete {
-    border: 1px solid $green;
+    background-color: $applegreen;
   }
 }
 
@@ -15,6 +15,7 @@
     flex-direction: column;
   }
   .button {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +35,20 @@
         }
       }
     }
+    .openmobile {
+      display: none;
+      @media (max-width: $mobile) {
+        display: block;
+        position: absolute;
+        top: 14px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        color: $green;
+      }
+    }
     .info {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -45,6 +59,9 @@
         font-weight: 600;
         transition: all 0.2s;
         transition-timing-function: cubic-bezier(0.42, 0.5, 0.39, 1);
+        @media (max-width: $mobile) {
+          color: $green;
+        }
       }
       .complexity {
         display: flex;

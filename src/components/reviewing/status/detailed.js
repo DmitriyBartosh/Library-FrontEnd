@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  IoSyncOutline,
-  IoCheckmarkSharp,
-  IoRepeatSharp,
-} from "react-icons/io5";
+import { IoSyncOutline, IoCheckmarkSharp } from "react-icons/io5";
 import cx from "classname";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fixWorkToReview, revisionReview } from "../../../functions/review";
@@ -98,7 +94,7 @@ function Detailed({ data, showReview, setShowlReview }) {
             </div>
 
             <p className={cx(styles.title, styles.top)}>Комментарии</p>
-            <div className={styles.comment}>
+            <div>
               <Texteditor setText={setComment} text={comment} />
             </div>
           </div>

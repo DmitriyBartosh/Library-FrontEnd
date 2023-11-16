@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addAdmin } from "../../../functions/superadmin";
 import cx from "classname";
 
-import * as styles from "./modal.module.scss";
+import * as styles from "./expertchange.module.scss";
 
 function Add({
   closeModal,

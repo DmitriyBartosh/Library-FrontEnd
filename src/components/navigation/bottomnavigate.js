@@ -12,8 +12,10 @@ import {
 import * as styles from "./mobilenav.module.scss";
 
 function Bottomnavigate({ addWork, thereIsWork, backLink }) {
+  const isStandalone = window.navigator.standalone;
+
   return (
-    <nav className={styles.bottom}>
+    <nav className={cx(styles.bottom, isStandalone && styles.standalone)}>
       <div className={styles.block}>
         <Link to={backLink} className={styles.button}>
           <IoArrowBackSharp className={styles.icon} />

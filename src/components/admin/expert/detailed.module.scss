@@ -50,15 +50,19 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
-  .buttongreen,
-  .buttonbrown {
-    width: 100%;
-    color: white;
+}
+
+.buttongreen,
+.buttonbrown {
+  width: 100%;
+  color: white;
+  &.loading {
+    pointer-events: none;
   }
-  .buttongreen {
-    background-color: $green;
-  }
-  .buttonbrown {
-    background-color: $brown;
-  }
+}
+.buttongreen {
+  background-color: $green;
+}
+.buttonbrown {
+  background-color: $brown;
 }

@@ -15,34 +15,26 @@
   @media (max-width: $mobile) {
     padding-top: 100px;
   }
-  .birdonbranch {
+  .floweryellow {
     position: absolute;
     top: min(14vw, 150px);
     right: min(16vw, 175px);
     width: min(6vw, 90px);
-    @media (max-width: $mobile) {
+    height: auto;
+    @media (max-width: $tablet) {
       top: 15px;
       right: 0px;
       width: 50px;
     }
   }
-  .bird {
-    position: absolute;
-    left: 350px;
-    bottom: 125px;
-    width: min(6vw, 90px);
-    @media (max-width: $mobile) {
-      display: none;
-    }
-  }
   .flower {
     position: absolute;
     bottom: -85px;
-    right: -50px;
+    right: -25px;
     width: 350px;
-    @media (max-width: $mobile) {
+    @media (max-width: $tablet) {
       bottom: -38px;
-      right: -30px;
+      right: 0px;
       width: 150px;
     }
   }
@@ -57,11 +49,16 @@
     z-index: -1;
     .flowers {
       position: relative;
-      bottom: -275px;
-      width: min(60vw, 1000px);
+      bottom: -250px;
+      width: 75vw;
+      max-width: 1000px;
+      @media (max-width: $tablet) {
+        width: 450px;
+        bottom: -175px;
+      }
       @media (max-width: $mobile) {
-        width: 350px;
-        bottom: -210px;
+        width: 400px;
+        bottom: -175px;
       }
     }
   }

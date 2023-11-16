@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { useStaticQuery, graphql } from "gatsby"
-import Theme from './theme'
-import Profile from './profile'
-import Review from './review'
+import React from "react";
+import cx from "classname";
+import { useStaticQuery, graphql } from "gatsby";
+import Theme from "./theme";
+import Profile from "./profile";
+import Review from "./review";
 
-import * as styles from './adminpanel.module.scss'
+import * as global from "../../../styles/base/global.module.scss";
 
 function Expert({ data }) {
-
   const slugQuery = useStaticQuery(graphql`
     query {
       allDirectionsJson {
@@ -23,17 +23,19 @@ function Expert({ data }) {
         }
       }
     }
-  `)
+  `);
 
-  const slug = slugQuery.allDirectionsJson.edges.find(item => item.node.slug === data.direction).node;
+  const slug = slugQuery.allDirectionsJson.edges.find(
+    (item) => item.node.slug === data.direction
+  ).node;
 
   return (
-    <div className={styles.container}>
+    <section className={cx(global.container, global.top)}>
       <Profile data={data} slug={slug} />
       <Review />
       <Theme slug={slug} />
-    </div>
-  )
+    </section>
+  );
 }
 
-export default Expert
+export default Expert;

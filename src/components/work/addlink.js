@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import cx from "classname";
 import {
   useMutation,
@@ -70,44 +70,46 @@ function Addlink({ direction, theme, hint, title }) {
             </p>
           </motion.div>
           <div className={styles.container}>
-            <div className={styles.navigation}>
-              {isDifferent ? (
-                <button
-                  className={cx(styles.save, isDifferent && styles.active)}
-                  disabled={
-                    !isDifferent || addWorkMutation.isLoading || isFetchingWorks
-                  }
-                  onClick={() =>
-                    addWorkMutation.mutate({
-                      direction: direction,
-                      theme: theme,
-                      name: title,
-                      link: link,
-                    })
-                  }
-                >
-                  {addWorkMutation.isLoading || isFetchingWorks ? (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1.25, repeat: Infinity }}
-                      className={styles.icon}
-                    >
-                      <IoSyncOutline className={styles.load} />
-                    </motion.div>
-                  ) : (
-                    <div className={styles.icon}>
-                      <IoCheckmarkSharp className={styles.svg} />
-                    </div>
-                  )}
-                </button>
-              ) : (
-                <button className={styles.back} onClick={() => closeEdit()}>
+            {isDifferent ? (
+              <button
+                className={cx(styles.save, isDifferent && styles.active)}
+                disabled={
+                  !isDifferent || addWorkMutation.isLoading || isFetchingWorks
+                }
+                onClick={() =>
+                  addWorkMutation.mutate({
+                    direction: direction,
+                    theme: theme,
+                    name: title,
+                    link: link,
+                  })
+                }
+              >
+                {addWorkMutation.isLoading || isFetchingWorks ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1.25, repeat: Infinity }}
+                    className={styles.icon}
+                  >
+                    <IoSyncOutline className={styles.load} />
+                  </motion.div>
+                ) : (
                   <div className={styles.icon}>
-                    <IoCloseOutline className={styles.svg} />
+                    <IoCheckmarkSharp className={styles.svg} />
                   </div>
-                </button>
-              )}
-            </div>
+                )}
+              </button>
+            ) : (
+              <button
+                className={styles.back}
+                aria-label="Закрыть"
+                onClick={() => closeEdit()}
+              >
+                <div className={styles.icon}>
+                  <IoCloseOutline className={styles.svg} />
+                </div>
+              </button>
+            )}
             <div className={styles.input}>
               <input
                 placeholder="Ссылка на работу"

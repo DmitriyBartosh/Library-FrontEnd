@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { checkBooleanObjectKeys } from "../../functions/other";
 import { useStateContext } from "../../context/ContextProvider";
 
 import { useLocation } from "react-use";
@@ -12,7 +11,7 @@ import Flower from "../../images/svg/flower/flowertwo";
 import * as styles from "../../styles/pages/auth.module.scss";
 
 function Vk() {
-  const { setUser, statusDirection } = useStateContext();
+  const { setUser } = useStateContext();
 
   const location = useLocation();
 
