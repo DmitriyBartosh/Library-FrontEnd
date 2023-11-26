@@ -37,6 +37,7 @@
       flex-direction: column;
       gap: 6px;
       margin-top: 2rem;
+      margin-bottom: 1rem;
       max-width: 500px;
       p {
         line-height: 1.4;
@@ -47,7 +48,7 @@
     }
     .social {
       display: flex;
-      align-items: center;
+      flex-direction: column;
     }
   }
   .right {
@@ -64,4 +65,9 @@
       }
     }
   }
+}
+
+.buttonbeige {
+  background-color: $beige;
+  color: $green;
 }

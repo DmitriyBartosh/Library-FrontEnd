@@ -98,6 +98,12 @@
   @media (max-width: $mobile) {
     padding: 15px 20px;
   }
+  &.standalone {
+    @media (max-width: $mobile) {
+      padding-top: 9px;
+      padding-bottom: 35px;
+    }
+  }
   &.twobutton {
     display: grid;
     grid-template-columns: 1fr 150px;

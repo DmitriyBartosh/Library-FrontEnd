@@ -84,6 +84,7 @@ function Edit({
       });
       setPrice(priceNumber);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.isStale]);
 
   return (
@@ -119,6 +120,7 @@ function Edit({
                 ref={previewRef}
                 src={`${process.env.GATSBY_API_BASE_URL}${expert.avatar}`}
                 className={styles.image}
+                alt="Аватар"
               />
             </div>
 

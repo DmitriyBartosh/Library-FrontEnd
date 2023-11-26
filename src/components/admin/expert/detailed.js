@@ -27,6 +27,9 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
   const { status, link } = data;
   const queryClient = useQueryClient();
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   const [message, setMessage] = useState("");
 
   const isMessage = message === "";
@@ -83,7 +86,7 @@ function Detailed({ data, showDetailed, setShowDetailed }) {
             </div>
           </div>
 
-          <div className={styles.action}>
+          <div className={cx(styles.action, isStandalone && styles.standalone)}>
             <button
               className={cx(
                 global.buttoncenter,

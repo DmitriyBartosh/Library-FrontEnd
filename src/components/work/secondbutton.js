@@ -57,6 +57,7 @@ function Secondbutton({
     return () => {
       clearTimeout(timeoutRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   return (

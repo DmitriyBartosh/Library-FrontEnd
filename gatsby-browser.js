@@ -1,1 +1,2 @@
-import "./src/styles/main.scss"
+import "./src/styles/abstracts/variables.scss";
+import "./src/styles/main.scss";

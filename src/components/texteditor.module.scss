@@ -85,6 +85,10 @@
     height: 100%;
     padding: 2rem;
     padding-top: 1rem;
+    @media (max-width: $mobile) {
+      padding: 20px;
+      padding-top: 10px;
+    }
     .input {
       position: relative;
       display: flex;

@@ -28,8 +28,8 @@ function Theme({ slug }) {
         {slug.works.map((item, index) => {
           const visible = data?.works.some((work) => work.theme === item.slug);
 
-          if (visible) {
-            return (
+          return (
+            visible && (
               <div className={styles.theme} key={`theme${index}`}>
                 <h5>{item.title}</h5>
                 <div className={styles.items}>
@@ -42,8 +42,8 @@ function Theme({ slug }) {
                     })}
                 </div>
               </div>
-            );
-          }
+            )
+          );
         })}
       </div>
     </section>

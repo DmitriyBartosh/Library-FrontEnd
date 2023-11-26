@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from "react";
-import * as styles from "./profile.module.scss";
+import React, { useState } from "react";
 import Status from "./status";
 
+import * as styles from "./profile.module.scss";
+
 function Profile({ data, slug }) {
-  const [price, setPrice] = useState({});
+  // const [price, setPrice] = useState({});
   const [expert, setExpert] = useState({
     status: data.status,
     backtowork: data.backtowork,
   });
 
-  useEffect(() => {
-    const priceNumber = data.price;
+  // useEffect(() => {
+  //   const priceNumber = data.price;
 
-    Object.keys(priceNumber).forEach((key) => {
-      priceNumber[key] = parseInt(priceNumber[key]);
-    });
+  //   Object.keys(priceNumber).forEach((key) => {
+  //     priceNumber[key] = parseInt(priceNumber[key]);
+  //   });
 
-    setPrice(priceNumber);
-  }, [data]);
+  //   setPrice(priceNumber);
+  // }, [data]);
 
   return (
-    <div className={styles.container}>
-      <h4>Эксперт | {slug.title}</h4>
-
+    <section className={styles.container}>
       <div className={styles.expert}>
         <div className={styles.profile}>
           <div className={styles.avatar}>
@@ -41,7 +40,7 @@ function Profile({ data, slug }) {
           <Status olddata={data} setExpert={setExpert} expert={expert} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

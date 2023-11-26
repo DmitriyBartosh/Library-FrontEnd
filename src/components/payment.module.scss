@@ -10,7 +10,7 @@
   padding: 30px 50px;
   padding-right: 40px;
   margin-right: 2px;
-  @media (max-width: $mobile) {
+  @media (max-width: $tablet) {
     width: 100%;
     padding: 25px 20px;
   }
@@ -25,7 +25,6 @@
     background-color: $green;
     border-radius: 5px;
   }
-
   .head {
     margin-bottom: 2rem;
     .title {
@@ -86,6 +85,12 @@
   @media (max-width: $mobile) {
     padding: 15px 20px;
     border-top: 1px solid $green;
+  }
+  &.standalone {
+    @media (max-width: $mobile) {
+      padding-top: 9px;
+      padding-bottom: 35px;
+    }
   }
   .method {
     margin-top: 2rem;

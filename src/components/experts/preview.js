@@ -1,12 +1,22 @@
 import React from "react";
 import cx from "classname";
-import * as styles from "./preview.module.scss";
-import * as global from "../../styles/base/global.module.scss";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
+import Dprofile from "../../images/social/dprofile";
+
+import * as global from "../../styles/base/global.module.scss";
+import * as styles from "./preview.module.scss";
+
 function Preview({ data }) {
-  const { text, expert, profession, author, preview } = data;
+  const { text, expert, profession, author, preview, social } = data;
   const previewImage = getImage(preview);
+
+  const icons = [
+    {
+      name: "dprofile",
+      icon: <Dprofile className={global.icon} />,
+    },
+  ];
 
   return (
     <section className={cx(styles.container, global.container)}>
@@ -22,7 +32,25 @@ function Preview({ data }) {
           dangerouslySetInnerHTML={{ __html: text }}
         />
 
-        <div className={styles.social}></div>
+        <div className={styles.social}>
+          {social.map((item, index) => {
+            const { name, url, nick } = item;
+            const icon = icons.find((item) => item.name === name).icon;
+
+            return (
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                key={`social_${index}`}
+                className={cx(global.buttoncenter, styles.buttonbeige)}
+              >
+                {icon}
+                <p className={global.text}>{nick}</p>
+              </a>
+            );
+          })}
+        </div>
       </div>
       <div className={styles.right}>
         <div className={styles.photo}>

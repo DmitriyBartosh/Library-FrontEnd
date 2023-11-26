@@ -3,6 +3,17 @@
 .container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 25px;
+  .promo {
+    background-color: $green;
+    color: white;
+    margin-top: 25px;
+    max-width: 300px;
+    @media (max-width: $mobile) {
+      max-width: none;
+      width: 100%;
+    }
+  }
   .head {
     display: grid;
     grid-template-columns: 3rem repeat(3, 1fr) 20rem;

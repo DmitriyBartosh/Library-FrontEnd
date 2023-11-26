@@ -40,6 +40,9 @@ function Payment({ name, direction, cost, themes }) {
     styles: styles.bank,
   });
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   const queryClient = useQueryClient();
 
   const addSubscribeMutation = useMutation({
@@ -97,7 +100,7 @@ function Payment({ name, direction, cost, themes }) {
         </div>
       </div>
 
-      <div className={styles.action}>
+      <div className={cx(styles.action, isStandalone && styles.standalone)}>
         <div className={styles.method}>
           <p className={styles.title}>Выберите способ оплаты</p>
           <div className={styles.list}>

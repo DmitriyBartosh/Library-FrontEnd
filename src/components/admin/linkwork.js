@@ -5,7 +5,12 @@ function Linkwork({ item, user }) {
   const { link, name } = item;
 
   return (
-    <a className={styles.container} href={link} target="_blank">
+    <a
+      className={styles.container}
+      href={link}
+      target="_blank"
+      rel="noreferrer"
+    >
       <p className={styles.theme}>{name}</p>
       <p className={styles.name}>{user.name}</p>
       <div className={styles.link}>{link}</div>

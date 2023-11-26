@@ -1,5 +1,6 @@
 import React from "react";
 import { IoArrowForwardSharp } from "react-icons/io5";
+import cx from "classname";
 import { useStateContext } from "../../context/ContextProvider";
 import Modal from "../modal";
 import Payment from "../payment";
@@ -10,6 +11,9 @@ import { Link } from "gatsby";
 function Detail({ detail, payment, setPayment, closeDetail }) {
   const { title, tags, steps, time, description, free } = detail.data;
   const { isSubscribe } = useStateContext();
+
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
 
   return (
     <Modal visible={detail.visible} close={() => closeDetail()}>
@@ -66,7 +70,9 @@ function Detail({ detail, payment, setPayment, closeDetail }) {
               })}
             </div>
           </div>
-          <div className={styles.actions}>
+          <div
+            className={cx(styles.actions, isStandalone && styles.standalone)}
+          >
             {isSubscribe(detail.direction) || free ? (
               <Link
                 to={`/${detail.direction}/${detail.data.slug}`}

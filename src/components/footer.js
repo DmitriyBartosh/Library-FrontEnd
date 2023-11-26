@@ -7,8 +7,11 @@ import * as global from "../styles/base/global.module.scss";
 function Footer() {
   const year = new Date().getFullYear();
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   return (
-    <footer className={styles.section}>
+    <footer className={cx(styles.section, isStandalone && styles.standalone)}>
       <div className={cx(styles.container, global.container)}>
         <div className={styles.left}>
           <div className={styles.block}>

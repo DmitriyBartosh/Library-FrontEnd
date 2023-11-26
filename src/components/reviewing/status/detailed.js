@@ -15,6 +15,9 @@ function Detailed({ data, showReview, setShowlReview }) {
   const [link, setLink] = useState(data.work.link);
   const [comment, setComment] = useState("");
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   const queryClient = useQueryClient();
 
   const fixWorkToReviewMutation = useMutation({
@@ -48,7 +51,13 @@ function Detailed({ data, showReview, setShowlReview }) {
             </div>
           </div>
 
-          <div className={cx(styles.action, styles.withlink)}>
+          <div
+            className={cx(
+              styles.action,
+              styles.withlink,
+              isStandalone && styles.standalone
+            )}
+          >
             <button
               className={cx(global.buttoncenter, styles.buttongreen)}
               disabled={fixWorkToReviewMutation.isLoading}
@@ -99,7 +108,7 @@ function Detailed({ data, showReview, setShowlReview }) {
             </div>
           </div>
 
-          <div className={styles.action}>
+          <div className={cx(styles.action, isStandalone && styles.standalone)}>
             <button
               className={cx(global.buttoncenter, styles.buttongreen)}
               disabled={revisionReviewMutation.isLoading}

@@ -13,15 +13,26 @@
     background-color: $beige;
     padding: 8px;
     padding-top: 20px;
+    @media (max-width: $mobile) {
+      gap: 25px;
+    }
     .block {
       display: grid;
       grid-template-columns: 150px 1fr;
       align-items: flex-end;
       margin-left: 1rem;
       margin-right: 1rem;
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .name {
         font-weight: 600;
         margin-bottom: 6px;
+        @media (max-width: $mobile) {
+          margin-bottom: 2px;
+        }
       }
       .select {
         border-bottom: 1px solid $green;
@@ -30,6 +41,10 @@
         color: $grey;
         font-size: 0.9rem;
         border-radius: 0;
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding: 6px 0;
+        }
         &.selected {
           font-size: 1rem;
           font-weight: 500;
@@ -41,6 +56,10 @@
         border-bottom: 1px solid $green;
         padding: 6px 10px;
         font-weight: 500;
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding: 6px 0;
+        }
         &::placeholder,
         .placeholder {
           font-size: 0.9rem;

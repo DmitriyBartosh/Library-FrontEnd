@@ -19,6 +19,9 @@
     }
     .action {
       position: relative;
+      @media (max-width: $mobile) {
+        width: 100%;
+      }
       .bird {
         position: absolute;
         top: -2rem;
@@ -57,7 +60,7 @@
     border: 1px solid $black;
     @media (max-width: $mobile) {
       flex-direction: column;
-      width: 300px;
+      width: 100%;
     }
     input {
       height: 100%;
@@ -76,7 +79,7 @@
   color: $brown;
   width: 400px;
   @media (max-width: $mobile) {
-    width: 300px;
+    width: 100%;
   }
 }
 

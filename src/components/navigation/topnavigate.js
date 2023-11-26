@@ -10,7 +10,7 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./desktopnav.module.scss";
 
 function Topnavigate() {
-  const { isLoggedIn, works, subscribes } = useStateContext();
+  const { isLoggedIn, works, subscribes, checkAdminQuery } = useStateContext();
 
   const isActiveSubscribe =
     Array.isArray(subscribes) && subscribes.some((item) => item.active);
@@ -21,6 +21,30 @@ function Topnavigate() {
         <Logo className={styles.svg} />
       </Link>
       <div className={styles.links}>
+        {checkAdminQuery.isSuccess && !checkAdminQuery.isFetching && (
+          <>
+            {checkAdminQuery.data.god && (
+              <Link
+                partiallyActive={true}
+                activeClassName={styles.active}
+                className={cx(global.buttontext, styles.link)}
+                to="/god"
+              >
+                <p className={global.text}>Администратор</p>
+              </Link>
+            )}
+            {checkAdminQuery.data.admin && (
+              <Link
+                partiallyActive={false}
+                activeClassName={styles.active}
+                className={cx(global.buttontext, styles.link)}
+                to="/admin"
+              >
+                <p className={global.text}>Эксперт</p>
+              </Link>
+            )}
+          </>
+        )}
         <Link
           to="/directions"
           partiallyActive={true}

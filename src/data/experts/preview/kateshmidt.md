@@ -4,10 +4,9 @@ direction: Графический дизайн
 author: true
 themefromdireciton: design
 social:
-  - name: Behance
-    url: https://www.behance.net/KateShmidt
-  - name: Site
-    url: https://heycoddes.ru/
+  - name: dprofile
+    url: https://dprofile.ru/kateshmidt
+    nick: kateshmidt
 preview_photo: ../images/kateshmidt/1.jpg
 ---
 **Работаю в команде Яндекс Практикума. Создаю фирменные стили и сайты в [Веб студии | Hey Coddes](https://heycoddes.ru/).**

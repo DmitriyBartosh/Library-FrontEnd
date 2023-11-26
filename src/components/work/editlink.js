@@ -77,6 +77,7 @@ function Editlink({ data }) {
             </button>
           ) : (
             <button
+              aria-label="Закрыть"
               className={cx(global.buttonicon, styles.back)}
               onClick={() => closeEdit()}
             >

@@ -75,6 +75,7 @@ function Navbutton({
     return () => {
       clearTimeout(timeoutRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   const count = index >= 9 ? index + 1 : "0" + (index + 1);

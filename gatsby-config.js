@@ -8,7 +8,14 @@ module.exports = {
     siteUrl: `https://graphiksi.ru`,
   },
   plugins: [
-    "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-plugin-sass",
+      options: {
+        cssLoaderOptions: {
+          sourceMap: true,
+        },
+      },
+    },
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
     {
@@ -37,7 +44,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 2000,
+              maxWidth: 1200,
               linkImagesToOriginal: false,
               quality: 85,
               showCaptions: true,

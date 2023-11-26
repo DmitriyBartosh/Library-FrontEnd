@@ -52,6 +52,7 @@ function Add({
     } else {
       setPrice({});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expert.direction]);
 
   return (
@@ -75,7 +76,7 @@ function Add({
             />
 
             <div className={styles.preview}>
-              <img ref={previewRef} className={styles.image} />
+              <img ref={previewRef} className={styles.image} alt="Аватар" />
             </div>
 
             <div className={cx(styles.load, expert.avatar && styles.hide)}>

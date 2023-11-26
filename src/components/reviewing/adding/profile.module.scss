@@ -7,11 +7,19 @@
   height: 150px;
   color: $green;
   background-color: $beige;
+  @media (max-width: $mobile) {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
   &.selected {
     background-color: $green;
     color: white;
     .avatar {
       border-right: 2px solid $background;
+      @media (max-width: $mobile) {
+        border: none;
+      }
       .hint {
         background-color: $green;
       }
@@ -22,6 +30,9 @@
     border: 1px solid $grey;
     .avatar {
       border-right: 1px solid $grey;
+      @media (max-width: $mobile) {
+        border: none;
+      }
       .hint {
         background-color: $background;
       }
@@ -47,12 +58,20 @@
     border-right: 2px solid $green;
     height: 100%;
     padding: 4px;
-    &:hover .hint {
-      opacity: 1;
-      .icon {
-        transform: translateX(0px);
+    @media (max-width: $mobile) {
+      height: 80vw;
+      width: 100%;
+      border: none;
+    }
+    @media (hover: hover) {
+      &:hover .hint {
+        opacity: 1;
+        .icon {
+          transform: translateX(0px);
+        }
       }
     }
+
     .image {
       position: relative;
       width: 100%;
@@ -139,6 +158,9 @@
           font-weight: 500;
           transform: translateY($heightButton);
           transition: transform 0.4s cubic-bezier(0.42, 0.5, 0.39, 1);
+          @media (max-width: $mobile) {
+            transform: none;
+          }
         }
         .icon {
           width: 1.25rem;

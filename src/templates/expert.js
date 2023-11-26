@@ -24,6 +24,7 @@ function Expert(context) {
     text: previewHtml,
     author: previewFrontmatter.author,
     preview: previewFrontmatter.preview_photo,
+    social: previewFrontmatter.social,
   };
 
   // Данные с Markdown для блока с описанием эксперта

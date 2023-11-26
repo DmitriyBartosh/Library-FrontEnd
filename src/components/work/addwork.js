@@ -1,4 +1,5 @@
 import React from "react";
+import cx from "classname";
 import Editlink from "./editlink";
 import Addlink from "./addlink";
 import Modal from "../modal";
@@ -10,6 +11,9 @@ function Addwork(props) {
   const { html, frontmatter } = props.checklist;
   const { selected } = props;
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   return (
     <Modal visible={props.visible} close={props.close}>
       <div className={styles.content}>
@@ -19,7 +23,7 @@ function Addwork(props) {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
-      <div className={styles.works}>
+      <div className={cx(styles.works, isStandalone && styles.standalone)}>
         {props.thereIsWork ? (
           props.relatedwork.map((item, index) => {
             return (

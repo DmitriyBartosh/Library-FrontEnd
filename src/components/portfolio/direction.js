@@ -1,10 +1,9 @@
 import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-
-import * as styles from "./direction.module.scss";
-import * as global from "../../styles/base/global.module.scss";
 import { useStateContext } from "../../context/ContextProvider";
 import Theme from "./theme";
+
+import * as styles from "./direction.module.scss";
 
 function Direction() {
   const { subscribes, works } = useStateContext();

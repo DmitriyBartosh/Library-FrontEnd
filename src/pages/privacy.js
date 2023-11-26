@@ -1,11 +1,12 @@
 import React from "react";
 import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
-import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Topnavigate from "../components/navigation/topnavigate";
+import Topmobilenavigate from "../components/navigation/topmobilenavigate";
+
 import MetaTag from "../components/metaTag";
+import Footer from "../components/footer";
 
 import * as global from "../styles/base/global.module.scss";
-import Footer from "../components/footer";
 
 function Privacy() {
   const isDesktop = useIsDesktop();
@@ -13,8 +14,8 @@ function Privacy() {
 
   return (
     <>
-      {isDesktop && <Topnavigate />}
       {isTablet && <Topmobilenavigate />}
+      {isDesktop && <Topnavigate />}
       <section className={global.container}>
         <div className={global.policy}>
           <h3>Политика в отношении обработки персональных данных</h3>
@@ -439,7 +440,7 @@ export const Head = () => {
     preview: "/preview.png",
   };
 
-  return <MetaTag data={data} themeColor="#f3eee1" />;
+  return <MetaTag data={data} />;
 };
 
 export default Privacy;

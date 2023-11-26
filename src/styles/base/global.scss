@@ -1,6 +1,7 @@
 body {
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
+  background: #f3eee1;
   &.modal-open {
     height: 100vh;
     overflow-y: hidden;

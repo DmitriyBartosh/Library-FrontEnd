@@ -22,6 +22,9 @@ function Review() {
   const { user, works, subscribes, showReview, setShowReview } =
     useStateContext();
 
+  const isStandalone =
+    typeof window !== "undefined" && window.navigator.standalone;
+
   // Все направления площадки
   const direcionQuery = useStaticQuery(graphql`
     query {
@@ -60,7 +63,7 @@ function Review() {
         const thereIsJob =
           Array.isArray(works) &&
           works.some((work) => work.direction === element.plan);
-        console.log(thereIsJob);
+
         return thereIsJob;
       })
       .map((item) => item.plan);
@@ -108,6 +111,7 @@ function Review() {
   // При оформлении подписки, записываем направление
   useEffect(() => {
     setReview({ ...review, direction: directionWithWork[0] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subscribes]);
 
   useEffect(() => {
@@ -118,6 +122,8 @@ function Review() {
       }
       setReview({ ...review, price: cost });
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [review.expert]);
 
   const expertOnReview =
@@ -144,6 +150,7 @@ function Review() {
                     className={styles.link}
                     href={work.link}
                     target="_blank"
+                    rel="noreferrer"
                     key={`link_work_${index}`}
                   >
                     {review.works.length > 1 && `${index + 1}.`} {work.name}
@@ -156,6 +163,7 @@ function Review() {
               <a
                 href={`/expert/${expertOnReview.slug}`}
                 target="_blank"
+                rel="noreferrer"
                 className={styles.link}
               >
                 {expertOnReview.name}
@@ -205,7 +213,13 @@ function Review() {
               </ul>
             </div>
           </div>
-          <div className={cx(styles.action, styles.twobutton)}>
+          <div
+            className={cx(
+              styles.action,
+              styles.twobutton,
+              isStandalone && styles.standalone
+            )}
+          >
             {
               <Link
                 className={cx(
@@ -266,7 +280,7 @@ function Review() {
             />
           </div>
 
-          <div className={styles.action}>
+          <div className={cx(styles.action, isStandalone && styles.standalone)}>
             <Nextstep
               review={review}
               addWorkToReviewMutation={addWorkToReviewMutation}

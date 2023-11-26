@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useStateContext } from "../../context/ContextProvider";
-
-import { useLocation } from "react-use";
+import React from "react";
+import { useLocation, useEffectOnce } from "react-use";
 import { navigate } from "gatsby";
+
+import { useStateContext } from "../../context/ContextProvider";
 
 import Bird from "../../images/svg/bird";
 import Birdonbranch from "../../images/svg/birdonbranch";
@@ -15,7 +15,7 @@ function Google() {
 
   const location = useLocation();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     fetch(
       `${process.env.GATSBY_API_BASE_URL}/api/auth/google/callback${location.search}`,
       {
@@ -32,7 +32,7 @@ function Google() {
         setUser(data);
         navigate("/profile");
       });
-  }, []);
+  });
 
   return (
     <section className={styles.container}>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { graphql, navigate } from "gatsby";
 import { useScroll, useEffectOnce } from "react-use";
+import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 import { useStateContext } from "../context/ContextProvider";
-import * as styles from "../styles/pages/work.module.scss";
+
 import MetaTag from "../components/metaTag";
 import Navbutton from "../components/work/navbutton";
 import Task from "../components/work/task";
@@ -11,8 +12,10 @@ import Mainbutton from "../components/work/mainbutton";
 import Secondbutton from "../components/work/secondbutton";
 import Rightnavigate from "../components/navigation/rightnavigate";
 import Addwork from "../components/work/addwork";
-import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
+import Feedback from "../components/work/feedback";
 import Bottomnavigate from "../components/navigation/bottomnavigate";
+
+import * as styles from "../styles/pages/work.module.scss";
 
 function Work({ data, pageContext }) {
   const isDesktop = useIsDesktop();
@@ -20,6 +23,9 @@ function Work({ data, pageContext }) {
 
   const { works, subscribes, isLoggedIn } = useStateContext();
   const [isVisibleWork, setIsVisibleWork] = useState(false);
+
+  const [feedback, setFeedback] = useState(false);
+
   const [minHeight, setMinHeight] = useState(0);
   const [maxHeight, setMaxHeight] = useState(0);
   const [relatedwork, setRelatedwork] = useState(null);
@@ -29,7 +35,7 @@ function Work({ data, pageContext }) {
   const contentRef = useRef(null);
   const sectionRef = useRef([]);
 
-  const { theme, direction, free, programs } = pageContext;
+  const { theme, direction, free, programs, title } = pageContext;
 
   // Проверяем активна ли подписка на направление или тема бесплатная
   const isActiveSubscribe =
@@ -124,6 +130,7 @@ function Work({ data, pageContext }) {
         related.some((item) => item.name === selectedSpecification.title)
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [works]);
 
   return (
@@ -213,6 +220,7 @@ function Work({ data, pageContext }) {
           </div>
           {isDesktop && (
             <Rightnavigate
+              openFeetback={() => setFeedback(true)}
               addWork={() => setIsVisibleWork(true)}
               thereIsWork={thereIsWork}
               backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
@@ -220,6 +228,7 @@ function Work({ data, pageContext }) {
           )}
           {isTablet && (
             <Bottomnavigate
+              openFeetback={() => setFeedback(true)}
               addWork={() => setIsVisibleWork(true)}
               thereIsWork={thereIsWork}
               backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
@@ -235,6 +244,11 @@ function Work({ data, pageContext }) {
           relatedwork={relatedwork}
           thereIsWork={thereIsWork}
           setSelected={setSelectedSpecification}
+        />
+        <Feedback
+          close={() => setFeedback(false)}
+          visible={feedback}
+          theme={title}
         />
       </>
     )

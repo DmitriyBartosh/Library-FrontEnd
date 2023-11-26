@@ -2,7 +2,7 @@ import React from "react";
 import { useEffectOnce } from "react-use";
 import { useStaticQuery, graphql } from "gatsby";
 
-const MetaTag = ({ data, themeColor }) => {
+const MetaTag = ({ data }) => {
   const { site } = useStaticQuery(query);
   const { siteUrl } = site?.siteMetadata;
   const { title, description, slug, preview } = data;
@@ -25,7 +25,7 @@ const MetaTag = ({ data, themeColor }) => {
         name="keywords"
         content="Онлайн практикум, онлайн курсы, онлайн обучение, онлайн курсы, курсы графический дизайн"
       />
-      <meta name="theme-color" content={themeColor} />
+      <meta name="theme-color" content="#f3eee1" />
 
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />

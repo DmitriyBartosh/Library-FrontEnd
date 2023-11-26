@@ -9,6 +9,15 @@ export const getUser = async () => {
   }
 };
 
+export const checkAdmin = async () => {
+  try {
+    const { data } = await axiosClient.get("admin/check");
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const getTransactions = async () => {
   try {
     const { data } = await axiosClient.get("transactions/all");
@@ -28,6 +37,13 @@ export const setName = (data) => {
 export const addTelegramId = (data) => {
   return axiosClient
     .post("telegram/add", data)
+    .then(({ data }) => data)
+    .catch((error) => error);
+};
+
+export const sendMessageTelegram = (data) => {
+  return axiosClient
+    .post("telegram/message", data)
     .then(({ data }) => data)
     .catch((error) => error);
 };

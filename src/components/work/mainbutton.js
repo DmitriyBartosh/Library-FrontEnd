@@ -58,7 +58,7 @@ function Mainbutton({
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [isActive]);
+  }, [isActive, navigateRef]);
 
   return (
     <button

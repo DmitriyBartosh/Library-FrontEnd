@@ -5,6 +5,10 @@
   flex-direction: column;
   width: 100%;
   background-color: $beige;
+  @media (max-width: $mobile) {
+    background: none;
+    padding: 0 8px;
+  }
   .header {
     display: flex;
     align-items: center;
@@ -14,6 +18,7 @@
     @media (max-width: $mobile) {
       padding: 20px;
       padding-bottom: 5px;
+      background-color: $beige;
     }
     .title {
       color: $brown;
@@ -32,6 +37,7 @@
     @media (max-width: $mobile) {
       padding: 20px;
       padding-bottom: 5px;
+      background-color: $beige;
     }
     .title {
       font-weight: 600;
@@ -59,10 +65,11 @@
     gap: 1rem;
     padding: 40px 35px;
     padding-top: 1rem;
-
     @media (max-width: $mobile) {
       padding: 15px 20px;
       padding-top: 10px;
+      padding-bottom: 30px;
+      background-color: $beige;
     }
     strong {
       font-weight: 600;

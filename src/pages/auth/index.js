@@ -6,11 +6,15 @@ import { useWindowSize } from "react-use";
 import { FaYandex, FaGoogle } from "react-icons/fa";
 import { vkAuth, yandexAuth, googleAuth } from "../../functions/auth";
 import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
-import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
+
 import Bird from "../../images/svg/bird";
 import Birdonbranch from "../../images/svg/birdonbranch";
 import Flower from "../../images/svg/flower/flowertwo";
+
+import MetaTag from "../../components/metaTag";
+
 import Topnavigate from "../../components/navigation/topnavigate";
+import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 
 import * as global from "../../styles/base/global.module.scss";
 import * as styles from "../../styles/pages/auth.module.scss";
@@ -50,7 +54,7 @@ function Index() {
           </p>
           <div className={styles.authlink}>
             <a
-              className={cx(global.buttonwide, styles.buttongreen)}
+              className={cx(global.buttonwide, global.buttongreen)}
               href={vkAuthURL.data}
             >
               <p className={global.text}>
@@ -59,7 +63,7 @@ function Index() {
               <SlSocialVkontakte className={global.icon} />
             </a>
             <a
-              className={cx(global.buttonwide, styles.buttongreen)}
+              className={cx(global.buttonwide, global.buttongreen)}
               href={yandexAuthURL.data}
             >
               <p className={global.text}>
@@ -68,7 +72,7 @@ function Index() {
               <FaYandex className={global.icon} />
             </a>
             <a
-              className={cx(global.buttonwide, styles.buttongreen)}
+              className={cx(global.buttonwide, global.buttongreen)}
               href={googleAuthURL.data}
             >
               <p className={global.text}>
@@ -82,5 +86,20 @@ function Index() {
     </>
   );
 }
+
+export const Head = () => {
+  const title = "Авторизация";
+  const description =
+    "Авторизация на онлайн практикуме даст тебе доступ к профилю с прогрессом по темам и связь с экспертами площадки";
+
+  const data = {
+    title: `Графикси | ${title}`,
+    description: description,
+    slug: `/auth`,
+    preview: "/preview.png",
+  };
+
+  return <MetaTag data={data} />;
+};
 
 export default Index;

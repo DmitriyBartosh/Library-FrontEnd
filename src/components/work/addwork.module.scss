@@ -102,4 +102,10 @@
     padding: 15px 20px;
     width: 100%;
   }
+  &.standalone {
+    @media (max-width: $mobile) {
+      padding-top: 9px;
+      padding-bottom: 35px;
+    }
+  }
 }

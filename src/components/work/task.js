@@ -22,6 +22,7 @@ const Task = forwardRef((props, ref) => {
                   styles.item,
                   selected.title === frontmatter.title && styles.active
                 )}
+                aria-label="Тема"
                 key={index}
                 onClick={() =>
                   setSelected({

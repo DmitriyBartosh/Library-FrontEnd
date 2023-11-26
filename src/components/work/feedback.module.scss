@@ -1,0 +1,83 @@
+@import "../../styles/abstracts/variables.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 700px;
+  padding: 30px 50px;
+  padding-right: 40px;
+  margin-right: 2px;
+  overflow-y: auto;
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding: 30px 20px;
+  }
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 10px 0px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $green;
+    border-radius: 5px;
+  }
+  .title {
+    font-weight: 600;
+    @media (max-width: $mobile) {
+      font-weight: 500;
+      margin-right: 50px;
+    }
+  }
+  .description {
+    font-weight: 300;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    max-width: 300px;
+    @media (max-width: $mobile) {
+      margin-right: 100px;
+      max-width: none;
+    }
+  }
+  .area {
+    border: 2px solid $green;
+    min-height: 300px;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    overflow: auto;
+    line-height: 1.4;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+      margin: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $green;
+    }
+  }
+}
+
+.action {
+  width: 100%;
+  background-color: $background;
+  padding: 20px 50px;
+  padding-right: 45px;
+  border-top: 1px solid $green;
+  @media (max-width: $mobile) {
+    padding: 15px 20px;
+    border-top: 1px solid $green;
+    width: 100%;
+  }
+  &.standalone {
+    @media (max-width: $mobile) {
+      padding-top: 9px;
+      padding-bottom: 35px;
+    }
+  }
+}

@@ -40,12 +40,12 @@
       padding: 30px;
       border: 1px solid $brown;
       @media (max-width: $tablet) {
-        padding: 30px;
+        padding: 25px;
       }
       .icon {
         height: 6rem;
         @media (max-width: $tablet) {
-          height: 50px;
+          height: 60px;
           position: absolute;
           bottom: 20px;
           right: 20px;
@@ -62,7 +62,7 @@
         .text {
           max-width: 400px;
           @media (max-width: $tablet) {
-            padding-right: 50px;
+            padding-right: 60px;
           }
         }
       }
@@ -119,8 +119,8 @@
       height: 400px;
     }
     @media (max-width: $mobile) {
-      width: 300px;
-      height: 350px;
+      width: 325px;
+      height: 375px;
     }
     &.one {
       background: $yellow;

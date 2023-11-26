@@ -5,6 +5,11 @@
   color: white;
   padding: 50px 0;
   margin-top: 50px;
+  &.standalone {
+    @media (max-width: $tablet) {
+      padding-bottom: 110px;
+    }
+  }
   @media (max-width: $tablet) {
     padding-top: 25px;
     padding-bottom: 75px;
@@ -79,5 +84,6 @@
 
 .link {
   font-weight: 600;
-  color: $beige;
+  color: $background;
+  padding: 2px;
 }

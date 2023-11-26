@@ -207,7 +207,7 @@ export const Head = () => {
     preview: "/preview.png",
   };
 
-  return <MetaTag data={data} themeColor="#f3eee1" />;
+  return <MetaTag data={data} />;
 };
 
 export default Promocode;

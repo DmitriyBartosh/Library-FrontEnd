@@ -35,7 +35,6 @@ function Telegram() {
   const addTelegramIdMutation = useMutation({
     mutationFn: addTelegramId,
     onSuccess: (res) => {
-      console.log(res);
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       if (!res.telegram.error) {
         navigate("/profile");
@@ -250,7 +249,7 @@ export const Head = () => {
     preview: "/preview.png",
   };
 
-  return <MetaTag data={data} themeColor="#f3eee1" />;
+  return <MetaTag data={data} />;
 };
 
 export default Telegram;

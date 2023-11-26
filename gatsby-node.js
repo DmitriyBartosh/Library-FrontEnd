@@ -1,4 +1,5 @@
 const path = require("path");
+const FilterWarningsPlugin = require("webpack-filter-warnings-plugin");
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -24,6 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 social {
                   name
                   url
+                  nick
                 }
                 preview_photo {
                   childImageSharp {
@@ -220,5 +222,16 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
+  });
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    plugins: [
+      new FilterWarningsPlugin({
+        exclude:
+          /mini-css-extract-plugin[^]*Conflicting order. Following module has been added:/,
+      }),
+    ],
   });
 };

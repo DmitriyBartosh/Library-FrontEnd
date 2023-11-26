@@ -6,6 +6,7 @@ function Theme({ openDetail, title, description, icon, free }) {
   const Component = React.lazy(() => import(`../../images/direction/${icon}`));
   return (
     <button
+      aria-label="Тема"
       onClick={openDetail}
       className={cx(styles.container, free && styles.free)}
     >

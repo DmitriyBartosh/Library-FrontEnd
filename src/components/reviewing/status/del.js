@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoTrashOutline, IoSyncOutline } from "react-icons/io5";
+import { IoSyncOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import * as styles from "./del.module.scss";

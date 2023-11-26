@@ -6,6 +6,9 @@
   gap: 0.5rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  @media (max-width: $tablet) {
+    padding-bottom: 75px;
+  }
   .links {
     display: flex;
     flex-direction: column;
@@ -21,6 +24,13 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
+        @media (max-width: $tablet) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: $mobile) {
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
   }

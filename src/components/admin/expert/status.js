@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cx from "classname";
 import { motion, AnimatePresence } from "framer-motion";
-import { IoArrowForwardSharp } from "react-icons/io5";
 import { convertDate } from "../../../functions/other";
 import Save from "./save";
 
@@ -38,13 +37,13 @@ function Status({ olddata, expert, setExpert }) {
             onClick={() => setExpert({ ...expert, status: !expert.status })}
           >
             {expert.status ? <p>В сети</p> : <p>Не в сети</p>}
-            <IoArrowForwardSharp className={styles.icon} />
           </button>
           <button
             className={cx(
               styles.button,
               expert.status ? styles.online : styles.offline
             )}
+            aria-label="Статус"
             data-status={expert.status}
             onClick={() => setExpert({ ...expert, status: !expert.status })}
           >

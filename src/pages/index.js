@@ -6,11 +6,12 @@ import Offer from "../components/mainpage/offer";
 import Start from "../components/mainpage/start";
 import Next from "../components/mainpage/next";
 import Footer from "../components/footer";
-import Topnavigate from "../components/navigation/topnavigate";
 import Audience from "../components/mainpage/audience";
 import Experts from "../components/mainpage/experts";
 import Callback from "../components/mainpage/callback";
 import MetaTag from "../components/metaTag";
+
+import Topnavigate from "../components/navigation/topnavigate";
 import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 
 function IndexPage() {
@@ -48,7 +49,7 @@ export const Head = () => {
     preview: "/preview.png",
   };
 
-  return <MetaTag data={data} themeColor="#f3eee1" />;
+  return <MetaTag data={data} />;
 };
 
 export default IndexPage;

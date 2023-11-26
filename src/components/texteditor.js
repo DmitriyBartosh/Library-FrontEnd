@@ -156,7 +156,7 @@ const MenuBar = ({ editor }) => {
   );
 };
 
-export default ({ setText, text }) => {
+const TextEditor = ({ setText, text }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -185,3 +185,5 @@ export default ({ setText, text }) => {
     </div>
   );
 };
+
+export default TextEditor;

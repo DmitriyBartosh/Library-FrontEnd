@@ -46,7 +46,6 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
-    z-index: -1;
     .flowers {
       position: relative;
       bottom: -250px;
@@ -58,7 +57,7 @@
       }
       @media (max-width: $mobile) {
         width: 400px;
-        bottom: -175px;
+        bottom: -40%;
       }
     }
   }

@@ -4,13 +4,13 @@ import cx from "classname";
 import {
   IoAddSharp,
   IoHomeOutline,
-  IoHeartOutline,
   IoChatbubbleOutline,
   IoCreateOutline,
 } from "react-icons/io5";
+
 import * as styles from "./rightnavigate.module.scss";
 
-function Rightnavigate({ addWork, thereIsWork, backLink }) {
+function Rightnavigate({ addWork, thereIsWork, backLink, openFeetback }) {
   return (
     <nav className={styles.container}>
       <div className={styles.block}>
@@ -22,16 +22,14 @@ function Rightnavigate({ addWork, thereIsWork, backLink }) {
         </Link>
       </div>
       <div className={styles.block}>
-        <button className={styles.button}>
-          <IoHeartOutline className={styles.icon} />
-          <div className={styles.label}>
-            <p className={styles.text}>Оставить отзыв</p>
-          </div>
-        </button>
-        <button className={styles.button}>
+        <button
+          className={styles.button}
+          onClick={openFeetback}
+          aria-label="Обратная связь"
+        >
           <IoChatbubbleOutline className={styles.icon} />
           <div className={styles.label}>
-            <p className={styles.text}>Задать вопрос</p>
+            <p className={styles.text}>Обратная связь</p>
           </div>
         </button>
 

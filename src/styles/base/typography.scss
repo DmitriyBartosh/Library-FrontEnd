@@ -7,6 +7,10 @@ html {
   color: $black;
   font-weight: 400;
   background: $background;
+
+  @media (max-width: $mobile) {
+    font-size: 16px;
+  }
 }
 
 h1 {

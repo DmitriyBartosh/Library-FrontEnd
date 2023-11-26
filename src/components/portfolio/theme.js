@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import cx from "classname";
-import {
-  IoArrowForwardSharp,
-  IoArrowDownSharp,
-  IoCloseSharp,
-  IoAddSharp,
-} from "react-icons/io5";
+import { IoArrowDownSharp, IoCloseSharp, IoAddSharp } from "react-icons/io5";
 import { Link } from "gatsby";
 import Linkwork from "./linkwork";
 
@@ -34,7 +29,7 @@ function Theme({ data, themes, worksOnTheme }) {
     >
       <div className={styles.card}>
         <button
-          className={styles.button}
+          className={cx(styles.button, isVisible && styles.open)}
           onClick={() => setIsVisible(!isVisible)}
         >
           <div className={styles.info}>
@@ -69,13 +64,14 @@ function Theme({ data, themes, worksOnTheme }) {
           </div>
           <IoAddSharp className={styles.openmobile} />
         </button>
-        <div className={styles.link}>
+        <div className={cx(styles.link, isVisible && styles.open)}>
           <Link
             to={`/${themes.slug}/${data.slug}`}
-            className={cx(global.buttoncenter, styles.buttongreen)}
+            className={cx(global.buttontext, styles.buttongreen)}
           >
-            <p className={global.text}>Открыть</p>
-            <IoArrowForwardSharp className={global.icon} />
+            <p className={global.text}>
+              {worksOnTheme.length > 0 ? "Продолжить тему" : "Начать тему"}
+            </p>
           </Link>
         </div>
       </div>
@@ -89,7 +85,7 @@ function Theme({ data, themes, worksOnTheme }) {
           {worksOnTheme.length > 0 && (
             <>
               <p className={styles.title}>Выполненные работы</p>
-              <div>
+              <div className={styles.list}>
                 {worksOnTheme.map((item, index) => {
                   return (
                     <Linkwork data={item} index={index} key={`link_${index}`} />
@@ -98,6 +94,14 @@ function Theme({ data, themes, worksOnTheme }) {
               </div>
             </>
           )}
+          <div className={cx(styles.mobilelink, isVisible && styles.open)}>
+            <Link
+              to={`/${themes.slug}/${data.slug}`}
+              className={cx(global.buttontext, styles.buttongreen)}
+            >
+              <p className={global.text}>Открыть</p>
+            </Link>
+          </div>
         </div>
       )}
     </div>
