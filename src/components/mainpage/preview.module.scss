@@ -70,10 +70,25 @@
     }
     h1 {
       color: $orange;
-      margin-bottom: 1rem;
+      margin-bottom: 10px;
+      line-height: 1.1;
     }
-    p {
-      max-width: 400px;
+    .subtitle {
+      max-width: 325px;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: $orange;
+      @media (max-width: $mobile) {
+        font-size: 1.1rem;
+        max-width: 275px;
+      }
+      span {
+        font-weight: 600;
+        font-size: 1.35rem;
+        @media (max-width: $mobile) {
+          font-size: 1.2rem;
+        }
+      }
     }
     .start {
       background-color: $green;

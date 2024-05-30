@@ -20,7 +20,7 @@ function Callback() {
         <div className={cx(styles.block, global.container)}>
           <h2>
             Только проверенная информация без духоты, воды и сложных терминов с
-            подпиской за 200₽
+            подпиской за 360₽
           </h2>
           <div className={styles.action}>
             <Link

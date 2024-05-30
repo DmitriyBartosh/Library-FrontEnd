@@ -8,8 +8,10 @@ import { convertDate } from "../../functions/other";
 import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
 
 import Promocode from "../../components/admin/superadmin/promocode";
+import Navigate from "../../components/admin/superadmin/navigate";
 import Topnavigate from "../../components/navigation/topnavigate";
 import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
+import Footer from "../../components/footer";
 
 import * as global from "../../styles/base/global.module.scss";
 import * as styles from "../../styles/pages/god.module.scss";
@@ -61,6 +63,7 @@ function Promo() {
       {isDesktop && <Topnavigate />}
       {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
+        <Navigate />
         {allPromoCodesQuery.data && (
           <>
             <Promocode slug={slug} />
@@ -103,6 +106,7 @@ function Promo() {
           </>
         )}
       </section>
+      <Footer />
     </>
   );
 }

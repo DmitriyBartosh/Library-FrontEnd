@@ -9,8 +9,10 @@ import Topnavigate from "../../components/navigation/topnavigate";
 import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import AllUsers from "../../components/admin/superadmin/allUsers";
 import ExpertChange from "../../components/admin/superadmin/expertChange";
+import Footer from "../../components/footer";
 
 import * as global from "../../styles/base/global.module.scss";
+import Navigate from "../../components/admin/superadmin/navigate";
 
 function God() {
   const isDesktop = useIsDesktop();
@@ -72,6 +74,7 @@ function God() {
       {isDesktop && <Topnavigate />}
       {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
+        <Navigate />
         {allUsersQuery.data && (
           <>
             <AllUsers openModal={openModal} allUsersQuery={allUsersQuery} />
@@ -87,6 +90,7 @@ function God() {
           </>
         )}
       </section>
+      <Footer />
     </>
   );
 }

@@ -5,6 +5,7 @@
   flex-direction: column;
   border: 2px solid $green;
   height: 100%;
+  width: 100%;
   .menu {
     position: relative;
     display: flex;
@@ -178,4 +179,14 @@
 .close {
   background-color: $beige;
   color: $green;
+}
+
+.hidden {
+  border: 2px solid $beige;
+  transition: all 0.4s;
+
+  &.focused {
+    border: 2px solid $green;
+    background-color: transparent;
+  }
 }

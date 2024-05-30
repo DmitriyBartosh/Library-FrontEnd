@@ -1,0 +1,84 @@
+@import "../abstracts/variables.scss";
+
+.entry {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+    max-width: 800px;
+    span {
+        font-weight: 600;
+        color: $green;
+    }
+    .title {
+        margin-bottom: 10px;
+    }
+    .choise {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: $heightButton;
+            padding: 0 15px;
+            background-color: $beige;
+            color: $green;
+            font-weight: 500;
+            &.active {
+                background-color: $green;
+                color: white;
+            }
+        }
+    }
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 800px;
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            h6 {
+                color: $green;
+            }
+            .link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: $heightButton;
+                padding: 0 15px;
+                background-color: $green;
+            }
+            .button {
+                margin-top: 6px;
+                max-width: 300px;
+            }
+            .payment {
+                margin-top: 15px;
+            }
+            .roadmap {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                iframe {
+                    height: 400px;
+                }
+            }
+        }
+    }
+}

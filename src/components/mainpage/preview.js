@@ -26,13 +26,12 @@ function Preview() {
           </div>
           <div className={styles.info}>
             <h1>
-              Дай старт своей
+              Онлайн практикум
               <br />
-              карьере с Графикси
+              Графикси
             </h1>
-            <p>
-              Сервис, который помогает улучшить портфолио и получить
-              консультации от экспертов на любом этапе твоей карьеры{" "}
+            <p className={styles.subtitle}>
+              Площадка для начинающих дизайнеров <span>от 12 лет</span>
             </p>
             {isLoggedIn() ? (
               <Link
@@ -58,17 +57,17 @@ function Preview() {
       <section className={styles.about}>
         <div className={cx(styles.container, global.container)}>
           <div className={styles.title}>
-            <h2>Создавай портфолио по плану, который работает:</h2>
+            <h2>Шаг за шагом становись профессионалом</h2>
           </div>
           <div className={styles.list}>
             <div className={styles.block}>
-              <p>Выполняй Задания</p>
+              <p>Много практики</p>
             </div>
             <div className={styles.block}>
-              <p>Изучай конспекты в удобном формате</p>
+              <p>Обратная связь от практикующих экспертов</p>
             </div>
             <div className={styles.block}>
-              <p>Получай разборы от экспертов</p>
+              <p>Понятная и наглядная теория</p>
             </div>
           </div>
         </div>

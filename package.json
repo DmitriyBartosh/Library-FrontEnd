@@ -8,8 +8,8 @@
     "онлайн практикум, графикси"
   ],
   "scripts": {
-    "develop": "gatsby develop -p 3000 -H 192.168.0.192",
-    "start": "gatsby develop -p 3000 -H 192.168.0.192",
+    "develop": "gatsby develop -p 3000 -H 0.0.0.0",
+    "start": "gatsby develop -p 3000 -H 0.0.0.0",
     "build": "gatsby build",
     "serve": "gatsby serve -p 3000",
     "clean": "gatsby clean"
@@ -43,6 +43,7 @@
     "react-icons": "^4.9.0",
     "react-use": "^17.4.0",
     "sass": "^1.62.1",
+    "swiper": "^11.1.3",
     "webpack-filter-warnings-plugin": "^1.2.1"
   }
 }

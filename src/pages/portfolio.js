@@ -22,6 +22,12 @@ function Profile() {
       {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
         <Review />
+        <iframe
+          src="https://roadmap.sh/r/embed?id=6655e891b998f3b3c79fcdc1"
+          width="100%"
+          height="1000px"
+          frameBorder="0"
+        />
         <Direction />
       </section>
       <AddReview />

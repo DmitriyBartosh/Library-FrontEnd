@@ -1,5 +1,5 @@
 import React from "react";
-import { navigate } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { useEffectOnce } from "react-use";
 import cx from "classname";
 import { useStateContext } from "../context/ContextProvider";
@@ -31,6 +31,13 @@ function Profile() {
       {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
         <User />
+        <Link
+          to="/entry"
+          className={cx(global.buttontext, global.buttongreen)}
+          style={{ width: 400, marginTop: 15 }}
+        >
+          <p className={global.label}>Тестирование 360</p>
+        </Link>
         <Subscribes />
         <Transactions />
       </section>

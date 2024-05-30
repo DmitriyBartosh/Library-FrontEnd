@@ -65,9 +65,6 @@ function AllUsers({ openModal, allUsersQuery }) {
           );
         })}
       </div>
-      <Link to="/god/promo" className={cx(global.buttontext, styles.promo)}>
-        <p className={global.text}>Создать промокоды</p>
-      </Link>
     </div>
   );
 }

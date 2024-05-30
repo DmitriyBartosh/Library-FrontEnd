@@ -1,0 +1,44 @@
+@import "../../styles/abstracts/variables.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    .item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-height: 283px;
+
+        .title {
+            font-weight: 600;
+        }
+    }
+    .navigation {
+        display: grid;
+        grid-template-columns: $heightButton 100px 1fr;
+        max-width: 450px;
+        gap: 5px;
+        .count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $beige;
+            height: $heightButton;
+            font-weight: 500;
+            color: $green;
+        }
+        .disabled {
+            background-color: $beige;
+            color: $green;
+            pointer-events: none;
+        }
+        .hidden {
+            transition: all 0.4s;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}

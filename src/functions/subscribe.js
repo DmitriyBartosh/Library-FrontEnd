@@ -2,6 +2,7 @@ import axiosClient from "../services/axiosClient";
 
 // Ссылка на оплату за ревью работы
 export const addSubscribe = async (data) => {
+  console.log(data);
   return axiosClient
     .post("subscribe/add", data)
     .then((data) => data)

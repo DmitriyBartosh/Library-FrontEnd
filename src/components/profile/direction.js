@@ -46,7 +46,7 @@ function Direction({ data, action }) {
           <p className={global.text}>
             {data.status === "active" && "Продлить"}
             {data.status === "pending" && "Оплатить"}
-            {data.status === "other" && "Подписка 200 руб."}
+            {data.status === "other" && `Подписка ${data.price} руб.`}
           </p>
         </button>
       </div>

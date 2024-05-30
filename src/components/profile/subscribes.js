@@ -156,6 +156,7 @@ function Subscribes() {
                     status: "other",
                     title: title,
                     about: about,
+                    price: price,
                     slug: `/directions/${slug}`,
                   };
 

@@ -37,7 +37,7 @@ function Telegram() {
     onSuccess: (res) => {
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       if (!res.telegram.error) {
-        navigate("/profile");
+        navigate(-1);
       }
     },
   });

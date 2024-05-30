@@ -12,6 +12,10 @@ body {
   overscroll-behavior: none;
 }
 
+.rounded-md {
+  display: none;
+}
+
 main {
   display: flex;
   flex-direction: column;
