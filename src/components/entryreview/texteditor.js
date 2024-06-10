@@ -16,7 +16,6 @@ import {
   BsBlockquoteLeft,
   BsImage,
 } from "react-icons/bs";
-import { AnimatePresence, motion } from "framer-motion";
 import { IoCheckmarkSharp, IoCloseSharp } from "react-icons/io5";
 import { LuHighlighter } from "react-icons/lu";
 
@@ -157,7 +156,7 @@ const MenuBar = ({ editor }) => {
   );
 };
 
-const TextEditor = ({ setText, text, index }) => {
+const TextEditor = ({ setReview, review, index }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -172,12 +171,15 @@ const TextEditor = ({ setText, text, index }) => {
         class: styles.input,
       },
     },
-    content: text[index],
+    content: review.answers[index],
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      const updatedText = [...text];
+      const updatedText = [...review.answers];
       updatedText[index] = html;
-      setText(updatedText);
+
+      console.log(updatedText);
+
+      setReview({ ...review, answers: updatedText });
     },
   });
 

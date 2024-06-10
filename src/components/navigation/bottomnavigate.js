@@ -11,7 +11,7 @@ import {
 
 import * as styles from "./mobilenav.module.scss";
 
-function Bottomnavigate({ addWork, thereIsWork, backLink, openFeetback }) {
+function Bottomnavigate({ addWork, thereIsWork, openFeetback }) {
   const [hidden, setHidden] = useState(false);
 
   const { scrollY } = useScroll();
@@ -36,7 +36,7 @@ function Bottomnavigate({ addWork, thereIsWork, backLink, openFeetback }) {
       transition={{ duration: isStandalone ? 0.6 : 0.4, ease: "easeInOut" }}
     >
       <div className={styles.block}>
-        <Link to={backLink} className={styles.button}>
+        <Link to="/portfolio" className={styles.button}>
           <IoArrowBackSharp className={styles.icon} />
         </Link>
       </div>

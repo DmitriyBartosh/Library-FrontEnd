@@ -11,13 +11,13 @@ import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
 import Topnavigate from "../../components/navigation/topnavigate";
 import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import Footer from "../../components/footer";
-import Answers from "../../components/entrytest/answers";
+import Answers from "../../components/entryreview/answers";
 import MetaTag from "../../components/metaTag";
-import Payment from "../../components/entrytest/payment";
+import Payment from "../../components/entryreview/payment";
+import Roadmap from "../../components/entryreview/roadmap";
 
 import * as global from "../../styles/base/global.module.scss";
-import * as styles from "../../styles/pages/entrytest.module.scss";
-import Roadmap from "../../components/entrytest/roadmap";
+import * as styles from "../../styles/pages/entryreview.module.scss";
 
 function Review() {
   const isDesktop = useIsDesktop();

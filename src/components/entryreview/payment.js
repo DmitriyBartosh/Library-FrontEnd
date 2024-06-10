@@ -35,7 +35,7 @@ const methods = [
   },
 ];
 
-function Payment({ price, questions, answers }) {
+function Payment({ price, questions, review, setReview }) {
   const [methodPay, setMethodPay] = useState({
     type: "bank_card",
     name: "Банковская карта",
@@ -49,6 +49,7 @@ function Payment({ price, questions, answers }) {
   const addEntryReviewMutation = useMutation({
     mutationFn: addEntryReview,
     onSuccess: (res) => {
+      setReview({ ...review, open: false });
       const url = res.data.url;
       navigate(url);
     },
@@ -78,7 +79,7 @@ function Payment({ price, questions, answers }) {
         disabled={addEntryReviewMutation.isLoading}
         onClick={() =>
           addEntryReviewMutation.mutate({
-            answers: answers,
+            answers: review.answers,
             questions: questions,
             price: price,
             method: methodPay.type,
@@ -102,7 +103,8 @@ function Payment({ price, questions, answers }) {
         ) : (
           <>
             <p className={styles.text}>
-              Перейти к оплате / <span>{price} руб.</span>
+              Перейти к оплате /{" "}
+              <span className={styles.cost}>{price} руб.</span>
             </p>
             <div className={styles.icon}>{methodPay.icon}</div>
           </>

@@ -13,9 +13,9 @@ import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Profile from "../components/admin/expert/profile";
 import Review from "../components/admin/expert/review";
 import Theme from "../components/admin/expert/theme";
+import Entryreview from "../components/admin/expert/entryreview";
 
 import * as global from "../styles/base/global.module.scss";
-import Entryreview from "../components/admin/expert/entryreview";
 
 function Admin() {
   const isDesktop = useIsDesktop();

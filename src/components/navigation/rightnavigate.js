@@ -10,11 +10,11 @@ import {
 
 import * as styles from "./rightnavigate.module.scss";
 
-function Rightnavigate({ addWork, thereIsWork, backLink, openFeetback }) {
+function Rightnavigate({ addWork, thereIsWork, openFeetback }) {
   return (
     <nav className={styles.container}>
       <div className={styles.block}>
-        <Link to={backLink} className={styles.button}>
+        <Link to="/portfolio" className={styles.button}>
           <IoHomeOutline className={styles.icon} />
           <div className={styles.label}>
             <p className={styles.text}>Мое портфолио</p>

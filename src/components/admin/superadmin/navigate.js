@@ -23,7 +23,7 @@ function Navigate() {
         <p className={global.text}>Промокоды</p>
       </Link>
       <Link
-        to="/god/entrytest"
+        to="/god/entryreview"
         className={cx(global.buttontext, styles.button)}
         activeClassName={styles.active}
       >

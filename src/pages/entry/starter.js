@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as styles from "../../styles/pages/entrytest.module.scss";
+import * as styles from "../../styles/pages/entryreview.module.scss";
 
 function Starter() {
   return (

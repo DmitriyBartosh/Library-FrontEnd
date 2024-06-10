@@ -6,13 +6,9 @@ import * as styles from "./roadmap.module.scss";
 import * as global from "../../styles/base/global.module.scss";
 
 function Roadmap({ link, close }) {
-  console.log(link);
   return (
     <div className={styles.container}>
-      <button
-        className={cx(global.buttoncenter, global.buttongreen, styles.close)}
-        onClick={close}
-      >
+      <button className={cx(global.buttoncenter, styles.close)} onClick={close}>
         <p className={global.text}>Закрыть</p>
         <IoCloseSharp className={global.icon} />
       </button>
@@ -20,7 +16,7 @@ function Roadmap({ link, close }) {
         <iframe
           style={{ overflow: "hidden" }}
           title="Дорожная карта"
-          scrolling="yes"
+          scrolling="no"
           src={link}
         />
       </div>

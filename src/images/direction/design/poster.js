@@ -6,7 +6,7 @@ function Poster(props) {
       <path fill="none" d="M3.23 1.76h217.36V299.2H3.23z" />
       <path
         d="M60.89 85.1A12 12 0 1049 73.13 12 12 0 0060.89 85.1z"
-        fill="#d65935"
+        fill={props.color}
       />
       <path
         d="M95.88 153.57L142 81.79l46.92 71.78M59.84 154.4q14.22-22.17 28.46-44.32l15.4 20"
@@ -23,7 +23,7 @@ function Poster(props) {
         strokeWidth={2}
       />
       <path
-        fill="#d65935"
+        fill={props.color}
         d="M222.36 300.96H1.5V7.01h40.05v6H7.5v281.95h208.86V13.84h-30.75v-6h36.75v293.12z"
       />
       <path

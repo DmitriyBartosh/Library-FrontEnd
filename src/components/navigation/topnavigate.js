@@ -45,22 +45,6 @@ function Topnavigate() {
             )}
           </>
         )}
-        <Link
-          to="/directions"
-          partiallyActive={true}
-          activeClassName={styles.active}
-          className={cx(global.buttontext, styles.link)}
-        >
-          <p className={global.text}>Направления</p>
-        </Link>
-        <Link
-          to="/articles"
-          partiallyActive={true}
-          activeClassName={styles.active}
-          className={cx(global.buttontext, styles.link)}
-        >
-          <p className={global.text}>Полезные статьи</p>
-        </Link>
 
         {isLoggedIn() ? (
           <>

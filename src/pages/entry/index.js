@@ -9,11 +9,10 @@ import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
 import Topnavigate from "../../components/navigation/topnavigate";
 import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import Footer from "../../components/footer";
-
 import MetaTag from "../../components/metaTag";
 
 import * as global from "../../styles/base/global.module.scss";
-import * as styles from "../../styles/pages/entrytest.module.scss";
+import * as styles from "../../styles/pages/entryreview.module.scss";
 
 function Index() {
   const { isLoggedIn } = useStateContext();
@@ -71,7 +70,7 @@ export const Head = () => {
   const data = {
     title: `Графикси | ${title}`,
     description: description,
-    slug: `/entrytest`,
+    slug: `/entryreview`,
     preview: "/preview.png",
   };
 

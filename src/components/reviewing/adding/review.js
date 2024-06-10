@@ -126,6 +126,14 @@ function Review() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [review.expert]);
 
+  useEffect(() => {
+    if (showReview) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+  }, [showReview]);
+
   const expertOnReview =
     review.complete &&
     allExpertQuery.data.experts.find((item) => item.id === review.expert.id);

@@ -78,8 +78,9 @@
         .text {
             position: relative;
             line-height: 1;
-            span {
+            .cost {
                 font-weight: 600;
+                color: currentColor;
             }
             &::after {
                 content: "";

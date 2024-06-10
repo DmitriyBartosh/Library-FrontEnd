@@ -51,15 +51,6 @@ function Linkwork({ data }) {
       </a>
       <div className={styles.block}>
         <div className={cx(styles.editlink, edited && styles.edited)}>
-          <div className={cx(styles.link, edited && styles.visible)}>
-            <input
-              placeholder="Ссылка"
-              disabled={!edited}
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-            />
-          </div>
-
           {edited ? (
             isDifferent ? (
               <button
@@ -106,6 +97,15 @@ function Linkwork({ data }) {
               <IoCreateOutline className={global.icon} />
             </button>
           )}
+
+          <div className={cx(styles.link, edited && styles.visible)}>
+            <input
+              placeholder="Ссылка"
+              disabled={!edited}
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </div>

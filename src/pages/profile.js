@@ -4,6 +4,7 @@ import { useEffectOnce } from "react-use";
 import cx from "classname";
 import { useStateContext } from "../context/ContextProvider";
 import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
+
 import Topnavigate from "../components/navigation/topnavigate";
 import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import User from "../components/profile/user";
@@ -31,13 +32,6 @@ function Profile() {
       {isTablet && <Topmobilenavigate />}
       <section className={cx(global.container, global.top)}>
         <User />
-        <Link
-          to="/entry"
-          className={cx(global.buttontext, global.buttongreen)}
-          style={{ width: 400, marginTop: 15 }}
-        >
-          <p className={global.label}>Тестирование 360</p>
-        </Link>
         <Subscribes />
         <Transactions />
       </section>

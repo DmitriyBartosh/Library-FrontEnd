@@ -37,6 +37,7 @@ export const addQuestions = (data) => {
 };
 
 export const addEntryReview = async (data) => {
+  console.log(data);
   return axiosClient
     .post("entryreview/add", data)
     .then((data) => data)

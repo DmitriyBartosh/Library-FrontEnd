@@ -1,9 +1,8 @@
 @import "../../styles/abstracts/variables.scss";
 
 .container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   @media (max-width: $mobile) {
     display: flex;
@@ -29,15 +28,14 @@
         background: $green;
         transition: all 0.3s;
       }
-      &:hover {
-        color: $green;
-      }
       &:hover::after {
         width: 100%;
       }
     }
     .text {
       font-weight: 600;
+      padding: 1px 0;
+      color: $green;
     }
     .editlink {
       display: flex;
@@ -46,16 +44,23 @@
       transition: all 0.2s cubic-bezier(0.23, 0.67, 0.58, 1);
       border: 1px solid transparent;
       width: 100%;
+      margin-top: -5px;
       @media (max-width: $mobile) {
         display: none;
       }
       &.edited {
         border: 1px solid $green;
+        margin-top: 10px;
+        .edit,
+        .back,
+        .save {
+          padding: 0 30px;
+        }
         .link {
           color: $green;
         }
         .back {
-          border-left: 1px solid $green;
+          border-right: 1px solid $green;
         }
       }
       .link {
@@ -85,7 +90,8 @@
       .edit,
       .back,
       .save {
-        width: 200px;
+        padding: 0;
+        width: auto;
         transition: all 0.2s cubic-bezier(0.23, 0.67, 0.58, 1);
       }
       .edit,

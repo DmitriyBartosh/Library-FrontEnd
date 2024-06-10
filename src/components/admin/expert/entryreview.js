@@ -52,8 +52,6 @@ function Entryreview() {
           {allAnswersQuery.data.map((item, index) => {
             const { user_name, user_email, telegram, status } = item;
 
-            console.log(item);
-
             return (
               <div key={`user_${index}`} className={styles.item}>
                 <div className={styles.head}>
@@ -130,6 +128,7 @@ function Entryreview() {
                         dangerouslySetInnerHTML={{
                           __html: item,
                         }}
+                        className={global.htmltext}
                       />
                     </div>
                   );
@@ -147,15 +146,16 @@ function Entryreview() {
                   onChange={(e) => setFrameLink(e.target.value)}
                   value={frameLink}
                 />
-
-                <iframe
-                  style={{ overflow: "hidden" }}
-                  title="Дорожная карта"
-                  scrolling="no"
-                  src={frameLink}
-                  width="100%"
-                  height="600px"
-                />
+                {frameLink !== "" && (
+                  <iframe
+                    style={{ overflow: "hidden" }}
+                    title="Дорожная карта"
+                    scrolling="no"
+                    src={frameLink}
+                    width="100%"
+                    height="600px"
+                  />
+                )}
               </div>
             </div>
             <div className={styles.action}>

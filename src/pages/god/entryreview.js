@@ -6,13 +6,13 @@ import { useIsDesktop, useIsTablet } from "../../hooks/mediaQuery";
 import Topnavigate from "../../components/navigation/topnavigate";
 import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import Navigate from "../../components/admin/superadmin/navigate";
-import Questions from "../../components/entrytest/questions";
+import Questions from "../../components/entryreview/questions";
 import Footer from "../../components/footer";
 
 import * as global from "../../styles/base/global.module.scss";
-import * as styles from "../../styles/pages/entrytest.module.scss";
+import * as styles from "../../styles/pages/entryreview.module.scss";
 
-function Entrytest() {
+function Entryreview() {
   const isDesktop = useIsDesktop();
   const isTablet = useIsTablet();
 
@@ -49,4 +49,4 @@ function Entrytest() {
   );
 }
 
-export default Entrytest;
+export default Entryreview;

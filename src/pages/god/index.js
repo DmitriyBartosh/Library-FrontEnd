@@ -10,9 +10,9 @@ import Topmobilenavigate from "../../components/navigation/topmobilenavigate";
 import AllUsers from "../../components/admin/superadmin/allUsers";
 import ExpertChange from "../../components/admin/superadmin/expertChange";
 import Footer from "../../components/footer";
+import Navigate from "../../components/admin/superadmin/navigate";
 
 import * as global from "../../styles/base/global.module.scss";
-import Navigate from "../../components/admin/superadmin/navigate";
 
 function God() {
   const isDesktop = useIsDesktop();

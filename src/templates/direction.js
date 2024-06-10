@@ -7,8 +7,8 @@ import { useIsDesktop, useIsTablet } from "../hooks/mediaQuery";
 import Topnavigate from "../components/navigation/topnavigate";
 import Topmobilenavigate from "../components/navigation/topmobilenavigate";
 import Footer from "../components/footer";
-import Detail from "../components/direction/detail";
-import Theme from "../components/direction/theme";
+import Detail from "../components/portfolio/detail";
+import Theme from "../components/portfolio/theme";
 import MetaTag from "../components/metaTag";
 
 import * as styles from "../styles/pages/directions.module.scss";

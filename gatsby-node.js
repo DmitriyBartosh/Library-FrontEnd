@@ -76,31 +76,6 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  const directionData = await graphql(`
-    query {
-      allDirectionsJson {
-        edges {
-          node {
-            slug
-            title
-            active
-            about
-            price
-            works {
-              free
-              title
-              slug
-              tags
-              steps
-              description
-              icon
-            }
-          }
-        }
-      }
-    }
-  `);
-
   // Страницы для статей
   const articlesData = await graphql(`
     query {
@@ -154,19 +129,6 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `);
-
-  // Страницы направлений
-  directionData.data.allDirectionsJson.edges.forEach((data) => {
-    const slug = data.node.slug;
-
-    createPage({
-      path: `/directions/${slug}`,
-      component: path.resolve("./src/templates/direction.js"),
-      context: {
-        data: data.node,
-      },
-    });
-  });
 
   // Страницы экспертов
   expertsData.data.previewExpert.edges.forEach((data) => {

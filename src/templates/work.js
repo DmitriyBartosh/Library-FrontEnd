@@ -223,7 +223,6 @@ function Work({ data, pageContext }) {
               openFeetback={() => setFeedback(true)}
               addWork={() => setIsVisibleWork(true)}
               thereIsWork={thereIsWork}
-              backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
             />
           )}
           {isTablet && (
@@ -231,7 +230,6 @@ function Work({ data, pageContext }) {
               openFeetback={() => setFeedback(true)}
               addWork={() => setIsVisibleWork(true)}
               thereIsWork={thereIsWork}
-              backLink={isActiveSubscribe ? "/portfolio" : "/directions"}
             />
           )}
         </div>
