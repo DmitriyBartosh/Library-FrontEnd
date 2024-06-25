@@ -3,10 +3,9 @@
 .action {
     width: 100%;
     background-color: $background;
-
     @media (max-width: $mobile) {
-        padding: 15px 20px;
         border-top: 1px solid $green;
+        margin-top: 5px;
     }
     &.standalone {
         @media (max-width: $mobile) {

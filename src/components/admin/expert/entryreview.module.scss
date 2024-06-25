@@ -8,6 +8,13 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
+        @media (max-width: $tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: $mobile) {
+            display: flex;
+            flex-direction: column;
+        }
         .item {
             display: flex;
             flex-direction: column;
@@ -53,6 +60,11 @@
     padding: 30px 50px;
     padding-right: 40px;
     margin-right: 2px;
+    @media (max-width: $mobile) {
+        width: 100%;
+        padding: 25px 20px;
+        padding-top: 40px;
+    }
     .user {
         display: flex;
         flex-direction: column;
@@ -109,4 +121,7 @@
     padding: 20px 50px;
     padding-right: 45px;
     border-top: 1px solid #4e8a7f;
+    @media (max-width: $mobile) {
+        padding: 15px 20px;
+    }
 }

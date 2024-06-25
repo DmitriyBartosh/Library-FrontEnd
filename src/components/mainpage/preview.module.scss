@@ -45,6 +45,7 @@
     right: 0;
     display: flex;
     justify-content: center;
+    pointer-events: none;
     overflow: hidden;
     .flowers {
       position: relative;
@@ -72,28 +73,43 @@
       color: $orange;
       margin-bottom: 10px;
       line-height: 1.1;
+      font-weight: 400;
+      span {
+        font-weight: 700;
+      }
     }
     .subtitle {
-      max-width: 325px;
+      max-width: 600px;
       font-weight: 400;
       font-size: 1.2rem;
       color: $orange;
       @media (max-width: $mobile) {
         font-size: 1.1rem;
-        max-width: 275px;
+        max-width: 340px;
       }
-      span {
+      span,
+      a {
+        position: relative;
         font-weight: 600;
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         @media (max-width: $mobile) {
           font-size: 1.2rem;
         }
+      }
+      a::after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: -2px;
+        right: -2px;
+        height: 1px;
+        background-color: currentColor;
       }
     }
     .start {
       background-color: $green;
       color: white;
-      width: 200px;
+      width: 250px;
       font-weight: 600;
       margin-top: 2rem;
     }

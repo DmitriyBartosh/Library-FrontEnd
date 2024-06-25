@@ -7,7 +7,6 @@ import { addAdmin } from "../../../functions/superadmin";
 import cx from "classname";
 
 import * as styles from "./expertchange.module.scss";
-import Modal from "../../modal";
 
 function Add({
   closeModal,

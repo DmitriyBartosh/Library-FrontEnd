@@ -33,6 +33,7 @@ function Answers({ data, review, setReview }) {
 
       <div className={styles.navigation}>
         <button
+          text-label="Предыдущий вопрос"
           className={cx(
             global.buttonicon,
             global.buttongreen,

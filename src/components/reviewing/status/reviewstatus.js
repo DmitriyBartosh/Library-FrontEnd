@@ -1,8 +1,7 @@
 import React from "react";
 import cx from "classname";
-import { Link } from "gatsby";
 import { useStateContext } from "../../../context/ContextProvider";
-import { IoAddSharp, IoArrowForwardSharp } from "react-icons/io5";
+import { IoAddSharp } from "react-icons/io5";
 import Work from "./work";
 
 import * as styles from "./reviewstatus.module.scss";

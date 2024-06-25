@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, navigate } from "gatsby";
+import { navigate } from "gatsby";
 import { useEffectOnce } from "react-use";
 import cx from "classname";
 import { useStateContext } from "../context/ContextProvider";

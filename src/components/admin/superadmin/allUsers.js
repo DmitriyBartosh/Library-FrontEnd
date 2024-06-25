@@ -1,9 +1,7 @@
 import React from "react";
 import cx from "classname";
-import { Link } from "gatsby";
 import Button from "./button";
 
-import * as global from "../../../styles/base/global.module.scss";
 import * as styles from "./allusers.module.scss";
 
 function AllUsers({ openModal, allUsersQuery }) {

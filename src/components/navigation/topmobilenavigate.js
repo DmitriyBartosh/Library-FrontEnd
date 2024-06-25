@@ -10,6 +10,7 @@ import {
 import { Link } from "gatsby";
 import { IoMenu, IoArrowDownSharp } from "react-icons/io5";
 import { useStateContext } from "../../context/ContextProvider";
+
 import Logo from "../../images/svg/logo";
 import Linkmobile from "./linkmobile";
 
@@ -66,65 +67,6 @@ function Topmobilenavigate() {
                 key="content_bottom_nav"
                 className={styles.content}
               >
-                <Linkmobile
-                  index={0}
-                  partiallyActive={false}
-                  setVisible={setVisible}
-                  link="/"
-                  title="Главная страница"
-                  description="Вся информация о площадке Графикси"
-                />
-                <Linkmobile
-                  index={1}
-                  partiallyActive={true}
-                  setVisible={setVisible}
-                  link="/directions"
-                  title="Направления"
-                  description="Подробнее о направлениях и вариантах подписки"
-                />
-                <Linkmobile
-                  index={2}
-                  partiallyActive={true}
-                  setVisible={setVisible}
-                  link="/articles"
-                  title="Полезные статьи"
-                  description="Эти статьи дополняют авторские курсы наших экспертов"
-                />
-
-                {isLoggedIn() ? (
-                  <>
-                    {(works?.length > 0 || isActiveSubscribe) && (
-                      <Linkmobile
-                        index={3}
-                        partiallyActive={false}
-                        setVisible={setVisible}
-                        link="/portfolio"
-                        title="Мое портфолио"
-                        description="Все доступные темы и твои выполненные работы и рецензии
-                        на них от экспертов"
-                      />
-                    )}
-                    <Linkmobile
-                      index={4}
-                      partiallyActive={false}
-                      setVisible={setVisible}
-                      link="/profile"
-                      title="Профиль"
-                      description="Вся информация о подписках, история оплаты, активация
-                      промокода и привязка телеграма"
-                    />
-                  </>
-                ) : (
-                  <Linkmobile
-                    index={3}
-                    partiallyActive={false}
-                    setVisible={setVisible}
-                    link="/auth"
-                    title="Авторизация на Графикси"
-                    description="Войти через одну из социальных сетей, чтобы начать
-                    творчество"
-                  />
-                )}
                 {checkAdminQuery.isSuccess && !checkAdminQuery.isFetching && (
                   <>
                     {checkAdminQuery.data.god && (
@@ -149,6 +91,46 @@ function Topmobilenavigate() {
                     )}
                   </>
                 )}
+                {isLoggedIn() ? (
+                  <>
+                    <Linkmobile
+                      index={3}
+                      partiallyActive={false}
+                      setVisible={setVisible}
+                      link="/portfolio"
+                      title="Мое портфолио"
+                      description="Все доступные темы и твои выполненные работы и рецензии
+                        на них от экспертов"
+                    />
+                    <Linkmobile
+                      index={4}
+                      partiallyActive={false}
+                      setVisible={setVisible}
+                      link="/profile"
+                      title="Профиль"
+                      description="Вся информация о подписках, история оплаты, активация
+                      промокода и привязка телеграма"
+                    />
+                  </>
+                ) : (
+                  <Linkmobile
+                    index={3}
+                    partiallyActive={false}
+                    setVisible={setVisible}
+                    link="/auth"
+                    title="Авторизация на Графикси"
+                    description="Войти через одну из социальных сетей, чтобы начать
+                    творчество"
+                  />
+                )}
+                <Linkmobile
+                  index={0}
+                  partiallyActive={false}
+                  setVisible={setVisible}
+                  link="/"
+                  title="Главная страница"
+                  description="Вся информация о площадке Графикси"
+                />
               </motion.div>
             )}
           </AnimatePresence>

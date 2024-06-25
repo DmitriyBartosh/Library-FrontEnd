@@ -84,7 +84,7 @@ function Payment({ price, questions, review, setReview }) {
             price: price,
             method: methodPay.type,
             slug: "design",
-            service: "Тестовая оплата за DesignReview 360",
+            service: "Оплата DesignReview 360 от Онлайн практикума / Графикси",
           })
         }
         className={cx(styles.pay, methodPay.styles)}

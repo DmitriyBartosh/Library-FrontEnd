@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import cx from "classname";
 import { Link } from "gatsby";
 import { useStateContext } from "../../context/ContextProvider";
@@ -8,34 +8,33 @@ import * as global from "../../styles/base/global.module.scss";
 import * as styles from "./callback.module.scss";
 
 function Callback() {
-  const { isLoggedIn, subscribes } = useStateContext();
-  const [phone, setPhone] = useState("");
-
-  const isActiveSubscribe =
-    Array.isArray(subscribes) && subscribes.some((item) => item.active);
+  const { isLoggedIn } = useStateContext();
 
   return (
     <>
       <section className={styles.join}>
         <div className={cx(styles.block, global.container)}>
           <h2>
-            Только проверенная информация без духоты, воды и сложных терминов с
-            подпиской за 360₽
+            Пройди DesignReview 360°
+            <br /> и получи обратную связь
+            <br /> от практикующих дизайнеров <br />
+            <a
+              href="https://heycoddes.ru"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.heycoddes}
+            >
+              Веб студии Hey, Coddes
+            </a>
           </h2>
           <div className={styles.action}>
             <Link
-              to={
-                isLoggedIn()
-                  ? isActiveSubscribe
-                    ? "/portfolio"
-                    : "/profile"
-                  : "/auth"
-              }
+              to={isLoggedIn() ? "/portfolio" : "/auth"}
               className={cx(global.buttontext, styles.buttonwhite)}
             >
               <p className={global.text}>
                 {isLoggedIn()
-                  ? "Начать творчество c Графикси"
+                  ? "Перейти в Мое портфолио"
                   : "Присоединиться к Графикси"}
               </p>
             </Link>
@@ -51,14 +50,22 @@ function Callback() {
           <p>Мы всегда на связи</p>
         </div>
         <div className={styles.input}>
-          <input
-            placeholder="Номер телефона"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <button className={cx(global.buttontext, styles.buttonblack)}>
-            <p className={global.text}>Отправить</p>
-          </button>
+          <a
+            href="https://vk.com/graphiksi"
+            target="_blank"
+            rel="noreferrer"
+            className={cx(global.buttontext, styles.buttontransparent)}
+          >
+            <p className={global.text}>Написать в ВК</p>
+          </a>
+          <a
+            href="https://t.me/KateShmidt"
+            target="_blank"
+            rel="noreferrer"
+            className={cx(global.buttontext, styles.buttonblack)}
+          >
+            <p className={global.text}>Написать в Telegram</p>
+          </a>
         </div>
       </section>
     </>

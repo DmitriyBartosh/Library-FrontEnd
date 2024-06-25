@@ -6,7 +6,7 @@
   width: 100%;
   @media (max-width: $mobile) {
     display: flex;
-    padding: 0px 20px;
+    padding: 0px;
   }
   .block {
     display: flex;
@@ -14,6 +14,7 @@
     align-items: flex-start;
     @media (max-width: $mobile) {
       color: $green;
+      margin-top: 5px;
     }
     &.linkwork .text {
       position: relative;
@@ -45,9 +46,7 @@
       border: 1px solid transparent;
       width: 100%;
       margin-top: -5px;
-      @media (max-width: $mobile) {
-        display: none;
-      }
+
       &.edited {
         border: 1px solid $green;
         margin-top: 10px;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { navigate } from "gatsby";
 import { useQuery } from "@tanstack/react-query";
-import { getAllQuestions, getEntryReview } from "../../functions/entryreview";
+import { getAllQuestions } from "../../functions/entryreview";
 
 import Answers from "./answers";
 import Payment from "./payment";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import cx from "classname";
 
@@ -7,7 +7,6 @@ import Modal from "../../modal";
 import Payment from "../../payment";
 
 import * as styles from "./direction.module.scss";
-import { canSplit } from "@tiptap/pm/transform";
 
 function Choisesubscribe() {
   const [detail, setDetail] = useState({
@@ -52,6 +51,14 @@ function Choisesubscribe() {
     (item) => item.node.slug === "design"
   ).node;
 
+  useEffect(() => {
+    if (detail.visible || detail.payment) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+  }, [detail.visible, detail.payment]);
+
   function closeDetail() {
     setDetail({
       payment: false,
@@ -93,21 +100,34 @@ function Choisesubscribe() {
               className={cx(styles.item, item.free && styles.free)}
               key={`${item.slug}`}
             >
-              <div className={styles.subscribe}>
-                <p>{item.free ? "Бесплатно" : "Доступно по подписке"}</p>
+              <div className={styles.main}>
+                <div className={styles.info}>
+                  <div className={styles.subscribe}>
+                    <p>{item.free ? "Бесплатно" : "Доступно по подписке"}</p>
+                  </div>
+                  <div className={cx(styles.preview, styles.desktop)}>
+                    <React.Suspense>
+                      <Component
+                        className={styles.icon}
+                        color={item.free ? "white" : "#d65935"}
+                      />
+                    </React.Suspense>
+                  </div>
+                  <div className={styles.head}>
+                    <p className={styles.description}>{title}</p>
+                    <p className={styles.title}>{item.title}</p>
+                  </div>
+                </div>
+                <div className={cx(styles.preview, styles.mobile)}>
+                  <React.Suspense>
+                    <Component
+                      className={styles.icon}
+                      color={item.free ? "white" : "#d65935"}
+                    />
+                  </React.Suspense>
+                </div>
               </div>
-              <div className={styles.preview}>
-                <React.Suspense>
-                  <Component
-                    className={cx(styles.icon)}
-                    color={item.free ? "white" : "#d65935"}
-                  />
-                </React.Suspense>
-              </div>
-              <div className={styles.head}>
-                <p className={styles.description}>{title}</p>
-                <p className={styles.title}>{item.title}</p>
-              </div>
+
               <div className={styles.footer}>
                 <div className={styles.line} />
                 <p className={styles.text}>

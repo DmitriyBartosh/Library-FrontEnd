@@ -28,23 +28,6 @@
                 color: $green;
             }
         }
-        &.complete {
-            background-color: transparent;
-            padding: 0;
-            max-width: 800px;
-            h5 {
-                margin-bottom: 10px;
-            }
-            .info {
-                padding: 0;
-                margin-bottom: 15px;
-            }
-            .link {
-                width: auto;
-                padding: 0 25px;
-                gap: 15px;
-            }
-        }
     }
 }
 

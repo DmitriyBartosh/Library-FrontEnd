@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { Link } from "gatsby";
 import cx from "classname";
 import { useStateContext } from "../../../context/ContextProvider";
 
 import Detail from "./detail";
+import Modal from "../../modal";
 
 import * as styles from "./direction.module.scss";
 import * as global from "../../../styles/base/global.module.scss";
@@ -78,6 +79,14 @@ function Direction() {
     [subscribes]
   );
 
+  useEffect(() => {
+    if (detail.visible) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+  }, [detail.visible]);
+
   return (
     <div className={styles.container}>
       {activeDirection?.map((item, index) => {
@@ -121,28 +130,38 @@ function Direction() {
                   >
                     <Link
                       to={`/${themes.slug}/${item.slug}`}
-                      className={styles.info}
+                      className={styles.link}
                     >
                       <div className={styles.main}>
-                        <div className={styles.head}>
-                          <p>
-                            Сложность: <span>{item.complexity}/10</span>
-                          </p>
-                          <p>
-                            Время: <span>{item.time}</span>
-                          </p>
+                        <div className={styles.info}>
+                          <div className={styles.head}>
+                            <p>
+                              Сложность: <span>{item.complexity}/10</span>
+                            </p>
+                            <p>
+                              Время: <span>{item.time}</span>
+                            </p>
+                          </div>
+                          <div className={cx(styles.preview, styles.desktop)}>
+                            <React.Suspense>
+                              <Component
+                                className={styles.icon}
+                                color="#d65935"
+                              />
+                            </React.Suspense>
+                          </div>
+                          <div className={styles.name}>
+                            <p className={styles.description}>{themes.title}</p>
+                            <p className={styles.title}>{item.title}</p>
+                          </div>
                         </div>
-                        <div className={styles.preview}>
+                        <div className={cx(styles.preview, styles.mobile)}>
                           <React.Suspense>
                             <Component
                               className={styles.icon}
                               color="#d65935"
                             />
                           </React.Suspense>
-                        </div>
-                        <div className={styles.name}>
-                          <p className={styles.description}>{themes.title}</p>
-                          <p className={styles.title}>{item.title}</p>
                         </div>
                       </div>
 
@@ -180,7 +199,19 @@ function Direction() {
           </div>
         );
       })}
-      <Detail detail={detail} setDetail={setDetail} />
+      <Modal
+        visible={detail.visible}
+        close={() =>
+          setDetail({
+            visible: false,
+            works: {},
+            data: {},
+            specifications: null,
+          })
+        }
+      >
+        <Detail detail={detail} />
+      </Modal>
     </div>
   );
 }

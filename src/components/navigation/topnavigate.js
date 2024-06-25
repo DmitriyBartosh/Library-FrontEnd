@@ -48,15 +48,14 @@ function Topnavigate() {
 
         {isLoggedIn() ? (
           <>
-            {(works?.length > 0 || isActiveSubscribe) && (
-              <Link
-                to="/portfolio"
-                activeClassName={styles.active}
-                className={cx(global.buttontext, styles.link)}
-              >
-                <p className={global.text}>Мое портфолио</p>
-              </Link>
-            )}
+            <Link
+              to="/portfolio"
+              activeClassName={styles.active}
+              className={cx(global.buttontext, styles.link)}
+            >
+              <p className={global.text}>Мое портфолио</p>
+            </Link>
+
             <Link
               to="/profile"
               activeClassName={styles.active}

@@ -26,19 +26,28 @@ function Preview() {
           </div>
           <div className={styles.info}>
             <h1>
-              Онлайн практикум
-              <br />
-              Графикси
+              Онлайн практикум <span>/ Графикси</span>
             </h1>
             <p className={styles.subtitle}>
-              Площадка для начинающих дизайнеров <span>от 12 лет</span>
+              От дизайнеров студии{" "}
+              <a
+                href="https://heycoddes.ru"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.heycoddes}
+              >
+                Hey, coddes
+              </a>{" "}
+              — входное ревью, технические задания из реальной практики и онлайн
+              менторство для <span>начинающих</span> и <span>практикующих</span>{" "}
+              дизайнеров
             </p>
             {isLoggedIn() ? (
               <Link
                 className={cx(global.buttoncenter, styles.start)}
                 to="/portfolio"
               >
-                <p className={global.text}>Продолжить</p>
+                <p className={global.text}>DesignReview 360°</p>
                 <IoArrowForwardSharp className={global.icon} />
               </Link>
             ) : (
@@ -64,10 +73,10 @@ function Preview() {
               <p>Много практики</p>
             </div>
             <div className={styles.block}>
-              <p>Обратная связь от практикующих экспертов</p>
+              <p>Обратная связь от дизайнеров студии</p>
             </div>
             <div className={styles.block}>
-              <p>Понятная и наглядная теория</p>
+              <p>Индивидуальная карта навыков</p>
             </div>
           </div>
         </div>

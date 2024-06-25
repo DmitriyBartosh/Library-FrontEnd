@@ -40,7 +40,7 @@ function Preview() {
     queryFn: getEntryReview,
   });
 
-  const telegramReady = user.telegram && user.telegram.username ? true : false;
+  const telegramReady = user?.telegram && user.telegram.username ? true : false;
   const isPending = data && data.status === "pending";
   const isPaid = data && data.status === "paid";
   const isComplete = data && data.status === "complete";
@@ -66,10 +66,18 @@ function Preview() {
     }
   }, [isComplete, isPaid]);
 
+  useEffect(() => {
+    if (roadmap.open) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+  }, [roadmap.open]);
+
   return (
     <>
       <section className={styles.container}>
-        <div className={cx(styles.entry, isComplete && styles.complete)}>
+        <div className={styles.entry}>
           <div className={styles.info}>
             <h5>DesignReview 360°</h5>
             {isComplete ? (
