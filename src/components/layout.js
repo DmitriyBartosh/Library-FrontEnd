@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../images/svg/logo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContextProvider } from "../context/ContextProvider";
 

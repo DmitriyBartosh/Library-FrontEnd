@@ -11,6 +11,7 @@
   width: 100%;
   z-index: 10;
   background-color: $background;
+  max-width: none;
   .logo {
     display: flex;
     align-items: center;

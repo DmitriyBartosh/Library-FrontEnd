@@ -159,3 +159,19 @@ main {
 .article_layer__top_actions {
   display: none;
 }
+
+.start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  height: 100vh;
+  svg {
+    width: 250px;
+  }
+  a {
+    font-weight: 500;
+    text-decoration: underline;
+  }
+}
